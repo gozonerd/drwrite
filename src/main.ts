@@ -26,10 +26,8 @@ const createWindow = () => {
     );
   }
 
-  // Open DevTools in development only
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
-  }
+  // Uncomment to open DevTools for debugging:
+  // mainWindow.webContents.openDevTools({ mode: 'detach' });
 };
 
 // This method will be called when Electron has finished
