@@ -1,18 +1,38 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useEditorStore } from './store/editor-store';
+import { SplitView } from './components/SplitView';
+import { StatusBar } from './components/StatusBar';
 
 export function App() {
-  const [count, setCount] = useState(0);
+  const darkMode = useEditorStore((s) => s.darkMode);
+
+  // Apply dark mode class to html element
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
+  // Initialize dark mode from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('drwrite-dark-mode');
+    if (stored !== null) {
+      useEditorStore.getState().setDarkMode(JSON.parse(stored));
+    }
+  }, []);
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
-      <h1 className="text-4xl font-bold mb-4">DrWrite</h1>
-      <p className="text-gray-400 mb-6">Desktop Markdown Editor</p>
-      <button
-        className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white transition-colors"
-        onClick={() => setCount((c) => c + 1)}
-      >
-        Clicked {count} times
-      </button>
+    <div className="h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      {/* Toolbar placeholder — Step 7 */}
+      <div className="flex items-center px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 select-none">
+        <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+          DrWrite
+        </span>
+      </div>
+
+      {/* Editor split view */}
+      <SplitView />
+
+      {/* Status bar */}
+      <StatusBar />
     </div>
   );
 }
