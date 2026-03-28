@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '../store/editor-store';
+import { SourceEditor } from './SourceEditor';
 
 const MIN_PANEL_WIDTH = 200; // px
 
@@ -90,9 +91,7 @@ export function SplitView() {
         className="overflow-auto bg-gray-50 dark:bg-gray-950"
         style={{ width: rightWidth, minWidth: MIN_PANEL_WIDTH }}
       >
-        <div className="h-full flex items-center justify-center text-gray-400 dark:text-gray-600">
-          Source Editor (CodeMirror) — Step 3
-        </div>
+        <SourceEditor />
       </div>
     </div>
   );
