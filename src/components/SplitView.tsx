@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '../store/editor-store';
 import { SourceEditor } from './SourceEditor';
+import { WysiwygEditor } from './WysiwygEditor';
 
 const MIN_PANEL_WIDTH = 200; // px
 
@@ -61,14 +62,12 @@ export function SplitView() {
       className="flex flex-1 overflow-hidden"
       style={{ cursor: isDragging ? 'col-resize' : undefined }}
     >
-      {/* Left panel — WYSIWYG editor */}
+      {/* Left panel — Source editor */}
       <div
-        className="overflow-auto bg-white dark:bg-gray-900"
+        className="overflow-auto bg-gray-50 dark:bg-gray-950"
         style={{ width: leftWidth, minWidth: MIN_PANEL_WIDTH }}
       >
-        <div className="h-full flex items-center justify-center text-gray-400 dark:text-gray-600">
-          WYSIWYG Editor (TipTap) — Step 4
-        </div>
+        <SourceEditor />
       </div>
 
       {/* Drag handle */}
@@ -86,12 +85,12 @@ export function SplitView() {
         tabIndex={0}
       />
 
-      {/* Right panel — Source editor */}
+      {/* Right panel — WYSIWYG editor */}
       <div
-        className="overflow-auto bg-gray-50 dark:bg-gray-950"
+        className="overflow-auto bg-white dark:bg-gray-900"
         style={{ width: rightWidth, minWidth: MIN_PANEL_WIDTH }}
       >
-        <SourceEditor />
+        <WysiwygEditor />
       </div>
     </div>
   );
