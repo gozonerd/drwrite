@@ -71,8 +71,8 @@ export function SourceEditor() {
       const view = viewRef.current;
       if (!view) return;
 
-      // Only update if the change came from the other editor
-      if (state.lastEditedBy !== 'wysiwyg') return;
+      // Only update if the change came from the other editor or a file operation
+      if (state.lastEditedBy !== 'wysiwyg' && state.lastEditedBy !== 'file') return;
       if (state.markdown === prevState.markdown) return;
 
       const currentContent = view.state.doc.toString();

@@ -69,8 +69,8 @@ export function WysiwygEditor() {
     if (!editor) return;
 
     const unsubscribe = useEditorStore.subscribe((state, prevState) => {
-      // Only update if the change came from the source editor
-      if (state.lastEditedBy !== 'source') return;
+      // Only update if the change came from the source editor or a file operation
+      if (state.lastEditedBy !== 'source' && state.lastEditedBy !== 'file') return;
       if (state.markdown === prevState.markdown) return;
 
       // Check if content actually differs from what TipTap has

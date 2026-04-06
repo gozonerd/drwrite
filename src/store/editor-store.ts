@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type EditorSource = 'source' | 'wysiwyg';
+export type EditorSource = 'source' | 'wysiwyg' | 'file';
 
 interface EditorState {
   /** The markdown string — single source of truth */
@@ -88,7 +88,7 @@ export const useEditorStore = create<EditorState>((set) => ({
         markdown: result.content,
         filePath: result.filePath ?? null,
         isDirty: false,
-        lastEditedBy: 'source',
+        lastEditedBy: 'file',
       });
     }
   },
