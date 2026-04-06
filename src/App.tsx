@@ -34,6 +34,9 @@ export function App() {
       } else if (mod && e.key === 's') {
         e.preventDefault();
         useEditorStore.getState().saveFile();
+      } else if (mod && e.key === 'n') {
+        e.preventDefault();
+        useEditorStore.getState().resetDocument();
       }
     };
 
