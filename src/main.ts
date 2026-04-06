@@ -1,11 +1,25 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
-import started from 'electron-squirrel-startup';
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (started) {
-  app.quit();
+// electron-squirrel-startup can cause immediate exit on Windows dev
+// Only use in production/installed context
+try {
+  const started = require('electron-squirrel-startup');
+  if (started) {
+    app.quit();
+  }
+} catch {
+  // Module may not be available — safe to ignore in dev
 }
+
+// Catch unhandled errors to prevent silent crashes
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled Rejection:', error);
+});
 
 const createWindow = () => {
   // Create the browser window.

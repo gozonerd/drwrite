@@ -11,7 +11,7 @@ interface EditorState {
   isDirty: boolean;
   /** Which editor last made a change (for sync loop prevention) */
   lastEditedBy: EditorSource | null;
-  /** Split ratio between WYSIWYG (left) and source (right), 0.0–1.0 */
+  /** Split ratio between source (left) and WYSIWYG (right), 0.0–1.0 */
   splitRatio: number;
   /** Dark mode enabled */
   darkMode: boolean;
