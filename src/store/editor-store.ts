@@ -20,6 +20,7 @@ interface EditorState {
 
   // Actions
   setMarkdown: (markdown: string, source: EditorSource) => void;
+  setMarkdownDebounced: (markdown: string, source: EditorSource) => void;
   setFilePath: (path: string | null) => void;
   setIsDirty: (dirty: boolean) => void;
   clearLastEditedBy: () => void;
@@ -30,6 +31,9 @@ interface EditorState {
 }
 
 const DEFAULT_MARKDOWN = '# Welcome to DrWrite\n\nStart typing here...\n';
+const SYNC_DEBOUNCE_MS = 200;
+
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 export const useEditorStore = create<EditorState>((set) => ({
   markdown: DEFAULT_MARKDOWN,
@@ -42,6 +46,13 @@ export const useEditorStore = create<EditorState>((set) => ({
 
   setMarkdown: (markdown, source) =>
     set({ markdown, lastEditedBy: source, isDirty: true }),
+
+  setMarkdownDebounced: (markdown, source) => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      set({ markdown, lastEditedBy: source, isDirty: true });
+    }, SYNC_DEBOUNCE_MS);
+  },
 
   setFilePath: (filePath) => set({ filePath }),
 

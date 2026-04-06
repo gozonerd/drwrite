@@ -14,11 +14,11 @@ export function SourceEditor() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const setActiveEditor = useEditorStore((s) => s.setActiveEditor);
 
-  // Create the update listener that writes changes to the store
+  // Create the update listener that writes changes to the store (debounced for cross-editor sync)
   const handleUpdate = useCallback((update: { docChanged: boolean; state: EditorState }) => {
     if (update.docChanged) {
       const content = update.state.doc.toString();
-      useEditorStore.getState().setMarkdown(content, 'source');
+      useEditorStore.getState().setMarkdownDebounced(content, 'source');
     }
   }, []);
 

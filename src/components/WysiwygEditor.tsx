@@ -38,7 +38,7 @@ export function WysiwygEditor() {
       if (isUpdatingFromStore.current) return;
 
       const md = ed.storage.markdown.getMarkdown();
-      useEditorStore.getState().setMarkdown(md, 'wysiwyg');
+      useEditorStore.getState().setMarkdownDebounced(md, 'wysiwyg');
     },
     onFocus: () => {
       setActiveEditor('wysiwyg');
