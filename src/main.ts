@@ -37,6 +37,19 @@ const createWindow = () => {
     mainWindow.show();
   });
 
+  // In dev mode, reload once after DOM is ready to work around Vite race condition
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    let hasReloaded = false;
+    mainWindow.webContents.on('dom-ready', () => {
+      if (!hasReloaded) {
+        hasReloaded = true;
+        setTimeout(() => {
+          mainWindow.webContents.reload();
+        }, 500);
+      }
+    });
+  }
+
   // Retry load if Vite dev server isn't ready yet
   mainWindow.webContents.on('did-fail-load', (_event, _code, _desc, url) => {
     if (MAIN_WINDOW_VITE_DEV_SERVER_URL && url.startsWith(MAIN_WINDOW_VITE_DEV_SERVER_URL)) {
