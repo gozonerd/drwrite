@@ -28,6 +28,9 @@ interface EditorState {
   setDarkMode: (enabled: boolean) => void;
   setActiveEditor: (editor: EditorSource | null) => void;
   resetDocument: () => void;
+  openFile: () => Promise<void>;
+  saveFile: () => Promise<void>;
+  saveFileAs: () => Promise<void>;
 }
 
 const DEFAULT_MARKDOWN = '# Welcome to DrWrite\n\nStart typing here...\n';
@@ -77,4 +80,36 @@ export const useEditorStore = create<EditorState>((set) => ({
       isDirty: false,
       lastEditedBy: null,
     }),
+
+  openFile: async () => {
+    const result = await window.drwrite.openFile();
+    if (!result.canceled && result.content !== undefined) {
+      set({
+        markdown: result.content,
+        filePath: result.filePath ?? null,
+        isDirty: false,
+        lastEditedBy: 'source',
+      });
+    }
+  },
+
+  saveFile: async () => {
+    const { filePath, markdown } = useEditorStore.getState();
+    if (!filePath) {
+      // No path yet — fall through to Save As
+      return useEditorStore.getState().saveFileAs();
+    }
+    const result = await window.drwrite.saveFile({ filePath, content: markdown });
+    if (result.success) {
+      set({ isDirty: false });
+    }
+  },
+
+  saveFileAs: async () => {
+    const { markdown } = useEditorStore.getState();
+    const result = await window.drwrite.saveFileAs({ content: markdown });
+    if (!result.canceled && result.success) {
+      set({ filePath: result.filePath ?? null, isDirty: false });
+    }
+  },
 }));
