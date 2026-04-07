@@ -20,16 +20,16 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={onClose}>
       <div
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-96 max-w-[90vw]"
+        className="bg-dw-bg-card rounded-lg shadow-xl p-6 w-96 max-w-[90vw]"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Export Settings</h2>
+        <h2 className="text-lg font-semibold mb-4 text-dw-text-primary">Export Settings</h2>
 
         {/* Font Size */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-dw-text-secondary mb-1">
             Font Size: {settings.fontSize}px
           </label>
           <input
@@ -41,7 +41,7 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
             onChange={(e) => update('fontSize', Number(e.target.value))}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-gray-400">
+          <div className="flex justify-between text-xs text-dw-text-muted">
             <span>10px</span>
             <span>24px</span>
           </div>
@@ -49,13 +49,13 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
 
         {/* Margins */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-dw-text-secondary mb-2">
             Margins (inches)
           </label>
           <div className="grid grid-cols-2 gap-2">
             {(['marginTop', 'marginBottom', 'marginLeft', 'marginRight'] as const).map((key) => (
               <div key={key} className="flex items-center gap-2">
-                <span className="text-xs text-gray-500 dark:text-gray-400 w-14">
+                <span className="text-xs text-dw-text-secondary w-14">
                   {key.replace('margin', '')}
                 </span>
                 <input
@@ -65,7 +65,7 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
                   step="0.25"
                   value={settings[key]}
                   onChange={(e) => update(key, Number(e.target.value))}
-                  className="w-full px-2 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-2 py-1 text-sm rounded border border-dw-border bg-dw-bg-panel text-dw-text-primary"
                 />
               </div>
             ))}
@@ -74,13 +74,13 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
 
         {/* Font Family */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-dw-text-secondary mb-1">
             Font Family
           </label>
           <select
             value={settings.fontFamily}
             onChange={(e) => update('fontFamily', e.target.value)}
-            className="w-full px-2 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full px-2 py-1 text-sm rounded border border-dw-border bg-dw-bg-panel text-dw-text-primary"
           >
             <option value='"Segoe UI", "Helvetica Neue", Arial, sans-serif'>Segoe UI (Default)</option>
             <option value='"Georgia", "Times New Roman", serif'>Georgia (Serif)</option>
@@ -94,19 +94,19 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
         <div className="flex gap-2">
           <button
             onClick={() => onExportPdf(settings)}
-            className="flex-1 px-3 py-2 text-sm font-medium rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+            className="flex-1 px-3 py-2 text-sm font-medium rounded bg-dw-primary text-dw-bg-primary hover:bg-dw-primary-hover transition-colors"
           >
             Export PDF
           </button>
           <button
             onClick={() => onExportHtml(settings)}
-            className="flex-1 px-3 py-2 text-sm font-medium rounded bg-gray-600 text-white hover:bg-gray-700 transition-colors"
+            className="flex-1 px-3 py-2 text-sm font-medium rounded bg-dw-secondary text-dw-bg-primary hover:bg-dw-secondary transition-colors"
           >
             Export HTML
           </button>
           <button
             onClick={onClose}
-            className="px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="px-3 py-2 text-sm rounded border border-dw-border text-dw-text-secondary hover:bg-dw-bg-panel transition-colors"
           >
             Cancel
           </button>

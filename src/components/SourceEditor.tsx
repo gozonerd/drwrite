@@ -44,7 +44,7 @@ export function SourceEditor() {
       EditorView.theme({
         '&': { height: '100%' },
         '.cm-scroller': { overflow: 'auto' },
-        '.cm-content': { fontFamily: '"Fira Code", "Cascadia Code", "JetBrains Mono", monospace' },
+        '.cm-content': { fontFamily: '"JetBrains Mono", monospace' },
       }),
       // Apply dark theme if needed
       ...(darkMode ? [oneDark] : []),

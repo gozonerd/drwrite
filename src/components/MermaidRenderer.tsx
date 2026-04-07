@@ -6,7 +6,22 @@ mermaid.initialize({
   startOnLoad: false,
   theme: 'dark',
   securityLevel: 'loose',
-  fontFamily: '"Segoe UI", system-ui, sans-serif',
+  fontFamily: '"Inter", system-ui, sans-serif',
+  themeVariables: {
+    primaryColor: '#4ec9b0',
+    primaryTextColor: '#e6edf3',
+    primaryBorderColor: '#4ec9b0',
+    lineColor: '#8b949e',
+    secondaryColor: '#1c2128',
+    tertiaryColor: '#161b22',
+    background: '#0d1117',
+    mainBkg: '#1c2128',
+    nodeBorder: '#4ec9b0',
+    clusterBkg: '#161b22',
+    clusterBorder: '#30363d',
+    titleColor: '#e6edf3',
+    edgeLabelBackground: '#161b22',
+  },
 });
 
 interface MermaidRendererProps {

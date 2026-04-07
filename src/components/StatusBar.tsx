@@ -45,12 +45,12 @@ export function StatusBar() {
   }, [filePath]);
 
   return (
-    <div className="flex items-center justify-between px-3 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 select-none">
+    <div className="flex items-center justify-between px-3 py-1 text-xs bg-dw-bg-panel text-dw-text-secondary border-t border-dw-border select-none">
       <div className="flex items-center gap-4">
         <span>{lineCount} lines</span>
         <span>Markdown</span>
         {gitInfo && (
-          <span className="text-blue-500 dark:text-blue-400">
+          <span className="text-dw-info">
             {gitInfo.branch}
             {gitInfo.isFileDirty && ' *'}
           </span>
@@ -58,7 +58,7 @@ export function StatusBar() {
       </div>
       <div className="flex items-center gap-4">
         {isDirty && (
-          <span className="text-yellow-600 dark:text-yellow-400">
+          <span className="text-dw-warning">
             ● Modified
           </span>
         )}

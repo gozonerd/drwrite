@@ -7,6 +7,25 @@ import { PlantUmlRenderer } from '../components/PlantUmlRenderer';
 import { GraphvizRenderer } from '../components/GraphvizRenderer';
 import { HtmlRenderer } from '../components/HtmlRenderer';
 
+function getDiagramBadgeClass(label: string): string {
+  switch (label) {
+    case 'mermaid':
+      return 'bg-[rgba(78,201,176,0.80)] text-[#0d1117]';
+    case 'bpmn':
+      return 'bg-[rgba(88,166,255,0.80)] text-[#0d1117]';
+    case 'dfd':
+      return 'bg-[rgba(63,185,80,0.80)] text-[#0d1117]';
+    case 'plantuml':
+      return 'bg-[rgba(210,153,34,0.80)] text-[#0d1117]';
+    case 'graphviz':
+      return 'bg-[rgba(109,179,214,0.80)] text-[#0d1117]';
+    case 'interactive':
+      return 'bg-[rgba(167,139,219,0.80)] text-[#0d1117]';
+    default:
+      return 'bg-[rgba(78,201,176,0.80)] text-[#0d1117]';
+  }
+}
+
 const DIAGRAM_LANGUAGES = new Set([
   'mermaid',
   'bpmn',
@@ -57,7 +76,7 @@ function DiagramCodeBlockView({ node }: { node: any }) {
       return (
         <NodeViewWrapper>
           <div className="relative group my-2">
-            <div className="absolute top-1 right-1 z-10 text-xs px-1.5 py-0.5 rounded bg-gray-700 text-gray-300 opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <div className={`absolute top-1 right-1 z-10 text-xs px-1.5 py-0.5 rounded ${getDiagramBadgeClass(label)} opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none`}>
               {label}
             </div>
             {renderer}

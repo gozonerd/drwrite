@@ -64,7 +64,7 @@ export function SplitView() {
     >
       {/* Left panel — Source editor */}
       <div
-        className="overflow-auto bg-gray-50 dark:bg-gray-950"
+        className="overflow-auto bg-dw-bg-editor"
         style={{ width: leftWidth, minWidth: MIN_PANEL_WIDTH }}
       >
         <SourceEditor />
@@ -74,8 +74,8 @@ export function SplitView() {
       <div
         className={`w-1.5 flex-shrink-0 cursor-col-resize transition-colors ${
           isDragging
-            ? 'bg-blue-500'
-            : 'bg-gray-200 dark:bg-gray-700 hover:bg-blue-400 dark:hover:bg-blue-500'
+            ? 'bg-dw-handle-active'
+            : 'bg-dw-handle hover:bg-dw-handle-hover'
         }`}
         onMouseDown={handleMouseDown}
         onDoubleClick={handleDoubleClick}
@@ -87,7 +87,7 @@ export function SplitView() {
 
       {/* Right panel — WYSIWYG editor */}
       <div
-        className="overflow-auto bg-white dark:bg-gray-900"
+        className="overflow-auto bg-dw-bg-card"
         style={{ width: rightWidth, minWidth: MIN_PANEL_WIDTH }}
       >
         <WysiwygEditor />

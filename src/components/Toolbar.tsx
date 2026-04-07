@@ -15,8 +15,8 @@ function ToolbarButton({ label, title, onClick, active }: ToolbarButtonProps) {
       onClick={onClick}
       className={`px-2 py-0.5 text-sm rounded transition-colors ${
         active
-          ? 'bg-blue-500 text-white'
-          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+          ? 'bg-dw-primary text-dw-bg-primary'
+          : 'text-dw-text-secondary hover:bg-dw-bg-card'
       }`}
     >
       {label}
@@ -25,7 +25,7 @@ function ToolbarButton({ label, title, onClick, active }: ToolbarButtonProps) {
 }
 
 function ToolbarDivider() {
-  return <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1" />;
+  return <div className="w-px h-5 bg-dw-border mx-1" />;
 }
 
 interface ToolbarProps {
@@ -43,9 +43,9 @@ export function Toolbar({ onExport }: ToolbarProps) {
   const title = `${isDirty ? '● ' : ''}${fileName}`;
 
   return (
-    <div className="flex items-center gap-1 px-2 py-1 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 select-none">
+    <div className="flex items-center gap-1 px-2 py-1 bg-dw-bg-panel border-b border-dw-border select-none">
       {/* File info */}
-      <span className="text-sm font-semibold text-gray-600 dark:text-gray-300 mr-2">
+      <span className="text-sm font-semibold text-dw-text-secondary mr-2">
         {title}
       </span>
 
