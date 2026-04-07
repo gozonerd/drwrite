@@ -71,6 +71,34 @@ export function App() {
     }
   }, []);
 
+  // Auto-save timer
+  const autoSaveEnabled = useEditorStore((s) => s.autoSaveEnabled);
+  const autoSaveInterval = useEditorStore((s) => s.autoSaveInterval);
+
+  useEffect(() => {
+    if (!autoSaveEnabled) return;
+
+    const timer = setInterval(() => {
+      const { isDirty, filePath } = useEditorStore.getState();
+      if (isDirty && filePath) {
+        useEditorStore.getState().saveFile().then(() => {
+          useEditorStore.setState({ lastAutoSave: Date.now() });
+        });
+      }
+    }, autoSaveInterval * 1000);
+
+    return () => clearInterval(timer);
+  }, [autoSaveEnabled, autoSaveInterval]);
+
+  // Initialize auto-save settings from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('drwrite-auto-save');
+    if (stored) {
+      const { enabled, interval } = JSON.parse(stored);
+      useEditorStore.getState().setAutoSave(enabled, interval);
+    }
+  }, []);
+
   // Listen for external file changes (chokidar watcher)
   useEffect(() => {
     const cleanup = window.drwrite.onFileChanged(async ({ filePath }) => {

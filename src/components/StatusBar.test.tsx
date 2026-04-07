@@ -58,6 +58,12 @@ describe('StatusBar', () => {
     expect(screen.getByText('1 lines')).toBeInTheDocument();
   });
 
+  it('shows Auto-saved indicator when lastAutoSave is set', async () => {
+    useEditorStore.setState({ lastAutoSave: Date.now() });
+    render(<StatusBar />);
+    expect(screen.getByText('Auto-saved')).toBeInTheDocument();
+  });
+
   it('shows word count', () => {
     useEditorStore.setState({ markdown: 'one two three four five' });
     render(<StatusBar />);

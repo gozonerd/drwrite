@@ -10,7 +10,17 @@ export function StatusBar() {
   const isDirty = useEditorStore((s) => s.isDirty);
   const filePath = useEditorStore((s) => s.filePath);
   const markdown = useEditorStore((s) => s.markdown);
+  const lastAutoSave = useEditorStore((s) => s.lastAutoSave);
   const [gitInfo, setGitInfo] = useState<GitInfo | null>(null);
+  const [showAutoSaved, setShowAutoSaved] = useState(false);
+
+  // Flash "Auto-saved" for 2 seconds when lastAutoSave changes
+  useEffect(() => {
+    if (!lastAutoSave) return;
+    setShowAutoSaved(true);
+    const timer = setTimeout(() => setShowAutoSaved(false), 2000);
+    return () => clearTimeout(timer);
+  }, [lastAutoSave]);
 
   const lineCount = markdown.split('\n').length;
   const wordCount = markdown.split(/\s+/).filter(Boolean).length;
@@ -61,7 +71,10 @@ export function StatusBar() {
         )}
       </div>
       <div className="flex items-center gap-4">
-        {isDirty && (
+        {showAutoSaved && (
+          <span className="text-dw-success">Auto-saved</span>
+        )}
+        {isDirty && !showAutoSaved && (
           <span className="text-dw-warning">
             ● Modified
           </span>

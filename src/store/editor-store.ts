@@ -17,6 +17,12 @@ interface EditorState {
   darkMode: boolean;
   /** Which editor currently has focus */
   activeEditor: EditorSource | null;
+  /** Auto-save enabled */
+  autoSaveEnabled: boolean;
+  /** Auto-save interval in seconds */
+  autoSaveInterval: number;
+  /** Last auto-save timestamp for brief display */
+  lastAutoSave: number | null;
 
   // Actions
   setMarkdown: (markdown: string, source: EditorSource) => void;
@@ -31,6 +37,7 @@ interface EditorState {
   openFile: () => Promise<void>;
   saveFile: () => Promise<void>;
   saveFileAs: () => Promise<void>;
+  setAutoSave: (enabled: boolean, interval?: number) => void;
 }
 
 const DEFAULT_MARKDOWN = '# Welcome to DrWrite\n\nStart typing here...\n';
@@ -45,6 +52,9 @@ export const useEditorStore = create<EditorState>((set) => ({
   lastEditedBy: null,
   splitRatio: 0.5,
   darkMode: window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true,
+  autoSaveEnabled: true,
+  autoSaveInterval: 30,
+  lastAutoSave: null,
   activeEditor: null,
 
   setMarkdown: (markdown, source) =>
@@ -80,6 +90,13 @@ export const useEditorStore = create<EditorState>((set) => ({
       isDirty: false,
       lastEditedBy: null,
     }),
+
+  setAutoSave: (enabled, interval) => {
+    const updates: Partial<EditorState> = { autoSaveEnabled: enabled };
+    if (interval !== undefined) updates.autoSaveInterval = interval;
+    localStorage.setItem('drwrite-auto-save', JSON.stringify({ enabled, interval: interval ?? useEditorStore.getState().autoSaveInterval }));
+    set(updates);
+  },
 
   openFile: async () => {
     const result = await window.drwrite.openFile();
