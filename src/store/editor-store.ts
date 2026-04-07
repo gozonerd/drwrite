@@ -23,6 +23,8 @@ interface EditorState {
   autoSaveInterval: number;
   /** Last auto-save timestamp for brief display */
   lastAutoSave: number | null;
+  /** Scroll position as fraction 0.0–1.0, shared between panes for sync */
+  scrollFraction: number;
 
   // Actions
   setMarkdown: (markdown: string, source: EditorSource) => void;
@@ -38,6 +40,7 @@ interface EditorState {
   saveFile: () => Promise<void>;
   saveFileAs: () => Promise<void>;
   setAutoSave: (enabled: boolean, interval?: number) => void;
+  setScrollFraction: (fraction: number) => void;
 }
 
 const DEFAULT_MARKDOWN = '# Welcome to DrWrite\n\nStart typing here...\n';
@@ -56,6 +59,7 @@ export const useEditorStore = create<EditorState>((set) => ({
   autoSaveInterval: 30,
   lastAutoSave: null,
   activeEditor: null,
+  scrollFraction: 0,
 
   setMarkdown: (markdown, source) =>
     set({ markdown, lastEditedBy: source, isDirty: true }),
@@ -90,6 +94,9 @@ export const useEditorStore = create<EditorState>((set) => ({
       isDirty: false,
       lastEditedBy: null,
     }),
+
+  setScrollFraction: (fraction) =>
+    set({ scrollFraction: Math.max(0, Math.min(1, fraction)) }),
 
   setAutoSave: (enabled, interval) => {
     const updates: Partial<EditorState> = { autoSaveEnabled: enabled };

@@ -2,12 +2,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '../store/editor-store';
 import { SourceEditor } from './SourceEditor';
 import { WysiwygEditor } from './WysiwygEditor';
+import { Minimap } from './Minimap';
 
 const MIN_PANEL_WIDTH = 200; // px
 
 export function SplitView() {
   const splitRatio = useEditorStore((s) => s.splitRatio);
   const setSplitRatio = useEditorStore((s) => s.setSplitRatio);
+  const markdown = useEditorStore((s) => s.markdown);
+  const scrollFraction = useEditorStore((s) => s.scrollFraction);
+  const setScrollFraction = useEditorStore((s) => s.setScrollFraction);
+  const darkMode = useEditorStore((s) => s.darkMode);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -62,12 +67,18 @@ export function SplitView() {
       className="flex flex-1 overflow-hidden"
       style={{ cursor: isDragging ? 'col-resize' : undefined }}
     >
-      {/* Left panel — Source editor */}
+      {/* Left panel — Source editor with minimap overlay */}
       <div
-        className="overflow-auto bg-dw-bg-editor"
+        className="relative overflow-auto bg-dw-bg-editor"
         style={{ width: leftWidth, minWidth: MIN_PANEL_WIDTH }}
       >
         <SourceEditor />
+        <Minimap
+          markdown={markdown}
+          scrollFraction={scrollFraction}
+          onScrollTo={setScrollFraction}
+          darkMode={darkMode}
+        />
       </div>
 
       {/* Drag handle */}

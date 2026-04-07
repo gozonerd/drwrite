@@ -11,6 +11,7 @@ describe('editor-store', () => {
       lastEditedBy: null,
       splitRatio: 0.5,
       activeEditor: null,
+      scrollFraction: 0,
     });
   });
 
@@ -126,6 +127,27 @@ describe('editor-store', () => {
       useEditorStore.getState().setDarkMode(true);
       expect(useEditorStore.getState().darkMode).toBe(true);
       expect(localStorage.getItem('drwrite-dark-mode')).toBe('true');
+    });
+  });
+
+  describe('scrollFraction', () => {
+    it('defaults to 0', () => {
+      expect(useEditorStore.getState().scrollFraction).toBe(0);
+    });
+
+    it('setScrollFraction updates the value', () => {
+      useEditorStore.getState().setScrollFraction(0.75);
+      expect(useEditorStore.getState().scrollFraction).toBe(0.75);
+    });
+
+    it('clamps to minimum 0', () => {
+      useEditorStore.getState().setScrollFraction(-0.5);
+      expect(useEditorStore.getState().scrollFraction).toBe(0);
+    });
+
+    it('clamps to maximum 1', () => {
+      useEditorStore.getState().setScrollFraction(1.5);
+      expect(useEditorStore.getState().scrollFraction).toBe(1);
     });
   });
 

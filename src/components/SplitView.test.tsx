@@ -12,6 +12,10 @@ vi.mock('./WysiwygEditor', () => ({
   WysiwygEditor: () => <div data-testid="wysiwyg-editor">WYSIWYG</div>,
 }));
 
+vi.mock('./Minimap', () => ({
+  Minimap: () => <div data-testid="minimap-mock">Minimap</div>,
+}));
+
 describe('SplitView', () => {
   beforeEach(() => {
     useEditorStore.setState({ splitRatio: 0.5 });

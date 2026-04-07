@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo, useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 // eslint-disable-next-line import/no-named-as-default
 import StarterKit from '@tiptap/starter-kit';
@@ -21,9 +21,38 @@ function slugify(text: string): string {
     .trim();
 }
 
+/** Simple debounce helper — returns a debounced version of `fn`. */
+function debounce<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  return ((...args: unknown[]) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  }) as unknown as T;
+}
+
 export function WysiwygEditor() {
   const setActiveEditor = useEditorStore((s) => s.setActiveEditor);
   const isUpdatingFromStore = useRef(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Stable debounced setter for scroll fraction (50ms to prevent scroll storms)
+  const debouncedSetScrollFraction = useMemo(
+    () => debounce((fraction: number) => {
+      useEditorStore.getState().setScrollFraction(fraction);
+    }, 50),
+    [],
+  );
+
+  // Handle scroll events on the WYSIWYG wrapper
+  const handleScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    if (useEditorStore.getState().activeEditor !== 'wysiwyg') return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const maxScroll = scrollHeight - clientHeight;
+    const fraction = maxScroll > 0 ? scrollTop / maxScroll : 0;
+    debouncedSetScrollFraction(fraction);
+  }, [debouncedSetScrollFraction]);
 
   const editor = useEditor({
     extensions: [
@@ -108,10 +137,32 @@ export function WysiwygEditor() {
     return unsubscribe;
   }, [editor]);
 
+  // Subscribe to store scrollFraction changes — scroll this editor when the OTHER editor drives
+  useEffect(() => {
+    const unsubscribe = useEditorStore.subscribe((state, prevState) => {
+      if (state.activeEditor === 'wysiwyg') return; // We are the driver, don't react
+      if (state.scrollFraction === prevState.scrollFraction) return;
+
+      const el = scrollContainerRef.current;
+      if (!el) return;
+
+      const maxScroll = el.scrollHeight - el.clientHeight;
+      if (maxScroll > 0) {
+        el.scrollTop = state.scrollFraction * maxScroll;
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   if (!editor) return null;
 
   return (
-    <div className="h-full overflow-auto" onFocus={() => setActiveEditor('wysiwyg')}>
+    <div
+      ref={scrollContainerRef}
+      className="h-full overflow-auto"
+      onFocus={() => setActiveEditor('wysiwyg')}
+      onScroll={handleScroll}
+    >
       <EditorContent editor={editor} className="h-full" />
     </div>
   );
