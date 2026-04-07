@@ -5,6 +5,11 @@
   "description": "Desktop Markdown Editor with split-view WYSIWYG and source editing",
   "main": ".vite/build/main.js",
   "private": true,
+  "publish": {
+    "provider": "github",
+    "owner": "nerdykrystal",
+    "repo": "drwrite"
+  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -96,6 +101,7 @@
     "chokidar": "^5.0.0",
     "d3": "^7.9.0",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.8.3",
     "mermaid": "^11.13.0",
     "plantuml-encoder": "^1.4.0",
     "react": "^19.2.4",

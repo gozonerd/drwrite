@@ -5,6 +5,7 @@ import os from 'node:os';
 import { simpleGit } from 'simple-git';
 import chokidar from 'chokidar';
 import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRecentFiles, closeDatabase } from './db/database';
+import { initAutoUpdater } from './auto-update';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
 // Only use in production/installed context
@@ -326,7 +327,10 @@ ipcMain.handle('git:status', async (_event, { filePath }: { filePath: string }) 
 
 // --- App Lifecycle ---
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  initAutoUpdater();
+});
 
 app.on('window-all-closed', () => {
   closeDatabase();
