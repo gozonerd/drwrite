@@ -23,6 +23,10 @@ interface DrWriteAPI {
   watchFile: (args: { filePath: string }) => Promise<{ success: boolean }>;
   unwatchFile: () => Promise<{ success: boolean }>;
   onFileChanged: (callback: (data: { filePath: string }) => void) => () => void;
+  readDirectory: (args: { dirPath: string }) => Promise<{
+    entries: { name: string; isDirectory: boolean; path: string }[];
+    error?: string;
+  }>;
 }
 
 declare global {

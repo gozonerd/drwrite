@@ -32,6 +32,7 @@ Object.defineProperty(window, 'drwrite', {
     watchFile: async () => ({ success: true }),
     unwatchFile: async () => ({ success: true }),
     onFileChanged: () => () => { /* noop */ },
+    readDirectory: async () => ({ entries: [] }),
   },
 });
 

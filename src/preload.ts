@@ -27,4 +27,6 @@ contextBridge.exposeInMainWorld('drwrite', {
     ipcRenderer.on('watch:file-changed', handler);
     return () => { ipcRenderer.removeListener('watch:file-changed', handler); };
   },
+  readDirectory: (args: { dirPath: string }) =>
+    ipcRenderer.invoke('fs:readdir', args),
 });

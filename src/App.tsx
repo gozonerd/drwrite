@@ -8,12 +8,19 @@ import { SplitView } from './components/SplitView';
 import { StatusBar } from './components/StatusBar';
 import { ExportDialog } from './components/ExportDialog';
 import { KeybindingDialog } from './components/KeybindingDialog';
+import { OnboardingDialog } from './components/OnboardingDialog';
+import { FileTreeSidebar } from './components/FileTreeSidebar';
 import { generatePrintHtml, ExportSettings } from './utils/export-html';
 
 export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const [showExport, setShowExport] = useState(false);
   const [showKeybindings, setShowKeybindings] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !localStorage.getItem('drwrite-onboarded'),
+  );
+  const [showSidebar, setShowSidebar] = useState(false);
+  const filePath = useEditorStore((s) => s.filePath);
   const tabs = useTabStore((s) => s.tabs);
   const activeTabId = useTabStore((s) => s.activeTabId);
 
@@ -138,6 +145,13 @@ export function App() {
         return;
       }
 
+      // Ctrl+B toggles file sidebar
+      if (mod && e.key === 'b') {
+        e.preventDefault();
+        setShowSidebar((prev) => !prev);
+        return;
+      }
+
       const { getBinding } = useKeybindingStore.getState();
 
       const saveAsBinding = getBinding('file.saveAs');
@@ -220,8 +234,26 @@ export function App() {
       {/* Tab Bar */}
       <TabBar />
 
-      {/* Editor split view */}
-      <SplitView />
+      {/* Sidebar + Editor split view */}
+      <div className="flex flex-1 overflow-hidden">
+        <FileTreeSidebar
+          rootDir={filePath ? filePath.replace(/[/\\][^/\\]*$/, '') : null}
+          onOpenFile={async (path) => {
+            const result = await window.drwrite.openRecentFile({ filePath: path });
+            if (!result.canceled && result.content !== undefined) {
+              useEditorStore.setState({
+                markdown: result.content,
+                filePath: path,
+                isDirty: false,
+                lastEditedBy: 'file',
+              });
+              window.drwrite.watchFile({ filePath: path });
+            }
+          }}
+          visible={showSidebar}
+        />
+        <SplitView />
+      </div>
 
       {/* Status bar */}
       <StatusBar />
@@ -239,6 +271,11 @@ export function App() {
       {/* Keybinding dialog */}
       {showKeybindings && (
         <KeybindingDialog onClose={() => setShowKeybindings(false)} />
+      )}
+
+      {/* Onboarding dialog — first-run only */}
+      {showOnboarding && (
+        <OnboardingDialog onClose={() => setShowOnboarding(false)} />
       )}
     </div>
   );

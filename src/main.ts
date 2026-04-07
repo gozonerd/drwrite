@@ -272,6 +272,30 @@ ipcMain.handle('watch:stop', async () => {
   return { success: true };
 });
 
+// --- IPC Handler for File System Directory Listing ---
+
+ipcMain.handle('fs:readdir', async (_event, { dirPath }: { dirPath: string }) => {
+  try {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const sorted = entries
+      .filter((e) => !e.name.startsWith('.'))
+      .sort((a, b) => {
+        // Directories first, then files, alphabetically within each group
+        if (a.isDirectory() && !b.isDirectory()) return -1;
+        if (!a.isDirectory() && b.isDirectory()) return 1;
+        return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+      })
+      .map((e) => ({
+        name: e.name,
+        isDirectory: e.isDirectory(),
+        path: path.join(dirPath, e.name),
+      }));
+    return { entries: sorted };
+  } catch (err) {
+    return { entries: [], error: String(err) };
+  }
+});
+
 // --- IPC Handlers for Git Status ---
 
 ipcMain.handle('git:status', async (_event, { filePath }: { filePath: string }) => {

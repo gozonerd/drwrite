@@ -23,6 +23,16 @@ vi.mock('./components/KeybindingDialog', () => ({
     return <div data-testid="keybinding-dialog"><button onClick={onClose}>CloseKB</button></div>;
   },
 }));
+vi.mock('./components/OnboardingDialog', () => ({
+  OnboardingDialog: ({ onClose }: { onClose: () => void }) => {
+    return <div data-testid="onboarding-dialog"><button onClick={onClose}>Got it</button></div>;
+  },
+}));
+vi.mock('./components/FileTreeSidebar', () => ({
+  FileTreeSidebar: ({ visible }: { visible: boolean }) => {
+    return visible ? <div data-testid="file-tree-sidebar">Sidebar</div> : null;
+  },
+}));
 
 vi.mock('./utils/export-html', () => ({
   generatePrintHtml: vi.fn(() => '<html></html>'),
@@ -64,6 +74,8 @@ describe('App', () => {
     });
     useTabStore.setState({ tabs: [], activeTabId: null, tabContentCache: {} });
     document.documentElement.classList.remove('dark');
+    // Suppress onboarding dialog by default so existing tests aren't affected
+    localStorage.setItem('drwrite-onboarded', 'true');
   });
 
   it('renders all child components', () => {
@@ -432,5 +444,42 @@ describe('App', () => {
     });
 
     localStorage.removeItem('drwrite-dark-mode');
+  });
+
+  // --- Onboarding dialog ---
+
+  it('shows onboarding dialog when drwrite-onboarded not in localStorage', async () => {
+    localStorage.removeItem('drwrite-onboarded');
+    render(<App />);
+    await vi.waitFor(() => {
+      expect(screen.getByTestId('onboarding-dialog')).toBeInTheDocument();
+    });
+  });
+
+  it('does not show onboarding dialog when drwrite-onboarded is set', () => {
+    localStorage.setItem('drwrite-onboarded', 'true');
+    render(<App />);
+    expect(screen.queryByTestId('onboarding-dialog')).not.toBeInTheDocument();
+  });
+
+  // --- File tree sidebar ---
+
+  it('Ctrl+B toggles file tree sidebar', async () => {
+    render(<App />);
+
+    // Sidebar should not be visible initially
+    expect(screen.queryByTestId('file-tree-sidebar')).not.toBeInTheDocument();
+
+    // Press Ctrl+B to show
+    fireEvent.keyDown(window, { key: 'b', ctrlKey: true });
+    await vi.waitFor(() => {
+      expect(screen.getByTestId('file-tree-sidebar')).toBeInTheDocument();
+    });
+
+    // Press Ctrl+B again to hide
+    fireEvent.keyDown(window, { key: 'b', ctrlKey: true });
+    await vi.waitFor(() => {
+      expect(screen.queryByTestId('file-tree-sidebar')).not.toBeInTheDocument();
+    });
   });
 });
