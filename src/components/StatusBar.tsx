@@ -13,6 +13,8 @@ export function StatusBar() {
   const [gitInfo, setGitInfo] = useState<GitInfo | null>(null);
 
   const lineCount = markdown.split('\n').length;
+  const wordCount = markdown.split(/\s+/).filter(Boolean).length;
+  const charCount = markdown.length;
   const fileName = filePath ? filePath.split(/[/\\]/).pop() : 'Untitled';
 
   // Fetch git status when file path changes
@@ -48,6 +50,8 @@ export function StatusBar() {
     <div className="flex items-center justify-between px-3 py-1 text-xs bg-dw-bg-panel text-dw-text-secondary border-t border-dw-border select-none">
       <div className="flex items-center gap-4">
         <span>{lineCount} lines</span>
+        <span>{wordCount} words</span>
+        <span>{charCount} chars</span>
         <span>Markdown</span>
         {gitInfo && (
           <span className="text-dw-info">

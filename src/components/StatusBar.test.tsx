@@ -58,6 +58,25 @@ describe('StatusBar', () => {
     expect(screen.getByText('1 lines')).toBeInTheDocument();
   });
 
+  it('shows word count', () => {
+    useEditorStore.setState({ markdown: 'one two three four five' });
+    render(<StatusBar />);
+    expect(screen.getByText('5 words')).toBeInTheDocument();
+  });
+
+  it('shows character count', () => {
+    useEditorStore.setState({ markdown: 'hello' });
+    render(<StatusBar />);
+    expect(screen.getByText('5 chars')).toBeInTheDocument();
+  });
+
+  it('shows 0 words for empty content', () => {
+    useEditorStore.setState({ markdown: '' });
+    render(<StatusBar />);
+    expect(screen.getByText('0 words')).toBeInTheDocument();
+    expect(screen.getByText('0 chars')).toBeInTheDocument();
+  });
+
   // --- Coverage gap: git info display ---
 
   it('shows branch name when file is in a git repo', async () => {
