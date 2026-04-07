@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, nativeImage } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -30,11 +30,16 @@ const createWindow = () => {
   // Restore saved window position/size
   const windowState = getWindowState();
 
+  // Load app icon for taskbar and title bar
+  const iconPath = path.join(__dirname, '..', '..', 'assets', 'icons', 'icon.png');
+  const appIcon = fs.existsSync(iconPath) ? nativeImage.createFromPath(iconPath) : undefined;
+
   const mainWindow = new BrowserWindow({
     width: windowState.width,
     height: windowState.height,
     x: windowState.x,
     y: windowState.y,
+    icon: appIcon,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
