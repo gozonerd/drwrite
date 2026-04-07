@@ -36,22 +36,25 @@ function copyNativeModules(
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: {
-      unpack: '**/node_modules/better-sqlite3/**',
-    },
+    asar: false, // Disabled — Squirrel doesn't include app.asar.unpacked, and native .node binaries can't load from inside an ASAR
     icon: './assets/icons/icon',
     afterCopy: [copyNativeModules],
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({
+      setupIcon: './assets/icons/icon.ico',
+      iconUrl: 'https://raw.githubusercontent.com/nerdykrystal/drwrite/master/assets/icons/icon.ico',
+      setupExe: 'DrWrite-Setup.exe',
+      name: 'drwrite',
+    }),
     new MakerDMG({ format: 'ULFO' }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({}),
   ],
   plugins: [
-    new AutoUnpackNativesPlugin({}),
+    // AutoUnpackNativesPlugin removed — ASAR disabled, native modules are loose files
     new VitePlugin({
       build: [
         {

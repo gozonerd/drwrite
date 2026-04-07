@@ -2,6 +2,7 @@ import { app, BrowserWindow, dialog, ipcMain, nativeImage } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
+import { spawn } from 'node:child_process';
 import { simpleGit } from 'simple-git';
 import chokidar, { type FSWatcher } from 'chokidar';
 import {
@@ -14,16 +15,23 @@ import {
 } from './db/database';
 import { initAutoUpdater } from './auto-update';
 
-// electron-squirrel-startup can cause immediate exit on Windows dev
-// Only use in production/installed context
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const started = require('electron-squirrel-startup');
-  if (started) {
+// Handle Squirrel.Windows lifecycle events (install, update, uninstall)
+// This must run before anything else — Squirrel launches the app with
+// special argv flags and expects it to handle shortcuts then quit.
+if (process.platform === 'win32') {
+  const cmd = process.argv[1];
+  if (cmd === '--squirrel-install' || cmd === '--squirrel-updated') {
+    const updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
+    const target = path.basename(process.execPath);
+    spawn(updateExe, ['--createShortcut=' + target], { detached: true }).on('close', () => app.quit());
+    // Return early — don't initialize the app during install
+  } else if (cmd === '--squirrel-uninstall') {
+    const updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
+    const target = path.basename(process.execPath);
+    spawn(updateExe, ['--removeShortcut=' + target], { detached: true }).on('close', () => app.quit());
+  } else if (cmd === '--squirrel-obsolete') {
     app.quit();
   }
-} catch {
-  // Module may not be available — safe to ignore in dev
 }
 
 // Catch unhandled errors to prevent silent crashes

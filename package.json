@@ -1,6 +1,6 @@
 {
   "name": "drwrite",
-  "productName": "drwrite",
+  "productName": "DrWrite",
   "version": "1.2.0",
   "description": "Desktop Markdown Editor with split-view WYSIWYG and source editing",
   "main": ".vite/build/main.js",
