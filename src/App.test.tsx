@@ -245,8 +245,8 @@ describe('App', () => {
     await vi.waitFor(() => {
       const cached = useTabStore.getState().getTabContent(tabId);
       expect(cached).toBeDefined();
-      expect(cached!.markdown).toBe('# Updated');
-      expect(cached!.filePath).toBe('/updated.md');
+      expect((cached as { markdown: string }).markdown).toBe('# Updated');
+      expect((cached as { filePath: string }).filePath).toBe('/updated.md');
     });
   });
 
@@ -266,7 +266,9 @@ describe('App', () => {
     await vi.waitFor(() => {
       const tab = useTabStore.getState().tabs.find((t) => t.id === tabId);
       expect(tab).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(tab!.title).toBe('doc.md');
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(tab!.isDirty).toBe(true);
     });
   });
@@ -287,6 +289,7 @@ describe('App', () => {
     await vi.waitFor(() => {
       const tab = useTabStore.getState().tabs.find((t) => t.id === tabId);
       expect(tab).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(tab!.title).toBe('Untitled');
     });
   });
@@ -308,6 +311,7 @@ describe('App', () => {
     // Call the captured handler
     expect(capturedOnExportPdf).not.toBeNull();
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await capturedOnExportPdf!({ fontSize: 14 });
     });
 
@@ -332,6 +336,7 @@ describe('App', () => {
 
     expect(capturedOnExportHtml).not.toBeNull();
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await capturedOnExportHtml!({ fontSize: 14 });
     });
 
@@ -354,6 +359,7 @@ describe('App', () => {
     });
 
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await capturedOnExportPdf!({ fontSize: 14 });
     });
 
@@ -382,6 +388,7 @@ describe('App', () => {
 
     // Simulate file change
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await fileChangedCallback!({ filePath: '/watched/file.md' });
     });
 
@@ -408,6 +415,7 @@ describe('App', () => {
     render(<App />);
 
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await fileChangedCallback!({ filePath: '/watched/file.md' });
     });
 
@@ -431,6 +439,7 @@ describe('App', () => {
     render(<App />);
 
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await fileChangedCallback!({ filePath: '/other/file.md' });
     });
 
@@ -451,6 +460,7 @@ describe('App', () => {
     render(<App />);
 
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await fileChangedCallback!({ filePath: '/watched/file.md' });
     });
 

@@ -3,6 +3,7 @@ import { DiagramError } from './DiagramError';
 
 // Import D3.js source as a raw string for offline bundling
 // Vite handles ?raw imports — the D3 source gets inlined at build time
+// eslint-disable-next-line import/no-unresolved
 import d3Source from 'd3/dist/d3.min.js?raw';
 
 interface HtmlRendererProps {

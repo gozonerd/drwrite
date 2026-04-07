@@ -32,7 +32,7 @@ export function KeybindingDialog({ onClose }: KeybindingDialogProps) {
       // Ignore standalone modifier keys
       if (['Control', 'Shift', 'Meta', 'Alt'].includes(e.key)) return;
 
-      updateBinding(listeningId!, {
+      updateBinding(listeningId as string, {
         key: e.key,
         ctrlKey: e.ctrlKey,
         shiftKey: e.shiftKey,

@@ -169,8 +169,8 @@ describe('tab-store', () => {
 
     it('clamps invalid index to valid range', () => {
       const id1 = useTabStore.getState().addTab(null, 'Tab 1');
-      const id2 = useTabStore.getState().addTab(null, 'Tab 2');
-      const id3 = useTabStore.getState().addTab(null, 'Tab 3');
+      useTabStore.getState().addTab(null, 'Tab 2');
+      useTabStore.getState().addTab(null, 'Tab 3');
 
       // Try to move to index 99 — should clamp to last position (2)
       useTabStore.getState().reorderTab(id1, 99);

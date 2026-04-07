@@ -47,6 +47,7 @@ describe('KeybindingDialog', () => {
     render(<KeybindingDialog onClose={onClose} />);
 
     await user.click(screen.getByTestId('keybinding-reset'));
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(useKeybindingStore.getState().getBinding('file.open')!.key).toBe('o');
   });
 

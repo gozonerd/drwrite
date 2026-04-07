@@ -112,6 +112,7 @@ describe('ExportDialog', () => {
     expect(screen.getByText(/Font Size: 18px/)).toBeInTheDocument();
 
     // Verify localStorage was updated
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.fontSize).toBe(18);
   });
@@ -128,6 +129,7 @@ describe('ExportDialog', () => {
     // Change marginTop (first input)
     fireEvent.change(numberInputs[0], { target: { value: '2' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.marginTop).toBe(2);
   });
@@ -138,6 +140,7 @@ describe('ExportDialog', () => {
     const numberInputs = screen.getAllByRole('spinbutton');
     fireEvent.change(numberInputs[1], { target: { value: '1.5' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.marginBottom).toBe(1.5);
   });
@@ -148,6 +151,7 @@ describe('ExportDialog', () => {
     const numberInputs = screen.getAllByRole('spinbutton');
     fireEvent.change(numberInputs[2], { target: { value: '0.75' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.marginLeft).toBe(0.75);
   });
@@ -158,6 +162,7 @@ describe('ExportDialog', () => {
     const numberInputs = screen.getAllByRole('spinbutton');
     fireEvent.change(numberInputs[3], { target: { value: '2.5' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.marginRight).toBe(2.5);
   });
@@ -169,6 +174,7 @@ describe('ExportDialog', () => {
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: '"Georgia", "Times New Roman", serif' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.fontFamily).toBe('"Georgia", "Times New Roman", serif');
   });
@@ -181,6 +187,7 @@ describe('ExportDialog', () => {
     const slider = screen.getByRole('slider');
     fireEvent.change(slider, { target: { value: '20' } });
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stored = JSON.parse(localStorage.getItem('drwrite-export-settings')!);
     expect(stored.fontSize).toBe(20);
     // Other settings should still be present

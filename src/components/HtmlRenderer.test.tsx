@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 
 // Mock URL.createObjectURL and revokeObjectURL for jsdom
-const mockCreateObjectURL = vi.fn((_obj: unknown) => 'blob:http://localhost/fake-blob-url');
+const mockCreateObjectURL = vi.fn(() => 'blob:http://localhost/fake-blob-url');
 const mockRevokeObjectURL = vi.fn();
 
 beforeEach(() => {
@@ -32,7 +32,7 @@ describe('HtmlRenderer', () => {
     // Verify a Blob was passed to createObjectURL
     const blobArg = mockCreateObjectURL.mock.calls[0]?.[0] as Blob | undefined;
     expect(blobArg).toBeInstanceOf(Blob);
-    expect(blobArg!.type).toBe('text/html');
+    expect((blobArg as Blob).type).toBe('text/html');
 
     const iframe = screen.getByTitle('interactive-html-blob');
     expect(iframe).toHaveAttribute('src', 'blob:http://localhost/fake-blob-url');

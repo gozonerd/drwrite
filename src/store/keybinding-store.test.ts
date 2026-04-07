@@ -21,10 +21,12 @@ describe('keybinding-store', () => {
   it('getBinding returns correct binding by id', () => {
     const binding = useKeybindingStore.getState().getBinding('file.open');
     expect(binding).toBeDefined();
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     expect(binding!.label).toBe('Open File');
     expect(binding!.key).toBe('o');
     expect(binding!.ctrlKey).toBe(true);
     expect(binding!.shiftKey).toBe(false);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   });
 
   it('getBinding returns undefined for nonexistent id', () => {
@@ -41,24 +43,30 @@ describe('keybinding-store', () => {
     });
 
     const binding = useKeybindingStore.getState().getBinding('file.open');
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     expect(binding!.key).toBe('p');
     expect(binding!.shiftKey).toBe(true);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   });
 
   it('updateBinding only changes specified properties', () => {
     useKeybindingStore.getState().updateBinding('file.save', { key: 'w' });
 
     const binding = useKeybindingStore.getState().getBinding('file.save');
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     expect(binding!.key).toBe('w');
     expect(binding!.ctrlKey).toBe(true); // unchanged
     expect(binding!.label).toBe('Save'); // unchanged
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   });
 
   it('resetToDefaults restores original bindings', () => {
     useKeybindingStore.getState().updateBinding('file.open', { key: 'z' });
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(useKeybindingStore.getState().getBinding('file.open')!.key).toBe('z');
 
     useKeybindingStore.getState().resetToDefaults();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(useKeybindingStore.getState().getBinding('file.open')!.key).toBe('o');
   });
 
@@ -67,6 +75,7 @@ describe('keybinding-store', () => {
 
     const stored = localStorage.getItem('drwrite-keybindings');
     expect(stored).not.toBeNull();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const parsed = JSON.parse(stored!);
     expect(parsed['file.open']).toBeDefined();
     expect(parsed['file.open'].key).toBe('p');
@@ -83,6 +92,7 @@ describe('keybinding-store', () => {
   it('default bindings have correct key combos', () => {
     const { getBinding } = useKeybindingStore.getState();
 
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     const open = getBinding('file.open')!;
     expect(open.key).toBe('o');
     expect(open.ctrlKey).toBe(true);
@@ -103,6 +113,7 @@ describe('keybinding-store', () => {
     const exportFile = getBinding('file.export')!;
     expect(exportFile.key).toBe('e');
     expect(exportFile.ctrlKey).toBe(true);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
   });
 });
 
