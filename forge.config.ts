@@ -10,7 +10,9 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
+    asar: {
+      unpack: '**/{better-sqlite3,simple-git,chokidar,electron-updater}/**',
+    },
     icon: './assets/icons/icon',
   },
   rebuildConfig: {},
