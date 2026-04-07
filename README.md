@@ -12,12 +12,16 @@ A desktop markdown editor with split-view editing, 6 diagram renderers, and prin
 | Windows | [drwrite Setup.exe](https://github.com/nerdykrystal/drwrite/releases/latest) |
 | macOS (Apple Silicon) | [drwrite arm64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
 | macOS (Intel) | [drwrite x64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
+| Linux (Debian/Ubuntu) | [drwrite.deb](https://github.com/nerdykrystal/drwrite/releases/latest) |
+| Linux (Fedora/RHEL) | [drwrite.rpm](https://github.com/nerdykrystal/drwrite/releases/latest) |
 
 Download from the [Releases page](https://github.com/nerdykrystal/drwrite/releases/latest).
 
-> **macOS note:** The app is not code-signed. On first launch, right-click the app and select "Open" to bypass Gatekeeper.
+> **macOS:** Not code-signed. Right-click the app and select "Open" on first launch to bypass Gatekeeper.
 >
-> **Windows note:** You may see a SmartScreen warning. Click "More info" then "Run anyway".
+> **Windows:** You may see a SmartScreen warning. Click "More info" then "Run anyway".
+>
+> **Linux:** Make the .deb/.rpm executable or install with your package manager (`sudo dpkg -i drwrite.deb`).
 
 ## Why This Exists
 
