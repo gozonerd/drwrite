@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getDiagramBadgeClass } from './DiagramCodeBlock';
+import { getDiagramBadgeClass, DiagramCodeBlock } from './DiagramCodeBlock';
 
 describe('getDiagramBadgeClass', () => {
   it('returns correct class for mermaid', () => {
@@ -28,5 +28,12 @@ describe('getDiagramBadgeClass', () => {
 
   it('returns default class for unknown language', () => {
     expect(getDiagramBadgeClass('python')).toBe('bg-[rgba(78,201,176,0.80)] text-[#0d1117]');
+  });
+});
+
+describe('DiagramCodeBlock extension', () => {
+  it('is a TipTap extension object', () => {
+    expect(DiagramCodeBlock).toBeDefined();
+    expect(DiagramCodeBlock.name).toBe('codeBlock');
   });
 });

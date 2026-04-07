@@ -60,4 +60,24 @@ describe('ErrorBoundary', () => {
     );
     expect(console.error).toHaveBeenCalled();
   });
+
+  it('reload button calls window.location.reload', () => {
+    // Mock window.location.reload
+    const reloadMock = vi.fn();
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, reload: reloadMock },
+    });
+
+    render(
+      <ErrorBoundary>
+        <Bomb />
+      </ErrorBoundary>,
+    );
+
+    const reloadButton = screen.getByRole('button', { name: 'Reload' });
+    reloadButton.click();
+
+    expect(reloadMock).toHaveBeenCalled();
+  });
 });

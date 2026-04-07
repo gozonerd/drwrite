@@ -90,6 +90,16 @@ describe('editor-store', () => {
     });
   });
 
+  describe('clearLastEditedBy', () => {
+    it('sets lastEditedBy to null', () => {
+      useEditorStore.getState().setMarkdown('# Test', 'source');
+      expect(useEditorStore.getState().lastEditedBy).toBe('source');
+
+      useEditorStore.getState().clearLastEditedBy();
+      expect(useEditorStore.getState().lastEditedBy).toBeNull();
+    });
+  });
+
   describe('splitRatio', () => {
     it('clamps to minimum 0.15', () => {
       useEditorStore.getState().setSplitRatio(0.05);
@@ -126,6 +136,169 @@ describe('editor-store', () => {
 
       useEditorStore.getState().setActiveEditor('wysiwyg');
       expect(useEditorStore.getState().activeEditor).toBe('wysiwyg');
+    });
+  });
+
+  describe('openFile', () => {
+    it('opens a file and updates store with content and path', async () => {
+      const mockOpenFile = vi.fn().mockResolvedValue({
+        canceled: false,
+        content: '# Opened file',
+        filePath: '/docs/opened.md',
+      });
+      const mockWatchFile = vi.fn().mockResolvedValue({ success: true });
+      window.drwrite.openFile = mockOpenFile;
+      window.drwrite.watchFile = mockWatchFile;
+
+      await useEditorStore.getState().openFile();
+
+      const state = useEditorStore.getState();
+      expect(state.markdown).toBe('# Opened file');
+      expect(state.filePath).toBe('/docs/opened.md');
+      expect(state.isDirty).toBe(false);
+      expect(state.lastEditedBy).toBe('file');
+      expect(mockWatchFile).toHaveBeenCalledWith({ filePath: '/docs/opened.md' });
+    });
+
+    it('does nothing when dialog is canceled', async () => {
+      window.drwrite.openFile = vi.fn().mockResolvedValue({ canceled: true });
+
+      const originalMarkdown = useEditorStore.getState().markdown;
+      await useEditorStore.getState().openFile();
+
+      expect(useEditorStore.getState().markdown).toBe(originalMarkdown);
+      expect(useEditorStore.getState().filePath).toBeNull();
+    });
+
+    it('handles open with no filePath (null)', async () => {
+      const mockWatchFile = vi.fn();
+      window.drwrite.openFile = vi.fn().mockResolvedValue({
+        canceled: false,
+        content: '# No path',
+        filePath: undefined,
+      });
+      window.drwrite.watchFile = mockWatchFile;
+
+      await useEditorStore.getState().openFile();
+
+      expect(useEditorStore.getState().markdown).toBe('# No path');
+      expect(useEditorStore.getState().filePath).toBeNull();
+      // watchFile should NOT be called when newPath is null
+      expect(mockWatchFile).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('saveFile', () => {
+    it('saves to existing path and clears dirty flag', async () => {
+      window.drwrite.saveFile = vi.fn().mockResolvedValue({ success: true });
+
+      useEditorStore.setState({
+        filePath: '/docs/existing.md',
+        markdown: '# Save me',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFile();
+
+      expect(window.drwrite.saveFile).toHaveBeenCalledWith({
+        filePath: '/docs/existing.md',
+        content: '# Save me',
+      });
+      expect(useEditorStore.getState().isDirty).toBe(false);
+    });
+
+    it('falls through to saveFileAs when no filePath exists', async () => {
+      window.drwrite.saveFileAs = vi.fn().mockResolvedValue({
+        canceled: false,
+        success: true,
+        filePath: '/docs/new-file.md',
+      });
+
+      useEditorStore.setState({
+        filePath: null,
+        markdown: '# New doc',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFile();
+
+      // Should have called saveFileAs since filePath was null
+      expect(window.drwrite.saveFileAs).toHaveBeenCalledWith({
+        content: '# New doc',
+      });
+    });
+
+    it('does not clear dirty flag when save fails', async () => {
+      window.drwrite.saveFile = vi.fn().mockResolvedValue({ success: false });
+
+      useEditorStore.setState({
+        filePath: '/docs/existing.md',
+        markdown: '# Content',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFile();
+
+      expect(useEditorStore.getState().isDirty).toBe(true);
+    });
+  });
+
+  describe('saveFileAs', () => {
+    it('saves with new path and updates store', async () => {
+      window.drwrite.saveFileAs = vi.fn().mockResolvedValue({
+        canceled: false,
+        success: true,
+        filePath: '/docs/saved-as.md',
+      });
+
+      useEditorStore.setState({
+        markdown: '# Save as',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFileAs();
+
+      expect(window.drwrite.saveFileAs).toHaveBeenCalledWith({
+        content: '# Save as',
+      });
+      expect(useEditorStore.getState().filePath).toBe('/docs/saved-as.md');
+      expect(useEditorStore.getState().isDirty).toBe(false);
+    });
+
+    it('does nothing when dialog is canceled', async () => {
+      window.drwrite.saveFileAs = vi.fn().mockResolvedValue({
+        canceled: true,
+      });
+
+      useEditorStore.setState({
+        markdown: '# Content',
+        filePath: '/original.md',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFileAs();
+
+      // Should not have changed anything
+      expect(useEditorStore.getState().filePath).toBe('/original.md');
+      expect(useEditorStore.getState().isDirty).toBe(true);
+    });
+
+    it('handles saveFileAs with undefined filePath in result', async () => {
+      window.drwrite.saveFileAs = vi.fn().mockResolvedValue({
+        canceled: false,
+        success: true,
+        filePath: undefined,
+      });
+
+      useEditorStore.setState({
+        markdown: '# No path',
+        isDirty: true,
+      });
+
+      await useEditorStore.getState().saveFileAs();
+
+      expect(useEditorStore.getState().filePath).toBeNull();
+      expect(useEditorStore.getState().isDirty).toBe(false);
     });
   });
 });

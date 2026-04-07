@@ -9,7 +9,7 @@ test.beforeAll(async () => {
 });
 
 test.afterAll(async () => {
-  await closeApp(app);
+  await closeApp(app, page, 'keyboard-shortcuts');
 });
 
 test('Ctrl+N resets to default document', async () => {

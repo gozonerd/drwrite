@@ -94,3 +94,6 @@ out/
 # Playwright
 playwright-report/
 test-results/
+
+# Istanbul / nyc
+.nyc_output/

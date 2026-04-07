@@ -9,7 +9,7 @@ test.beforeAll(async () => {
 });
 
 test.afterAll(async () => {
-  await closeApp(app);
+  await closeApp(app, page, 'tabs');
 });
 
 test('tab bar is visible on launch', async () => {

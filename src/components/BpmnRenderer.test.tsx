@@ -84,4 +84,24 @@ describe('BpmnRenderer', () => {
 
     expect(mockDestroy).toHaveBeenCalled();
   });
+
+  it('handles re-render with new XML (viewer already exists)', async () => {
+    // First render — creates a viewer
+    const { rerender } = render(<BpmnRenderer xml={VALID_XML} id="bpmn-rerender" />);
+
+    await waitFor(() => {
+      expect(mockImportXML).toHaveBeenCalledTimes(1);
+    });
+
+    // Rerender with new XML — this triggers the "if (viewerRef.current) destroy" branch
+    const NEW_XML = VALID_XML.replace('Process_1', 'Process_2');
+    rerender(<BpmnRenderer xml={NEW_XML} id="bpmn-rerender" />);
+
+    await waitFor(() => {
+      expect(mockImportXML).toHaveBeenCalledTimes(2);
+    });
+
+    // The previous viewer should have been destroyed before creating the new one
+    expect(mockDestroy).toHaveBeenCalled();
+  });
 });

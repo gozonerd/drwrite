@@ -5,10 +5,10 @@ import fs from 'node:fs';
 
 const ROOT = path.join(__dirname, '..', '..');
 const MAIN_JS = path.join(ROOT, '.vite', 'build', 'main.js');
+const NYC_OUTPUT = path.join(ROOT, '.nyc_output');
 
 /**
- * Ensure the Vite build exists. If not, run electron-forge's
- * Vite plugin to build main + preload + renderer.
+ * Ensure the Vite build exists.
  */
 function ensureBuild(): void {
   if (!fs.existsSync(MAIN_JS)) {
@@ -18,12 +18,10 @@ function ensureBuild(): void {
       timeout: 30000,
       stdio: 'ignore',
     });
-    // Wait for the build to produce main.js
     const start = Date.now();
     while (!fs.existsSync(MAIN_JS) && Date.now() - start < 25000) {
       execSync('sleep 1');
     }
-    // Kill the forge process — we just needed the build artifacts
     try {
       execSync('taskkill /F /IM electron.exe', { stdio: 'ignore' });
     } catch { /* may not be running */ }
@@ -39,15 +37,38 @@ export async function launchApp(): Promise<{ app: ElectronApplication; page: Pag
   const app = await electron.launch({
     args: [MAIN_JS],
     cwd: ROOT,
+    env: { ...process.env, COVERAGE: process.env.COVERAGE || '' },
   });
 
   const page = await app.firstWindow();
-  // Wait for React to mount
   await page.waitForSelector('[class*="flex"]', { timeout: 15000 });
 
   return { app, page };
 }
 
-export async function closeApp(app: ElectronApplication): Promise<void> {
+/**
+ * Extract Istanbul coverage data from the renderer process
+ * and write it to .nyc_output/ for merging.
+ */
+export async function extractCoverage(page: Page, testName: string): Promise<void> {
+  try {
+    const coverage = await page.evaluate(() => (window as Record<string, unknown>).__coverage__);
+    if (coverage) {
+      fs.mkdirSync(NYC_OUTPUT, { recursive: true });
+      const fileName = `e2e-${testName}-${Date.now()}.json`;
+      fs.writeFileSync(
+        path.join(NYC_OUTPUT, fileName),
+        JSON.stringify(coverage),
+      );
+    }
+  } catch {
+    // Coverage not available (not instrumented) — skip silently
+  }
+}
+
+export async function closeApp(app: ElectronApplication, page?: Page, testName?: string): Promise<void> {
+  if (page && testName) {
+    await extractCoverage(page, testName);
+  }
   await app.close();
 }

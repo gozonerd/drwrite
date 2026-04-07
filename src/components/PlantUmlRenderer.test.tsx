@@ -85,4 +85,27 @@ describe('PlantUmlRenderer', () => {
       expect(mockedEncode).toHaveBeenCalledWith('@startuml A->B @enduml');
     });
   });
+
+  it('shows loading text while image has not loaded', () => {
+    mockedEncode.mockReturnValue('loading-test');
+    render(<PlantUmlRenderer code="@startuml test @enduml" id="puml-loading" />);
+
+    expect(screen.getByText('Rendering PlantUML...')).toBeInTheDocument();
+    // Image should be hidden (display: none)
+    const img = screen.getByAltText('PlantUML diagram');
+    expect(img).toHaveStyle({ display: 'none' });
+  });
+
+  it('hides loading text after image loads', async () => {
+    mockedEncode.mockReturnValue('load-complete');
+    render(<PlantUmlRenderer code="@startuml done @enduml" id="puml-loaded" />);
+
+    const img = screen.getByAltText('PlantUML diagram');
+    fireEvent.load(img);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Rendering PlantUML...')).not.toBeInTheDocument();
+      expect(img).toHaveStyle({ display: 'block' });
+    });
+  });
 });

@@ -9,7 +9,7 @@ test.beforeAll(async () => {
 });
 
 test.afterAll(async () => {
-  await closeApp(app);
+  await closeApp(app, page, 'app-launch');
 });
 
 test('app window opens', async () => {

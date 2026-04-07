@@ -9,7 +9,7 @@ test.beforeAll(async () => {
 });
 
 test.afterAll(async () => {
-  await closeApp(app);
+  await closeApp(app, page, 'dark-mode');
 });
 
 test('dark mode toggle button is visible', async () => {
