@@ -3,7 +3,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
 import { simpleGit } from 'simple-git';
-import chokidar from 'chokidar';
+import chokidar, { type FSWatcher } from 'chokidar';
 import {
   getWindowState,
   saveWindowState,
@@ -248,7 +248,7 @@ ipcMain.handle('recent:clear', async () => {
 
 // --- File Watcher ---
 
-let fileWatcher: chokidar.FSWatcher | null = null;
+let fileWatcher: FSWatcher | null = null;
 
 ipcMain.handle('watch:start', async (_event, { filePath }: { filePath: string }) => {
   // Stop any existing watcher

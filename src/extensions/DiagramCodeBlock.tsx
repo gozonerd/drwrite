@@ -79,7 +79,7 @@ function DiagramCodeBlockView({ node }: { node: { textContent: string; attrs: Re
                 Show source
               </summary>
               <pre className="text-xs bg-gray-900 text-gray-300 p-2 rounded mt-1 overflow-x-auto">
-                <NodeViewContent as="code" />
+                <NodeViewContent<'code'> as="code" />
               </pre>
             </details>
           </div>
@@ -92,7 +92,7 @@ function DiagramCodeBlockView({ node }: { node: { textContent: string; attrs: Re
   return (
     <NodeViewWrapper>
       <pre className="code-block">
-        <NodeViewContent as="code" />
+        <NodeViewContent<'code'> as="code" />
       </pre>
     </NodeViewWrapper>
   );

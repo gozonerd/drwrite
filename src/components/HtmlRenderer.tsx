@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { DiagramError } from './DiagramError';
 
+// Import D3.js source as a raw string for offline bundling
+// Vite handles ?raw imports — the D3 source gets inlined at build time
+import d3Source from 'd3/dist/d3.min.js?raw';
+
 interface HtmlRendererProps {
   code: string;
   id: string;
@@ -9,7 +13,7 @@ interface HtmlRendererProps {
 /**
  * Renders user-provided HTML+JS in a sandboxed iframe.
  * The iframe has no access to the parent window (sandbox attribute).
- * D3.js is injected automatically so users can write D3 visualizations.
+ * D3.js is bundled locally (not loaded from CDN) for offline support.
  */
 export function HtmlRenderer({ code, id }: HtmlRendererProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -19,19 +23,19 @@ export function HtmlRenderer({ code, id }: HtmlRendererProps) {
     if (!iframeRef.current || !code.trim()) return;
 
     try {
-      // Wrap user code in a full HTML document with D3 available
+      // Wrap user code in a full HTML document with D3 bundled inline
       const htmlDoc = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>${d3Source}</script>
   <style>
     body {
       margin: 0;
       padding: 12px;
       font-family: "Segoe UI", system-ui, sans-serif;
-      background: #1e1e2e;
-      color: #cdd6f4;
+      background: var(--dw-bg-primary, #1e1e2e);
+      color: var(--dw-text-primary, #cdd6f4);
       overflow: auto;
     }
     svg {
@@ -64,13 +68,13 @@ ${code.trim()}
   }
 
   return (
-    <div className="my-2 border border-gray-200 dark:border-gray-700 rounded overflow-hidden">
+    <div className="my-2 border border-dw-border rounded overflow-hidden">
       <iframe
         ref={iframeRef}
         sandbox="allow-scripts"
         title={`interactive-${id}`}
         className="w-full border-0"
-        style={{ height: '400px', background: '#1e1e2e' }}
+        style={{ height: '400px', background: 'var(--dw-bg-primary, #1e1e2e)' }}
       />
     </div>
   );

@@ -1,8 +1,9 @@
+import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ErrorBoundary } from './ErrorBoundary';
 
-function Bomb(): JSX.Element {
+function Bomb(): React.ReactElement {
   throw new Error('kaboom');
   return null as never;
 }

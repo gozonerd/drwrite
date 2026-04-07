@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseDfd, layoutNodes } from './dfd-parser';
+import { parseDfd, layoutNodes, DfdNode } from './dfd-parser';
 
 describe('parseDfd', () => {
   it('parses process nodes', () => {
@@ -81,10 +81,10 @@ describe('parseDfd', () => {
 
 describe('layoutNodes', () => {
   it('positions externals in left column, processes center, datastores right', () => {
-    const nodes = [
-      { id: 'E1', label: 'User', type: 'external' as const },
-      { id: 'P1', label: 'Process', type: 'process' as const },
-      { id: 'D1', label: 'DB', type: 'datastore' as const },
+    const nodes: DfdNode[] = [
+      { id: 'E1', label: 'User', type: 'external' },
+      { id: 'P1', label: 'Process', type: 'process' },
+      { id: 'D1', label: 'DB', type: 'datastore' },
     ];
 
     layoutNodes(nodes, 900, 300);
@@ -103,10 +103,10 @@ describe('layoutNodes', () => {
   });
 
   it('distributes multiple nodes vertically within columns', () => {
-    const nodes = [
-      { id: 'P1', label: 'A', type: 'process' as const },
-      { id: 'P2', label: 'B', type: 'process' as const },
-      { id: 'P3', label: 'C', type: 'process' as const },
+    const nodes: DfdNode[] = [
+      { id: 'P1', label: 'A', type: 'process' },
+      { id: 'P2', label: 'B', type: 'process' },
+      { id: 'P3', label: 'C', type: 'process' },
     ];
 
     layoutNodes(nodes, 600, 400);

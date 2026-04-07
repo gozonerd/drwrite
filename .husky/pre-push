@@ -1,1 +1,1 @@
-npx prettier --check "src/**/*.{ts,tsx}" && npx eslint --ext .ts,.tsx src/ --max-warnings 0 && npx vitest run
+npx prettier --check "src/**/*.{ts,tsx}" && npx tsc --noEmit && npx eslint --ext .ts,.tsx src/ --max-warnings 0 && npx vitest run

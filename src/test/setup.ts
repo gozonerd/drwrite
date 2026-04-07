@@ -1,3 +1,4 @@
+/// <reference path="../preload.d.ts" />
 import '@testing-library/jest-dom/vitest';
 
 // Mock window.matchMedia for dark mode detection in Zustand store

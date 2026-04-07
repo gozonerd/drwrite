@@ -1,8 +1,8 @@
-import { create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 
 export type EditorSource = 'source' | 'wysiwyg' | 'file';
 
-interface EditorState {
+export interface EditorState {
   /** The markdown string — single source of truth */
   markdown: string;
   /** Path to the currently open file, null if untitled */
@@ -48,7 +48,7 @@ const SYNC_DEBOUNCE_MS = 200;
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
-export const useEditorStore = create<EditorState>((set) => ({
+export const useEditorStore: UseBoundStore<StoreApi<EditorState>> = create<EditorState>((set) => ({
   markdown: DEFAULT_MARKDOWN,
   filePath: null,
   isDirty: false,

@@ -22,9 +22,11 @@ function slugify(text: string): string {
 }
 
 /** Simple debounce helper — returns a debounced version of `fn`. */
-function debounce<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function debounce<T extends (...args: any[]) => void>(fn: T, ms: number): T {
   let timer: ReturnType<typeof setTimeout> | null = null;
-  return ((...args: unknown[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return ((...args: any[]) => {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => fn(...args), ms);
   }) as unknown as T;
@@ -94,7 +96,7 @@ export function WysiwygEditor() {
       // Don't write back if we're applying a store update
       if (isUpdatingFromStore.current) return;
 
-      const md = ed.storage.markdown.getMarkdown();
+      const md = (ed.storage as unknown as Record<string, { getMarkdown: () => string }>).markdown.getMarkdown();
       useEditorStore.getState().setMarkdownDebounced(md, 'wysiwyg');
     },
     onFocus: () => {
@@ -112,7 +114,9 @@ export function WysiwygEditor() {
       if (state.markdown === prevState.markdown) return;
 
       // Check if content actually differs from what TipTap has
-      const currentMd = editor.storage.markdown.getMarkdown();
+      const currentMd = (
+        editor.storage as unknown as Record<string, { getMarkdown: () => string }>
+      ).markdown.getMarkdown();
       if (state.markdown === currentMd) return;
 
       // Save cursor position
@@ -121,8 +125,9 @@ export function WysiwygEditor() {
       // Set flag to prevent onUpdate from writing back
       isUpdatingFromStore.current = true;
 
-      editor.commands.setContent(state.markdown, false, {
-        preserveWhitespace: 'full',
+      editor.commands.setContent(state.markdown, {
+        emitUpdate: false,
+        parseOptions: { preserveWhitespace: 'full' },
       });
 
       // Restore cursor, clamped to new document length

@@ -21,7 +21,7 @@ describe('MermaidRenderer', () => {
   });
 
   it('renders successfully with valid mermaid code', async () => {
-    mockedRender.mockResolvedValue({ svg: '<svg data-testid="mermaid-svg">diagram</svg>' });
+    mockedRender.mockResolvedValue({ svg: '<svg data-testid="mermaid-svg">diagram</svg>', diagramType: 'flowchart' });
 
     const { container } = render(<MermaidRenderer code="graph TD; A-->B;" id="test-1" />);
 
@@ -62,7 +62,7 @@ describe('MermaidRenderer', () => {
   });
 
   it('trims code before passing to mermaid.render', async () => {
-    mockedRender.mockResolvedValue({ svg: '<svg></svg>' });
+    mockedRender.mockResolvedValue({ svg: '<svg></svg>', diagramType: 'flowchart' });
 
     render(<MermaidRenderer code="  graph LR; X-->Y;  " id="test-trim" />);
 

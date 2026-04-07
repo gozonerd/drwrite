@@ -7,6 +7,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    alias: {
+      'd3/dist/d3.min.js?raw': new URL('./src/test/__mocks__/d3-raw.ts', import.meta.url).pathname,
+    },
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     coverage: {
       provider: 'v8',

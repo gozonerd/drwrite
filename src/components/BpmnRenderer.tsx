@@ -10,7 +10,7 @@ export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<{
     destroy: () => void;
-    importXML: (xml: string) => Promise<void>;
+    importXML: (xml: string) => Promise<{ warnings: string[] }>;
     get: (name: string) => unknown;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);

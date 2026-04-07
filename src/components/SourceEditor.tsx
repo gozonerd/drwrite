@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback, useMemo } from 'react';
-import { EditorState } from '@codemirror/state';
+import { EditorState, Transaction } from '@codemirror/state';
 import { EditorView, lineNumbers, highlightActiveLineGutter, highlightActiveLine, keymap } from '@codemirror/view';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
@@ -10,9 +10,11 @@ import { search, searchKeymap, highlightSelectionMatches } from '@codemirror/sea
 import { useEditorStore } from '../store/editor-store';
 
 /** Simple debounce helper — returns a debounced version of `fn`. */
-function debounce<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function debounce<T extends (...args: any[]) => void>(fn: T, ms: number): T {
   let timer: ReturnType<typeof setTimeout> | null = null;
-  return ((...args: unknown[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return ((...args: any[]) => {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => fn(...args), ms);
   }) as unknown as T;
@@ -146,7 +148,7 @@ export function SourceEditor() {
           anchor: Math.min(selection.main.anchor, state.markdown.length),
           head: Math.min(selection.main.head, state.markdown.length),
         },
-        annotations: [EditorView.announce.of('')], // Prevent this from entering undo history
+        annotations: Transaction.addToHistory.of(false), // Prevent this from entering undo history
       });
     });
 
