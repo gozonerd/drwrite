@@ -13,6 +13,7 @@ import { BpmnBlock } from '../extensions/BpmnBlock';
 import { DfdBlock } from '../extensions/DfdBlock';
 import { PlantUmlBlock } from '../extensions/PlantUmlBlock';
 import { GraphvizBlock } from '../extensions/GraphvizBlock';
+import { HtmlBlock } from '../extensions/HtmlBlock';
 import { useEditorStore } from '../store/editor-store';
 
 // Generate a slug from heading text for auto-IDs
@@ -54,6 +55,7 @@ export function WysiwygEditor() {
       DfdBlock,
       PlantUmlBlock,
       GraphvizBlock,
+      HtmlBlock,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
