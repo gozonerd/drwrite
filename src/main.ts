@@ -27,37 +27,9 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
-  });
-
-  // Show window only after content is painted — prevents blank screen
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
-
-  // In dev mode, reload once after DOM is ready to work around Vite race condition
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    let hasReloaded = false;
-    mainWindow.webContents.on('dom-ready', () => {
-      if (!hasReloaded) {
-        hasReloaded = true;
-        setTimeout(() => {
-          mainWindow.webContents.reload();
-        }, 500);
-      }
-    });
-  }
-
-  // Retry load if Vite dev server isn't ready yet
-  mainWindow.webContents.on('did-fail-load', (_event, _code, _desc, url) => {
-    if (MAIN_WINDOW_VITE_DEV_SERVER_URL && url.startsWith(MAIN_WINDOW_VITE_DEV_SERVER_URL)) {
-      setTimeout(() => {
-        mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-      }, 1000);
-    }
   });
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
