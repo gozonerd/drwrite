@@ -7,8 +7,6 @@ import { PlantUmlRenderer } from '../components/PlantUmlRenderer';
 import { GraphvizRenderer } from '../components/GraphvizRenderer';
 import { HtmlRenderer } from '../components/HtmlRenderer';
 
-let blockCounter = 0;
-
 const DIAGRAM_LANGUAGES = new Set([
   'mermaid',
   'bpmn',
@@ -23,7 +21,7 @@ const DIAGRAM_LANGUAGES = new Set([
 function DiagramCodeBlockView({ node }: { node: any }) {
   const language = (node.attrs.language || '').toLowerCase();
   const code = node.textContent;
-  const id = `diagram-${blockCounter++}`;
+  const id = `diagram-${crypto.randomUUID()}`;
 
   // If it's a diagram language, render the diagram
   if (DIAGRAM_LANGUAGES.has(language) && code.trim()) {

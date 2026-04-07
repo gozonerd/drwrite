@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import plantumlEncoder from 'plantuml-encoder';
+import { DiagramError } from './DiagramError';
 
 interface PlantUmlRendererProps {
   code: string;
@@ -29,12 +30,7 @@ export function PlantUmlRenderer({ code, id }: PlantUmlRendererProps) {
   }, [code, id]);
 
   if (error) {
-    return (
-      <div className="border border-red-300 dark:border-red-700 rounded p-3 my-2 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 text-sm font-mono">
-        <div className="font-semibold mb-1">PlantUML Error</div>
-        <pre className="whitespace-pre-wrap text-xs">{error}</pre>
-      </div>
-    );
+    return <DiagramError type="PlantUML" error={error} />;
   }
 
   return (

@@ -48,7 +48,7 @@ describe('HtmlRenderer', () => {
     render(<HtmlRenderer code="<div>Broken</div>" id="html-err" />);
 
     await waitFor(() => {
-      expect(screen.getByText('HTML Render Error')).toBeInTheDocument();
+      expect(screen.getByText('HTML Error')).toBeInTheDocument();
     });
 
     expect(screen.getByText('Error: Blob creation failed')).toBeInTheDocument();
@@ -61,14 +61,14 @@ describe('HtmlRenderer', () => {
     render(<HtmlRenderer code="" id="html-empty" />);
 
     expect(mockCreateObjectURL).not.toHaveBeenCalled();
-    expect(screen.queryByText('HTML Render Error')).not.toBeInTheDocument();
+    expect(screen.queryByText('HTML Error')).not.toBeInTheDocument();
   });
 
   it('handles whitespace-only code gracefully', () => {
     render(<HtmlRenderer code="      " id="html-ws" />);
 
     expect(mockCreateObjectURL).not.toHaveBeenCalled();
-    expect(screen.queryByText('HTML Render Error')).not.toBeInTheDocument();
+    expect(screen.queryByText('HTML Error')).not.toBeInTheDocument();
   });
 
   it('revokes the blob URL on cleanup', async () => {

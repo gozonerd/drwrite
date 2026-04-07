@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { DiagramError } from './DiagramError';
 
 interface BpmnRendererProps {
   xml: string;
@@ -60,12 +61,7 @@ export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
   }, [xml, id]);
 
   if (error) {
-    return (
-      <div className="border border-red-300 dark:border-red-700 rounded p-3 my-2 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 text-sm font-mono">
-        <div className="font-semibold mb-1">BPMN Error</div>
-        <pre className="whitespace-pre-wrap text-xs">{error}</pre>
-      </div>
-    );
+    return <DiagramError type="BPMN" error={error} />;
   }
 
   return (

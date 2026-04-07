@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { parseDfd, layoutNodes } from '../utils/dfd-parser';
+import { DiagramError } from './DiagramError';
 
 interface DfdRendererProps {
   code: string;
@@ -134,12 +135,7 @@ export function DfdRenderer({ code, id }: DfdRendererProps) {
   }, [code, id]);
 
   if (error) {
-    return (
-      <div className="border border-red-300 dark:border-red-700 rounded p-3 my-2 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 text-sm font-mono">
-        <div className="font-semibold mb-1">DFD Error</div>
-        <pre className="whitespace-pre-wrap text-xs">{error}</pre>
-      </div>
-    );
+    return <DiagramError type="DFD" error={error} />;
   }
 
   return (
