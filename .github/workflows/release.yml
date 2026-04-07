@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build installer
+        run: npm run make
+
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            out/make/**/*.exe
+            out/make/**/*.nupkg
+            out/make/**/*.dmg
+            out/make/**/*.zip
+          draft: false
+          prerelease: false
