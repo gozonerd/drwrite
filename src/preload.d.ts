@@ -13,6 +13,12 @@ interface DrWriteAPI {
   getRecentFiles: () => Promise<RecentFileEntry[]>;
   openRecentFile: (args: { filePath: string }) => Promise<{ canceled: boolean; filePath?: string; content?: string; success?: boolean; error?: string }>;
   clearRecentFiles: () => Promise<{ success: boolean }>;
+  getGitStatus: (args: { filePath: string }) => Promise<{
+    isRepo: boolean;
+    branch?: string;
+    isFileDirty?: boolean;
+    fileStatus?: string | null;
+  }>;
 }
 
 declare global {

@@ -14,4 +14,6 @@ contextBridge.exposeInMainWorld('drwrite', {
   openRecentFile: (args: { filePath: string }) =>
     ipcRenderer.invoke('recent:open', args),
   clearRecentFiles: () => ipcRenderer.invoke('recent:clear'),
+  getGitStatus: (args: { filePath: string }) =>
+    ipcRenderer.invoke('git:status', args),
 });

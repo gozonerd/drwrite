@@ -2,6 +2,7 @@ import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
+import { simpleGit } from 'simple-git';
 import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRecentFiles, closeDatabase } from './db/database';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
@@ -202,6 +203,34 @@ ipcMain.handle('recent:open', async (_event, { filePath }: { filePath: string })
 ipcMain.handle('recent:clear', async () => {
   clearRecentFiles();
   return { success: true };
+});
+
+// --- IPC Handlers for Git Status ---
+
+ipcMain.handle('git:status', async (_event, { filePath }: { filePath: string }) => {
+  try {
+    const dir = path.dirname(filePath);
+    const git = simpleGit(dir);
+    const isRepo = await git.checkIsRepo();
+    if (!isRepo) return { isRepo: false };
+
+    const [branch, status] = await Promise.all([
+      git.branchLocal(),
+      git.status(),
+    ]);
+
+    const fileName = path.basename(filePath);
+    const fileStatus = status.files.find((f) => f.path === fileName || filePath.endsWith(f.path));
+
+    return {
+      isRepo: true,
+      branch: branch.current,
+      isFileDirty: !!fileStatus,
+      fileStatus: fileStatus?.working_dir || fileStatus?.index || null,
+    };
+  } catch {
+    return { isRepo: false };
+  }
 });
 
 // --- App Lifecycle ---
