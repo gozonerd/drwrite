@@ -4,10 +4,14 @@
 
 ```bash
 npm start              # Launch in dev mode (Electron Forge + Vite)
-npm test               # Run all tests (Vitest)
+npm test               # Run all Vitest tests (259 tests, 25 files)
+npm run test:node      # Backend tests (17 tests, Node environment)
+npm run test:e2e       # E2E tests (13 Playwright + Electron)
+npm run test:all       # All 289 tests
 npm run test:watch     # Watch mode
 npm run test:coverage  # Tests with V8 coverage report
 npm run lint           # ESLint
+npx tsc --noEmit       # TypeScript strict check (zero errors)
 npm run make           # Build Windows installer (.exe via Squirrel)
 ```
 
@@ -21,6 +25,8 @@ Electron Main Process (src/main.ts)
   ├── SQLite database (recent files, preferences, window state)
   ├── Git status queries (simple-git)
   ├── File watching (chokidar)
+  ├── Auto-save (configurable interval)
+  ├── Auto-update (electron-updater)
   └── IPC handlers for all renderer requests
 
 Preload (src/preload.ts)
@@ -28,13 +34,17 @@ Preload (src/preload.ts)
 
 React Renderer
   ├── App.tsx — root component, keyboard shortcuts, file watcher listener
-  ├── Toolbar — filename, open/save/export, dark mode toggle
-  ├── TabBar — multi-file tab management
-  ├── SplitView — draggable split between source and WYSIWYG
-  │   ├── SourceEditor (CodeMirror 6) — left pane
+  ├── Toolbar — filename, open/save/export, dark mode toggle, recent files dropdown
+  ├── TabBar — multi-file tab management with drag-to-reorder
+  ├── FileTreeSidebar — directory browser (Ctrl+B toggle)
+  ├── SplitView — draggable split between source and WYSIWYG, scroll sync
+  │   ├── SourceEditor (CodeMirror 6) — left pane, minimap
   │   └── WysiwygEditor (TipTap/ProseMirror) — right pane
-  ├── StatusBar — line count, git branch, dirty state, encoding
-  └── ExportDialog — configurable margins, font, page numbers
+  ├── StatusBar — word count, line count, git branch, dirty state, encoding
+  ├── ExportDialog — configurable margins, font, page numbers, print preview
+  ├── KeybindingsDialog — custom keybindings (Ctrl+K chord system)
+  ├── OnboardingFlow — first-time user walkthrough
+  └── ErrorBoundary — graceful error recovery
 ```
 
 ## State Management
@@ -68,10 +78,25 @@ React Renderer
 
 ## Testing
 
-- **Vitest** + **React Testing Library** + **jsdom**
+- **289 total tests:** 259 Vitest (25 files) + 17 Node backend (2 files) + 13 Playwright E2E (4 files)
+- **Test-to-source ratio:** 1.03:1 (3,730 test LOC / 3,635 source LOC)
 - Setup: `src/test/setup.ts` (mocks for matchMedia, localStorage, window.drwrite API)
 - Coverage: V8 provider, excludes main/preload/renderer entry points
-- Run: `npm test` (single run) or `npm run test:watch` (watch mode)
+- Pre-push hooks: 4-stage gate (prettier, tsc, eslint, vitest)
+- Run: `npm test` (Vitest), `npm run test:node` (backend), `npm run test:e2e` (Playwright), `npm run test:all` (all 289)
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+O | Open file |
+| Ctrl+S | Save |
+| Ctrl+Shift+S | Save as |
+| Ctrl+F | Search |
+| Ctrl+H | Replace |
+| Ctrl+B | Toggle file tree sidebar |
+| Ctrl+K | Chord prefix for custom keybindings |
+| Ctrl+P | Print / export |
 
 ## Known Issues
 

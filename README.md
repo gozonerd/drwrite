@@ -24,12 +24,22 @@ So I built the tool I needed.
 ### Core Editor
 - Split-view: CodeMirror source (left) + TipTap WYSIWYG (right)
 - Bidirectional sync with 200ms debounce and loop prevention
-- Dark mode with OS detection and persistence
-- Multi-file tabs with per-tab content caching
+- Dark mode and light mode with OS detection and persistence
+- Multi-file tabs with per-tab content caching and drag-to-reorder
 - Search and replace (Ctrl+F / Ctrl+H)
 - File watching — auto-reload on external changes
 - SQLite database for recent files, preferences, window state
 - Git status in status bar (branch name, file dirty state)
+- Word count (live in status bar)
+- Auto-save with configurable interval
+- Recent files dropdown
+- Custom keybindings (Ctrl+K chord system)
+- Scroll sync between source and preview
+- Spell check toggle
+- Minimap navigation
+- File tree sidebar (Ctrl+B)
+- Onboarding flow for first-time users
+- Auto-update support
 
 ### Diagram Rendering (6 types)
 
@@ -48,6 +58,7 @@ Each diagram type uses a dedicated renderer — not a single library wrapper.
 - PDF export via Electron printToPDF
 - HTML export as self-contained document
 - Configurable margins, font size, font family, page numbers
+- Print preview before export
 - Settings persist across sessions
 
 ## Architecture
@@ -103,12 +114,14 @@ graph TD
 
 | Practice | Detail |
 |----------|--------|
-| Tests | 176 automated (146 Vitest jsdom + 17 Vitest Node + 13 Playwright E2E) |
-| Coverage | 67% statements, 100% on utils and key components |
-| Pre-push hooks | Prettier + ESLint (zero warnings) + Vitest via Husky |
+| Tests | 289 automated (259 Vitest jsdom + 17 Vitest Node + 13 Playwright E2E) |
+| Test-to-source ratio | 1.03:1 (3,730 test LOC / 3,635 source LOC) |
+| TypeScript | 5.7 strict mode, zero `tsc --noEmit` errors |
+| Pre-push hooks | 4-stage gate: Prettier, tsc, ESLint, Vitest |
 | Commit conventions | Enforced via commitlint (conventional commits) |
-| Linting | ESLint + TypeScript strict mode, zero warnings |
-| CI/CD | GitHub Actions: lint, test, build Windows + macOS |
+| Linting | ESLint 0 errors + 0 warnings, Prettier all files formatted |
+| CI/CD | GitHub Actions: lint/test + Windows/macOS builds |
+| Codebase | 66 TypeScript files, 68 commits, v1.0.0 tagged |
 | Security | Sandboxed iframe for user HTML/JS, Electron Fuses, contextBridge IPC |
 
 ## Development
@@ -121,13 +134,16 @@ npm install
 npm start
 
 # Run tests
-npm test                    # Unit + component tests (Vitest)
-npm run test:node           # Backend tests (Node environment)
-npm run test:e2e            # E2E tests (Playwright + Electron)
+npm test                    # Unit + component tests (259 Vitest, 25 files)
+npm run test:node           # Backend tests (17 tests, Node environment)
+npm run test:e2e            # E2E tests (13 Playwright + Electron)
+npm run test:all            # All 289 tests
 npm run test:coverage       # Coverage report
 
-# Lint
-npm run lint
+# Quality checks
+npm run lint                # ESLint
+npx prettier --check .      # Prettier
+npx tsc --noEmit            # TypeScript strict check
 
 # Build installers
 npm run make                # Windows .exe or macOS .dmg

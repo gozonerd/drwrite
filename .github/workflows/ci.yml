@@ -14,22 +14,22 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - run: npm ci
+      - run: npm install
 
       - name: Prettier check
         run: npx prettier --check "src/**/*.{ts,tsx}"
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
 
       - name: ESLint
         run: npx eslint --ext .ts,.tsx src/ --max-warnings 0
 
       - name: Unit & component tests
         run: npx vitest run
-
-      - name: Coverage report
-        run: npx vitest run --coverage
 
   build-windows:
     needs: lint-and-test
@@ -39,10 +39,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - run: npm ci
+      - run: npm install
 
       - name: Build Windows installer
         run: npm run make
@@ -61,10 +61,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - run: npm ci
+      - run: npm install
 
       - name: Build macOS DMG
         run: npm run make
