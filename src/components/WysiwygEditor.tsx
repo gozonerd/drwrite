@@ -11,6 +11,7 @@ import { TableHeader } from '@tiptap/extension-table-header';
 import { MermaidBlock } from '../extensions/MermaidBlock';
 import { BpmnBlock } from '../extensions/BpmnBlock';
 import { DfdBlock } from '../extensions/DfdBlock';
+import { PlantUmlBlock } from '../extensions/PlantUmlBlock';
 import { useEditorStore } from '../store/editor-store';
 
 // Generate a slug from heading text for auto-IDs
@@ -50,6 +51,7 @@ export function WysiwygEditor() {
       MermaidBlock,
       BpmnBlock,
       DfdBlock,
+      PlantUmlBlock,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
