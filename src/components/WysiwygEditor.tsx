@@ -8,6 +8,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import { MermaidBlock } from '../extensions/MermaidBlock';
 import { useEditorStore } from '../store/editor-store';
 
 // Generate a slug from heading text for auto-IDs
@@ -44,6 +45,7 @@ export function WysiwygEditor() {
       TableRow,
       TableCell,
       TableHeader,
+      MermaidBlock,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
