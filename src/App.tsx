@@ -174,6 +174,14 @@ export function App() {
     setShowExport(false);
   }
 
+  async function handlePreview(settings: ExportSettings) {
+    const bodyHtml = getEditorHtml();
+    const filePath = useEditorStore.getState().filePath;
+    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const html = generatePrintHtml(bodyHtml, settings, title);
+    await window.drwrite.previewHtml({ html });
+  }
+
   return (
     <div className="h-screen flex flex-col bg-dw-bg-primary text-dw-text-primary">
       {/* Toolbar */}
@@ -192,6 +200,7 @@ export function App() {
       {showExport && (
         <ExportDialog
           onExportPdf={handleExportPdf}
+          onPreview={handlePreview}
           onExportHtml={handleExportHtml}
           onClose={() => setShowExport(false)}
         />

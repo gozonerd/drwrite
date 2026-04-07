@@ -24,6 +24,7 @@ Object.defineProperty(window, 'drwrite', {
     saveFileAs: async () => ({ canceled: true }),
     exportPdf: async () => ({ canceled: true }),
     exportHtml: async () => ({ canceled: true }),
+    previewHtml: async () => ({ success: true }),
     getRecentFiles: async () => [],
     openRecentFile: async () => ({ canceled: true }),
     clearRecentFiles: async () => ({ success: true }),

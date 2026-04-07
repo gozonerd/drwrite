@@ -191,6 +191,30 @@ ipcMain.handle('file:exportHtml', async (_event, { html }: { html: string }) => 
   }
 });
 
+ipcMain.handle('file:preview', async (_event, { html }: { html: string }) => {
+  try {
+    const previewWin = new BrowserWindow({
+      width: 800,
+      height: 900,
+      title: 'Print Preview — DrWrite',
+      webPreferences: { contextIsolation: true },
+    });
+
+    const tmpFile = path.join(os.tmpdir(), `drwrite-preview-${Date.now()}.html`);
+    fs.writeFileSync(tmpFile, html, 'utf-8');
+    await previewWin.loadFile(tmpFile);
+
+    // Clean up temp file when window closes
+    previewWin.on('closed', () => {
+      try { fs.unlinkSync(tmpFile); } catch { /* already deleted */ }
+    });
+
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+});
+
 // --- IPC Handlers for Recent Files ---
 
 ipcMain.handle('recent:list', async () => {

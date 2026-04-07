@@ -4,10 +4,11 @@ import { DEFAULT_EXPORT_SETTINGS, ExportSettings } from '../utils/export-html';
 interface ExportDialogProps {
   onExportPdf: (settings: ExportSettings) => void;
   onExportHtml: (settings: ExportSettings) => void;
+  onPreview?: (settings: ExportSettings) => void;
   onClose: () => void;
 }
 
-export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialogProps) {
+export function ExportDialog({ onExportPdf, onExportHtml, onPreview, onClose }: ExportDialogProps) {
   const [settings, setSettings] = useState<ExportSettings>(() => {
     const stored = localStorage.getItem('drwrite-export-settings');
     return stored ? { ...DEFAULT_EXPORT_SETTINGS, ...JSON.parse(stored) } : DEFAULT_EXPORT_SETTINGS;
@@ -92,6 +93,14 @@ export function ExportDialog({ onExportPdf, onExportHtml, onClose }: ExportDialo
 
         {/* Buttons */}
         <div className="flex gap-2">
+          {onPreview && (
+            <button
+              onClick={() => onPreview(settings)}
+              className="px-3 py-2 text-sm font-medium rounded border border-dw-primary text-dw-primary hover:bg-dw-primary hover:text-dw-bg-primary transition-colors"
+            >
+              Preview
+            </button>
+          )}
           <button
             onClick={() => onExportPdf(settings)}
             className="flex-1 px-3 py-2 text-sm font-medium rounded bg-dw-primary text-dw-bg-primary hover:bg-dw-primary-hover transition-colors"

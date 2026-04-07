@@ -10,6 +10,7 @@ interface DrWriteAPI {
   saveFileAs: (args: { content: string }) => Promise<{ canceled: boolean; success?: boolean; filePath?: string; error?: string }>;
   exportPdf: (args: { html: string }) => Promise<{ canceled: boolean; success?: boolean; filePath?: string; error?: string }>;
   exportHtml: (args: { html: string }) => Promise<{ canceled: boolean; success?: boolean; filePath?: string; error?: string }>;
+  previewHtml: (args: { html: string }) => Promise<{ success: boolean; error?: string }>;
   getRecentFiles: () => Promise<RecentFileEntry[]>;
   openRecentFile: (args: { filePath: string }) => Promise<{ canceled: boolean; filePath?: string; content?: string; success?: boolean; error?: string }>;
   clearRecentFiles: () => Promise<{ success: boolean }>;
