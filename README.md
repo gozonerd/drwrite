@@ -17,11 +17,24 @@ A desktop markdown editor with split-view editing, 6 diagram renderers, and prin
 
 Download from the [Releases page](https://github.com/nerdykrystal/drwrite/releases/latest).
 
-> **macOS:** Not code-signed. Right-click the app and select "Open" on first launch to bypass Gatekeeper.
->
-> **Windows:** You may see a SmartScreen warning. Click "More info" then "Run anyway".
->
-> **Linux:** Make the .deb/.rpm executable or install with your package manager (`sudo dpkg -i drwrite.deb`).
+### Installation
+
+**Windows**
+1. Download `drwrite-Setup.exe`
+2. Double-click to run the installer
+3. Windows SmartScreen may block it — click **"More info"** then **"Run anyway"**
+4. The app installs and opens automatically
+
+**macOS**
+1. Download the `.dmg` for your Mac (Apple Silicon or Intel)
+2. Open the `.dmg` and drag DrWrite to your Applications folder
+3. On first launch, macOS will block it because it's not code-signed
+4. Go to **System Settings > Privacy & Security**, scroll down, and click **"Open Anyway"**
+   - Or: right-click the app in Applications, select **"Open"**, then click **"Open"** in the dialog
+
+**Linux**
+1. Debian/Ubuntu: `sudo dpkg -i drwrite_*_amd64.deb`
+2. Fedora/RHEL: `sudo rpm -i drwrite-*.x86_64.rpm`
 
 ## Why This Exists
 
