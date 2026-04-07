@@ -8,11 +8,39 @@ import { VitePlugin } from '@electron-forge/plugin-vite';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import path from 'node:path';
+import fsExtra from 'fs-extra';
+
+/**
+ * After Electron Forge copies the app into the packaged output,
+ * copy externalized native modules from node_modules/ so they're
+ * available at runtime via require().
+ */
+function copyNativeModules(
+  buildPath: string,
+  _electronVersion: string,
+  _platform: string,
+  _arch: string,
+  callback: () => void,
+) {
+  const nativeModules = ['better-sqlite3', 'bindings', 'file-uri-to-path', 'prebuild-install', 'node-addon-api'];
+  for (const mod of nativeModules) {
+    const src = path.join(__dirname, 'node_modules', mod);
+    const dest = path.join(buildPath, 'node_modules', mod);
+    if (fsExtra.existsSync(src)) {
+      fsExtra.copySync(src, dest);
+    }
+  }
+  callback();
+}
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
+    asar: {
+      unpack: '**/node_modules/better-sqlite3/**',
+    },
     icon: './assets/icons/icon',
+    afterCopy: [copyNativeModules],
   },
   rebuildConfig: {},
   makers: [
