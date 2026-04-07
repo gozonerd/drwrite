@@ -28,10 +28,7 @@ describe('PlantUmlRenderer', () => {
 
     const img = screen.getByAltText('PlantUML diagram');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute(
-      'src',
-      'https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuGh8ISmh2VNr',
-    );
+    expect(img).toHaveAttribute('src', 'https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuGh8ISmh2VNr');
   });
 
   it('shows error state when encode throws', async () => {

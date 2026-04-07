@@ -59,23 +59,31 @@ export interface RecentFile {
 
 export function addRecentFile(filePath: string): void {
   const database = getDatabase();
-  database.prepare(`
+  database
+    .prepare(
+      `
     INSERT INTO recent_files (file_path, last_opened, open_count)
     VALUES (?, datetime('now'), 1)
     ON CONFLICT(file_path) DO UPDATE SET
       last_opened = datetime('now'),
       open_count = open_count + 1
-  `).run(filePath);
+  `,
+    )
+    .run(filePath);
 }
 
 export function getRecentFiles(limit = 10): RecentFile[] {
   const database = getDatabase();
-  const rows = database.prepare(`
+  const rows = database
+    .prepare(
+      `
     SELECT file_path as filePath, last_opened as lastOpened, open_count as openCount
     FROM recent_files
     ORDER BY last_opened DESC
     LIMIT ?
-  `).all(limit) as RecentFile[];
+  `,
+    )
+    .all(limit) as RecentFile[];
   return rows;
 }
 
@@ -94,10 +102,14 @@ export function getPreference(key: string, defaultValue?: string): string | unde
 
 export function setPreference(key: string, value: string): void {
   const database = getDatabase();
-  database.prepare(`
+  database
+    .prepare(
+      `
     INSERT INTO preferences (key, value) VALUES (?, ?)
     ON CONFLICT(key) DO UPDATE SET value = ?
-  `).run(key, value, value);
+  `,
+    )
+    .run(key, value, value);
 }
 
 // --- Window State ---
@@ -130,9 +142,13 @@ export function getWindowState(): WindowState {
 
 export function saveWindowState(state: WindowState): void {
   const database = getDatabase();
-  database.prepare(`
+  database
+    .prepare(
+      `
     UPDATE window_state SET x = ?, y = ?, width = ?, height = ?, is_maximized = ? WHERE id = 1
-  `).run(state.x ?? null, state.y ?? null, state.width, state.height, state.isMaximized ? 1 : 0);
+  `,
+    )
+    .run(state.x ?? null, state.y ?? null, state.width, state.height, state.isMaximized ? 1 : 0);
 }
 
 // --- Cleanup ---

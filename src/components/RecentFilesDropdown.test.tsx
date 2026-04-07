@@ -36,9 +36,9 @@ describe('RecentFilesDropdown', () => {
   });
 
   it('shows full path as tooltip on each file item', async () => {
-    window.drwrite.getRecentFiles = vi.fn().mockResolvedValue([
-      { filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 },
-    ]);
+    window.drwrite.getRecentFiles = vi
+      .fn()
+      .mockResolvedValue([{ filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 }]);
 
     render(<RecentFilesDropdown onClose={onClose} />);
 
@@ -50,9 +50,9 @@ describe('RecentFilesDropdown', () => {
 
   it('calls openRecentFile and updates editor when file is clicked', async () => {
     const user = userEvent.setup();
-    window.drwrite.getRecentFiles = vi.fn().mockResolvedValue([
-      { filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 },
-    ]);
+    window.drwrite.getRecentFiles = vi
+      .fn()
+      .mockResolvedValue([{ filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 }]);
     window.drwrite.openRecentFile = vi.fn().mockResolvedValue({
       canceled: false,
       filePath: '/docs/readme.md',
@@ -86,9 +86,9 @@ describe('RecentFilesDropdown', () => {
 
   it('clear button calls clearRecentFiles and empties the list', async () => {
     const user = userEvent.setup();
-    window.drwrite.getRecentFiles = vi.fn().mockResolvedValue([
-      { filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 },
-    ]);
+    window.drwrite.getRecentFiles = vi
+      .fn()
+      .mockResolvedValue([{ filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 }]);
 
     render(<RecentFilesDropdown onClose={onClose} />);
 
@@ -113,9 +113,9 @@ describe('RecentFilesDropdown', () => {
   });
 
   it('extracts filename from Windows-style paths', async () => {
-    window.drwrite.getRecentFiles = vi.fn().mockResolvedValue([
-      { filePath: 'C:\\Users\\dev\\doc.md', lastOpened: '2026-04-01', openCount: 1 },
-    ]);
+    window.drwrite.getRecentFiles = vi
+      .fn()
+      .mockResolvedValue([{ filePath: 'C:\\Users\\dev\\doc.md', lastOpened: '2026-04-01', openCount: 1 }]);
 
     render(<RecentFilesDropdown onClose={onClose} />);
 
@@ -126,9 +126,9 @@ describe('RecentFilesDropdown', () => {
 
   it('does not update editor when openRecentFile is canceled', async () => {
     const user = userEvent.setup();
-    window.drwrite.getRecentFiles = vi.fn().mockResolvedValue([
-      { filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 },
-    ]);
+    window.drwrite.getRecentFiles = vi
+      .fn()
+      .mockResolvedValue([{ filePath: '/docs/readme.md', lastOpened: '2026-04-01', openCount: 1 }]);
     window.drwrite.openRecentFile = vi.fn().mockResolvedValue({ canceled: true });
 
     useEditorStore.setState({ markdown: '# Original' });

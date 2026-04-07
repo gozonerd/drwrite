@@ -37,9 +37,10 @@ export function WysiwygEditor() {
 
   // Stable debounced setter for scroll fraction (50ms to prevent scroll storms)
   const debouncedSetScrollFraction = useMemo(
-    () => debounce((fraction: number) => {
-      useEditorStore.getState().setScrollFraction(fraction);
-    }, 50),
+    () =>
+      debounce((fraction: number) => {
+        useEditorStore.getState().setScrollFraction(fraction);
+      }, 50),
     [],
   );
 

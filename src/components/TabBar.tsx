@@ -29,8 +29,10 @@ export function TabBar() {
   }
 
   return (
-    <div className="flex items-center bg-dw-bg-primary border-b border-dw-border overflow-x-auto select-none"
-         style={{ minHeight: '32px' }}>
+    <div
+      className="flex items-center bg-dw-bg-primary border-b border-dw-border overflow-x-auto select-none"
+      style={{ minHeight: '32px' }}
+    >
       {tabs.map((tab, index) => (
         <div
           key={tab.id}

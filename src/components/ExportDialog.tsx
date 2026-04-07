@@ -22,10 +22,7 @@ export function ExportDialog({ onExportPdf, onExportHtml, onPreview, onClose }: 
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={onClose}>
-      <div
-        className="bg-dw-bg-card rounded-lg shadow-xl p-6 w-96 max-w-[90vw]"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="bg-dw-bg-card rounded-lg shadow-xl p-6 w-96 max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
         <h2 className="text-lg font-semibold mb-4 text-dw-text-primary">Export Settings</h2>
 
         {/* Font Size */}
@@ -50,15 +47,11 @@ export function ExportDialog({ onExportPdf, onExportHtml, onPreview, onClose }: 
 
         {/* Margins */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-dw-text-secondary mb-2">
-            Margins (inches)
-          </label>
+          <label className="block text-sm font-medium text-dw-text-secondary mb-2">Margins (inches)</label>
           <div className="grid grid-cols-2 gap-2">
             {(['marginTop', 'marginBottom', 'marginLeft', 'marginRight'] as const).map((key) => (
               <div key={key} className="flex items-center gap-2">
-                <span className="text-xs text-dw-text-secondary w-14">
-                  {key.replace('margin', '')}
-                </span>
+                <span className="text-xs text-dw-text-secondary w-14">{key.replace('margin', '')}</span>
                 <input
                   type="number"
                   min="0"
@@ -75,9 +68,7 @@ export function ExportDialog({ onExportPdf, onExportHtml, onPreview, onClose }: 
 
         {/* Font Family */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-dw-text-secondary mb-1">
-            Font Family
-          </label>
+          <label className="block text-sm font-medium text-dw-text-secondary mb-1">Font Family</label>
           <select
             value={settings.fontFamily}
             onChange={(e) => update('fontFamily', e.target.value)}

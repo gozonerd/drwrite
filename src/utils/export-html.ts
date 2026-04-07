@@ -1,9 +1,9 @@
 export interface ExportSettings {
-  fontSize: number;      // px
-  marginTop: number;     // inches
-  marginBottom: number;  // inches
-  marginLeft: number;    // inches
-  marginRight: number;   // inches
+  fontSize: number; // px
+  marginTop: number; // inches
+  marginBottom: number; // inches
+  marginLeft: number; // inches
+  marginRight: number; // inches
   fontFamily: string;
 }
 
@@ -144,9 +144,5 @@ ${bodyHtml}
 }
 
 function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

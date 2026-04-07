@@ -16,9 +16,7 @@ function ToolbarButton({ label, title, onClick, active }: ToolbarButtonProps) {
       title={title}
       onClick={onClick}
       className={`px-2 py-0.5 text-sm rounded transition-colors ${
-        active
-          ? 'bg-dw-primary text-dw-bg-primary'
-          : 'text-dw-text-secondary hover:bg-dw-bg-card'
+        active ? 'bg-dw-primary text-dw-bg-primary' : 'text-dw-text-secondary hover:bg-dw-bg-card'
       }`}
     >
       {label}
@@ -63,9 +61,7 @@ export function Toolbar({ onExport }: ToolbarProps) {
   return (
     <div className="flex items-center gap-1 px-2 py-1 bg-dw-bg-panel border-b border-dw-border select-none">
       {/* File info */}
-      <span className="text-sm font-semibold text-dw-text-secondary mr-2">
-        {title}
-      </span>
+      <span className="text-sm font-semibold text-dw-text-secondary mr-2">{title}</span>
 
       <ToolbarDivider />
 
@@ -81,14 +77,10 @@ export function Toolbar({ onExport }: ToolbarProps) {
         >
           ▾
         </button>
-        {showRecent && (
-          <RecentFilesDropdown onClose={() => setShowRecent(false)} />
-        )}
+        {showRecent && <RecentFilesDropdown onClose={() => setShowRecent(false)} />}
       </div>
       <ToolbarButton label="Save" title="Save (Ctrl+S)" onClick={saveFile} />
-      {onExport && (
-        <ToolbarButton label="Export" title="Export PDF/HTML (Ctrl+E)" onClick={onExport} />
-      )}
+      {onExport && <ToolbarButton label="Export" title="Export PDF/HTML (Ctrl+E)" onClick={onExport} />}
 
       <ToolbarDivider />
 

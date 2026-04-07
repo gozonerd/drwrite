@@ -16,9 +16,7 @@ export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const [showExport, setShowExport] = useState(false);
   const [showKeybindings, setShowKeybindings] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(
-    () => !localStorage.getItem('drwrite-onboarded'),
-  );
+  const [showOnboarding, setShowOnboarding] = useState(() => !localStorage.getItem('drwrite-onboarded'));
   const [showSidebar, setShowSidebar] = useState(false);
   const filePath = useEditorStore((s) => s.filePath);
   const tabs = useTabStore((s) => s.tabs);
@@ -58,7 +56,7 @@ export function App() {
         markdown: state.markdown,
         filePath: state.filePath,
       });
-      const fileName = state.filePath ? state.filePath.split(/[/\\]/).pop() ?? 'Untitled' : 'Untitled';
+      const fileName = state.filePath ? (state.filePath.split(/[/\\]/).pop() ?? 'Untitled') : 'Untitled';
       useTabStore.getState().updateTab(activeTabId, {
         isDirty: state.isDirty,
         filePath: state.filePath,
@@ -91,9 +89,12 @@ export function App() {
     const timer = setInterval(() => {
       const { isDirty, filePath } = useEditorStore.getState();
       if (isDirty && filePath) {
-        useEditorStore.getState().saveFile().then(() => {
-          useEditorStore.setState({ lastAutoSave: Date.now() });
-        });
+        useEditorStore
+          .getState()
+          .saveFile()
+          .then(() => {
+            useEditorStore.setState({ lastAutoSave: Date.now() });
+          });
       }
     }, autoSaveInterval * 1000);
 
@@ -203,7 +204,12 @@ export function App() {
   async function handleExportPdf(settings: ExportSettings) {
     const bodyHtml = getEditorHtml();
     const filePath = useEditorStore.getState().filePath;
-    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const title = filePath
+      ? (filePath
+          .split(/[/\\]/)
+          .pop()
+          ?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export')
+      : 'DrWrite Export';
     const html = generatePrintHtml(bodyHtml, settings, title);
     await window.drwrite.exportPdf({ html });
     setShowExport(false);
@@ -212,7 +218,12 @@ export function App() {
   async function handleExportHtml(settings: ExportSettings) {
     const bodyHtml = getEditorHtml();
     const filePath = useEditorStore.getState().filePath;
-    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const title = filePath
+      ? (filePath
+          .split(/[/\\]/)
+          .pop()
+          ?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export')
+      : 'DrWrite Export';
     const html = generatePrintHtml(bodyHtml, settings, title);
     await window.drwrite.exportHtml({ html });
     setShowExport(false);
@@ -221,7 +232,12 @@ export function App() {
   async function handlePreview(settings: ExportSettings) {
     const bodyHtml = getEditorHtml();
     const filePath = useEditorStore.getState().filePath;
-    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const title = filePath
+      ? (filePath
+          .split(/[/\\]/)
+          .pop()
+          ?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export')
+      : 'DrWrite Export';
     const html = generatePrintHtml(bodyHtml, settings, title);
     await window.drwrite.previewHtml({ html });
   }
@@ -269,14 +285,10 @@ export function App() {
       )}
 
       {/* Keybinding dialog */}
-      {showKeybindings && (
-        <KeybindingDialog onClose={() => setShowKeybindings(false)} />
-      )}
+      {showKeybindings && <KeybindingDialog onClose={() => setShowKeybindings(false)} />}
 
       {/* Onboarding dialog — first-run only */}
-      {showOnboarding && (
-        <OnboardingDialog onClose={() => setShowOnboarding(false)} />
-      )}
+      {showOnboarding && <OnboardingDialog onClose={() => setShowOnboarding(false)} />}
     </div>
   );
 }

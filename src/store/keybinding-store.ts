@@ -26,7 +26,9 @@ const DEFAULT_BINDINGS: Keybinding[] = [
 
 const STORAGE_KEY = 'drwrite-keybindings';
 
-function loadOverrides(): Partial<Record<string, Partial<Pick<Keybinding, 'key' | 'ctrlKey' | 'shiftKey' | 'metaKey'>>>> {
+function loadOverrides(): Partial<
+  Record<string, Partial<Pick<Keybinding, 'key' | 'ctrlKey' | 'shiftKey' | 'metaKey'>>>
+> {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -84,9 +86,7 @@ export const useKeybindingStore = create<KeybindingState>((set, get) => ({
 
   updateBinding: (id, updates) => {
     set((state) => {
-      const newBindings = state.bindings.map((b) =>
-        b.id === id ? { ...b, ...updates } : b,
-      );
+      const newBindings = state.bindings.map((b) => (b.id === id ? { ...b, ...updates } : b));
       saveOverrides(newBindings);
       return { bindings: newBindings };
     });

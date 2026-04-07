@@ -23,7 +23,9 @@ export function RecentFilesDropdown({ onClose }: RecentFilesDropdownProps) {
         setLoading(false);
       }
     });
-    return () => { canceled = true; };
+    return () => {
+      canceled = true;
+    };
   }, []);
 
   async function handleFileClick(filePath: string) {

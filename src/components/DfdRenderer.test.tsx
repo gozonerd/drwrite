@@ -47,12 +47,7 @@ describe('DfdRenderer', () => {
     mockedParseDfd.mockReturnValue({ nodes, flows });
     mockedLayoutNodes.mockReturnValue(nodes);
 
-    render(
-      <DfdRenderer
-        code={'process P1 "Process"\nexternal E1 "External"\nflow E1 -> P1 "Data"'}
-        id="dfd-1"
-      />,
-    );
+    render(<DfdRenderer code={'process P1 "Process"\nexternal E1 "External"\nflow E1 -> P1 "Data"'} id="dfd-1" />);
 
     await waitFor(() => {
       expect(mockedParseDfd).toHaveBeenCalled();

@@ -48,16 +48,13 @@ describe('FileTreeSidebar', () => {
     const user = userEvent.setup();
 
     // Root listing returns a folder
-    window.drwrite.readDirectory = vi.fn()
+    window.drwrite.readDirectory = vi
+      .fn()
       .mockResolvedValueOnce({
-        entries: [
-          { name: 'docs', isDirectory: true, path: '/test/docs' },
-        ],
+        entries: [{ name: 'docs', isDirectory: true, path: '/test/docs' }],
       })
       .mockResolvedValueOnce({
-        entries: [
-          { name: 'guide.md', isDirectory: false, path: '/test/docs/guide.md' },
-        ],
+        entries: [{ name: 'guide.md', isDirectory: false, path: '/test/docs/guide.md' }],
       });
 
     render(<FileTreeSidebar rootDir="/test" onOpenFile={onOpenFile} visible={true} />);
@@ -90,9 +87,7 @@ describe('FileTreeSidebar', () => {
     const user = userEvent.setup();
 
     window.drwrite.readDirectory = vi.fn().mockResolvedValue({
-      entries: [
-        { name: 'document.md', isDirectory: false, path: '/test/document.md' },
-      ],
+      entries: [{ name: 'document.md', isDirectory: false, path: '/test/document.md' }],
     });
 
     render(<FileTreeSidebar rootDir="/test" onOpenFile={onOpenFile} visible={true} />);
@@ -121,9 +116,7 @@ describe('FileTreeSidebar', () => {
     const user = userEvent.setup();
 
     window.drwrite.readDirectory = vi.fn().mockResolvedValue({
-      entries: [
-        { name: 'image.png', isDirectory: false, path: '/test/image.png' },
-      ],
+      entries: [{ name: 'image.png', isDirectory: false, path: '/test/image.png' }],
     });
 
     render(<FileTreeSidebar rootDir="/test" onOpenFile={onOpenFile} visible={true} />);
@@ -138,7 +131,8 @@ describe('FileTreeSidebar', () => {
   });
 
   it('reloads entries when rootDir changes', async () => {
-    const readDirMock = vi.fn()
+    const readDirMock = vi
+      .fn()
       .mockResolvedValueOnce({
         entries: [{ name: 'a.md', isDirectory: false, path: '/dir1/a.md' }],
       })
@@ -147,17 +141,13 @@ describe('FileTreeSidebar', () => {
       });
     window.drwrite.readDirectory = readDirMock;
 
-    const { rerender } = render(
-      <FileTreeSidebar rootDir="/dir1" onOpenFile={onOpenFile} visible={true} />,
-    );
+    const { rerender } = render(<FileTreeSidebar rootDir="/dir1" onOpenFile={onOpenFile} visible={true} />);
 
     await vi.waitFor(() => {
       expect(screen.getByText('a.md')).toBeInTheDocument();
     });
 
-    rerender(
-      <FileTreeSidebar rootDir="/dir2" onOpenFile={onOpenFile} visible={true} />,
-    );
+    rerender(<FileTreeSidebar rootDir="/dir2" onOpenFile={onOpenFile} visible={true} />);
 
     await vi.waitFor(() => {
       expect(screen.getByText('b.md')).toBeInTheDocument();

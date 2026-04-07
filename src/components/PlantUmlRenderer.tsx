@@ -35,9 +35,7 @@ export function PlantUmlRenderer({ code, id }: PlantUmlRendererProps) {
 
   return (
     <div className="my-2 flex justify-center overflow-x-auto">
-      {loading && (
-        <div className="text-gray-400 text-sm py-4">Rendering PlantUML...</div>
-      )}
+      {loading && <div className="text-gray-400 text-sm py-4">Rendering PlantUML...</div>}
       {svgUrl && (
         <img
           src={svgUrl}

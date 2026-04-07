@@ -7,10 +7,18 @@ Object.defineProperty(window, 'matchMedia', {
     matches: query === '(prefers-color-scheme: dark)',
     media: query,
     onchange: null,
-    addListener: () => { /* noop */ },
-    removeListener: () => { /* noop */ },
-    addEventListener: () => { /* noop */ },
-    removeEventListener: () => { /* noop */ },
+    addListener: () => {
+      /* noop */
+    },
+    removeListener: () => {
+      /* noop */
+    },
+    addEventListener: () => {
+      /* noop */
+    },
+    removeEventListener: () => {
+      /* noop */
+    },
     dispatchEvent: () => false,
   }),
 });
@@ -31,7 +39,9 @@ Object.defineProperty(window, 'drwrite', {
     getGitStatus: async () => ({ isRepo: false }),
     watchFile: async () => ({ success: true }),
     unwatchFile: async () => ({ success: true }),
-    onFileChanged: () => () => { /* noop */ },
+    onFileChanged: () => () => {
+      /* noop */
+    },
     readDirectory: async () => ({ entries: [] }),
   },
 });
@@ -41,8 +51,14 @@ const store: Record<string, string> = {};
 Object.defineProperty(window, 'localStorage', {
   value: {
     getItem: (key: string) => store[key] ?? null,
-    setItem: (key: string, value: string) => { store[key] = value; },
-    removeItem: (key: string) => { delete store[key]; },
-    clear: () => { Object.keys(store).forEach((k) => delete store[k]); },
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      Object.keys(store).forEach((k) => delete store[k]);
+    },
   },
 });

@@ -23,9 +23,7 @@ describe('MermaidRenderer', () => {
   it('renders successfully with valid mermaid code', async () => {
     mockedRender.mockResolvedValue({ svg: '<svg data-testid="mermaid-svg">diagram</svg>' });
 
-    const { container } = render(
-      <MermaidRenderer code="graph TD; A-->B;" id="test-1" />,
-    );
+    const { container } = render(<MermaidRenderer code="graph TD; A-->B;" id="test-1" />);
 
     await waitFor(() => {
       expect(mockedRender).toHaveBeenCalledWith('mermaid-test-1', 'graph TD; A-->B;');

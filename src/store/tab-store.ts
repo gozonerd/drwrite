@@ -89,9 +89,7 @@ export const useTabStore = create<TabState>((set, get) => ({
 
   updateTab: (tabId, updates) => {
     set((state) => ({
-      tabs: state.tabs.map((t) =>
-        t.id === tabId ? { ...t, ...updates } : t,
-      ),
+      tabs: state.tabs.map((t) => (t.id === tabId ? { ...t, ...updates } : t)),
     }));
   },
 

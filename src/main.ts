@@ -4,7 +4,14 @@ import fs from 'node:fs';
 import os from 'node:os';
 import { simpleGit } from 'simple-git';
 import chokidar from 'chokidar';
-import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRecentFiles, closeDatabase } from './db/database';
+import {
+  getWindowState,
+  saveWindowState,
+  addRecentFile,
+  getRecentFiles,
+  clearRecentFiles,
+  closeDatabase,
+} from './db/database';
 import { initAutoUpdater } from './auto-update';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
@@ -66,9 +73,7 @@ const createWindow = () => {
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
-    mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
-    );
+    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
   // Uncomment to open DevTools for debugging:
@@ -207,7 +212,11 @@ ipcMain.handle('file:preview', async (_event, { html }: { html: string }) => {
 
     // Clean up temp file when window closes
     previewWin.on('closed', () => {
-      try { fs.unlinkSync(tmpFile); } catch { /* already deleted */ }
+      try {
+        fs.unlinkSync(tmpFile);
+      } catch {
+        /* already deleted */
+      }
     });
 
     return { success: true };
@@ -306,10 +315,7 @@ ipcMain.handle('git:status', async (_event, { filePath }: { filePath: string }) 
     const isRepo = await git.checkIsRepo();
     if (!isRepo) return { isRepo: false };
 
-    const [branch, status] = await Promise.all([
-      git.branchLocal(),
-      git.status(),
-    ]);
+    const [branch, status] = await Promise.all([git.branchLocal(), git.status()]);
 
     const fileName = path.basename(filePath);
     const fileStatus = status.files.find((f) => f.path === fileName || filePath.endsWith(f.path));

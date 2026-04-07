@@ -18,9 +18,7 @@ describe('OnboardingDialog', () => {
 
   it('renders the app description', () => {
     render(<OnboardingDialog onClose={onClose} />);
-    expect(
-      screen.getByText('Split-view markdown editor with diagram rendering and print export'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Split-view markdown editor with diagram rendering and print export')).toBeInTheDocument();
   });
 
   it('renders keyboard shortcuts table with all entries', () => {

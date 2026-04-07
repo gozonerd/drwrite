@@ -63,10 +63,5 @@ export function MermaidRenderer({ code, id }: MermaidRendererProps) {
     return <DiagramError type="Mermaid" error={error} />;
   }
 
-  return (
-    <div
-      ref={containerRef}
-      className="my-2 flex justify-center overflow-x-auto"
-    />
-  );
+  return <div ref={containerRef} className="my-2 flex justify-center overflow-x-auto" />;
 }

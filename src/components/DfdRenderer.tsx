@@ -18,7 +18,9 @@ export function DfdRenderer({ code, id }: DfdRendererProps) {
     try {
       const { nodes, flows } = parseDfd(code);
       if (nodes.length === 0) {
-        setError('No DFD nodes found. Use: process P1 "Label", datastore D1 "Label", external E1 "Label", flow P1 -> D1 "Label"');
+        setError(
+          'No DFD nodes found. Use: process P1 "Label", datastore D1 "Label", external E1 "Label", flow P1 -> D1 "Label"',
+        );
         return;
       }
 
@@ -32,7 +34,9 @@ export function DfdRenderer({ code, id }: DfdRendererProps) {
       svg.attr('viewBox', `0 0 ${width} ${height}`);
 
       // Arrow marker
-      svg.append('defs').append('marker')
+      svg
+        .append('defs')
+        .append('marker')
         .attr('id', `arrow-${id}`)
         .attr('viewBox', '0 0 10 10')
         .attr('refX', 10)
@@ -63,15 +67,19 @@ export function DfdRenderer({ code, id }: DfdRendererProps) {
         const x2 = to.x - nx * offset;
         const y2 = to.y - ny * offset;
 
-        svg.append('line')
-          .attr('x1', x1).attr('y1', y1)
-          .attr('x2', x2).attr('y2', y2)
+        svg
+          .append('line')
+          .attr('x1', x1)
+          .attr('y1', y1)
+          .attr('x2', x2)
+          .attr('y2', y2)
           .attr('stroke', '#94a3b8')
           .attr('stroke-width', 1.5)
           .attr('marker-end', `url(#arrow-${id})`);
 
         // Flow label
-        svg.append('text')
+        svg
+          .append('text')
           .attr('x', (x1 + x2) / 2)
           .attr('y', (y1 + y2) / 2 - 8)
           .attr('text-anchor', 'middle')

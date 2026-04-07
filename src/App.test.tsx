@@ -7,25 +7,51 @@ import { useTabStore } from './store/tab-store';
 let capturedOnExportPdf: ((s: unknown) => void) | null = null;
 let capturedOnExportHtml: ((s: unknown) => void) | null = null;
 
-vi.mock('./components/Toolbar', () => ({ Toolbar: ({ onExport }: { onExport: () => void }) => <div data-testid="toolbar" onClick={onExport}>Toolbar</div> }));
+vi.mock('./components/Toolbar', () => ({
+  Toolbar: ({ onExport }: { onExport: () => void }) => (
+    <div data-testid="toolbar" onClick={onExport}>
+      Toolbar
+    </div>
+  ),
+}));
 vi.mock('./components/TabBar', () => ({ TabBar: () => <div data-testid="tabbar">TabBar</div> }));
 vi.mock('./components/SplitView', () => ({ SplitView: () => <div data-testid="splitview">SplitView</div> }));
 vi.mock('./components/StatusBar', () => ({ StatusBar: () => <div data-testid="statusbar">StatusBar</div> }));
 vi.mock('./components/ExportDialog', () => ({
-  ExportDialog: ({ onClose, onExportPdf, onExportHtml }: { onClose: () => void; onExportPdf: (s: unknown) => void; onExportHtml: (s: unknown) => void }) => {
+  ExportDialog: ({
+    onClose,
+    onExportPdf,
+    onExportHtml,
+  }: {
+    onClose: () => void;
+    onExportPdf: (s: unknown) => void;
+    onExportHtml: (s: unknown) => void;
+  }) => {
     capturedOnExportPdf = onExportPdf;
     capturedOnExportHtml = onExportHtml;
-    return <div data-testid="export-dialog"><button onClick={onClose}>Close</button></div>;
+    return (
+      <div data-testid="export-dialog">
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
   },
 }));
 vi.mock('./components/KeybindingDialog', () => ({
   KeybindingDialog: ({ onClose }: { onClose: () => void }) => {
-    return <div data-testid="keybinding-dialog"><button onClick={onClose}>CloseKB</button></div>;
+    return (
+      <div data-testid="keybinding-dialog">
+        <button onClick={onClose}>CloseKB</button>
+      </div>
+    );
   },
 }));
 vi.mock('./components/OnboardingDialog', () => ({
   OnboardingDialog: ({ onClose }: { onClose: () => void }) => {
-    return <div data-testid="onboarding-dialog"><button onClick={onClose}>Got it</button></div>;
+    return (
+      <div data-testid="onboarding-dialog">
+        <button onClick={onClose}>Got it</button>
+      </div>
+    );
   },
 }));
 vi.mock('./components/FileTreeSidebar', () => ({
@@ -60,7 +86,9 @@ describe('App', () => {
     // Mock onFileChanged to capture the callback
     window.drwrite.onFileChanged = (cb: (arg: { filePath: string }) => void) => {
       fileChangedCallback = cb;
-      return () => { fileChangedCallback = null; };
+      return () => {
+        fileChangedCallback = null;
+      };
     };
 
     useEditorStore.setState({

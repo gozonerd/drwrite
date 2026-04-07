@@ -61,8 +61,7 @@ export const useEditorStore = create<EditorState>((set) => ({
   activeEditor: null,
   scrollFraction: 0,
 
-  setMarkdown: (markdown, source) =>
-    set({ markdown, lastEditedBy: source, isDirty: true }),
+  setMarkdown: (markdown, source) => set({ markdown, lastEditedBy: source, isDirty: true }),
 
   setMarkdownDebounced: (markdown, source) => {
     if (debounceTimer) clearTimeout(debounceTimer);
@@ -77,8 +76,7 @@ export const useEditorStore = create<EditorState>((set) => ({
 
   clearLastEditedBy: () => set({ lastEditedBy: null }),
 
-  setSplitRatio: (splitRatio) =>
-    set({ splitRatio: Math.max(0.15, Math.min(0.85, splitRatio)) }),
+  setSplitRatio: (splitRatio) => set({ splitRatio: Math.max(0.15, Math.min(0.85, splitRatio)) }),
 
   setDarkMode: (darkMode) => {
     localStorage.setItem('drwrite-dark-mode', JSON.stringify(darkMode));
@@ -95,13 +93,15 @@ export const useEditorStore = create<EditorState>((set) => ({
       lastEditedBy: null,
     }),
 
-  setScrollFraction: (fraction) =>
-    set({ scrollFraction: Math.max(0, Math.min(1, fraction)) }),
+  setScrollFraction: (fraction) => set({ scrollFraction: Math.max(0, Math.min(1, fraction)) }),
 
   setAutoSave: (enabled, interval) => {
     const updates: Partial<EditorState> = { autoSaveEnabled: enabled };
     if (interval !== undefined) updates.autoSaveInterval = interval;
-    localStorage.setItem('drwrite-auto-save', JSON.stringify({ enabled, interval: interval ?? useEditorStore.getState().autoSaveInterval }));
+    localStorage.setItem(
+      'drwrite-auto-save',
+      JSON.stringify({ enabled, interval: interval ?? useEditorStore.getState().autoSaveInterval }),
+    );
     set(updates);
   },
 

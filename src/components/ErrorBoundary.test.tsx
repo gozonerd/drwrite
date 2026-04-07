@@ -9,7 +9,9 @@ function Bomb(): JSX.Element {
 
 describe('ErrorBoundary', () => {
   beforeEach(() => {
-    vi.spyOn(console, 'error').mockImplementation(() => { /* noop */ });
+    vi.spyOn(console, 'error').mockImplementation(() => {
+      /* noop */
+    });
   });
 
   afterEach(() => {

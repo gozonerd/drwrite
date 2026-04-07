@@ -53,7 +53,9 @@ export function StatusBar() {
     }
 
     fetchGitStatus();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [filePath]);
 
   return (
@@ -71,14 +73,8 @@ export function StatusBar() {
         )}
       </div>
       <div className="flex items-center gap-4">
-        {showAutoSaved && (
-          <span className="text-dw-success">Auto-saved</span>
-        )}
-        {isDirty && !showAutoSaved && (
-          <span className="text-dw-warning">
-            ● Modified
-          </span>
-        )}
+        {showAutoSaved && <span className="text-dw-success">Auto-saved</span>}
+        {isDirty && !showAutoSaved && <span className="text-dw-warning">● Modified</span>}
         <span>{fileName}</span>
         <span>UTF-8</span>
       </div>

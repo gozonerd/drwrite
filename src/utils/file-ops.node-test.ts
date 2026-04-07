@@ -54,17 +54,10 @@ describe('writeFileContent', () => {
   });
 
   it('returns error for invalid path', () => {
-    const badPath = path.join(
-      os.tmpdir(),
-      'nonexistent-dir-' + Date.now(),
-      'subdir',
-      'file.md',
-    );
+    const badPath = path.join(os.tmpdir(), 'nonexistent-dir-' + Date.now(), 'subdir', 'file.md');
 
     const result = writeFileContent(badPath, 'content');
-    expect(result).toEqual(
-      expect.objectContaining({ success: false }),
-    );
+    expect(result).toEqual(expect.objectContaining({ success: false }));
     expect((result as { success: false; error: string }).error).toContain('ENOENT');
   });
 });

@@ -68,10 +68,7 @@ export function SplitView() {
       style={{ cursor: isDragging ? 'col-resize' : undefined }}
     >
       {/* Left panel — Source editor with minimap overlay */}
-      <div
-        className="relative overflow-auto bg-dw-bg-editor"
-        style={{ width: leftWidth, minWidth: MIN_PANEL_WIDTH }}
-      >
+      <div className="relative overflow-auto bg-dw-bg-editor" style={{ width: leftWidth, minWidth: MIN_PANEL_WIDTH }}>
         <SourceEditor />
         <Minimap
           markdown={markdown}
@@ -84,9 +81,7 @@ export function SplitView() {
       {/* Drag handle */}
       <div
         className={`w-1.5 flex-shrink-0 cursor-col-resize transition-colors ${
-          isDragging
-            ? 'bg-dw-handle-active'
-            : 'bg-dw-handle hover:bg-dw-handle-hover'
+          isDragging ? 'bg-dw-handle-active' : 'bg-dw-handle hover:bg-dw-handle-hover'
         }`}
         onMouseDown={handleMouseDown}
         onDoubleClick={handleDoubleClick}
@@ -97,10 +92,7 @@ export function SplitView() {
       />
 
       {/* Right panel — WYSIWYG editor */}
-      <div
-        className="overflow-auto bg-dw-bg-card"
-        style={{ width: rightWidth, minWidth: MIN_PANEL_WIDTH }}
-      >
+      <div className="overflow-auto bg-dw-bg-card" style={{ width: rightWidth, minWidth: MIN_PANEL_WIDTH }}>
         <WysiwygEditor />
       </div>
     </div>

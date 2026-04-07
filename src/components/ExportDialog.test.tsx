@@ -61,10 +61,12 @@ describe('ExportDialog', () => {
 
     await user.click(screen.getByText('Export PDF'));
     expect(onExportPdf).toHaveBeenCalledOnce();
-    expect(onExportPdf).toHaveBeenCalledWith(expect.objectContaining({
-      fontSize: expect.any(Number),
-      marginTop: expect.any(Number),
-    }));
+    expect(onExportPdf).toHaveBeenCalledWith(
+      expect.objectContaining({
+        fontSize: expect.any(Number),
+        marginTop: expect.any(Number),
+      }),
+    );
   });
 
   it('calls onExportHtml when Export HTML is clicked', async () => {
@@ -187,14 +189,17 @@ describe('ExportDialog', () => {
   });
 
   it('loads stored settings from localStorage on mount', () => {
-    localStorage.setItem('drwrite-export-settings', JSON.stringify({
-      fontSize: 22,
-      marginTop: 2,
-      marginBottom: 2,
-      marginLeft: 1.5,
-      marginRight: 1.5,
-      fontFamily: '"Georgia", "Times New Roman", serif',
-    }));
+    localStorage.setItem(
+      'drwrite-export-settings',
+      JSON.stringify({
+        fontSize: 22,
+        marginTop: 2,
+        marginBottom: 2,
+        marginLeft: 1.5,
+        marginRight: 1.5,
+        fontFamily: '"Georgia", "Times New Roman", serif',
+      }),
+    );
 
     render(<ExportDialog {...defaultProps} />);
 
@@ -214,8 +219,10 @@ describe('ExportDialog', () => {
     // Now click export
     await user.click(screen.getByText('Export PDF'));
 
-    expect(onExportPdf).toHaveBeenCalledWith(expect.objectContaining({
-      fontSize: 16,
-    }));
+    expect(onExportPdf).toHaveBeenCalledWith(
+      expect.objectContaining({
+        fontSize: 16,
+      }),
+    );
   });
 });

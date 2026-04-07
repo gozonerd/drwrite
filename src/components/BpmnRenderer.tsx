@@ -8,7 +8,11 @@ interface BpmnRendererProps {
 
 export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<{ destroy: () => void; importXML: (xml: string) => Promise<void>; get: (name: string) => unknown } | null>(null);
+  const viewerRef = useRef<{
+    destroy: () => void;
+    importXML: (xml: string) => Promise<void>;
+    get: (name: string) => unknown;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

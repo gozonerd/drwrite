@@ -21,9 +21,7 @@ describe('GraphvizRenderer', () => {
   it('renders successfully with valid DOT code', async () => {
     mockDot.mockReturnValue('<svg data-testid="gv-svg"><g>digraph</g></svg>');
 
-    const { container } = render(
-      <GraphvizRenderer code='digraph { A -> B; }' id="gv-1" />,
-    );
+    const { container } = render(<GraphvizRenderer code="digraph { A -> B; }" id="gv-1" />);
 
     await waitFor(() => {
       expect(mockLoad).toHaveBeenCalled();
@@ -41,7 +39,7 @@ describe('GraphvizRenderer', () => {
   it('shows error state when Graphviz.load rejects', async () => {
     mockLoad.mockRejectedValue(new Error('WASM load failed'));
 
-    render(<GraphvizRenderer code='digraph { X -> Y; }' id="gv-load-err" />);
+    render(<GraphvizRenderer code="digraph { X -> Y; }" id="gv-load-err" />);
 
     await waitFor(() => {
       expect(screen.getByText('Graphviz Error')).toBeInTheDocument();
@@ -79,9 +77,13 @@ describe('GraphvizRenderer', () => {
   });
 
   it('shows loading state initially', () => {
-    mockLoad.mockReturnValue(new Promise(() => { /* noop */ })); // Never resolves
+    mockLoad.mockReturnValue(
+      new Promise(() => {
+        /* noop */
+      }),
+    ); // Never resolves
 
-    render(<GraphvizRenderer code='digraph { A -> B; }' id="gv-loading" />);
+    render(<GraphvizRenderer code="digraph { A -> B; }" id="gv-loading" />);
 
     expect(screen.getByText('Rendering Graphviz...')).toBeInTheDocument();
   });

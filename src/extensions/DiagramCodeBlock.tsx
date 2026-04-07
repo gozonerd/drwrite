@@ -26,16 +26,7 @@ export function getDiagramBadgeClass(label: string): string {
   }
 }
 
-const DIAGRAM_LANGUAGES = new Set([
-  'mermaid',
-  'bpmn',
-  'dfd',
-  'plantuml',
-  'graphviz',
-  'dot',
-  'html-interactive',
-  'd3',
-]);
+const DIAGRAM_LANGUAGES = new Set(['mermaid', 'bpmn', 'dfd', 'plantuml', 'graphviz', 'dot', 'html-interactive', 'd3']);
 
 function DiagramCodeBlockView({ node }: { node: { textContent: string; attrs: Record<string, string> } }) {
   const language = (node.attrs.language || '').toLowerCase();
@@ -76,7 +67,9 @@ function DiagramCodeBlockView({ node }: { node: { textContent: string; attrs: Re
       return (
         <NodeViewWrapper>
           <div className="relative group my-2">
-            <div className={`absolute top-1 right-1 z-10 text-xs px-1.5 py-0.5 rounded ${getDiagramBadgeClass(label)} opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none`}>
+            <div
+              className={`absolute top-1 right-1 z-10 text-xs px-1.5 py-0.5 rounded ${getDiagramBadgeClass(label)} opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none`}
+            >
               {label}
             </div>
             {renderer}

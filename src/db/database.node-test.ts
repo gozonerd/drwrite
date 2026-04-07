@@ -51,9 +51,7 @@ describe('schema initialization', () => {
     const db = dbModule.getDatabase();
 
     const tables = db
-      .prepare(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name",
-      )
+      .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")
       .all() as { name: string }[];
 
     const tableNames = tables.map((t) => t.name).sort();
@@ -88,22 +86,16 @@ describe('getRecentFiles', () => {
     const db = dbModule.getDatabase();
 
     // Insert with explicit timestamps to control ordering
-    db.prepare(
-      "INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now', '-2 minutes'))",
-    ).run('/tmp/old.md');
-    db.prepare(
-      "INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now', '-1 minutes'))",
-    ).run('/tmp/mid.md');
-    db.prepare(
-      "INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now'))",
-    ).run('/tmp/new.md');
+    db.prepare("INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now', '-2 minutes'))").run(
+      '/tmp/old.md',
+    );
+    db.prepare("INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now', '-1 minutes'))").run(
+      '/tmp/mid.md',
+    );
+    db.prepare("INSERT INTO recent_files (file_path, last_opened) VALUES (?, datetime('now'))").run('/tmp/new.md');
 
     const files = dbModule.getRecentFiles();
-    expect(files.map((f) => f.filePath)).toEqual([
-      '/tmp/new.md',
-      '/tmp/mid.md',
-      '/tmp/old.md',
-    ]);
+    expect(files.map((f) => f.filePath)).toEqual(['/tmp/new.md', '/tmp/mid.md', '/tmp/old.md']);
   });
 
   it('respects limit parameter', () => {
