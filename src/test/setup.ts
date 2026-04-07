@@ -7,10 +7,10 @@ Object.defineProperty(window, 'matchMedia', {
     matches: query === '(prefers-color-scheme: dark)',
     media: query,
     onchange: null,
-    addListener: () => {},
-    removeListener: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
+    addListener: () => { /* noop */ },
+    removeListener: () => { /* noop */ },
+    addEventListener: () => { /* noop */ },
+    removeEventListener: () => { /* noop */ },
     dispatchEvent: () => false,
   }),
 });
@@ -30,7 +30,7 @@ Object.defineProperty(window, 'drwrite', {
     getGitStatus: async () => ({ isRepo: false }),
     watchFile: async () => ({ success: true }),
     unwatchFile: async () => ({ success: true }),
-    onFileChanged: () => () => {},
+    onFileChanged: () => () => { /* noop */ },
   },
 });
 

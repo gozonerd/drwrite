@@ -30,7 +30,7 @@ describe('SplitView', () => {
 
     // Source should come before WYSIWYG in DOM order (flex layout = left to right)
     const container = source.closest('.flex');
-    const children = Array.from(container!.children);
+    const children = Array.from(container?.children ?? []);
     const sourceIndex = children.findIndex((c) => c.contains(source));
     const wysiwygIndex = children.findIndex((c) => c.contains(wysiwyg));
     expect(sourceIndex).toBeLessThan(wysiwygIndex);

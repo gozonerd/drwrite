@@ -79,7 +79,7 @@ describe('GraphvizRenderer', () => {
   });
 
   it('shows loading state initially', () => {
-    mockLoad.mockReturnValue(new Promise(() => {})); // Never resolves
+    mockLoad.mockReturnValue(new Promise(() => { /* noop */ })); // Never resolves
 
     render(<GraphvizRenderer code='digraph { A -> B; }' id="gv-loading" />);
 

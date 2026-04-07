@@ -89,13 +89,17 @@ describe('layoutNodes', () => {
 
     layoutNodes(nodes, 900, 300);
 
-    const ext = nodes.find((n) => n.id === 'E1')!;
-    const proc = nodes.find((n) => n.id === 'P1')!;
-    const ds = nodes.find((n) => n.id === 'D1')!;
+    const ext = nodes.find((n) => n.id === 'E1');
+    const proc = nodes.find((n) => n.id === 'P1');
+    const ds = nodes.find((n) => n.id === 'D1');
+
+    expect(ext).toBeDefined();
+    expect(proc).toBeDefined();
+    expect(ds).toBeDefined();
 
     // External should be leftmost, process center, datastore rightmost
-    expect(ext.x!).toBeLessThan(proc.x!);
-    expect(proc.x!).toBeLessThan(ds.x!);
+    expect(ext?.x).toBeLessThan(proc?.x ?? 0);
+    expect(proc?.x).toBeLessThan(ds?.x ?? 0);
   });
 
   it('distributes multiple nodes vertically within columns', () => {
@@ -110,7 +114,7 @@ describe('layoutNodes', () => {
     // All in same column (center), different y positions
     expect(nodes[0].x).toBe(nodes[1].x);
     expect(nodes[1].x).toBe(nodes[2].x);
-    expect(nodes[0].y!).toBeLessThan(nodes[1].y!);
-    expect(nodes[1].y!).toBeLessThan(nodes[2].y!);
+    expect(nodes[0].y).toBeLessThan(nodes[1].y ?? 0);
+    expect(nodes[1].y).toBeLessThan(nodes[2].y ?? 0);
   });
 });

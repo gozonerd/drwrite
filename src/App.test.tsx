@@ -3,11 +3,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { useEditorStore } from './store/editor-store';
 import { useTabStore } from './store/tab-store';
 
-vi.mock('./components/Toolbar', () => ({ Toolbar: ({ onExport }: any) => <div data-testid="toolbar" onClick={onExport}>Toolbar</div> }));
+vi.mock('./components/Toolbar', () => ({ Toolbar: ({ onExport }: { onExport: () => void }) => <div data-testid="toolbar" onClick={onExport}>Toolbar</div> }));
 vi.mock('./components/TabBar', () => ({ TabBar: () => <div data-testid="tabbar">TabBar</div> }));
 vi.mock('./components/SplitView', () => ({ SplitView: () => <div data-testid="splitview">SplitView</div> }));
 vi.mock('./components/StatusBar', () => ({ StatusBar: () => <div data-testid="statusbar">StatusBar</div> }));
-vi.mock('./components/ExportDialog', () => ({ ExportDialog: ({ onClose }: any) => <div data-testid="export-dialog"><button onClick={onClose}>Close</button></div> }));
+vi.mock('./components/ExportDialog', () => ({ ExportDialog: ({ onClose }: { onClose: () => void }) => <div data-testid="export-dialog"><button onClick={onClose}>Close</button></div> }));
 
 vi.mock('./utils/export-html', () => ({
   generatePrintHtml: vi.fn(() => '<html></html>'),

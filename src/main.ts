@@ -9,6 +9,7 @@ import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRe
 // electron-squirrel-startup can cause immediate exit on Windows dev
 // Only use in production/installed context
 try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const started = require('electron-squirrel-startup');
   if (started) {
     app.quit();
@@ -222,6 +223,7 @@ ipcMain.handle('watch:start', async (_event, { filePath }: { filePath: string })
     fileWatcher = null;
   }
 
+  // eslint-disable-next-line import/no-named-as-default-member
   fileWatcher = chokidar.watch(filePath, {
     persistent: true,
     ignoreInitial: true,

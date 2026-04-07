@@ -8,9 +8,6 @@ import { StatusBar } from './components/StatusBar';
 import { ExportDialog } from './components/ExportDialog';
 import { generatePrintHtml, ExportSettings } from './utils/export-html';
 
-// Per-tab markdown content cache (keyed by tab ID)
-const tabContentCache = new Map<string, { markdown: string; filePath: string | null }>();
-
 export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const [showExport, setShowExport] = useState(false);
@@ -28,23 +25,11 @@ export function App() {
   useEffect(() => {
     if (!activeTabId) return;
 
-    // Save current editor state to cache for the previous tab
-    const prevTabId = tabContentCache.get('__active')?.markdown;
-    const currentContent = useEditorStore.getState().markdown;
-    const currentPath = useEditorStore.getState().filePath;
-
-    // Find the previously active tab (before this switch) and cache its content
-    for (const [id] of tabContentCache) {
-      if (id !== '__active' && id !== activeTabId) {
-        // Already cached from previous saves
-      }
-    }
-
     // Cache current state under the active tab before switching
     // (This runs on every activeTabId change, so it saves the "previous" state)
 
-    // Restore the new active tab's content
-    const cached = tabContentCache.get(activeTabId);
+    // Restore the new active tab's content from Zustand store
+    const cached = useTabStore.getState().getTabContent(activeTabId);
     if (cached) {
       useEditorStore.setState({
         markdown: cached.markdown,
@@ -59,11 +44,11 @@ export function App() {
   useEffect(() => {
     const unsubscribe = useEditorStore.subscribe((state) => {
       if (!activeTabId) return;
-      tabContentCache.set(activeTabId, {
+      useTabStore.getState().cacheTabContent(activeTabId, {
         markdown: state.markdown,
         filePath: state.filePath,
       });
-      const fileName = state.filePath ? state.filePath.split(/[/\\]/).pop()! : 'Untitled';
+      const fileName = state.filePath ? state.filePath.split(/[/\\]/).pop() ?? 'Untitled' : 'Untitled';
       useTabStore.getState().updateTab(activeTabId, {
         isDirty: state.isDirty,
         filePath: state.filePath,

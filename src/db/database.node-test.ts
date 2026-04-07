@@ -6,6 +6,7 @@ import path from 'node:path';
 // Mock electron before importing the database module
 vi.mock('electron', () => ({
   app: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getPath: (_name: string) => os.tmpdir(),
   },
 }));

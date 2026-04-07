@@ -24,7 +24,7 @@ export function HtmlRenderer({ code, id }: HtmlRendererProps) {
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v7.min.js"><\/script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     body {
       margin: 0;

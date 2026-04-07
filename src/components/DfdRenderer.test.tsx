@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 // Build a chainable mock for d3 selection methods
 function createChainableMock() {
-  const mock: any = {};
+  const mock: Record<string, ReturnType<typeof vi.fn>> = {};
   const methods = ['select', 'selectAll', 'append', 'attr', 'text', 'remove'];
   for (const method of methods) {
     mock[method] = vi.fn().mockReturnValue(mock);

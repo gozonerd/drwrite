@@ -43,7 +43,7 @@ describe('HtmlRenderer', () => {
     const OriginalBlob = global.Blob;
     global.Blob = function ThrowingBlob() {
       throw new Error('Blob creation failed');
-    } as any;
+    } as typeof Blob;
 
     render(<HtmlRenderer code="<div>Broken</div>" id="html-err" />);
 

@@ -1,5 +1,10 @@
 import { create } from 'zustand';
 
+export interface TabContent {
+  markdown: string;
+  filePath: string | null;
+}
+
 export interface Tab {
   id: string;
   filePath: string | null;
@@ -10,6 +15,7 @@ export interface Tab {
 interface TabState {
   tabs: Tab[];
   activeTabId: string | null;
+  tabContentCache: Record<string, TabContent>;
 
   // Actions
   addTab: (filePath?: string | null, title?: string) => string;
@@ -17,6 +23,8 @@ interface TabState {
   setActiveTab: (tabId: string) => void;
   updateTab: (tabId: string, updates: Partial<Tab>) => void;
   getActiveTab: () => Tab | undefined;
+  cacheTabContent: (tabId: string, content: TabContent) => void;
+  getTabContent: (tabId: string) => TabContent | undefined;
 }
 
 let tabCounter = 0;
@@ -28,6 +36,7 @@ function generateTabId(): string {
 export const useTabStore = create<TabState>((set, get) => ({
   tabs: [],
   activeTabId: null,
+  tabContentCache: {},
 
   addTab: (filePath = null, title = 'Untitled') => {
     const id = generateTabId();
@@ -55,6 +64,8 @@ export const useTabStore = create<TabState>((set, get) => ({
     if (index === -1) return;
 
     const newTabs = tabs.filter((t) => t.id !== tabId);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [tabId]: _removed, ...remainingCache } = get().tabContentCache;
 
     // If we're closing the active tab, activate an adjacent one
     let newActiveId = activeTabId;
@@ -68,7 +79,7 @@ export const useTabStore = create<TabState>((set, get) => ({
       }
     }
 
-    set({ tabs: newTabs, activeTabId: newActiveId });
+    set({ tabs: newTabs, activeTabId: newActiveId, tabContentCache: remainingCache });
   },
 
   setActiveTab: (tabId) => {
@@ -86,5 +97,15 @@ export const useTabStore = create<TabState>((set, get) => ({
   getActiveTab: () => {
     const { tabs, activeTabId } = get();
     return tabs.find((t) => t.id === activeTabId);
+  },
+
+  cacheTabContent: (tabId, content) => {
+    set((state) => ({
+      tabContentCache: { ...state.tabContentCache, [tabId]: content },
+    }));
+  },
+
+  getTabContent: (tabId) => {
+    return get().tabContentCache[tabId];
   },
 }));

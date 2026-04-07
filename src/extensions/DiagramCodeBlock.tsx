@@ -37,7 +37,7 @@ const DIAGRAM_LANGUAGES = new Set([
   'd3',
 ]);
 
-function DiagramCodeBlockView({ node }: { node: any }) {
+function DiagramCodeBlockView({ node }: { node: { textContent: string; attrs: Record<string, string> } }) {
   const language = (node.attrs.language || '').toLowerCase();
   const code = node.textContent;
   const id = `diagram-${crypto.randomUUID()}`;

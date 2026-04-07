@@ -8,7 +8,7 @@ interface BpmnRendererProps {
 
 export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<any>(null);
+  const viewerRef = useRef<{ destroy: () => void; importXML: (xml: string) => Promise<void>; get: (name: string) => unknown } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
 
         if (!cancelled) {
           // Zoom to fit the diagram
-          const canvas = viewer.get('canvas') as any;
+          const canvas = viewer.get('canvas') as { zoom: (mode: string) => void };
           canvas.zoom('fit-viewport');
           setError(null);
         }

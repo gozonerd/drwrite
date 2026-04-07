@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+// eslint-disable-next-line import/no-named-as-default
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from 'tiptap-markdown';
 import { Heading } from '@tiptap/extension-heading';

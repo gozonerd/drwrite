@@ -26,7 +26,7 @@ export function StatusBar() {
 
     async function fetchGitStatus() {
       try {
-        const result = await window.drwrite.getGitStatus({ filePath: filePath! });
+        const result = await window.drwrite.getGitStatus({ filePath: filePath as string });
         if (!cancelled && result.isRepo) {
           setGitInfo({
             branch: result.branch ?? 'unknown',

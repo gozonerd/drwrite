@@ -32,9 +32,9 @@ describe('tab-store', () => {
     });
 
     it('reuses existing tab if same file path is already open', () => {
-      const id1 = useTabStore.getState().addTab('/path/file.md', 'file.md');
-      const id2 = useTabStore.getState().addTab('/path/file.md', 'file.md');
-      expect(id1).toBe(id2);
+      const firstId = useTabStore.getState().addTab('/path/file.md', 'file.md');
+      const secondId = useTabStore.getState().addTab('/path/file.md', 'file.md');
+      expect(firstId).toBe(secondId);
       expect(useTabStore.getState().tabs).toHaveLength(1);
     });
 
@@ -54,7 +54,7 @@ describe('tab-store', () => {
     });
 
     it('activates adjacent tab when closing active tab', () => {
-      const id1 = useTabStore.getState().addTab(null, 'Tab 1');
+      useTabStore.getState().addTab(null, 'Tab 1');
       const id2 = useTabStore.getState().addTab(null, 'Tab 2');
       useTabStore.getState().addTab(null, 'Tab 3');
 
