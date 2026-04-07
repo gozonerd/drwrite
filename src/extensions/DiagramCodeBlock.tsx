@@ -7,7 +7,7 @@ import { PlantUmlRenderer } from '../components/PlantUmlRenderer';
 import { GraphvizRenderer } from '../components/GraphvizRenderer';
 import { HtmlRenderer } from '../components/HtmlRenderer';
 
-function getDiagramBadgeClass(label: string): string {
+export function getDiagramBadgeClass(label: string): string {
   switch (label) {
     case 'mermaid':
       return 'bg-[rgba(78,201,176,0.80)] text-[#0d1117]';
