@@ -1,0 +1,78 @@
+import { useEffect, useRef, useState } from 'react';
+
+interface BpmnRendererProps {
+  xml: string;
+  id: string;
+}
+
+export function BpmnRenderer({ xml, id }: BpmnRendererProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current || !xml.trim()) return;
+
+    let cancelled = false;
+
+    async function render() {
+      try {
+        // Dynamic import to avoid SSR issues and reduce initial bundle
+        const { default: BpmnViewer } = await import('bpmn-js');
+
+        if (cancelled || !containerRef.current) return;
+
+        // Clean up previous viewer
+        if (viewerRef.current) {
+          viewerRef.current.destroy();
+        }
+
+        const viewer = new BpmnViewer({
+          container: containerRef.current,
+        });
+
+        viewerRef.current = viewer;
+
+        await viewer.importXML(xml.trim());
+
+        if (!cancelled) {
+          // Zoom to fit the diagram
+          const canvas = viewer.get('canvas') as any;
+          canvas.zoom('fit-viewport');
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(String(err));
+        }
+      }
+    }
+
+    render();
+
+    return () => {
+      cancelled = true;
+      if (viewerRef.current) {
+        viewerRef.current.destroy();
+        viewerRef.current = null;
+      }
+    };
+  }, [xml, id]);
+
+  if (error) {
+    return (
+      <div className="border border-red-300 dark:border-red-700 rounded p-3 my-2 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 text-sm font-mono">
+        <div className="font-semibold mb-1">BPMN Error</div>
+        <pre className="whitespace-pre-wrap text-xs">{error}</pre>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="my-2 border border-gray-200 dark:border-gray-700 rounded bg-white"
+      style={{ height: '400px', minHeight: '300px' }}
+    />
+  );
+}
