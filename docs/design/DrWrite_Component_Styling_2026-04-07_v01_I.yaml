@@ -1,0 +1,214 @@
+# DrWrite Component Styling Guide
+# Version: v01_I
+# Date: 2026-04-07
+# References: DrWrite_Color_Palette_2026-04-07_v01_I.yaml
+
+# =============================================================================
+# TOOLBAR
+# =============================================================================
+
+toolbar:
+  fill: bg-panel
+  border-bottom: border-default
+  text: text-secondary
+  filename:
+    color: text-primary
+    font-weight: 600
+  dirty-indicator:
+    color: warning
+    content: "●"
+
+# =============================================================================
+# BUTTONS
+# =============================================================================
+
+button-primary:
+  fill: primary
+  text: bg-primary
+  border: none
+  radius: 6px
+  hover:
+    fill: primary-hover
+  active:
+    fill: primary
+    opacity: 0.9
+  disabled:
+    fill: border-default
+    text: text-muted
+
+button-secondary:
+  fill: transparent
+  text: text-secondary
+  border: 1px solid border-default
+  radius: 6px
+  hover:
+    fill: bg-card
+    text: text-primary
+  active:
+    fill: bg-elevated
+
+button-ghost:
+  fill: transparent
+  text: text-secondary
+  border: none
+  radius: 4px
+  hover:
+    fill: bg-card
+    text: text-primary
+
+# =============================================================================
+# TAB BAR
+# =============================================================================
+
+tab-bar:
+  fill: bg-primary
+  border-bottom: border-default
+
+tab-active:
+  fill: bg-card
+  text: text-primary
+  border-bottom: 2px solid primary
+
+tab-inactive:
+  fill: transparent
+  text: text-secondary
+  hover:
+    fill: bg-panel
+    text: text-primary
+
+tab-close:
+  text: text-muted
+  hover:
+    text: error
+
+tab-new:
+  text: text-muted
+  hover:
+    text: primary
+
+# =============================================================================
+# SPLIT HANDLE
+# =============================================================================
+
+split-handle:
+  width: 4px
+  fill: handle-default
+  hover: handle-hover
+  active: handle-active
+  cursor: col-resize
+
+# =============================================================================
+# STATUS BAR
+# =============================================================================
+
+status-bar:
+  fill: bg-panel
+  border-top: border-default
+  text: text-secondary
+  font-size: 12px
+  git-branch:
+    color: info
+  dirty-indicator:
+    color: warning
+
+# =============================================================================
+# EXPORT DIALOG
+# =============================================================================
+
+dialog:
+  overlay: "rgba(0, 0, 0, 0.60)"
+  fill: bg-card
+  border: border-default
+  radius: 12px
+  shadow: "0 20px 60px rgba(0, 0, 0, 0.50)"
+  title:
+    color: text-primary
+    font-weight: 600
+
+input-field:
+  fill: bg-panel
+  text: text-primary
+  border: 1px solid border-default
+  radius: 6px
+  focus:
+    border-color: primary
+    shadow: focus-highlight
+
+select:
+  fill: bg-panel
+  text: text-primary
+  border: 1px solid border-default
+  radius: 6px
+
+slider:
+  track: border-default
+  fill: primary
+  thumb: text-primary
+
+# =============================================================================
+# DIAGRAM BADGES
+# =============================================================================
+
+diagram-badge:
+  radius: 4px
+  font-size: 11px
+  font-weight: 500
+  padding: "2px 8px"
+  opacity-rest: 0.7
+  opacity-hover: 1.0
+  # Colors per type defined in palette YAML
+
+# =============================================================================
+# DIAGRAM ERROR
+# =============================================================================
+
+diagram-error:
+  fill: "rgba(248, 81, 73, 0.08)"
+  border: "1px solid rgba(248, 81, 73, 0.30)"
+  radius: 8px
+  title-color: error
+  text-color: text-secondary
+  font: monospace
+
+# =============================================================================
+# CODE BLOCKS (in WYSIWYG)
+# =============================================================================
+
+code-inline:
+  fill: "rgba(78, 201, 176, 0.10)"
+  text: text-primary
+  radius: 3px
+  padding: "2px 6px"
+  font: monospace
+
+code-block:
+  fill: bg-editor
+  text: text-primary
+  border: 1px solid border-muted
+  radius: 8px
+  padding: "12px 16px"
+  font: monospace
+
+# =============================================================================
+# TABLES (in WYSIWYG)
+# =============================================================================
+
+table:
+  border: border-default
+  header-fill: bg-panel
+  header-text: text-primary
+  cell-text: text-primary
+  cell-padding: "8px 12px"
+
+# =============================================================================
+# SOURCE EDITOR (CodeMirror)
+# =============================================================================
+
+source-editor:
+  background: bg-editor
+  gutter-bg: bg-editor
+  gutter-text: text-muted
+  cursor: primary
+  active-line: "rgba(78, 201, 176, 0.06)"
+  selection: selection-bg
+  matching-bracket: "rgba(78, 201, 176, 0.30)"

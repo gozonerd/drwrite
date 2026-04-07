@@ -1,0 +1,22 @@
+# DrWrite Mermaid Theme — Token Mapping
+# Version: v01_I
+# Date: 2026-04-07
+# Maps DrWrite design tokens to Mermaid themeVariables
+
+mermaid:
+  theme: "dark"
+  themeVariables:
+    primaryColor: "#4ec9b0"        # {primary} — teal node fill
+    primaryTextColor: "#e6edf3"    # {text-primary}
+    primaryBorderColor: "#4ec9b0"  # {primary}
+    lineColor: "#8b949e"           # {text-secondary} — edge lines
+    secondaryColor: "#1c2128"      # {bg-card}
+    tertiaryColor: "#161b22"       # {bg-panel}
+    background: "#0d1117"          # {bg-primary} — diagram canvas
+    mainBkg: "#1c2128"             # {bg-card} — default node background
+    nodeBorder: "#4ec9b0"          # {primary}
+    clusterBkg: "#161b22"          # {bg-panel} — subgraph/group background
+    clusterBorder: "#30363d"       # {border-default}
+    titleColor: "#e6edf3"          # {text-primary}
+    edgeLabelBackground: "#161b22" # {bg-panel}
+    fontFamily: '"Inter", system-ui, sans-serif'

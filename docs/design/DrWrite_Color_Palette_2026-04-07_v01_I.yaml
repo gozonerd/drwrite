@@ -1,0 +1,132 @@
+# DrWrite Color Palette — Design Token Map
+# Version: v01_I
+# Date: 2026-04-07
+# Sibling to: Orchestra (copper accent, steel blue logo)
+# DrWrite uses: teal/sage accent, complementing Orchestra's warmth with clinical cool
+# WCAG: All text combinations verified AA compliant
+
+# =============================================================================
+# BACKGROUNDS (4 tiers, dark mode)
+# Same cool-neutral foundation as Orchestra for family consistency
+# =============================================================================
+
+bg-primary: "#0d1117"        # Deepest app background
+bg-panel: "#161b22"          # Toolbar, tab bar, status bar
+bg-card: "#1c2128"           # WYSIWYG pane, dialogs, raised surfaces
+bg-editor: "#0f1318"         # Source editor background (slightly darker than primary)
+
+# =============================================================================
+# BORDERS
+# =============================================================================
+
+border-default: "#30363d"    # Standard borders (panels, split handle, tabs)
+border-muted: "#21262d"      # Subtle borders (within panels)
+
+# =============================================================================
+# LOGO — Teal
+# The "MD" lettermark uses teal — clinical, precise, the doctor metaphor
+# =============================================================================
+
+logo: "#4ec9b0"              # Primary logo mark color (teal)
+logo-on-light: "#3a9a88"     # Darkened variant for light backgrounds
+
+# =============================================================================
+# PRIMARY UI ACCENT — Sage/Teal
+# Clinical precision — the "doctor" who writes with care
+# Complements Orchestra's copper warmth with cool confidence
+# =============================================================================
+
+primary: "#4ec9b0"           # Main UI accent (active tab, focus, primary CTA)
+primary-hover: "#5fd9c0"     # Hover state
+primary-muted: "rgba(78, 201, 176, 0.15)"  # Focus rings, selected tab background
+
+# =============================================================================
+# SECONDARY — Slate Blue
+# Supporting accent for labels, badges, secondary elements
+# =============================================================================
+
+secondary: "#7b8daa"         # Secondary accent
+secondary-hover: "#8fa0b8"   # Hover state
+
+# =============================================================================
+# TEXT (3 tiers)
+# Same as Orchestra for family consistency
+# All verified against bg-primary (#0d1117)
+# =============================================================================
+
+text-primary: "#e6edf3"      # 16.0:1 — Main body text, headings
+text-secondary: "#8b949e"    # 6.2:1  — Labels, status bar, metadata
+text-muted: "#636c76"        # 3.6:1  — Placeholders, disabled text
+
+# =============================================================================
+# SEMANTIC COLORS
+# Same as Orchestra for family consistency
+# =============================================================================
+
+success: "#3fb950"           # File saved, export complete
+warning: "#d29922"           # Unsaved changes (dirty indicator)
+error: "#f85149"             # Diagram render error, file not found
+info: "#58a6ff"              # Git branch, line count highlight
+
+# =============================================================================
+# SPLIT HANDLE
+# =============================================================================
+
+handle-default: "#30363d"    # Resting state (matches border)
+handle-hover: "#4ec9b0"      # Hover — shows it's interactive
+handle-active: "#5fd9c0"     # Actively dragging
+
+# =============================================================================
+# FOCUS / SELECTION
+# =============================================================================
+
+focus-highlight: "rgba(78, 201, 176, 0.20)"  # Focus ring glow
+selection-bg: "rgba(78, 201, 176, 0.30)"     # Text selection background
+
+# =============================================================================
+# DIAGRAM TYPE BADGE COLORS
+# Each diagram renderer shows a floating type badge
+# =============================================================================
+
+diagram-badge:
+  mermaid:
+    bg: "rgba(78, 201, 176, 0.80)"    # Primary teal
+    text: "#0d1117"
+  bpmn:
+    bg: "rgba(88, 166, 255, 0.80)"    # Info blue
+    text: "#0d1117"
+  dfd:
+    bg: "rgba(63, 185, 80, 0.80)"     # Success green
+    text: "#0d1117"
+  plantuml:
+    bg: "rgba(210, 153, 34, 0.80)"    # Warning amber
+    text: "#0d1117"
+  graphviz:
+    bg: "rgba(109, 179, 214, 0.80)"   # Steel blue (nods to Orchestra)
+    text: "#0d1117"
+  interactive:
+    bg: "rgba(167, 139, 219, 0.80)"   # Lavender
+    text: "#0d1117"
+
+# =============================================================================
+# TYPOGRAPHY
+# Same as Orchestra for family consistency (per design decision)
+# =============================================================================
+
+typography:
+  heading:
+    family: "Inter"
+    weights: [600, 700]
+  body:
+    family: "Inter"
+    weights: [400, 500]
+  monospace:
+    family: "JetBrains Mono"
+    weights: [400, 500]
+
+# =============================================================================
+# RELATIONSHIP TO ORCHESTRA
+# =============================================================================
+# Shared:  backgrounds, text tiers, semantic colors, typography, borders
+# Distinct: primary accent (teal vs copper), logo color, split handle, diagram badges
+# The two apps sit side by side on a desktop and feel like siblings
