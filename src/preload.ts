@@ -16,4 +16,13 @@ contextBridge.exposeInMainWorld('drwrite', {
   clearRecentFiles: () => ipcRenderer.invoke('recent:clear'),
   getGitStatus: (args: { filePath: string }) =>
     ipcRenderer.invoke('git:status', args),
+  watchFile: (args: { filePath: string }) =>
+    ipcRenderer.invoke('watch:start', args),
+  unwatchFile: () =>
+    ipcRenderer.invoke('watch:stop'),
+  onFileChanged: (callback: (data: { filePath: string }) => void) => {
+    const handler = (_event: unknown, data: { filePath: string }) => callback(data);
+    ipcRenderer.on('watch:file-changed', handler);
+    return () => { ipcRenderer.removeListener('watch:file-changed', handler); };
+  },
 });

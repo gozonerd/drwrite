@@ -23,6 +23,30 @@ export function App() {
     }
   }, []);
 
+  // Listen for external file changes (chokidar watcher)
+  useEffect(() => {
+    const cleanup = window.drwrite.onFileChanged(async ({ filePath }) => {
+      const currentPath = useEditorStore.getState().filePath;
+      if (filePath !== currentPath) return;
+
+      // Auto-reload if not dirty, otherwise the user would lose unsaved work
+      const isDirty = useEditorStore.getState().isDirty;
+      if (!isDirty) {
+        const result = await window.drwrite.openRecentFile({ filePath });
+        if (!result.canceled && result.content !== undefined) {
+          useEditorStore.setState({
+            markdown: result.content,
+            isDirty: false,
+            lastEditedBy: 'file',
+          });
+        }
+      }
+      // If dirty, we silently skip — user's edits take priority
+    });
+
+    return cleanup;
+  }, []);
+
   // Global keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

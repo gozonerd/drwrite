@@ -3,6 +3,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
 import { simpleGit } from 'simple-git';
+import chokidar from 'chokidar';
 import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRecentFiles, closeDatabase } from './db/database';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
@@ -202,6 +203,41 @@ ipcMain.handle('recent:open', async (_event, { filePath }: { filePath: string })
 
 ipcMain.handle('recent:clear', async () => {
   clearRecentFiles();
+  return { success: true };
+});
+
+// --- File Watcher ---
+
+let fileWatcher: chokidar.FSWatcher | null = null;
+
+ipcMain.handle('watch:start', async (_event, { filePath }: { filePath: string }) => {
+  // Stop any existing watcher
+  if (fileWatcher) {
+    await fileWatcher.close();
+    fileWatcher = null;
+  }
+
+  fileWatcher = chokidar.watch(filePath, {
+    persistent: true,
+    ignoreInitial: true,
+    awaitWriteFinish: { stabilityThreshold: 300, pollInterval: 100 },
+  });
+
+  fileWatcher.on('change', () => {
+    const win = BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0];
+    if (win) {
+      win.webContents.send('watch:file-changed', { filePath });
+    }
+  });
+
+  return { success: true };
+});
+
+ipcMain.handle('watch:stop', async () => {
+  if (fileWatcher) {
+    await fileWatcher.close();
+    fileWatcher = null;
+  }
   return { success: true };
 });
 

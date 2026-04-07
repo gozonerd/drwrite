@@ -19,6 +19,9 @@ interface DrWriteAPI {
     isFileDirty?: boolean;
     fileStatus?: string | null;
   }>;
+  watchFile: (args: { filePath: string }) => Promise<{ success: boolean }>;
+  unwatchFile: () => Promise<{ success: boolean }>;
+  onFileChanged: (callback: (data: { filePath: string }) => void) => () => void;
 }
 
 declare global {

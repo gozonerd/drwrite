@@ -84,12 +84,17 @@ export const useEditorStore = create<EditorState>((set) => ({
   openFile: async () => {
     const result = await window.drwrite.openFile();
     if (!result.canceled && result.content !== undefined) {
+      const newPath = result.filePath ?? null;
       set({
         markdown: result.content,
-        filePath: result.filePath ?? null,
+        filePath: newPath,
         isDirty: false,
         lastEditedBy: 'file',
       });
+      // Start watching the new file for external changes
+      if (newPath) {
+        window.drwrite.watchFile({ filePath: newPath });
+      }
     }
   },
 
