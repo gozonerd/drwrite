@@ -28,7 +28,11 @@ function ToolbarDivider() {
   return <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1" />;
 }
 
-export function Toolbar() {
+interface ToolbarProps {
+  onExport?: () => void;
+}
+
+export function Toolbar({ onExport }: ToolbarProps) {
   const darkMode = useEditorStore((s) => s.darkMode);
   const openFile = useEditorStore((s) => s.openFile);
   const saveFile = useEditorStore((s) => s.saveFile);
@@ -50,6 +54,9 @@ export function Toolbar() {
       {/* File operations */}
       <ToolbarButton label="Open" title="Open File (Ctrl+O)" onClick={openFile} />
       <ToolbarButton label="Save" title="Save (Ctrl+S)" onClick={saveFile} />
+      {onExport && (
+        <ToolbarButton label="Export" title="Export PDF/HTML (Ctrl+E)" onClick={onExport} />
+      )}
 
       <ToolbarDivider />
 

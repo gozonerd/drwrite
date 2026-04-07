@@ -1,6 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
+import os from 'node:os';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
 // Only use in production/installed context
@@ -120,6 +121,67 @@ ipcMain.handle('file:saveAs', async (_event, { content }: { content: string }) =
 
   try {
     fs.writeFileSync(result.filePath, content, 'utf-8');
+    return { canceled: false, success: true, filePath: result.filePath };
+  } catch (err) {
+    return { canceled: false, success: false, error: String(err) };
+  }
+});
+
+ipcMain.handle('file:exportPdf', async (_event, { html }: { html: string }) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (!win) return { canceled: true };
+
+  const result = await dialog.showSaveDialog(win, {
+    filters: [{ name: 'PDF', extensions: ['pdf'] }],
+  });
+
+  if (result.canceled || !result.filePath) {
+    return { canceled: true };
+  }
+
+  try {
+    // Create a hidden window to render the HTML for printing
+    const printWin = new BrowserWindow({
+      show: false,
+      width: 800,
+      height: 600,
+      webPreferences: { offscreen: true },
+    });
+
+    const tmpFile = path.join(os.tmpdir(), `drwrite-export-${Date.now()}.html`);
+    fs.writeFileSync(tmpFile, html, 'utf-8');
+    await printWin.loadFile(tmpFile);
+
+    const pdfBuffer = await printWin.webContents.printToPDF({
+      printBackground: true,
+      preferCSSPageSize: true,
+      margins: { top: 0.5, bottom: 0.5, left: 0.5, right: 0.5 },
+    });
+
+    fs.writeFileSync(result.filePath, pdfBuffer);
+    fs.unlinkSync(tmpFile);
+    printWin.destroy();
+
+    return { canceled: false, success: true, filePath: result.filePath };
+  } catch (err) {
+    return { canceled: false, success: false, error: String(err) };
+  }
+});
+
+ipcMain.handle('file:exportHtml', async (_event, { html }: { html: string }) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (!win) return { canceled: true };
+
+  const result = await dialog.showSaveDialog(win, {
+    filters: [{ name: 'HTML', extensions: ['html'] }],
+  });
+
+  if (result.canceled || !result.filePath) {
+    return { canceled: true };
+  }
+
+  try {
+    fs.writeFileSync(result.filePath, html, 'utf-8');
     return { canceled: false, success: true, filePath: result.filePath };
   } catch (err) {
     return { canceled: false, success: false, error: String(err) };

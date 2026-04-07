@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useEditorStore } from './store/editor-store';
 import { Toolbar } from './components/Toolbar';
 import { SplitView } from './components/SplitView';
 import { StatusBar } from './components/StatusBar';
+import { ExportDialog } from './components/ExportDialog';
+import { generatePrintHtml, ExportSettings } from './utils/export-html';
 
 export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
+  const [showExport, setShowExport] = useState(false);
 
   // Apply dark mode class to html element
   useEffect(() => {
@@ -37,6 +40,9 @@ export function App() {
       } else if (mod && e.key === 'n') {
         e.preventDefault();
         useEditorStore.getState().resetDocument();
+      } else if (mod && e.key === 'e') {
+        e.preventDefault();
+        setShowExport(true);
       }
     };
 
@@ -44,16 +50,49 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  function getEditorHtml(): string {
+    // Get rendered HTML from the WYSIWYG pane
+    const tiptapEl = document.querySelector('.tiptap .ProseMirror');
+    return tiptapEl?.innerHTML ?? '';
+  }
+
+  async function handleExportPdf(settings: ExportSettings) {
+    const bodyHtml = getEditorHtml();
+    const filePath = useEditorStore.getState().filePath;
+    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const html = generatePrintHtml(bodyHtml, settings, title);
+    await window.drwrite.exportPdf({ html });
+    setShowExport(false);
+  }
+
+  async function handleExportHtml(settings: ExportSettings) {
+    const bodyHtml = getEditorHtml();
+    const filePath = useEditorStore.getState().filePath;
+    const title = filePath ? filePath.split(/[/\\]/).pop()?.replace(/\.[^.]+$/, '') ?? 'DrWrite Export' : 'DrWrite Export';
+    const html = generatePrintHtml(bodyHtml, settings, title);
+    await window.drwrite.exportHtml({ html });
+    setShowExport(false);
+  }
+
   return (
     <div className="h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Toolbar */}
-      <Toolbar />
+      <Toolbar onExport={() => setShowExport(true)} />
 
       {/* Editor split view */}
       <SplitView />
 
       {/* Status bar */}
       <StatusBar />
+
+      {/* Export dialog */}
+      {showExport && (
+        <ExportDialog
+          onExportPdf={handleExportPdf}
+          onExportHtml={handleExportHtml}
+          onClose={() => setShowExport(false)}
+        />
+      )}
     </div>
   );
 }

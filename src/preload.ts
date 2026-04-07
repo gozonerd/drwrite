@@ -6,4 +6,8 @@ contextBridge.exposeInMainWorld('drwrite', {
     ipcRenderer.invoke('file:save', args),
   saveFileAs: (args: { content: string }) =>
     ipcRenderer.invoke('file:saveAs', args),
+  exportPdf: (args: { html: string }) =>
+    ipcRenderer.invoke('file:exportPdf', args),
+  exportHtml: (args: { html: string }) =>
+    ipcRenderer.invoke('file:exportHtml', args),
 });
