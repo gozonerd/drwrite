@@ -6,6 +6,7 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from '@codemirror/language';
 import { oneDark } from '@codemirror/theme-one-dark';
+import { search, searchKeymap, highlightSelectionMatches } from '@codemirror/search';
 import { useEditorStore } from '../store/editor-store';
 
 export function SourceEditor() {
@@ -36,7 +37,9 @@ export function SourceEditor() {
       bracketMatching(),
       markdown({ base: markdownLanguage, codeLanguages: languages }),
       syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-      keymap.of([...defaultKeymap, ...historyKeymap]),
+      search({ top: true }),
+      highlightSelectionMatches(),
+      keymap.of([...defaultKeymap, ...historyKeymap, ...searchKeymap]),
       EditorView.updateListener.of(handleUpdate),
       EditorView.theme({
         '&': { height: '100%' },
