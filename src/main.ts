@@ -68,7 +68,7 @@ const createWindow = () => {
   }
 
   // Uncomment to open DevTools for debugging:
-  // mainWindow.webContents.openDevTools({ mode: 'detach' });
+  // mainWindow.webContents.openDevTools({ mode: 'right' });
 };
 
 // --- IPC Handlers for File Operations ---

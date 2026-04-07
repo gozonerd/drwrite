@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
+import { Link } from '@tiptap/extension-link';
 import { Markdown } from 'tiptap-markdown';
-import Heading from '@tiptap/extension-heading';
-import Table from '@tiptap/extension-table';
-import TableRow from '@tiptap/extension-table-row';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
+import { Heading } from '@tiptap/extension-heading';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
 import { useEditorStore } from '../store/editor-store';
 
 // Generate a slug from heading text for auto-IDs
