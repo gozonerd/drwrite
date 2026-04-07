@@ -10,4 +10,8 @@ contextBridge.exposeInMainWorld('drwrite', {
     ipcRenderer.invoke('file:exportPdf', args),
   exportHtml: (args: { html: string }) =>
     ipcRenderer.invoke('file:exportHtml', args),
+  getRecentFiles: () => ipcRenderer.invoke('recent:list'),
+  openRecentFile: (args: { filePath: string }) =>
+    ipcRenderer.invoke('recent:open', args),
+  clearRecentFiles: () => ipcRenderer.invoke('recent:clear'),
 });

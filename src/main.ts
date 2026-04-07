@@ -2,6 +2,7 @@ import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
+import { getWindowState, saveWindowState, addRecentFile, getRecentFiles, clearRecentFiles, closeDatabase } from './db/database';
 
 // electron-squirrel-startup can cause immediate exit on Windows dev
 // Only use in production/installed context
@@ -24,12 +25,33 @@ process.on('unhandledRejection', (error) => {
 });
 
 const createWindow = () => {
+  // Restore saved window position/size
+  const windowState = getWindowState();
+
   const mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: windowState.width,
+    height: windowState.height,
+    x: windowState.x,
+    y: windowState.y,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+  });
+
+  if (windowState.isMaximized) {
+    mainWindow.maximize();
+  }
+
+  // Save window state on close
+  mainWindow.on('close', () => {
+    const bounds = mainWindow.getBounds();
+    saveWindowState({
+      x: bounds.x,
+      y: bounds.y,
+      width: bounds.width,
+      height: bounds.height,
+      isMaximized: mainWindow.isMaximized(),
+    });
   });
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -64,6 +86,7 @@ ipcMain.handle('file:open', async () => {
 
   const filePath = result.filePaths[0];
   const content = fs.readFileSync(filePath, 'utf-8');
+  addRecentFile(filePath);
   return { canceled: false, filePath, content };
 });
 
@@ -160,11 +183,33 @@ ipcMain.handle('file:exportHtml', async (_event, { html }: { html: string }) => 
   }
 });
 
+// --- IPC Handlers for Recent Files ---
+
+ipcMain.handle('recent:list', async () => {
+  return getRecentFiles(10);
+});
+
+ipcMain.handle('recent:open', async (_event, { filePath }: { filePath: string }) => {
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    addRecentFile(filePath);
+    return { canceled: false, filePath, content };
+  } catch (err) {
+    return { canceled: false, success: false, error: String(err) };
+  }
+});
+
+ipcMain.handle('recent:clear', async () => {
+  clearRecentFiles();
+  return { success: true };
+});
+
 // --- App Lifecycle ---
 
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
+  closeDatabase();
   if (process.platform !== 'darwin') {
     app.quit();
   }
