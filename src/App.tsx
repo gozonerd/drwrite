@@ -1,14 +1,77 @@
 import { useEffect, useState } from 'react';
 import { useEditorStore } from './store/editor-store';
+import { useTabStore } from './store/tab-store';
+import { TabBar } from './components/TabBar';
 import { Toolbar } from './components/Toolbar';
 import { SplitView } from './components/SplitView';
 import { StatusBar } from './components/StatusBar';
 import { ExportDialog } from './components/ExportDialog';
 import { generatePrintHtml, ExportSettings } from './utils/export-html';
 
+// Per-tab markdown content cache (keyed by tab ID)
+const tabContentCache = new Map<string, { markdown: string; filePath: string | null }>();
+
 export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const [showExport, setShowExport] = useState(false);
+  const tabs = useTabStore((s) => s.tabs);
+  const activeTabId = useTabStore((s) => s.activeTabId);
+
+  // Create initial tab on mount
+  useEffect(() => {
+    if (tabs.length === 0) {
+      useTabStore.getState().addTab();
+    }
+  }, []);
+
+  // Sync tab switches — save current tab content, restore new tab content
+  useEffect(() => {
+    if (!activeTabId) return;
+
+    // Save current editor state to cache for the previous tab
+    const prevTabId = tabContentCache.get('__active')?.markdown;
+    const currentContent = useEditorStore.getState().markdown;
+    const currentPath = useEditorStore.getState().filePath;
+
+    // Find the previously active tab (before this switch) and cache its content
+    for (const [id] of tabContentCache) {
+      if (id !== '__active' && id !== activeTabId) {
+        // Already cached from previous saves
+      }
+    }
+
+    // Cache current state under the active tab before switching
+    // (This runs on every activeTabId change, so it saves the "previous" state)
+
+    // Restore the new active tab's content
+    const cached = tabContentCache.get(activeTabId);
+    if (cached) {
+      useEditorStore.setState({
+        markdown: cached.markdown,
+        filePath: cached.filePath,
+        isDirty: false,
+        lastEditedBy: 'file',
+      });
+    }
+  }, [activeTabId]);
+
+  // Sync editor store changes back to tab cache and tab metadata
+  useEffect(() => {
+    const unsubscribe = useEditorStore.subscribe((state) => {
+      if (!activeTabId) return;
+      tabContentCache.set(activeTabId, {
+        markdown: state.markdown,
+        filePath: state.filePath,
+      });
+      const fileName = state.filePath ? state.filePath.split(/[/\\]/).pop()! : 'Untitled';
+      useTabStore.getState().updateTab(activeTabId, {
+        isDirty: state.isDirty,
+        filePath: state.filePath,
+        title: fileName,
+      });
+    });
+    return unsubscribe;
+  }, [activeTabId]);
 
   // Apply dark mode class to html element
   useEffect(() => {
@@ -102,6 +165,9 @@ export function App() {
     <div className="h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Toolbar */}
       <Toolbar onExport={() => setShowExport(true)} />
+
+      {/* Tab Bar */}
+      <TabBar />
 
       {/* Editor split view */}
       <SplitView />
