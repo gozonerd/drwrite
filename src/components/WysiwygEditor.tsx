@@ -7,12 +7,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
-import { MermaidBlock } from '../extensions/MermaidBlock';
-import { BpmnBlock } from '../extensions/BpmnBlock';
-import { DfdBlock } from '../extensions/DfdBlock';
-import { PlantUmlBlock } from '../extensions/PlantUmlBlock';
-import { GraphvizBlock } from '../extensions/GraphvizBlock';
-import { HtmlBlock } from '../extensions/HtmlBlock';
+import { DiagramCodeBlock } from '../extensions/DiagramCodeBlock';
 import { useEditorStore } from '../store/editor-store';
 
 // Generate a slug from heading text for auto-IDs
@@ -33,14 +28,13 @@ export function WysiwygEditor() {
     extensions: [
       StarterKit.configure({
         heading: false, // Use custom Heading extension below
-        codeBlock: {
-          HTMLAttributes: { class: 'code-block' },
-        },
+        codeBlock: false, // Use DiagramCodeBlock instead
         link: {
           openOnClick: false,
           HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
         },
       }),
+      DiagramCodeBlock,
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }).extend({
         renderHTML({ node, HTMLAttributes }) {
           const level = node.attrs.level as number;
@@ -53,12 +47,6 @@ export function WysiwygEditor() {
       TableRow,
       TableCell,
       TableHeader,
-      MermaidBlock,
-      BpmnBlock,
-      DfdBlock,
-      PlantUmlBlock,
-      GraphvizBlock,
-      HtmlBlock,
       Markdown.configure({
         html: true,
         transformPastedText: true,
