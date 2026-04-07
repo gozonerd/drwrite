@@ -25,6 +25,7 @@ interface TabState {
   getActiveTab: () => Tab | undefined;
   cacheTabContent: (tabId: string, content: TabContent) => void;
   getTabContent: (tabId: string) => TabContent | undefined;
+  reorderTab: (tabId: string, newIndex: number) => void;
 }
 
 let tabCounter = 0;
@@ -107,5 +108,20 @@ export const useTabStore = create<TabState>((set, get) => ({
 
   getTabContent: (tabId) => {
     return get().tabContentCache[tabId];
+  },
+
+  reorderTab: (tabId, newIndex) => {
+    const { tabs } = get();
+    const currentIndex = tabs.findIndex((t) => t.id === tabId);
+    if (currentIndex === -1) return;
+
+    // Clamp newIndex to valid range
+    const clampedIndex = Math.max(0, Math.min(tabs.length - 1, newIndex));
+    if (currentIndex === clampedIndex) return;
+
+    const newTabs = [...tabs];
+    const [moved] = newTabs.splice(currentIndex, 1);
+    newTabs.splice(clampedIndex, 0, moved);
+    set({ tabs: newTabs });
   },
 }));

@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '../store/editor-store';
+import { RecentFilesDropdown } from './RecentFilesDropdown';
 
 interface ToolbarButtonProps {
   label: string;
@@ -38,9 +40,25 @@ export function Toolbar({ onExport }: ToolbarProps) {
   const saveFile = useEditorStore((s) => s.saveFile);
   const filePath = useEditorStore((s) => s.filePath);
   const isDirty = useEditorStore((s) => s.isDirty);
+  const [showRecent, setShowRecent] = useState(false);
+  const recentRef = useRef<HTMLDivElement>(null);
 
   const fileName = filePath ? filePath.split(/[/\\]/).pop() : 'Untitled';
   const title = `${isDirty ? '● ' : ''}${fileName}`;
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!showRecent) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (recentRef.current && !recentRef.current.contains(e.target as Node)) {
+        setShowRecent(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showRecent]);
 
   return (
     <div className="flex items-center gap-1 px-2 py-1 bg-dw-bg-panel border-b border-dw-border select-none">
@@ -52,7 +70,21 @@ export function Toolbar({ onExport }: ToolbarProps) {
       <ToolbarDivider />
 
       {/* File operations */}
-      <ToolbarButton label="Open" title="Open File (Ctrl+O)" onClick={openFile} />
+      <div className="relative flex items-center" ref={recentRef}>
+        <ToolbarButton label="Open" title="Open File (Ctrl+O)" onClick={openFile} />
+        <button
+          type="button"
+          className="px-1 py-0.5 text-xs text-dw-text-secondary hover:bg-dw-bg-card rounded transition-colors"
+          title="Recent files"
+          onClick={() => setShowRecent((prev) => !prev)}
+          data-testid="recent-files-toggle"
+        >
+          ▾
+        </button>
+        {showRecent && (
+          <RecentFilesDropdown onClose={() => setShowRecent(false)} />
+        )}
+      </div>
       <ToolbarButton label="Save" title="Save (Ctrl+S)" onClick={saveFile} />
       {onExport && (
         <ToolbarButton label="Export" title="Export PDF/HTML (Ctrl+E)" onClick={onExport} />

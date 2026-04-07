@@ -126,4 +126,73 @@ describe('tab-store', () => {
       expect(useTabStore.getState().getActiveTab()).toBeUndefined();
     });
   });
+
+  describe('reorderTab', () => {
+    it('moves tab from index 0 to index 2', () => {
+      const id1 = useTabStore.getState().addTab(null, 'Tab 1');
+      const id2 = useTabStore.getState().addTab(null, 'Tab 2');
+      const id3 = useTabStore.getState().addTab(null, 'Tab 3');
+
+      useTabStore.getState().reorderTab(id1, 2);
+
+      const titles = useTabStore.getState().tabs.map((t) => t.title);
+      expect(titles).toEqual(['Tab 2', 'Tab 3', 'Tab 1']);
+      // Verify IDs match
+      const ids = useTabStore.getState().tabs.map((t) => t.id);
+      expect(ids).toEqual([id2, id3, id1]);
+    });
+
+    it('moves tab from index 2 to index 0', () => {
+      const id1 = useTabStore.getState().addTab(null, 'Tab 1');
+      const id2 = useTabStore.getState().addTab(null, 'Tab 2');
+      const id3 = useTabStore.getState().addTab(null, 'Tab 3');
+
+      useTabStore.getState().reorderTab(id3, 0);
+
+      const titles = useTabStore.getState().tabs.map((t) => t.title);
+      expect(titles).toEqual(['Tab 3', 'Tab 1', 'Tab 2']);
+      const ids = useTabStore.getState().tabs.map((t) => t.id);
+      expect(ids).toEqual([id3, id1, id2]);
+    });
+
+    it('does nothing when moving to same position', () => {
+      const id1 = useTabStore.getState().addTab(null, 'Tab 1');
+      useTabStore.getState().addTab(null, 'Tab 2');
+      useTabStore.getState().addTab(null, 'Tab 3');
+
+      const tabsBefore = [...useTabStore.getState().tabs];
+      useTabStore.getState().reorderTab(id1, 0);
+
+      const tabsAfter = useTabStore.getState().tabs;
+      expect(tabsAfter.map((t) => t.id)).toEqual(tabsBefore.map((t) => t.id));
+    });
+
+    it('clamps invalid index to valid range', () => {
+      const id1 = useTabStore.getState().addTab(null, 'Tab 1');
+      const id2 = useTabStore.getState().addTab(null, 'Tab 2');
+      const id3 = useTabStore.getState().addTab(null, 'Tab 3');
+
+      // Try to move to index 99 — should clamp to last position (2)
+      useTabStore.getState().reorderTab(id1, 99);
+
+      const titles = useTabStore.getState().tabs.map((t) => t.title);
+      expect(titles).toEqual(['Tab 2', 'Tab 3', 'Tab 1']);
+
+      // Try to move to index -5 — should clamp to 0
+      useTabStore.getState().reorderTab(id1, -5);
+      const titles2 = useTabStore.getState().tabs.map((t) => t.title);
+      expect(titles2).toEqual(['Tab 1', 'Tab 2', 'Tab 3']);
+    });
+
+    it('does nothing for nonexistent tab id', () => {
+      useTabStore.getState().addTab(null, 'Tab 1');
+      useTabStore.getState().addTab(null, 'Tab 2');
+
+      const tabsBefore = [...useTabStore.getState().tabs];
+      useTabStore.getState().reorderTab('nonexistent', 0);
+
+      const tabsAfter = useTabStore.getState().tabs;
+      expect(tabsAfter.map((t) => t.id)).toEqual(tabsBefore.map((t) => t.id));
+    });
+  });
 });

@@ -71,4 +71,15 @@ describe('TabBar', () => {
     render(<TabBar />);
     expect(screen.getAllByTitle('Close tab')).toHaveLength(3);
   });
+
+  it('tabs have draggable attribute set to true', () => {
+    useTabStore.getState().addTab(null, 'Tab 1');
+    useTabStore.getState().addTab(null, 'Tab 2');
+    render(<TabBar />);
+    const tabItems = screen.getAllByTestId('tab-item');
+    expect(tabItems).toHaveLength(2);
+    tabItems.forEach((item) => {
+      expect(item).toHaveAttribute('draggable', 'true');
+    });
+  });
 });

@@ -18,6 +18,11 @@ vi.mock('./components/ExportDialog', () => ({
     return <div data-testid="export-dialog"><button onClick={onClose}>Close</button></div>;
   },
 }));
+vi.mock('./components/KeybindingDialog', () => ({
+  KeybindingDialog: ({ onClose }: { onClose: () => void }) => {
+    return <div data-testid="keybinding-dialog"><button onClick={onClose}>CloseKB</button></div>;
+  },
+}));
 
 vi.mock('./utils/export-html', () => ({
   generatePrintHtml: vi.fn(() => '<html></html>'),

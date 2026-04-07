@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useEditorStore } from './store/editor-store';
 import { useTabStore } from './store/tab-store';
+import { useKeybindingStore, matchesBinding } from './store/keybinding-store';
 import { TabBar } from './components/TabBar';
 import { Toolbar } from './components/Toolbar';
 import { SplitView } from './components/SplitView';
 import { StatusBar } from './components/StatusBar';
 import { ExportDialog } from './components/ExportDialog';
+import { KeybindingDialog } from './components/KeybindingDialog';
 import { generatePrintHtml, ExportSettings } from './utils/export-html';
 
 export function App() {
   const darkMode = useEditorStore((s) => s.darkMode);
   const [showExport, setShowExport] = useState(false);
+  const [showKeybindings, setShowKeybindings] = useState(false);
   const tabs = useTabStore((s) => s.tabs);
   const activeTabId = useTabStore((s) => s.activeTabId);
 
@@ -123,26 +126,53 @@ export function App() {
     return cleanup;
   }, []);
 
-  // Global keyboard shortcuts
+  // Global keyboard shortcuts — uses keybinding store for configurable bindings
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const mod = e.ctrlKey || e.metaKey;
 
-      if (mod && e.key === 'o') {
+      // Meta-shortcut: Ctrl+K opens keybinding dialog (always hardcoded)
+      if (mod && e.key === 'k') {
         e.preventDefault();
-        useEditorStore.getState().openFile();
-      } else if (mod && e.shiftKey && e.key === 'S') {
+        setShowKeybindings((prev) => !prev);
+        return;
+      }
+
+      const { getBinding } = useKeybindingStore.getState();
+
+      const saveAsBinding = getBinding('file.saveAs');
+      if (saveAsBinding && matchesBinding(e, saveAsBinding)) {
         e.preventDefault();
         useEditorStore.getState().saveFileAs();
-      } else if (mod && e.key === 's') {
+        return;
+      }
+
+      const openBinding = getBinding('file.open');
+      if (openBinding && matchesBinding(e, openBinding)) {
+        e.preventDefault();
+        useEditorStore.getState().openFile();
+        return;
+      }
+
+      const saveBinding = getBinding('file.save');
+      if (saveBinding && matchesBinding(e, saveBinding)) {
         e.preventDefault();
         useEditorStore.getState().saveFile();
-      } else if (mod && e.key === 'n') {
+        return;
+      }
+
+      const newBinding = getBinding('file.new');
+      if (newBinding && matchesBinding(e, newBinding)) {
         e.preventDefault();
         useEditorStore.getState().resetDocument();
-      } else if (mod && e.key === 'e') {
+        return;
+      }
+
+      const exportBinding = getBinding('file.export');
+      if (exportBinding && matchesBinding(e, exportBinding)) {
         e.preventDefault();
         setShowExport(true);
+        return;
       }
     };
 
@@ -204,6 +234,11 @@ export function App() {
           onExportHtml={handleExportHtml}
           onClose={() => setShowExport(false)}
         />
+      )}
+
+      {/* Keybinding dialog */}
+      {showKeybindings && (
+        <KeybindingDialog onClose={() => setShowKeybindings(false)} />
       )}
     </div>
   );
