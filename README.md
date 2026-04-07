@@ -9,10 +9,11 @@ A desktop markdown editor with split-view editing, 6 diagram renderers, and prin
 
 | Platform | Installer |
 |----------|-----------|
-| Windows | [drwrite Setup.exe](https://github.com/nerdykrystal/drwrite/releases/latest/download/drwrite-1.0.0.Setup.exe) |
-| macOS (Apple Silicon) | [drwrite.dmg](https://github.com/nerdykrystal/drwrite/releases/latest/download/drwrite-1.0.0-arm64.dmg) |
+| Windows | [drwrite Setup.exe](https://github.com/nerdykrystal/drwrite/releases/latest) |
+| macOS (Apple Silicon) | [drwrite arm64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
+| macOS (Intel) | [drwrite x64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
 
-Or grab the latest from the [Releases page](https://github.com/nerdykrystal/drwrite/releases).
+Download from the [Releases page](https://github.com/nerdykrystal/drwrite/releases/latest).
 
 > **macOS note:** The app is not code-signed. On first launch, right-click the app and select "Open" to bypass Gatekeeper.
 >
