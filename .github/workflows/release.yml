@@ -8,8 +8,15 @@ on:
 jobs:
   build-and-release:
     strategy:
+      fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, macos-13]
+        include:
+          - os: windows-latest
+            args: ''
+          - os: macos-latest
+            args: '--arch=arm64'
+          - os: macos-latest
+            args: '--arch=x64'
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -22,10 +29,10 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm install
+      - run: npm ci
 
       - name: Build installer
-        run: npm run make
+        run: npm run make -- ${{ matrix.args }}
 
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
