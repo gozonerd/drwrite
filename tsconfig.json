@@ -14,5 +14,6 @@
     "jsx": "react-jsx",
     "strict": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "files": ["src/preload.d.ts", "src/vite-env.d.ts", "src/electron-env.d.ts", "src/plantuml-encoder.d.ts"]
 }

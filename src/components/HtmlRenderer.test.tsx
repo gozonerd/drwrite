@@ -30,7 +30,7 @@ describe('HtmlRenderer', () => {
     });
 
     // Verify a Blob was passed to createObjectURL
-    const blobArg = mockCreateObjectURL.mock.calls[0]?.[0] as Blob | undefined;
+    const blobArg = (mockCreateObjectURL.mock.calls as unknown[][])[0]?.[0] as Blob | undefined;
     expect(blobArg).toBeInstanceOf(Blob);
     expect((blobArg as Blob).type).toBe('text/html');
 
