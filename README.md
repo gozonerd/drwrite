@@ -2,6 +2,8 @@
 
 A desktop markdown editor with split-view editing, 6 diagram renderers, and print-optimized export.
 
+[![CI](https://github.com/nerdykrystal/drwrite/actions/workflows/ci.yml/badge.svg)](https://github.com/nerdykrystal/drwrite/actions/workflows/ci.yml)
+
 ## Why This Exists
 
 I work with markdown constantly — pipeline documentation, deliverables, research outputs, learning experiences. Every day I need to edit markdown with a live preview, render embedded diagrams, and export to PDF without converting to .docx first.
@@ -26,6 +28,8 @@ So I built the tool I needed.
 - Multi-file tabs with per-tab content caching
 - Search and replace (Ctrl+F / Ctrl+H)
 - File watching — auto-reload on external changes
+- SQLite database for recent files, preferences, window state
+- Git status in status bar (branch name, file dirty state)
 
 ### Diagram Rendering (6 types)
 
@@ -45,11 +49,6 @@ Each diagram type uses a dedicated renderer — not a single library wrapper.
 - HTML export as self-contained document
 - Configurable margins, font size, font family, page numbers
 - Settings persist across sessions
-
-### Infrastructure
-- SQLite database for recent files, preferences, window state
-- Git status in status bar (branch name, file dirty state)
-- File watching with chokidar for external modification detection
 
 ## Architecture
 
@@ -89,15 +88,28 @@ graph TD
 
 | Layer | Technology |
 |-------|-----------|
-| Desktop shell | Electron Forge |
+| Desktop shell | Electron Forge 7.11 |
 | Frontend | React 19, TypeScript |
 | Source editor | CodeMirror 6 |
-| WYSIWYG editor | TipTap / ProseMirror |
-| State management | Zustand |
-| Styling | Tailwind CSS v3 |
-| Database | better-sqlite3 |
-| Testing | Vitest, React Testing Library, V8 coverage |
+| WYSIWYG editor | TipTap 3 / ProseMirror |
+| State management | Zustand 5 |
+| Styling | Tailwind CSS v3 + custom design tokens |
+| Database | better-sqlite3 (WAL mode) |
+| Testing | Vitest + React Testing Library + Playwright |
+| Coverage | @vitest/coverage-v8 |
 | Build | Vite 5 |
+
+## Engineering Discipline
+
+| Practice | Detail |
+|----------|--------|
+| Tests | 176 automated (146 Vitest jsdom + 17 Vitest Node + 13 Playwright E2E) |
+| Coverage | 67% statements, 100% on utils and key components |
+| Pre-push hooks | Prettier + ESLint (zero warnings) + Vitest via Husky |
+| Commit conventions | Enforced via commitlint (conventional commits) |
+| Linting | ESLint + TypeScript strict mode, zero warnings |
+| CI/CD | GitHub Actions: lint, test, build Windows + macOS |
+| Security | Sandboxed iframe for user HTML/JS, Electron Fuses, contextBridge IPC |
 
 ## Development
 
@@ -109,25 +121,19 @@ npm install
 npm start
 
 # Run tests
-npm test
+npm test                    # Unit + component tests (Vitest)
+npm run test:node           # Backend tests (Node environment)
+npm run test:e2e            # E2E tests (Playwright + Electron)
+npm run test:coverage       # Coverage report
 
-# Run tests with coverage
-npm run test:coverage
+# Lint
+npm run lint
 
-# Build Windows installer
-npm run make
+# Build installers
+npm run make                # Windows .exe or macOS .dmg
 ```
 
 **Known dev issue:** If blank screen on startup, run `rm -rf node_modules/.vite` and relaunch.
-
-## Test Coverage
-
-125 automated tests across 16 test files:
-
-- **Stores:** editor-store (sync, debounce, file ops, dark mode), tab-store (lifecycle, adjacency, dedup)
-- **Components:** Toolbar, StatusBar, SplitView, TabBar, ExportDialog
-- **Renderers:** All 6 diagram renderers (Mermaid, BPMN, DFD, PlantUML, Graphviz, HTML)
-- **Utils:** DFD parser (100%), export HTML generator (100%)
 
 ## License
 
