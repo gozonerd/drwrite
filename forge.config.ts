@@ -11,7 +11,7 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: {
-      unpack: '**/{better-sqlite3,simple-git,chokidar,electron-updater}/**',
+      unpack: '**/{better-sqlite3,electron-updater}/**',
     },
     icon: './assets/icons/icon',
   },

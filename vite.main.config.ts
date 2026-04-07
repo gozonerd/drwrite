@@ -4,8 +4,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   build: {
     rollupOptions: {
-      // Native Node modules must be externalized — Rollup can't bundle .node binaries
-      external: ['better-sqlite3', 'simple-git', 'chokidar', 'electron-updater'],
+      // Only externalize modules with native .node binaries that Rollup can't bundle.
+      // simple-git and chokidar are pure JS and should be bundled by Vite.
+      external: ['better-sqlite3', 'electron-updater'],
     },
   },
 });
