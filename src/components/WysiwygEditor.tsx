@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Link } from '@tiptap/extension-link';
 import { Markdown } from 'tiptap-markdown';
 import { Heading } from '@tiptap/extension-heading';
 import { Table } from '@tiptap/extension-table';
@@ -37,6 +36,10 @@ export function WysiwygEditor() {
         codeBlock: {
           HTMLAttributes: { class: 'code-block' },
         },
+        link: {
+          openOnClick: false,
+          HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
+        },
       }),
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }).extend({
         renderHTML({ node, HTMLAttributes }) {
@@ -56,10 +59,6 @@ export function WysiwygEditor() {
       PlantUmlBlock,
       GraphvizBlock,
       HtmlBlock,
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: { class: 'text-blue-500 underline cursor-pointer' },
-      }),
       Markdown.configure({
         html: true,
         transformPastedText: true,
