@@ -1,6 +1,6 @@
 ---
 name: dare-to-rise-code-plan
-description: "Use this skill when planning ANY coding task that involves implementation. Triggers on: 'dare-to-rise-code-plan', 'd2r-code-plan', 'd2r code plan', '/dare-to-rise-code-plan', '/d2r-code-plan', 'plan this code task', 'code plan with audit gates', or when Claude is about to produce an implementation plan for a coding task. Enforces minimum plan inclusion standards: mandatory Stage 00 research, n=5 null-edit self-audit-edit gates after every implementation step, and detailed git commits after each passed gate."
+description: "Use this skill when planning ANY coding task that involves implementation. Triggers on: 'dare-to-rise-code-plan', 'dare-to-rise-code-planning', 'dare to rise code planning', 'd2r-code-plan', 'd2r code plan', '/dare-to-rise-code-plan', '/dare-to-rise-code-planning', '/d2r-code-plan', 'plan this code task', 'code plan with audit gates', or when Claude is about to produce an implementation plan for a coding task. Enforces minimum plan inclusion standards: mandatory Stage 00 research, n=5 null-edit self-audit-edit gates after every implementation step, and detailed git commits after each passed gate."
 ---
 
 # Dare to Rise Code Plan
@@ -12,8 +12,8 @@ Enforce minimum plan inclusion standards for any coding task. Every implementati
 ## When to Use
 
 - When planning ANY coding task that involves implementation
-- When the user says "dare-to-rise-code-plan", "d2r-code-plan", "d2r code plan"
-- When the user invokes `/dare-to-rise-code-plan` or `/d2r-code-plan`
+- When the user says "dare-to-rise-code-plan", "dare-to-rise-code-planning", "dare to rise code planning", "d2r-code-plan", "d2r code plan"
+- When the user invokes `/dare-to-rise-code-plan`, `/dare-to-rise-code-planning`, or `/d2r-code-plan`
 - When the user says "plan this code task" or "code plan with audit gates"
 - Before generating any multi-step implementation plan
 
@@ -71,7 +71,12 @@ Before ANY code is written, research current best practices for ALL proposed imp
 ...
 ```
 
-5. **Proceed to Stage 00-A** (audit gate on the research findings themselves).
+5. **Save the Research Summary as a file.** Before proceeding to 00-A, write the Research Summary to a file following naming conventions:
+   - Filename: `D2R_Stage00_Research_Summary_YYYY-MM-DD_v01_I.md`
+   - Location: appropriate subfolder in the working repo (e.g., `.claude/d2r-artifacts/` or `docs/`)
+   - This file is what gets committed in Stage 00-B. Without a saved file, 00-B has nothing to commit.
+
+6. **Proceed to Stage 00-A** (audit gate on the research findings themselves).
 
 ### Anti-Patterns
 
@@ -99,7 +104,7 @@ This skill requires **5 CONSECUTIVE audit passes returning zero errors / null ed
    - Step 1: Audit (compare work against original sources, prompt, and Stage 00 research findings)
    - Step 2: Apply Edits (fix every error found)
    - Step 3: Present Summary (in-thread table)
-   - Step 4: Bump Versioning (per file-naming-and-versioning rules)
+   - Step 4: Bump Versioning — **document outputs only** (Research Summary, implementation notes, spec files). For code files tracked by git, skip the filename version bump; git history serves as the version record.
 
 2. **Track the consecutive null-edit counter.** After each loop iteration:
    - If errors were found: reset counter to 0
@@ -197,7 +202,26 @@ When this skill is active, the Claude instance MUST follow this exact sequence:
 
 1. **Receive the coding task** from the user.
 
-2. **Generate the plan skeleton.** List all implementation steps as Stage 01, 02, 03, etc. Present the skeleton to the user for approval before proceeding.
+2. **Generate the plan skeleton.** List all implementation steps as Stage 01, 02, 03, etc. Present using this format and wait for user confirmation before proceeding:
+
+```
+## D2R Plan Skeleton — [Task Name]
+
+| Stage | Description |
+|-------|-------------|
+| Stage 00 | Research Current Best Practices |
+| Stage 01 | [first implementation step] |
+| Stage 02 | [second implementation step] |
+| Stage NN | [Nth step] |
+
+`✓` to approve and begin Stage 00
+
+`?` to discuss stages
+
+`X: [feedback]` to modify the stage list
+```
+
+Do not begin Stage 00 until the user responds with `✓`.
 
 3. **Execute Stage 00** (Research Current Best Practices).
    - 00: Research all targets
