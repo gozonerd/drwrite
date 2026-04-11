@@ -17,6 +17,46 @@ Enforce minimum plan inclusion standards for any coding task. Every implementati
 - When the user says "plan this code task" or "code plan with audit gates"
 - Before generating any multi-step implementation plan
 
+## Built-In Quality Constraints (Never Afterthoughts)
+
+### Accessibility (WCAG 2.1 AA)
+
+Accessibility is NOT a polish stage. It is a constraint on every implementation stage that produces UI. Every component, every page, every interactive element must meet WCAG 2.1 AA at the time it is built — not in a later cleanup pass.
+
+**Every UI stage's exit criteria MUST include:**
+- Keyboard navigable (Tab, arrow keys, Enter/Space for activation)
+- Visible focus indicators (`focus-visible:ring-2` or equivalent)
+- Semantic HTML (correct roles, labels, `aria-*` attributes)
+- Color is never the sole indicator of meaning — text labels always present
+- Contrast ratios met (4.5:1 normal text, 3:1 large text)
+- Touch targets ≥44x44px for any element intended for mobile
+- `prefers-reduced-motion` respected on all animations
+
+**Every UI stage's `-A` audit gate MUST check:**
+- Can a keyboard-only user complete all interactions in this stage?
+- Are all new elements properly labeled for screen readers?
+- Does color alone convey any meaning without a text alternative?
+
+If a stage adds UI and the audit gate does not check accessibility, the gate has not passed. Accessibility failures count as errors that reset the n=5 consecutive counter.
+
+### Legal Pages (Web Deployments)
+
+Any D2R plan that includes a deploy-to-web stage MUST include a legal pages stage **before** the deployment stage. This is not optional. Legal pages are not an afterthought — they ship with the first deployment.
+
+**Required legal pages for any public web deployment:**
+- Privacy Policy (`/privacy`) — data handling, analytics disclosure, cookie policy, GDPR/CCPA considerations
+- Terms of Use (`/terms`) — disclaimer, limitation of liability, intellectual property
+
+**Legal page stage requirements:**
+- Pages must be accessible from a persistent footer on every page
+- Pages must meet the same a11y constraints as all other UI
+- Content must be reviewed in the `-A` audit gate for accuracy and completeness
+- If the tool collects no PII and runs client-side only, the privacy policy must explicitly state this
+
+**Anti-pattern:** Deploying a public-facing tool and adding legal pages later. The legal pages stage is sequenced before deployment in every plan skeleton.
+
+---
+
 ## Plan Structure: Mandatory Stage Numbering
 
 Every plan MUST use this stage numbering scheme:
@@ -98,6 +138,23 @@ The standard `ai-self-audit-edit` skill exits after **1 audit pass returning zer
 
 This skill requires **5 CONSECUTIVE audit passes returning zero errors / null edits** before the gate passes. If any pass finds even one error, the consecutive counter resets to zero.
 
+### What "5 Consecutive Null-Edit Passes" Means
+
+Each pass is the SAME comprehensive audit repeated from scratch. You re-read ALL sources, re-check ALL code, re-verify ALL requirements — the full audit — and find zero errors. Then you do that again. And again. Five times in a row.
+
+**This is NOT 5 different audits.** It is NOT "pass 1 checks types, pass 2 checks tests, pass 3 checks a11y, pass 4 checks formatting, pass 5 checks naming." That is 5 partial audits, not 5 full passes.
+
+**Each of the 5 passes must independently check EVERYTHING:**
+- Correctness against requirements
+- Correctness against Stage 00 research findings
+- Code quality and conventions
+- Test coverage and accuracy
+- Accessibility (if UI stage)
+- File naming and versioning
+- All project rules
+
+If pass 3 finds an error that passes 1 and 2 missed, the counter resets to zero. That's the point — repetition catches what single passes miss.
+
 ### Procedure
 
 1. **Execute the self-audit-edit loop** per the `ai-self-audit-edit` skill:
@@ -136,6 +193,8 @@ Each audit pass compares the stage's output against:
 - Project rules (`.claude/rules/`)
 - Existing codebase conventions
 - The specific stage's stated goal
+- **Accessibility constraints** (if the stage produces UI) — see "Built-In Quality Constraints" above
+- **Legal page completeness** (if the stage is the legal pages stage) — see "Built-In Quality Constraints" above
 
 ### Anti-Patterns
 
@@ -143,6 +202,8 @@ Each audit pass compares the stage's output against:
 - Declaring "looks good" without actually re-reading sources
 - Counting non-consecutive clean passes toward the 5
 - Skipping the gate because "nothing changed since last pass" — run the full audit anyway
+- Skipping accessibility checks on a UI stage because "there's a polish stage later" — there isn't. A11y is checked NOW.
+- Treating accessibility as cosmetic/LOW severity — a11y failures are HIGH severity and reset the counter
 
 ---
 

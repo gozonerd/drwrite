@@ -56,6 +56,16 @@ Steps 1-4 = **one self-audit-edit loop.**
 
 Continue iterating (loop back to Step 1) until an audit pass finds **zero errors**. Only then exit the loop.
 
+### What "One Audit Pass" Means
+
+A single audit pass is **re-running the SAME audit** (Step 1) against the SAME sources and the SAME output. You are re-reading the same material and checking for errors you may have missed or introduced.
+
+A null-edit pass means: "I re-read everything, checked every claim, re-examined every formatting rule, and found zero errors."
+
+**This is NOT:** running 5 different audits that each check different things. It is the SAME comprehensive audit, repeated, confirming zero errors each time.
+
+**Anti-pattern (Sonnet-specific):** Running one audit checking formatting, a second checking facts, a third checking tone, a fourth checking completeness, and a fifth checking sources — then claiming "5 null-edit passes." That is 5 partial audits, not 5 full passes. Each pass must check EVERYTHING.
+
 ## On Loop Exit
 
 1. Execute the final Step 4 version bump
