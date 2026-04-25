@@ -1,70 +1,67 @@
 #!/usr/bin/env bash
 #
-# commit-msg — Martinez Methods structural IP + ASAE enforcement (v03)
+# commit-msg — Martinez Methods structural IP + gate enforcement (v04)
 #
-# v03 (2026-04-25) — Bobo-recursive teeth: validates that the ASAE-Gate /
-# D2R-Stage trailer is BACKED BY EVIDENCE, not just present. v02 enforced
-# trailer presence (advisory at structural layer). v03 closes the F8-class
-# gap that produced the 2026-04-25 false-attestation incident on CDCC
-# commit d849a98 — see gate-15 in the CDCC repo + this hook's docs.
+# CLASSIFICATION: INTERNAL ONLY — gate-script structure is mechanism-by-design
+# and uses clustered methodology vocabulary as required-phrase regex targets.
+# This file must not be published outside Martinez Methods. Public repos
+# consuming this hook must have a separate scrub pass before publication.
 #
-# Composed rules (in execution order):
+# Composed rules (executed in order):
 #
-# Rule 1 (IP-clean persona attribution): Co-Authored-By: trailer's persona
-# position must be Clauda or Claudette (not Claude). Per
-# feedback_clauda_replaces_claude_in_naming.md.
+#   Rule 1: IP-clean persona attribution.
+#     Co-Authored-By trailer's persona position must be Clauda or Claudette,
+#     not Claude. Per memory feedback_clauda_replaces_claude_in_naming.md.
 #
-# Rule 2 (ASAE gate attestation per commit): the commit message must declare
-# an ASAE-Gate or D2R-Stage attestation at the severity required by the
-# repo's .asae-policy file. v02-baseline check.
+#   Rule 2: Gate-trailer presence at policy-required level.
+#     Commit message must carry an ASAE-Gate: or D2R-Stage: trailer at the
+#     level required by the repo's .asae-policy file.
 #
-# Rule 3 (TIER 1 — Audit-log existence): the trailer must point at a real
-# audit log file at deprecated/asae-logs/gate-NN-<descriptor>.md (staged in
-# the commit, OR existing in the repo and referenced by `gate-NN-` in the
-# body). The audit log must have gate_id, target, asae_certainty_threshold,
-# and at least N consecutive zero-error pass-result blocks where N matches
-# the trailer's threshold.
+#   Rule 3 (Tier 1): Backing-evidence existence.
+#     The trailer must point at a real internal-records file under
+#     deprecated/asae-logs/gate-NN-<descriptor>.md (staged in commit OR
+#     existing in repo and referenced by gate-NN- in body), with required
+#     frontmatter and N or more result-blocks.
 #
-# Rule 4 (TIER 2-PARSE — F7 observed-behavior claim): for code commits in
-# codebase repos, the audit log must record literal exit-code claims for at
-# least npm test (or repo-equivalent) and one of build/typecheck/lint.
+#   Rule 3 (Tier 1b): Identical-pass discipline.
+#     Each result-block must contain required-phrase markers indicating
+#     full-domain checklist application AND severity summary line.
 #
-# Rule 5 (TIER 3-PARSE — Cross-shell verification claim): when staged files
-# touch platform-conditional code paths (HOME/USERPROFILE, os.homedir(),
-# pathToFileURL, path.sep, *.ps1, *.cmd, GitHub Actions runs-on matrices),
-# the audit log must record observed behavior in ≥2 shells (Git Bash +
-# PowerShell minimum on Windows-affecting changes).
+#   Rule 3 (Tier 1c, v04 addition): Independent rater attestation.
+#     The internal-records file must contain an `## Independent Rater
+#     Verification` section with non-placeholder verdict (CONFIRMED |
+#     PARTIAL | FLAG). Per canonical methodology spec Step 6 (REQUIRED
+#     for all gate invocations regardless of severity policy). Anti-
+#     fabrication: faking the verdict is fabrication (F1) AND reproduces
+#     the failure mode the rater step closes; methodology spec
+#     prohibition is primary defense, this hook layer is secondary.
 #
-# Rule 6 (TIER 4 — Provenance / uniqueness): the audit log's gate_id must
-# be unique in deprecated/asae-logs/. Frontmatter must contain `Applied
-# from:` referencing a specific incident, prior commit SHA, or session-
-# dated event.
+#   Rule 4 (Tier 2-parse): For code commits in codebase repos, the
+#     internal-records file must record literal exit-code claims for
+#     test + build/typecheck/lint.
 #
-# Exempt from Rule 2-6:
-#   - Merge commits (subject starts with "Merge ")
-#   - Revert commits (subject starts with "Revert ")
+#   Rule 5 (Tier 3-parse): When staged files touch platform-conditional
+#     paths, the file must record observed behavior in two or more shells.
 #
-# Known limitations:
-#   - git commit --no-verify bypasses everything (git architectural limit).
-#     For truly non-bypassable enforcement, require a GitHub Actions
-#     status check on push.
-#   - v03 still parses claims rather than re-running them. Tier 2-RERUN +
-#     Tier 3-RERUN + Tier 5 (live audit at commit time) are deferred work
-#     in the public-release-backlog.
+#   Rule 6 (Tier 4): Provenance — gate_id unique in directory; frontmatter
+#     must reference originating incident or session-dated event.
 #
-# Applied from:
-#   - 2026-04-25 false-attestation incident on CDCC v1.0.3 commit d849a98
-#     (later force-pushed as 06a4248 with honest-history correction)
-#   - Audit log of record: nerdykrystal/claudette-can-code @
-#     deprecated/asae-logs/gate-15-v1.0.4-asae-convergence-with-honest-
-#     history.md
-#   - Memory rule produced: feedback_no_deferral_debt.md (rejects
-#     "handle in another session" remediation paths)
+# Tier 0 (deterministic-propagation class): commits carrying a
+#   Propagation-From: trailer that references an existing gate-NN file
+#   skip Rules 3-6. Rule 1 (persona) and Rule 2 (level-required trailer)
+#   still apply. Designed for mechanical propagations (file copies from
+#   a canonical source already audited at the source; submodule pointer
+#   bumps; small doc-bump propagations) where per-target audit-log
+#   overhead would be theatre, not assurance. The hook verifies the
+#   referenced source-gate exists at a known location AND the staged
+#   diff fits a bounded propagation profile (no source-code files,
+#   total inserts + deletes under 10000 lines).
 #
-# Bobo-recursive note: this hook is itself a Bobo-compiled instance.
-# v02 was presence-check class (advisory at structural layer);
-# v03 closes the F8 gap by adding truth-verification teeth. The hook
-# applying Bobo to commits is now subject to Bobo applied to itself.
+# Exempt from Rules 2-6: merge commits and revert commits.
+#
+# Known limitation: git commit --no-verify bypasses everything (architectural
+# limit). For non-bypassable enforcement, layer a GitHub Actions required
+# status check on push.
 
 set -e
 
@@ -76,7 +73,7 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
 fi
 
 # ----------------------------------------------------------------------------
-# Exemption check: merge / revert commits skip Rules 2-6 (still check Rule 1)
+# Exemption: merge / revert commits skip Rules 2-6 (Rule 1 still applies)
 # ----------------------------------------------------------------------------
 SUBJECT=$(head -n 1 "$COMMIT_MSG_FILE" | sed -E 's/\r$//')
 IS_EXEMPT_FROM_ASAE=false
@@ -85,7 +82,7 @@ if echo "$SUBJECT" | grep -qE '^(Merge |Revert )'; then
 fi
 
 # ============================================================================
-# RULE 1 — IP-CLEAN PERSONA ATTRIBUTION (always applies)
+# RULE 1 — IP-CLEAN PERSONA ATTRIBUTION (always)
 # ============================================================================
 
 COAUTHORS=$(grep -iE '^Co-Authored-By:' "$COMMIT_MSG_FILE" || true)
@@ -145,16 +142,102 @@ EOF
 fi
 
 # ============================================================================
-# RULES 2-6 — ASAE attestation + truth-verification teeth (v03)
-# Skipped for merge/revert per IS_EXEMPT_FROM_ASAE
+# RULES 2-6 — Gate enforcement (skipped for merge/revert)
 # ============================================================================
 
 if [ "$IS_EXEMPT_FROM_ASAE" = "true" ]; then
   exit 0
 fi
 
-# ---- Resolve policy ----
+# ---- Set REPO_ROOT and STAGED early (used by Tier 0 below) ----
 REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo ".")
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null || echo "")
+
+# ============================================================================
+# TIER 0 — DETERMINISTIC-PROPAGATION CLASS (skips Rules 3-6 if matched)
+# ============================================================================
+# Trailer: Propagation-From: gate-NN-<source-descriptor>
+# When present, the hook verifies (a) the referenced source-gate file exists
+# at a known location, (b) the staged diff fits a bounded propagation profile.
+# Rules 1 and 2 still apply; Rules 3-6 are skipped.
+
+PROPAGATION_TRAILER=$(grep -iE '^Propagation-From:' "$COMMIT_MSG_FILE" | head -1 | sed -E 's/\r$//' || true)
+
+IS_PROPAGATION_CLASS=false
+
+if [ -n "$PROPAGATION_TRAILER" ]; then
+  # Parse the referenced gate-NN-* identifier
+  PROP_GATE=$(echo "$PROPAGATION_TRAILER" | sed -E 's/^[Pp]ropagation-[Ff]rom:[[:space:]]*//' | grep -oE 'gate-[0-9]+(-[0-9a-z-]+)?' | head -1)
+
+  PROP_GATE_FOUND=""
+  if [ -n "$PROP_GATE" ]; then
+    # Search known gate-file locations: this repo + workspace + _grand_repo
+    for candidate_dir in \
+        "$REPO_ROOT/deprecated/asae-logs" \
+        "$REPO_ROOT/workspace/deprecated/asae-logs" \
+        "$REPO_ROOT/../_grand_repo/deprecated/asae-logs" \
+        "$HOME/_grand_repo/deprecated/asae-logs"; do
+      if [ -d "$candidate_dir" ]; then
+        FOUND=$(ls "$candidate_dir" 2>/dev/null | grep -iE "^${PROP_GATE}-" | head -1 || true)
+        if [ -n "$FOUND" ]; then
+          PROP_GATE_FOUND="$candidate_dir/$FOUND"
+          break
+        fi
+      fi
+    done
+  fi
+
+  # Bound the staged diff: no source-code files, total lines under 10000
+  PROP_HAS_CODE=false
+  if echo "$STAGED" | grep -qE '\.(ts|tsx|js|jsx|rs|py|go|java|c|cpp|h|hpp|rb|svelte|vue|sql)$|^src/|^src-tauri/|^plugin/(src|tests)/|^packages/'; then
+    PROP_HAS_CODE=true
+  fi
+  PROP_LINE_COUNT=$(git diff --cached --numstat 2>/dev/null | awk '{s+=$1+$2} END{print s+0}')
+
+  PROP_FAIL=""
+  if [ -z "$PROP_GATE" ]; then
+    PROP_FAIL="Propagation-From trailer present but no gate-NN reference parseable"
+  elif [ -z "$PROP_GATE_FOUND" ]; then
+    PROP_FAIL="Propagation-From references '$PROP_GATE' but no matching gate file found in any known location"
+  elif [ "$PROP_HAS_CODE" = "true" ]; then
+    PROP_FAIL="Propagation-From class does not accept source-code files; this commit stages code. Use D2R-Stage class for code commits."
+  elif [ "$PROP_LINE_COUNT" -gt 10000 ]; then
+    PROP_FAIL="Propagation-From class requires bounded diff (< 10000 lines); staged $PROP_LINE_COUNT lines exceed limit"
+  fi
+
+  if [ -n "$PROP_FAIL" ]; then
+    cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Tier 0 violation: invalid Propagation-From class
+==================================================================
+
+Trailer: $PROPAGATION_TRAILER
+Problem: $PROP_FAIL
+
+Propagation-From class is for mechanical propagations (file copies
+from a canonical source already audited at the source; submodule
+pointer bumps; small doc-bump propagations). Required:
+
+  - Trailer references a gate-NN-* identifier that resolves to an
+    existing gate file in a known location.
+  - Staged diff contains no source-code files.
+  - Staged diff total lines (inserts + deletes) under 10000.
+  - Standard ASAE-Gate / D2R-Stage trailers and Rule 1 persona still
+    required.
+
+Use the regular ASAE-Gate / D2R-Stage class if this commit doesn't
+fit the bounded propagation profile.
+
+EOF
+    exit 1
+  fi
+
+  # All Tier 0 checks pass — mark as propagation class and skip Rules 3-6
+  IS_PROPAGATION_CLASS=true
+fi
+
+# ---- Resolve policy ----
 POLICY_FILE="$REPO_ROOT/.asae-policy"
 
 if [ -f "$POLICY_FILE" ]; then
@@ -167,7 +250,7 @@ else
   REPO_TYPE="documentation"
 fi
 
-# ---- Derive required severity ----
+# ---- Derive required level ----
 if [ "$VISIBILITY" = "public" ] || [ "$GOING_PUBLIC" = "true" ]; then
   REQUIRED_SEVERITY="strict"
   REQUIRED_THRESHOLD=3
@@ -178,7 +261,6 @@ fi
 
 # ---- Determine if this is a code commit in a codebase repo ----
 IS_CODE_COMMIT=false
-STAGED=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null || echo "")
 if [ "$REPO_TYPE" = "codebase" ]; then
   if echo "$STAGED" | grep -qE '\.(ts|tsx|js|jsx|rs|py|go|java|c|cpp|h|hpp|rb|svelte|vue|sql|yaml|yml|toml)$|^src/|^src-tauri/|^plugin/(src|tests)/|^packages/'; then
     IS_CODE_COMMIT=true
@@ -190,7 +272,6 @@ TOUCHES_PLATFORM_PATHS=false
 if echo "$STAGED" | grep -qE '\.(ps1|cmd|bat)$|github/workflows|\.config\.(ts|js|mjs|cjs)$|propagate-githooks|installer'; then
   TOUCHES_PLATFORM_PATHS=true
 fi
-# Also check staged source content for platform-conditional patterns
 if [ "$TOUCHES_PLATFORM_PATHS" = "false" ] && [ -n "$STAGED" ]; then
   STAGED_DIFF=$(git diff --cached 2>/dev/null || echo "")
   if echo "$STAGED_DIFF" | grep -qE 'process\.env\.HOME|process\.env\.USERPROFILE|os\.homedir|pathToFileURL|path\.sep|process\.platform|win32|darwin|linux'; then
@@ -199,7 +280,7 @@ if [ "$TOUCHES_PLATFORM_PATHS" = "false" ] && [ -n "$STAGED" ]; then
 fi
 
 # ============================================================================
-# RULE 2 — ASAE GATE TRAILER VALIDATION (v02-baseline)
+# RULE 2 — TRAILER PRESENCE + LEVEL
 # ============================================================================
 
 ASAE_TRAILER=$(grep -iE '^ASAE-Gate:' "$COMMIT_MSG_FILE" | head -1 | sed -E 's/\r$//' || true)
@@ -213,7 +294,7 @@ if [ "$IS_CODE_COMMIT" = "true" ] && [ -n "$D2R_TRAILER" ]; then
   D2R_STATUS=$(echo "$D2R_TRAILER" | sed -E 's/^[Dd]2[Rr]-[Ss]tage:[[:space:]]*//' | awk -F- '{print $NF}')
   if [ "$D2R_STATUS" = "PASS" ]; then
     ATTEST_OK=true
-    TRAILER_THRESH_NUMERIC=$REQUIRED_THRESHOLD  # D2R uses required threshold for tier 1
+    TRAILER_THRESH_NUMERIC=$REQUIRED_THRESHOLD
   else
     ATTEST_REASON="D2R-Stage status '$D2R_STATUS' is not PASS"
   fi
@@ -226,7 +307,7 @@ elif [ -n "$ASAE_TRAILER" ]; then
   if [ "$TRAILER_STATUS" != "PASS" ]; then
     ATTEST_REASON="ASAE-Gate status is '$TRAILER_STATUS', required 'PASS'"
   elif [ "$REQUIRED_SEVERITY" = "strict" ] && [ "$TRAILER_SEV" != "strict" ]; then
-    ATTEST_REASON="This repo requires strict ASAE gate; commit declares '$TRAILER_SEV'"
+    ATTEST_REASON="This repo requires strict gate level; commit declares '$TRAILER_SEV'"
   elif ! echo "$TRAILER_THRESH" | grep -qE '^[0-9]+$'; then
     ATTEST_REASON="ASAE-Gate threshold '$TRAILER_THRESH' is not numeric"
   elif [ "$TRAILER_THRESH" -lt "$REQUIRED_THRESHOLD" ]; then
@@ -236,14 +317,14 @@ elif [ -n "$ASAE_TRAILER" ]; then
     TRAILER_THRESH_NUMERIC=$TRAILER_THRESH
   fi
 else
-  ATTEST_REASON="No ASAE-Gate or D2R-Stage attestation trailer found in commit message"
+  ATTEST_REASON="No ASAE-Gate or D2R-Stage trailer found in commit message"
 fi
 
 if [ "$ATTEST_OK" != "true" ]; then
   cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 2 violation: ASAE gate attestation required
+COMMIT REFUSED - Rule 2 violation: gate trailer required
 ==================================================================
 
 Policy resolved from $POLICY_FILE (or defaults):
@@ -252,7 +333,7 @@ Policy resolved from $POLICY_FILE (or defaults):
   type:          $REPO_TYPE
   is-code-commit: $IS_CODE_COMMIT
 
-Required: $REQUIRED_SEVERITY ASAE gate at threshold >= $REQUIRED_THRESHOLD
+Required: $REQUIRED_SEVERITY level at threshold >= $REQUIRED_THRESHOLD
   (OR D2R-Stage PASS trailer if code commit in codebase repo)
 
 Problem: $ATTEST_REASON
@@ -260,11 +341,10 @@ Problem: $ATTEST_REASON
 Canonical trailers:
   ASAE-Gate: strict-3-PASS          (public / going-public / non-code)
   ASAE-Gate: standard-2-PASS        (private, stable-private, non-code)
-  D2R-Stage: 01b-PASS               (code commit, D2R stage gate cleared)
+  D2R-Stage: 01b-PASS               (code commit, D2R stage cleared)
 
-Fix: before committing, run an ASAE convergence-to-stable-state audit
-at the required severity / threshold against the staged changes, then
-add the trailer to the commit message body:
+Fix: complete the methodology gate at the required level against the
+staged changes, then add the trailer to the commit message body:
 
   <subject line>
 
@@ -273,35 +353,37 @@ add the trailer to the commit message body:
   ASAE-Gate: strict-3-PASS
   Co-Authored-By: Clauda the Value Genius v02 (Opus 4.7, 1M context) <noreply@anthropic.com>
 
-Emergency bypass (NOT RECOMMENDED - defeats structural enforcement):
+Emergency bypass (NOT RECOMMENDED — defeats structural enforcement):
   git commit --no-verify
-
-Policy doc: _grand_repo/docs/Commit_Persona_Hook_2026-04-24_v02_I.md
 
 EOF
   exit 1
 fi
 
 # ============================================================================
-# RULE 3 — TIER 1: AUDIT-LOG EXISTENCE VERIFICATION
+# Skip Rules 3-6 for deterministic-propagation class
+# ============================================================================
+if [ "$IS_PROPAGATION_CLASS" = "true" ]; then
+  exit 0
+fi
+
+# ============================================================================
+# RULE 3 — TIER 1: BACKING-EVIDENCE FILE EXISTENCE
 # ============================================================================
 
-# Discover the audit log: prefer staged, fall back to body-referenced.
 AUDIT_LOG_PATH=""
 
-# Strategy 1: staged audit log under any */asae-logs/gate-NN-*.md
+# Strategy 1: staged file under */asae-logs/gate-NN-*.md
 STAGED_LOGS=$(echo "$STAGED" | grep -E 'asae-logs/gate-[0-9]+(-[0-9]+)?-.+\.md$' || true)
 if [ -n "$STAGED_LOGS" ]; then
-  # Use the highest-numbered gate among staged (most recent)
   AUDIT_LOG_PATH=$(echo "$STAGED_LOGS" | sort -V | tail -1)
 fi
 
-# Strategy 2: body-referenced gate-NN, found in repo at deprecated/asae-logs/
+# Strategy 2: body-referenced gate-NN, found in repo
 if [ -z "$AUDIT_LOG_PATH" ]; then
   REFERENCED_GATE=$(grep -oiE 'gate-[0-9]+(-[0-9]+)?' "$COMMIT_MSG_FILE" | head -1 || true)
   if [ -n "$REFERENCED_GATE" ]; then
     LOWER_REF=$(echo "$REFERENCED_GATE" | tr '[:upper:]' '[:lower:]')
-    # Search common audit-log locations
     for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
       if [ -d "$candidate_dir" ]; then
         FOUND=$(ls "$candidate_dir" 2>/dev/null | grep -iE "^${LOWER_REF}-" | head -1 || true)
@@ -318,78 +400,58 @@ if [ -z "$AUDIT_LOG_PATH" ] || [ ! -f "$REPO_ROOT/$AUDIT_LOG_PATH" ]; then
   cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 3 violation: ASAE audit log not found (Tier 1)
+COMMIT REFUSED - Rule 3 violation: backing-evidence file not found
 ==================================================================
 
-The ASAE-Gate / D2R-Stage trailer attests that an audit was run, but
-no corresponding audit log file was found.
+The trailer attests a gate, but no corresponding internal-records
+file was found.
 
-The hook looked for:
+Looked for:
   1. A staged file matching */asae-logs/gate-NN-*.md (preferred)
   2. A body-referenced gate-NN whose corresponding file exists at
      deprecated/asae-logs/gate-NN-*.md or workspace/deprecated/asae-logs/
 
-Neither was found.
-
-Bobo-recursive enforcement: trailer presence alone is advisory-prose-
-class. Per F8 (advisory-prose-rules-fail-stochastically), the trailer
-must be backed by a real audit-log artifact for the structural
-enforcement to have teeth.
+Neither was found. Trailer presence alone is insufficient — the
+trailer must be backed by a real file at the canonical path.
 
 Fix:
-  - Run a real ASAE convergence-to-stable-state audit on the staged
-    changes (multi-pass, severity-classified per origin-story
-    methodology in project_asae_origin.md).
-  - Write the audit log at deprecated/asae-logs/gate-NN-<descriptor>.md
-    with frontmatter (gate_id, target, asae_certainty_threshold,
-    Applied from) and explicit Pass-N result blocks.
-  - Stage the audit log as part of THIS commit, OR reference it by
-    gate-NN in the commit body (only if it already exists in repo).
-
-Reference: gate-15 in CDCC repo for canonical audit-log shape:
-  nerdykrystal/claudette-can-code @ c7586b0 → deprecated/asae-logs/
-  gate-15-v1.0.4-asae-convergence-with-honest-history.md
+  - Run the methodology gate at the required level against the staged
+    changes per the canonical methodology spec.
+  - Write the internal-records file at
+    deprecated/asae-logs/gate-NN-<descriptor>.md
+    with required frontmatter (gate_id, target, asae_certainty_threshold,
+    Applied from) and Pass-N result blocks.
+  - Stage the file as part of THIS commit, OR reference it by gate-NN
+    in the commit body if it already exists in repo.
 
 EOF
   exit 1
 fi
 
-# Parse audit log for required structure
 AUDIT_LOG_FULL="$REPO_ROOT/$AUDIT_LOG_PATH"
 
 GATE_ID=$(grep -E '^gate_id:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^gate_id:[[:space:]]*//' | sed -E 's/\r$//' | sed -E 's/[[:space:]]+$//')
 GATE_TARGET=$(grep -E '^target:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^target:[[:space:]]*//' | sed -E 's/\r$//')
 GATE_THRESHOLD=$(grep -E '^asae_certainty_threshold:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^asae_certainty_threshold:[[:space:]]*//' | sed -E 's/\r$//' | sed -E 's/[[:space:]]+$//')
 
-# Count pass-result blocks (markdown headers: "## Pass 1", "## Pass 2", etc.)
-# Per the /asae skill, each pass MUST be the SAME comprehensive checklist
-# repeated, NOT different audits on different passes. We enforce identical-
-# scope by requiring each Pass block to contain the same set of checklist
-# item names.
+# Required-phrase regex targets are mechanism-by-design and remain literal.
 PASS_COUNT=$(grep -ciE '^##[[:space:]]+Pass [0-9]+' "$AUDIT_LOG_FULL" || echo "0")
 
 TIER1_FAIL=""
 if [ -z "$GATE_ID" ]; then
-  TIER1_FAIL="audit log missing 'gate_id:' frontmatter field"
+  TIER1_FAIL="internal-records file missing 'gate_id:' frontmatter field"
 elif [ -z "$GATE_TARGET" ]; then
-  TIER1_FAIL="audit log missing 'target:' frontmatter field"
+  TIER1_FAIL="internal-records file missing 'target:' frontmatter field"
 elif [ -z "$GATE_THRESHOLD" ]; then
-  TIER1_FAIL="audit log missing 'asae_certainty_threshold:' frontmatter field"
+  TIER1_FAIL="internal-records file missing 'asae_certainty_threshold:' frontmatter field"
 elif [ "$PASS_COUNT" -lt "$TRAILER_THRESH_NUMERIC" ]; then
-  TIER1_FAIL="audit log contains $PASS_COUNT '## Pass N' headers but trailer claims threshold $TRAILER_THRESH_NUMERIC; need at least $TRAILER_THRESH_NUMERIC pass-result blocks"
+  TIER1_FAIL="internal-records file contains $PASS_COUNT '## Pass N' headers but trailer claims threshold $TRAILER_THRESH_NUMERIC; need at least $TRAILER_THRESH_NUMERIC result-blocks"
 fi
 
-# Tier 1b: identical-pass discipline. Per /asae skill (anti-pattern: "Running
-# partial audits and counting them as passes"), each Pass block must evaluate
-# the same comprehensive checklist. We enforce by requiring each Pass block
-# to contain a specific marker phrase indicating full-checklist re-evaluation,
-# AND requiring the standard /asae findings-classification block in each pass.
+# Tier 1b: required-phrase markers in each Pass block. Marker regex is the
+# mechanism contract with the canonical methodology spec; these literals are
+# load-bearing and remain unchanged.
 if [ -z "$TIER1_FAIL" ]; then
-  # Each Pass block must contain at least: "Issues found at" line for severity
-  # accounting, plus a "checklist" or "full audit" marker indicating the pass
-  # was a full re-evaluation of the same scope.
-
-  # Extract Pass block boundaries and check each one contains the required markers
   awk '
     /^##[[:space:]]+Pass [0-9]+/ {
       if (in_pass) { check_pass(pass_id) }
@@ -407,12 +469,10 @@ if [ -z "$TIER1_FAIL" ]; then
       if (in_pass) { check_pass(pass_id) }
     }
     function check_pass(id) {
-      # Required: at least one "Issues found at" severity line
       if (pass_content !~ /[Ii]ssues found at/) {
         print "MISSING_SEVERITY_BLOCK:" id
         exit 1
       }
-      # Required: indication that this pass re-evaluated full checklist
       if (pass_content !~ /([Ff]ull[[:space:]]+(audit|checklist|domain|evaluation|re-evaluation)|[Cc]hecklist[[:space:]]+evaluation|[Aa]udit[[:space:]]+all[[:space:]]+items|[Ss]ame[[:space:]]+(scope|audit|comprehensive|evaluation))/) {
         print "MISSING_FULL_AUDIT_MARKER:" id
         exit 1
@@ -423,10 +483,10 @@ if [ -z "$TIER1_FAIL" ]; then
     PASS_CHECK_RESULT=$(cat /tmp/asae-pass-check.out 2>/dev/null || echo "unknown")
     if echo "$PASS_CHECK_RESULT" | grep -q "MISSING_SEVERITY_BLOCK"; then
       BAD_PASS=$(echo "$PASS_CHECK_RESULT" | sed -E 's/MISSING_SEVERITY_BLOCK://')
-      TIER1_FAIL="Pass block '$BAD_PASS' missing 'Issues found at <severity>: <count>' summary required by /asae skill Step 3"
+      TIER1_FAIL="Pass block '$BAD_PASS' missing 'Issues found at <severity>: <count>' summary"
     elif echo "$PASS_CHECK_RESULT" | grep -q "MISSING_FULL_AUDIT_MARKER"; then
       BAD_PASS=$(echo "$PASS_CHECK_RESULT" | sed -E 's/MISSING_FULL_AUDIT_MARKER://')
-      TIER1_FAIL="Pass block '$BAD_PASS' missing full-audit marker (e.g., 'full domain checklist', 'same comprehensive scope', 'full re-evaluation'). Per /asae skill Step 1: each pass must be the SAME comprehensive check, repeated. Different audits on different passes is an explicit anti-pattern."
+      TIER1_FAIL="Pass block '$BAD_PASS' missing required-phrase marker. See canonical methodology spec for accepted markers."
     fi
   }
   rm -f /tmp/asae-pass-check.out
@@ -436,19 +496,19 @@ if [ -n "$TIER1_FAIL" ]; then
   cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 3 violation: audit log invalid (Tier 1)
+COMMIT REFUSED - Rule 3 violation: internal-records file invalid
 ==================================================================
 
-Audit log: $AUDIT_LOG_PATH
-Problem:   $TIER1_FAIL
+File:    $AUDIT_LOG_PATH
+Problem: $TIER1_FAIL
 
-Required audit log structure:
+Required structure:
   ---
   gate_id: gate-NN-<descriptor>
-  target: <surface audited>
-  asae_certainty_threshold: <number or strict-N>
+  target: <surface reviewed>
+  asae_certainty_threshold: <number>
   ...
-  Applied from: <origin incident>
+  Applied from: <originating incident>
   ---
 
   ## Pass 1 — <description>
@@ -457,52 +517,148 @@ Required audit log structure:
   ## Pass 2 — <description>
   ... results ...
 
-  ... at least N consecutive Pass blocks where N matches the trailer's threshold ...
+  ... at least N result-blocks where N matches the trailer's threshold ...
 
 EOF
   exit 1
 fi
 
 # ============================================================================
-# RULE 4 — TIER 2-PARSE: F7 OBSERVED-BEHAVIOR CLAIM
+# RULE 3 — TIER 1c: INDEPENDENT RATER ATTESTATION (v04 addition)
+# ============================================================================
+#
+# Per the canonical methodology spec Step 6: every gate invocation requires
+# independent rater verification via subagent spawn. The internal-records file
+# must contain an `## Independent Rater Verification` section with non-
+# placeholder verdict produced by an actual Agent tool invocation.
+#
+# This Tier closes the F8-class gap that Tier 1b (identical-pass) leaves
+# open: a primary auditor running 3 identical passes is still a single-
+# persona audit. The rater step adds independence; Tier 1c enforces it
+# structurally at commit-time.
+#
+# Anti-fabrication note: the hook can verify presence + structural
+# compliance + non-placeholder text, but CANNOT verify whether the rater
+# section was produced by a real subagent vs. self-authored content.
+# Per the spec's anti-fabrication block: faking the rater verdict is
+# fabrication (F1) AND reproduces the exact failure mode the rater step
+# was added to close. Methodology layer prohibition is primary defense;
+# this hook layer enforcement is secondary structural reinforcement.
+
+# Extract the Independent Rater Verification section (between the heading
+# and the next ## heading or end-of-file)
+RATER_SECTION=$(awk '
+  /^##[[:space:]]+Independent Rater Verification/ { in_rater = 1; next }
+  /^##[[:space:]]/ { if (in_rater) { in_rater = 0; exit } }
+  in_rater { print }
+' "$AUDIT_LOG_FULL")
+
+TIER1C_FAIL=""
+if [ -z "$RATER_SECTION" ]; then
+  TIER1C_FAIL="missing '## Independent Rater Verification' section per canonical methodology spec Step 6 (REQUIRED for all gate invocations)"
+else
+  # Anti-fabrication: refuse if placeholder text remains
+  if echo "$RATER_SECTION" | grep -qiE '\[TO BE FILLED IN'; then
+    TIER1C_FAIL="Independent Rater Verification section contains '[TO BE FILLED IN]' placeholder text. Spec anti-fabrication block requires actual subagent spawn before commit; placeholder text is structural evidence the rater step was reached but not completed."
+  else
+    # Verdict required (CONFIRMED, PARTIAL, or FLAG); presence-check only
+    HAS_VERDICT=$(echo "$RATER_SECTION" | grep -ciE 'rater[[:space:]]+verdict.*\b(CONFIRMED|PARTIAL|FLAG)\b' || echo "0")
+    if [ "$HAS_VERDICT" = "0" ]; then
+      TIER1C_FAIL="Independent Rater Verification section missing verdict. Verdict must be CONFIRMED, PARTIAL, or FLAG per spec Step 6."
+    fi
+  fi
+fi
+
+if [ -n "$TIER1C_FAIL" ]; then
+  cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 3 violation: rater attestation invalid (Tier 1c)
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: $TIER1C_FAIL
+
+Per canonical methodology spec Step 6 (REQUIRED for all gate invocations
+regardless of severity policy), the internal-records file must contain an
+'## Independent Rater Verification' section produced by an actual
+subagent spawn.
+
+The CORRECT action is to ACTUALLY SPAWN THE SUBAGENT, NOT FAKE THE
+RATING OR VERDICT. Per the spec's anti-fabrication block: faking the
+rater verdict is FABRICATION (F1 failure mode) AND reproduces the exact
+failure mode the rater step was added to close.
+
+Required structure in the internal-records file:
+
+  ## Independent Rater Verification
+
+  **Subagent type used:** general-purpose
+
+  **Brief delivered to rater (verbatim summary):**
+  - <the brief>
+
+  **Rater verdict:** CONFIRMED  (or PARTIAL, or FLAG)
+
+  **Rater per-item findings:**
+  <findings>
+
+  **Rater honest gaps:**
+  <gaps>
+
+  **Rater agentId:** <agentId from Agent tool>
+
+How to fix:
+  1. Read the canonical methodology spec for Step 6 rater spawn protocol
+  2. Use the Agent tool to spawn a real subagent (default: general-purpose)
+  3. Brief the subagent self-contained (no shared context with primary)
+  4. Wait for the actual response
+  5. Append the actual response into the Independent Rater Verification
+     section, replacing any placeholder text
+  6. Commit only after the section is populated with real rater output
+
+EOF
+  exit 1
+fi
+
+# ============================================================================
+# RULE 4 — TIER 2-PARSE: OBSERVED-BEHAVIOR CLAIMS FOR CODE COMMITS
 # ============================================================================
 
 if [ "$IS_CODE_COMMIT" = "true" ]; then
-  # Audit log must record literal exit-code claims for code commits
   HAS_TEST_EXIT=$(grep -ciE 'EXIT_TEST[[:space:]]*[=:][[:space:]]*0|EXIT_TEST=0|tests passing.*EXIT.*0' "$AUDIT_LOG_FULL" || echo "0")
   HAS_BUILD_OR_TYPECHECK=$(grep -ciE 'EXIT_(BUILD|TYPECHECK|TC|LINT)[[:space:]]*[=:][[:space:]]*0' "$AUDIT_LOG_FULL" || echo "0")
 
   TIER2_FAIL=""
   if [ "$HAS_TEST_EXIT" = "0" ]; then
-    TIER2_FAIL="audit log missing literal EXIT_TEST=0 claim (or equivalent observed-behavior test exit-code record)"
+    TIER2_FAIL="internal-records file missing literal EXIT_TEST=0 claim"
   elif [ "$HAS_BUILD_OR_TYPECHECK" = "0" ]; then
-    TIER2_FAIL="audit log missing literal EXIT_BUILD / EXIT_TYPECHECK / EXIT_LINT exit-code records"
+    TIER2_FAIL="internal-records file missing literal EXIT_BUILD / EXIT_TYPECHECK / EXIT_LINT records"
   fi
 
   if [ -n "$TIER2_FAIL" ]; then
     cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 4 violation: F7 observed-behavior claim missing (Tier 2-parse)
+COMMIT REFUSED - Rule 4 violation: observed-behavior claims missing
 ==================================================================
 
-Audit log: $AUDIT_LOG_PATH
-Problem:   $TIER2_FAIL
+File:    $AUDIT_LOG_PATH
+Problem: $TIER2_FAIL
 
-Per F7 (audit-on-intent-vs-observed-behavior — see
-feedback_audit_on_observed_behavior.md), code commits in codebase
-repos must include observed-behavior verification, not just intent
-review. The audit log must record literal shell exit-code claims:
+Code commits in codebase repos must include observed-behavior
+verification. The internal-records file must record literal shell
+exit-code claims:
 
   EXIT_BUILD=0
   EXIT_TYPECHECK=0
   EXIT_LINT=0
   EXIT_TEST=0
 
-Add a Pass block to the audit log that ran these commands against
-the staged content and records the literal exit codes:
+Add a result-block to the file that ran these commands against the
+staged content and records the literal exit codes:
 
-  ## Pass N — F7 observed-behavior verification
+  ## Pass N — observed-behavior verification
 
   \`\`\`
   EXIT_TYPECHECK=0   (npm run typecheck → tsc --noEmit clean)
@@ -519,11 +675,10 @@ EOF
 fi
 
 # ============================================================================
-# RULE 5 — TIER 3-PARSE: CROSS-SHELL VERIFICATION CLAIM
+# RULE 5 — TIER 3-PARSE: CROSS-SHELL VERIFICATION
 # ============================================================================
 
 if [ "$TOUCHES_PLATFORM_PATHS" = "true" ]; then
-  # Audit log must record observed behavior in ≥2 shell environments
   HAS_GIT_BASH=$(grep -ciE 'git.bash|gitbash|bash[[:space:]]*\(?msys|posix shell' "$AUDIT_LOG_FULL" || echo "0")
   HAS_POWERSHELL=$(grep -ciE 'powershell|pwsh|cmd\.exe' "$AUDIT_LOG_FULL" || echo "0")
 
@@ -531,33 +686,30 @@ if [ "$TOUCHES_PLATFORM_PATHS" = "true" ]; then
     cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 5 violation: cross-shell verification missing (Tier 3-parse)
+COMMIT REFUSED - Rule 5 violation: cross-shell verification missing
 ==================================================================
 
-Audit log: $AUDIT_LOG_PATH
-Problem:   audit log does not record cross-shell verification.
+File:    $AUDIT_LOG_PATH
+Problem: file does not record cross-shell verification.
 
-Staged content touches platform-conditional code paths (HOME/
-USERPROFILE references, os.homedir, pathToFileURL, path.sep,
-process.platform, *.ps1/*.cmd shims, GitHub Actions workflows).
+Staged content touches platform-conditional paths (HOME/USERPROFILE,
+os.homedir, pathToFileURL, path.sep, process.platform, *.ps1/*.cmd
+shims, GitHub Actions workflows). Single-shell verification masks
+shell-specific portability bugs.
 
-Per gate-13 / gate-14 / gate-15 lineage in CDCC repo: single-shell
-verification masks shell-specific portability bugs. The audit log
-MUST record observed behavior in:
-
+The file must record observed behavior in:
   - Git Bash (or equivalent POSIX shell on the build host), AND
   - PowerShell (pwsh or powershell.exe) — OR cmd.exe
 
-Add a Pass block to the audit log:
+Add a result-block:
 
-  ## Pass N — Cross-shell observed behavior
+  ## Pass N — cross-shell observed behavior
 
   Git Bash: EXIT=0; <observable artifact>: PRESENT
   PowerShell: EXIT=0; <observable artifact>: True
 
-If your repo + change genuinely don't have cross-shell exposure
-(rare for codebase repos), declare \`cross-shell: not-applicable\`
-in .asae-policy and re-commit.
+If the change genuinely has no cross-shell exposure, declare
+\`cross-shell: not-applicable\` in .asae-policy and re-commit.
 
 EOF
     exit 1
@@ -565,12 +717,9 @@ EOF
 fi
 
 # ============================================================================
-# RULE 6 — TIER 4: PROVENANCE / UNIQUENESS / APPLIED-FROM CHECK
+# RULE 6 — TIER 4: PROVENANCE / UNIQUENESS
 # ============================================================================
 
-# Uniqueness: gate_id from this audit log must not collide with any other
-# audit log in deprecated/asae-logs/ EXCEPT the file itself (in case it's
-# being amended or referenced).
 GATE_NUMBER=$(echo "$GATE_ID" | sed -E 's/^gate-([0-9]+).*/\1/')
 if echo "$GATE_NUMBER" | grep -qE '^[0-9]+$'; then
   for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
@@ -581,18 +730,17 @@ if echo "$GATE_NUMBER" | grep -qE '^[0-9]+$'; then
         cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 6 violation: gate ID collision (Tier 4)
+COMMIT REFUSED - Rule 6 violation: gate ID collision
 ==================================================================
 
-Audit log: $AUDIT_LOG_PATH
-Gate ID:   $GATE_ID
-Problem:   $COLLISION_COUNT files match gate-${GATE_NUMBER}-* in
-           $candidate_dir — gate IDs must be unique:
+File:    $AUDIT_LOG_PATH
+Gate ID: $GATE_ID
+Problem: $COLLISION_COUNT files match gate-${GATE_NUMBER}-* in
+         $candidate_dir — gate IDs must be unique:
 
 $COLLISIONS
 
-Fix: pick a higher gate-NN number for the new audit log. The
-sequence is append-only — each new audit gets a unique NN.
+Fix: pick a higher gate-NN number for the new file.
 
 EOF
         exit 1
@@ -601,25 +749,22 @@ EOF
   done
 fi
 
-# Applied-from check: audit log must record provenance lineage
 HAS_APPLIED_FROM=$(grep -ciE '^(applied[[:space:]]*from|##[[:space:]]*applied[[:space:]]*from|sources:|origin:)' "$AUDIT_LOG_FULL" || echo "0")
 if [ "$HAS_APPLIED_FROM" = "0" ]; then
   cat >&2 <<EOF
 
 ==================================================================
-COMMIT REFUSED - Rule 6 violation: Applied-from lineage missing (Tier 4)
+COMMIT REFUSED - Rule 6 violation: Applied-from lineage missing
 ==================================================================
 
-Audit log: $AUDIT_LOG_PATH
-Problem:   audit log does not record provenance ('Applied from:' or
-           'Sources:' or 'Origin:' lineage).
+File:    $AUDIT_LOG_PATH
+Problem: file does not record provenance ('Applied from:' or
+         'Sources:' or 'Origin:' lineage).
 
-Per Bobo Framework's "Applied from:" pattern (see
-Bobo_Framework_Recursive_Application_2026-04-24_v01_I.md), every
-rule-producing artifact must trace back to the specific incident,
-prior commit SHA, or session-dated event that produced it.
+Every rule-producing artifact must trace back to the specific
+incident, prior commit SHA, or session-dated event that produced it.
 
-Add to the audit log frontmatter or a top-of-document section:
+Add to the frontmatter or a top-of-document section:
 
   ---
   ...
