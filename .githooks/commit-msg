@@ -1,0 +1,251 @@
+#!/usr/bin/env bash
+#
+# commit-msg — Martinez Methods structural IP + ASAE enforcement (v02)
+#
+# Enforces TWO composed rules on every commit:
+#
+# Rule 1 (IP-clean persona attribution): Co-Authored-By: trailer's persona
+# position must be Clauda or Claudette (not Claude). Per
+# feedback_clauda_replaces_claude_in_naming.md. Applied from: Session-2026-04-24
+# Clauda-the-Value-Genius-v02 commit-attribution error.
+#
+# Rule 2 (ASAE gate attestation per commit): the commit message must declare
+# an ASAE-Gate or D2R-Stage attestation at the severity required by the
+# repo's .asae-policy file. Applied from: Session-2026-04-24 Krystal's
+# directive "any commit to a private repo must have a standard asae gate;
+# any commit to a public repo must have a strict asae gate; any commit to
+# a private repo that will be public must have a strict asae gate; any
+# commit to a codebase repo is strict asae gate for non-code commits -
+# otherwise the d2r code plan asae gates are fine for code commits."
+#
+# Policy resolution:
+#   .asae-policy (repo root) declares:
+#     visibility: private | public
+#     going-public: true | false
+#     type: codebase | documentation
+#   Missing policy file = conservative default (private + going-public=true
+#   + type=documentation => requires strict).
+#
+# Required gate severity:
+#   visibility=public OR going-public=true  => strict (threshold >= 3)
+#   visibility=private AND going-public=false => standard (threshold >= 2)
+#
+# Required attestation trailer (one of):
+#   ASAE-Gate: <severity>-<threshold>-<status>       (non-code OR documentation repo)
+#   D2R-Stage: <stage-id>-<status>                   (code commit in codebase repo)
+#
+# Exempt from ASAE attestation:
+#   - Merge commits (subject starts with "Merge ")
+#   - Revert commits (subject starts with "Revert ")
+#   - Commits where the policy resolution indicates ASAE enforcement is
+#     bypassed for bootstrap reasons (see docs; no bootstrap flag exists by
+#     default - opt-in only)
+#
+# Known limitations:
+#   - git commit --no-verify bypasses both rules (git architectural limit,
+#     not design gap). For truly non-bypassable enforcement, layer a GitHub
+#     Actions required status check on push per the governance doc.
+#   - ASAE-Gate trailer presence is attestation, not verification. Lying in
+#     the trailer is itself a fabrication failure (FM-01) and should be
+#     caught by meta-ASAE at a later point.
+
+set -e
+
+COMMIT_MSG_FILE="$1"
+
+if [ ! -f "$COMMIT_MSG_FILE" ]; then
+  echo "commit-msg hook: expected commit message file at '$COMMIT_MSG_FILE' but not found" >&2
+  exit 1
+fi
+
+# ----------------------------------------------------------------------------
+# Exemption check: merge / revert commits skip ASAE gate (but still check persona)
+# ----------------------------------------------------------------------------
+SUBJECT=$(head -n 1 "$COMMIT_MSG_FILE" | sed -E 's/\r$//')
+IS_EXEMPT_FROM_ASAE=false
+if echo "$SUBJECT" | grep -qE '^(Merge |Revert )'; then
+  IS_EXEMPT_FROM_ASAE=true
+fi
+
+# ============================================================================
+# RULE 1 — IP-CLEAN PERSONA ATTRIBUTION (applies always)
+# ============================================================================
+
+COAUTHORS=$(grep -iE '^Co-Authored-By:' "$COMMIT_MSG_FILE" || true)
+
+PERSONA_VIOLATIONS=""
+PERSONA_VIOLATION_COUNT=0
+
+if [ -n "$COAUTHORS" ]; then
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    line="${line%$'\r'}"
+    persona=$(echo "$line" | sed -E 's/^[Cc]o-[Aa]uthored-[Bb]y:[[:space:]]*//' | sed -E 's/[[:space:]]*\(.*//')
+    persona=$(echo "$persona" | sed -E 's/[[:space:]]+$//')
+    if echo "$persona" | grep -qE '^[Cc]laude($|[[:space:]]|-|,)'; then
+      PERSONA_VIOLATION_COUNT=$((PERSONA_VIOLATION_COUNT + 1))
+      PERSONA_VIOLATIONS="${PERSONA_VIOLATIONS}
+  Violation $PERSONA_VIOLATION_COUNT:
+    Trailer line:   $line
+    Persona parsed: '$persona'
+    Problem:        Persona begins with 'Claude'. Per
+                    feedback_clauda_replaces_claude_in_naming.md, Martinez
+                    Methods thread personas use 'Clauda' or 'Claudette'
+                    (not 'Claude')."
+    fi
+  done <<< "$COAUTHORS"
+fi
+
+if [ "$PERSONA_VIOLATION_COUNT" -gt 0 ]; then
+  cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 1 violation: IP-clean persona attribution
+==================================================================
+
+Per \`feedback_clauda_replaces_claude_in_naming.md\`, Co-Authored-By
+trailer persona names must use 'Clauda' or 'Claudette' (Martinez
+Methods personifications), NOT 'Claude' (Anthropic's trademarked
+product reserved for nominative references).
+
+Nominative references to Anthropic's Claude model inside the
+parenthetical model-spec (e.g., '(Claude Opus 4.7, 1M context)')
+are allowed - they factually identify Anthropic's product.
+$PERSONA_VIOLATIONS
+
+Canonical format:
+  Co-Authored-By: Clauda the Value Genius v02 (Opus 4.7, 1M context) <noreply@anthropic.com>
+  Co-Authored-By: Claudette the Code Debugger (Opus 4.7, 1M context) <noreply@anthropic.com>
+  Co-Authored-By: Clauda the Experiment PI (Opus 4.7, 1M context) <noreply@anthropic.com>
+
+Fix the commit message and retry.
+
+Emergency bypass (NOT RECOMMENDED):
+  git commit --no-verify
+
+EOF
+  exit 1
+fi
+
+# ============================================================================
+# RULE 2 — ASAE GATE ATTESTATION (skipped for merge/revert)
+# ============================================================================
+
+if [ "$IS_EXEMPT_FROM_ASAE" = "true" ]; then
+  exit 0
+fi
+
+# ---- Resolve policy ----
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo ".")
+POLICY_FILE="$REPO_ROOT/.asae-policy"
+
+if [ -f "$POLICY_FILE" ]; then
+  VISIBILITY=$(grep -E '^visibility:' "$POLICY_FILE" | head -1 | sed -E 's/^visibility:[[:space:]]*//' | tr -d ' ' | sed -E 's/\r$//')
+  GOING_PUBLIC=$(grep -E '^going-public:' "$POLICY_FILE" | head -1 | sed -E 's/^going-public:[[:space:]]*//' | tr -d ' ' | sed -E 's/\r$//')
+  REPO_TYPE=$(grep -E '^type:' "$POLICY_FILE" | head -1 | sed -E 's/^type:[[:space:]]*//' | tr -d ' ' | sed -E 's/\r$//')
+else
+  # Most-conservative defaults
+  VISIBILITY="private"
+  GOING_PUBLIC="true"
+  REPO_TYPE="documentation"
+fi
+
+# ---- Derive required severity ----
+if [ "$VISIBILITY" = "public" ] || [ "$GOING_PUBLIC" = "true" ]; then
+  REQUIRED_SEVERITY="strict"
+  REQUIRED_THRESHOLD=3
+else
+  REQUIRED_SEVERITY="standard"
+  REQUIRED_THRESHOLD=2
+fi
+
+# ---- Determine if this is a code commit in a codebase repo ----
+IS_CODE_COMMIT=false
+if [ "$REPO_TYPE" = "codebase" ]; then
+  STAGED=$(git diff --cached --name-only 2>/dev/null || echo "")
+  # Code-file extensions + conventional code directories
+  if echo "$STAGED" | grep -qE '\.(ts|tsx|js|jsx|rs|py|go|java|c|cpp|h|hpp|rb|svelte|vue|sql|yaml|yml|toml)$|^src/|^src-tauri/|^plugin/(src|tests)/|^packages/'; then
+    IS_CODE_COMMIT=true
+  fi
+fi
+
+# ---- Parse attestation trailers ----
+ASAE_TRAILER=$(grep -iE '^ASAE-Gate:' "$COMMIT_MSG_FILE" | head -1 | sed -E 's/\r$//' || true)
+D2R_TRAILER=$(grep -iE '^D2R-Stage:' "$COMMIT_MSG_FILE" | head -1 | sed -E 's/\r$//' || true)
+
+ATTEST_OK=false
+ATTEST_REASON=""
+
+if [ "$IS_CODE_COMMIT" = "true" ] && [ -n "$D2R_TRAILER" ]; then
+  # Code commit in codebase repo with D2R stage attestation: accept
+  D2R_STATUS=$(echo "$D2R_TRAILER" | sed -E 's/^[Dd]2[Rr]-[Ss]tage:[[:space:]]*//' | awk -F- '{print $NF}')
+  if [ "$D2R_STATUS" = "PASS" ]; then
+    ATTEST_OK=true
+  else
+    ATTEST_REASON="D2R-Stage status '$D2R_STATUS' is not PASS"
+  fi
+elif [ -n "$ASAE_TRAILER" ]; then
+  TRAILER_BODY=$(echo "$ASAE_TRAILER" | sed -E 's/^[Aa][Ss][Aa][Ee]-[Gg]ate:[[:space:]]*//')
+  TRAILER_SEV=$(echo "$TRAILER_BODY" | awk -F- '{print $1}')
+  TRAILER_THRESH=$(echo "$TRAILER_BODY" | awk -F- '{print $2}')
+  TRAILER_STATUS=$(echo "$TRAILER_BODY" | awk -F- '{print $3}')
+
+  if [ "$TRAILER_STATUS" != "PASS" ]; then
+    ATTEST_REASON="ASAE-Gate status is '$TRAILER_STATUS', required 'PASS'"
+  elif [ "$REQUIRED_SEVERITY" = "strict" ] && [ "$TRAILER_SEV" != "strict" ]; then
+    ATTEST_REASON="This repo requires strict ASAE gate; commit declares '$TRAILER_SEV'"
+  elif ! echo "$TRAILER_THRESH" | grep -qE '^[0-9]+$'; then
+    ATTEST_REASON="ASAE-Gate threshold '$TRAILER_THRESH' is not numeric"
+  elif [ "$TRAILER_THRESH" -lt "$REQUIRED_THRESHOLD" ]; then
+    ATTEST_REASON="ASAE-Gate threshold $TRAILER_THRESH < required $REQUIRED_THRESHOLD for this policy"
+  else
+    ATTEST_OK=true
+  fi
+else
+  ATTEST_REASON="No ASAE-Gate or D2R-Stage attestation trailer found in commit message"
+fi
+
+if [ "$ATTEST_OK" != "true" ]; then
+  cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 2 violation: ASAE gate attestation required
+==================================================================
+
+Policy resolved from $POLICY_FILE (or defaults):
+  visibility:    $VISIBILITY
+  going-public:  $GOING_PUBLIC
+  type:          $REPO_TYPE
+  is-code-commit: $IS_CODE_COMMIT (based on staged file paths)
+
+Required: $REQUIRED_SEVERITY ASAE gate at threshold >= $REQUIRED_THRESHOLD
+  (OR D2R-Stage PASS trailer if code commit in codebase repo)
+
+Problem: $ATTEST_REASON
+
+Canonical trailers:
+  ASAE-Gate: strict-3-PASS          (public / going-public / non-code)
+  ASAE-Gate: standard-2-PASS        (private, stable-private, non-code)
+  D2R-Stage: 01b-PASS               (code commit, D2R stage gate cleared)
+
+Fix: before committing, run an ASAE convergence-to-stable-state audit
+at the required severity / threshold against the staged changes, then
+add the trailer to the commit message body:
+
+  <subject line>
+
+  <optional body>
+
+  ASAE-Gate: strict-3-PASS
+  Co-Authored-By: Clauda the Value Genius v02 (Opus 4.7, 1M context) <noreply@anthropic.com>
+
+Emergency bypass (NOT RECOMMENDED - defeats structural enforcement):
+  git commit --no-verify
+
+Policy doc: _grand_repo/docs/Commit_Persona_Hook_2026-04-24_v02_I.md
+
+EOF
+  exit 1
+fi
+
+exit 0

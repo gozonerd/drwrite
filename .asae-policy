@@ -1,0 +1,7 @@
+# Martinez Methods ASAE enforcement policy
+# Consumed by .githooks/commit-msg per Rule 2 (ASAE gate attestation per commit).
+# Documentation: _grand_repo/docs/Commit_Persona_Hook_2026-04-24_v02_I.md
+
+visibility: private
+going-public: true
+type: codebase
