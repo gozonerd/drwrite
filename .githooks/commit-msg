@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# commit-msg — Martinez Methods structural IP + gate enforcement (v04)
+# commit-msg — Martinez Methods structural IP + gate enforcement (v05)
 #
 # CLASSIFICATION: INTERNAL ONLY — gate-script structure is mechanism-by-design
 # and uses clustered methodology vocabulary as required-phrase regex targets.
@@ -36,6 +36,18 @@
 #     the failure mode the rater step closes; methodology spec
 #     prohibition is primary defense, this hook layer is secondary.
 #
+#   Rule 3 (Tier 1c-extended, v05 addition): Disclosures block presence.
+#     For gates dated 2026-04-26 or later, frontmatter must contain a
+#     `disclosures:` block with either `none: true` OR at least one
+#     non-empty sub-block (known_issues / deviations_from_canonical /
+#     omissions_with_reason / partial_completions). Per /asae Aspect 11
+#     (FM-2.4 information withholding closure).
+#
+#   Rule 3 (Tier 1c-extended mode-conditional, v05): Step re-execution
+#     trailer match. If frontmatter contains `step_re_execution:` block,
+#     commit body must contain a matching `Step-Re-Execution:` trailer.
+#     Per /asae Aspect 13 (FM-1.3 elevation).
+#
 #   Rule 4 (Tier 2-parse): For code commits in codebase repos, the
 #     internal-records file must record literal exit-code claims for
 #     test + build/typecheck/lint.
@@ -46,9 +58,29 @@
 #   Rule 6 (Tier 4): Provenance — gate_id unique in directory; frontmatter
 #     must reference originating incident or session-dated event.
 #
+#   Rule 6 (Tier 4-extended, v05 addition): Session-chain resolution.
+#     For gates dated 2026-04-26 or later, frontmatter must contain a
+#     `session_chain:` block. Each entry's `path:` field must resolve to
+#     an existing file (best-effort across known root locations). Per
+#     /asae Aspect 10 (FM-2.1 conversation reset closure).
+#
+#   Rule 7 (Tier 5, v05 addition): Persona role-manifest enforcement.
+#     For gates dated 2026-04-26 or later, frontmatter must contain a
+#     `persona_role_manifest:` block with `path:` referencing a YAML file
+#     under _grand_repo/role-manifests/ or workspace-equivalent. Path
+#     must resolve to an existing file. Per /asae Aspect 9 (FM-1.2 role
+#     mismatch closure). Deep scope_bounds verification deferred to v06;
+#     this layer is presence-and-resolution.
+#
+#   Rule 8 (Tier 6, v05 addition): Inputs-processed verification.
+#     For gates dated 2026-04-26 or later, frontmatter must contain an
+#     `inputs_processed:` block. Each entry in `sources:` must have a
+#     corresponding entry in `inputs_processed:` (presence check on
+#     count parity). Per /asae Aspect 12 (FM-2.5 ignored-input closure).
+#
 # Tier 0 (deterministic-propagation class): commits carrying a
 #   Propagation-From: trailer that references an existing gate-NN file
-#   skip Rules 3-6. Rule 1 (persona) and Rule 2 (level-required trailer)
+#   skip Rules 3-8. Rule 1 (persona) and Rule 2 (level-required trailer)
 #   still apply. Designed for mechanical propagations (file copies from
 #   a canonical source already audited at the source; submodule pointer
 #   bumps; small doc-bump propagations) where per-target audit-log
@@ -57,7 +89,12 @@
 #   diff fits a bounded propagation profile (no source-code files,
 #   total inserts + deletes under 10000 lines).
 #
-# Exempt from Rules 2-6: merge commits and revert commits.
+# Forward-only backfill posture for v05 tiers (1c-ext, 4-ext, 5, 6, 8):
+#   gates dated 2026-04-26 or later must satisfy. Older gates grandfathered
+#   (no retroactive backfill required). Detection: gate_id contains a
+#   YYYY-MM-DD substring; if extracted date >= 2026-04-26, v05 tiers fire.
+#
+# Exempt from Rules 2-8: merge commits and revert commits.
 #
 # Known limitation: git commit --no-verify bypasses everything (architectural
 # limit). For non-bypassable enforcement, layer a GitHub Actions required
@@ -73,7 +110,7 @@ if [ ! -f "$COMMIT_MSG_FILE" ]; then
 fi
 
 # ----------------------------------------------------------------------------
-# Exemption: merge / revert commits skip Rules 2-6 (Rule 1 still applies)
+# Exemption: merge / revert commits skip Rules 2-8 (Rule 1 still applies)
 # ----------------------------------------------------------------------------
 SUBJECT=$(head -n 1 "$COMMIT_MSG_FILE" | sed -E 's/\r$//')
 IS_EXEMPT_FROM_ASAE=false
@@ -142,7 +179,7 @@ EOF
 fi
 
 # ============================================================================
-# RULES 2-6 — Gate enforcement (skipped for merge/revert)
+# RULES 2-8 — Gate enforcement (skipped for merge/revert)
 # ============================================================================
 
 if [ "$IS_EXEMPT_FROM_ASAE" = "true" ]; then
@@ -154,12 +191,12 @@ REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || echo ".")
 STAGED=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null || echo "")
 
 # ============================================================================
-# TIER 0 — DETERMINISTIC-PROPAGATION CLASS (skips Rules 3-6 if matched)
+# TIER 0 — DETERMINISTIC-PROPAGATION CLASS (skips Rules 3-8 if matched)
 # ============================================================================
 # Trailer: Propagation-From: gate-NN-<source-descriptor>
 # When present, the hook verifies (a) the referenced source-gate file exists
 # at a known location, (b) the staged diff fits a bounded propagation profile.
-# Rules 1 and 2 still apply; Rules 3-6 are skipped.
+# Rules 1 and 2 still apply; Rules 3-8 are skipped.
 
 PROPAGATION_TRAILER=$(grep -iE '^Propagation-From:' "$COMMIT_MSG_FILE" | head -1 | sed -E 's/\r$//' || true)
 
@@ -174,6 +211,7 @@ if [ -n "$PROPAGATION_TRAILER" ]; then
     # Search known gate-file locations: this repo + workspace + _grand_repo
     for candidate_dir in \
         "$REPO_ROOT/deprecated/asae-logs" \
+        "$REPO_ROOT/Deprecated/asae-logs" \
         "$REPO_ROOT/workspace/deprecated/asae-logs" \
         "$REPO_ROOT/../_grand_repo/deprecated/asae-logs" \
         "$HOME/_grand_repo/deprecated/asae-logs"; do
@@ -233,7 +271,7 @@ EOF
     exit 1
   fi
 
-  # All Tier 0 checks pass — mark as propagation class and skip Rules 3-6
+  # All Tier 0 checks pass — mark as propagation class and skip Rules 3-8
   IS_PROPAGATION_CLASS=true
 fi
 
@@ -361,7 +399,7 @@ EOF
 fi
 
 # ============================================================================
-# Skip Rules 3-6 for deterministic-propagation class
+# Skip Rules 3-8 for deterministic-propagation class
 # ============================================================================
 if [ "$IS_PROPAGATION_CLASS" = "true" ]; then
   exit 0
@@ -374,7 +412,7 @@ fi
 AUDIT_LOG_PATH=""
 
 # Strategy 1: staged file under */asae-logs/gate-NN-*.md
-STAGED_LOGS=$(echo "$STAGED" | grep -E 'asae-logs/gate-[0-9]+(-[0-9]+)?-.+\.md$' || true)
+STAGED_LOGS=$(echo "$STAGED" | grep -iE 'asae-logs/gate-[0-9]+(-[0-9]+)?-.+\.md$' || true)
 if [ -n "$STAGED_LOGS" ]; then
   AUDIT_LOG_PATH=$(echo "$STAGED_LOGS" | sort -V | tail -1)
 fi
@@ -384,7 +422,7 @@ if [ -z "$AUDIT_LOG_PATH" ]; then
   REFERENCED_GATE=$(grep -oiE 'gate-[0-9]+(-[0-9]+)?' "$COMMIT_MSG_FILE" | head -1 || true)
   if [ -n "$REFERENCED_GATE" ]; then
     LOWER_REF=$(echo "$REFERENCED_GATE" | tr '[:upper:]' '[:lower:]')
-    for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
+    for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/Deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
       if [ -d "$candidate_dir" ]; then
         FOUND=$(ls "$candidate_dir" 2>/dev/null | grep -iE "^${LOWER_REF}-" | head -1 || true)
         if [ -n "$FOUND" ]; then
@@ -433,6 +471,16 @@ AUDIT_LOG_FULL="$REPO_ROOT/$AUDIT_LOG_PATH"
 GATE_ID=$(grep -E '^gate_id:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^gate_id:[[:space:]]*//' | sed -E 's/\r$//' | sed -E 's/[[:space:]]+$//')
 GATE_TARGET=$(grep -E '^target:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^target:[[:space:]]*//' | sed -E 's/\r$//')
 GATE_THRESHOLD=$(grep -E '^asae_certainty_threshold:' "$AUDIT_LOG_FULL" | head -1 | sed -E 's/^asae_certainty_threshold:[[:space:]]*//' | sed -E 's/\r$//' | sed -E 's/[[:space:]]+$//')
+
+# ----------------------------------------------------------------------------
+# Forward-only v05 detection: extract YYYY-MM-DD from gate_id and decide
+# whether v05 tiers (1c-ext / 4-ext / 5 / 6 / 8) fire.
+# ----------------------------------------------------------------------------
+GATE_DATE=$(echo "$GATE_ID" | grep -oE '20[0-9]{2}-[0-9]{2}-[0-9]{2}' | head -1)
+APPLY_V05_TIERS=false
+if [ -n "$GATE_DATE" ] && [ "$GATE_DATE" \> "2026-04-25" ]; then
+  APPLY_V05_TIERS=true
+fi
 
 # Required-phrase regex targets are mechanism-by-design and remain literal.
 PASS_COUNT=$(grep -ciE '^##[[:space:]]+Pass [0-9]+' "$AUDIT_LOG_FULL" || echo "0")
@@ -622,6 +670,144 @@ EOF
 fi
 
 # ============================================================================
+# RULE 3 — TIER 1c-EXTENDED (v05): DISCLOSURES BLOCK PRESENCE
+# ============================================================================
+#
+# Forward-only: gates dated 2026-04-26+ must include a `disclosures:` block
+# in frontmatter with either `none: true` OR at least one non-empty sub-block
+# (known_issues / deviations_from_canonical / omissions_with_reason /
+# partial_completions). Closes MAST FM-2.4 (information withholding) per
+# /asae Aspect 11.
+
+if [ "$APPLY_V05_TIERS" = "true" ]; then
+  HAS_DISCLOSURES=$(grep -cE '^disclosures:' "$AUDIT_LOG_FULL" || echo "0")
+  TIER1C_EXT_FAIL=""
+  if [ "$HAS_DISCLOSURES" = "0" ]; then
+    TIER1C_EXT_FAIL="frontmatter missing 'disclosures:' block (required for gates dated 2026-04-26+)"
+  else
+    # Extract disclosures block (from `disclosures:` to next top-level key or `---`)
+    DISCLOSURES_BLOCK=$(awk '
+      /^disclosures:/ { in_block = 1; next }
+      /^[a-zA-Z_]+:/ && in_block { exit }
+      /^---[[:space:]]*$/ && in_block { exit }
+      in_block { print }
+    ' "$AUDIT_LOG_FULL")
+
+    HAS_NONE_TRUE=$(echo "$DISCLOSURES_BLOCK" | grep -cE '^[[:space:]]+none:[[:space:]]*true' || echo "0")
+    HAS_KNOWN_ISSUES_NONEMPTY=$(echo "$DISCLOSURES_BLOCK" | awk '
+      /^[[:space:]]+known_issues:/ { in_sub = 1; has_item = 0; next }
+      /^[[:space:]]+[a-z_]+:/ && in_sub { print has_item; in_sub = 0 }
+      in_sub && /^[[:space:]]+-/ { has_item = 1 }
+      END { if (in_sub) print has_item }
+    ' | grep -c '^1$' || echo "0")
+    HAS_DEVIATIONS_NONEMPTY=$(echo "$DISCLOSURES_BLOCK" | awk '
+      /^[[:space:]]+deviations_from_canonical:/ { in_sub = 1; has_item = 0; next }
+      /^[[:space:]]+[a-z_]+:/ && in_sub { print has_item; in_sub = 0 }
+      in_sub && /^[[:space:]]+-/ { has_item = 1 }
+      END { if (in_sub) print has_item }
+    ' | grep -c '^1$' || echo "0")
+    HAS_OMISSIONS_NONEMPTY=$(echo "$DISCLOSURES_BLOCK" | awk '
+      /^[[:space:]]+omissions_with_reason:/ { in_sub = 1; has_item = 0; next }
+      /^[[:space:]]+[a-z_]+:/ && in_sub { print has_item; in_sub = 0 }
+      in_sub && /^[[:space:]]+-/ { has_item = 1 }
+      END { if (in_sub) print has_item }
+    ' | grep -c '^1$' || echo "0")
+    HAS_PARTIAL_NONEMPTY=$(echo "$DISCLOSURES_BLOCK" | awk '
+      /^[[:space:]]+partial_completions:/ { in_sub = 1; has_item = 0; next }
+      /^[[:space:]]+[a-z_]+:/ && in_sub { print has_item; in_sub = 0 }
+      in_sub && /^[[:space:]]+-/ { has_item = 1 }
+      END { if (in_sub) print has_item }
+    ' | grep -c '^1$' || echo "0")
+
+    if [ "$HAS_NONE_TRUE" = "0" ] && [ "$HAS_KNOWN_ISSUES_NONEMPTY" = "0" ] && [ "$HAS_DEVIATIONS_NONEMPTY" = "0" ] && [ "$HAS_OMISSIONS_NONEMPTY" = "0" ] && [ "$HAS_PARTIAL_NONEMPTY" = "0" ]; then
+      TIER1C_EXT_FAIL="'disclosures:' block present but all sub-blocks empty AND 'none: true' not declared. Either declare 'none: true' (and rater will verify honestly) OR enumerate at least one item under known_issues / deviations_from_canonical / omissions_with_reason / partial_completions."
+    fi
+  fi
+
+  if [ -n "$TIER1C_EXT_FAIL" ]; then
+    cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 3 violation: disclosures missing (Tier 1c-ext, v05)
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: $TIER1C_EXT_FAIL
+
+Per /asae Aspect 11 (Required-disclosure verification, FM-2.4 closure),
+gates dated 2026-04-26 or later must include a 'disclosures:' frontmatter
+block enumerating known issues, deviations, omissions, and partial
+completions at gate exit.
+
+Required schema (one of these patterns):
+
+  Pattern A (something to disclose):
+    disclosures:
+      known_issues:
+        - issue: <description>
+          severity: CRITICAL | HIGH | MEDIUM | LOW
+          mitigation: <or "deferred to <gate-NN>">
+      deviations_from_canonical: []
+      omissions_with_reason: []
+      partial_completions: []
+      none: false
+
+  Pattern B (nothing to disclose):
+    disclosures:
+      known_issues: []
+      deviations_from_canonical: []
+      omissions_with_reason: []
+      partial_completions: []
+      none: true
+
+The rater extension brief verifies disclosures honestly enumerate items
+the rater can independently see.
+
+EOF
+    exit 1
+  fi
+fi
+
+# ============================================================================
+# RULE 3 — TIER 1c-EXTENDED MODE-CONDITIONAL (v05): STEP-RE-EXECUTION TRAILER
+# ============================================================================
+#
+# If frontmatter contains `step_re_execution:` block, commit body must contain
+# a matching `Step-Re-Execution:` trailer. Per /asae Aspect 13 (FM-1.3
+# elevation). CDCC plugin H6 PreToolUse hook is the upstream defender; this
+# tier is the commit-time backstop.
+
+if [ "$APPLY_V05_TIERS" = "true" ]; then
+  HAS_STEP_RE=$(grep -cE '^step_re_execution:' "$AUDIT_LOG_FULL" || echo "0")
+  if [ "$HAS_STEP_RE" != "0" ]; then
+    HAS_STEP_RE_TRAILER=$(grep -ciE '^Step-Re-Execution:' "$COMMIT_MSG_FILE" || echo "0")
+    if [ "$HAS_STEP_RE_TRAILER" = "0" ]; then
+      cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 3 violation: step-re-execution trailer missing
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: frontmatter declares 'step_re_execution:' block but commit body
+         lacks matching 'Step-Re-Execution:' trailer.
+
+Per /asae Aspect 13 (FM-1.3 step-bounded idempotency), when a gate
+documents a step re-execution, the commit message must carry a trailer
+of the form:
+
+  Step-Re-Execution: gate-NN reason "<rationale>"
+
+This trailer documents the re-execution against the CDCC step-history
+boundary.
+
+EOF
+      exit 1
+    fi
+  fi
+fi
+
+# ============================================================================
 # RULE 4 — TIER 2-PARSE: OBSERVED-BEHAVIOR CLAIMS FOR CODE COMMITS
 # ============================================================================
 
@@ -722,7 +908,7 @@ fi
 
 GATE_NUMBER=$(echo "$GATE_ID" | sed -E 's/^gate-([0-9]+).*/\1/')
 if echo "$GATE_NUMBER" | grep -qE '^[0-9]+$'; then
-  for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
+  for candidate_dir in "$REPO_ROOT/deprecated/asae-logs" "$REPO_ROOT/Deprecated/asae-logs" "$REPO_ROOT/workspace/deprecated/asae-logs"; do
     if [ -d "$candidate_dir" ]; then
       COLLISIONS=$(ls "$candidate_dir" 2>/dev/null | grep -E "^gate-${GATE_NUMBER}-" || true)
       COLLISION_COUNT=$(echo "$COLLISIONS" | grep -c . || echo "0")
@@ -779,6 +965,219 @@ Add to the frontmatter or a top-of-document section:
 
 EOF
   exit 1
+fi
+
+# ============================================================================
+# RULE 6 — TIER 4-EXTENDED (v05): SESSION-CHAIN RESOLUTION
+# ============================================================================
+#
+# Forward-only: gates dated 2026-04-26+ must include `session_chain:` block
+# with at least one entry whose `path:` resolves to an existing file. Closes
+# MAST FM-2.1 (conversation reset) per /asae Aspect 10.
+
+if [ "$APPLY_V05_TIERS" = "true" ]; then
+  HAS_SESSION_CHAIN=$(grep -cE '^session_chain:' "$AUDIT_LOG_FULL" || echo "0")
+  TIER4_EXT_FAIL=""
+  if [ "$HAS_SESSION_CHAIN" = "0" ]; then
+    TIER4_EXT_FAIL="frontmatter missing 'session_chain:' block (required for gates dated 2026-04-26+)"
+  else
+    # Extract paths from session_chain entries
+    SC_PATHS=$(awk '
+      /^session_chain:/ { in_block = 1; next }
+      /^[a-zA-Z_]+:/ && in_block { exit }
+      /^---[[:space:]]*$/ && in_block { exit }
+      in_block && /^[[:space:]]+path:/ { sub(/^[[:space:]]+path:[[:space:]]*/, ""); print }
+    ' "$AUDIT_LOG_FULL")
+
+    SC_PATH_COUNT=$(echo "$SC_PATHS" | grep -c . || echo "0")
+    if [ "$SC_PATH_COUNT" = "0" ]; then
+      TIER4_EXT_FAIL="'session_chain:' block has no entries with 'path:' field"
+    else
+      # Best-effort resolution: try as-is, relative to REPO_ROOT, relative to _grand_repo
+      SC_RESOLVED=0
+      while IFS= read -r p; do
+        [ -z "$p" ] && continue
+        # Strip surrounding whitespace and quotes
+        pp=$(echo "$p" | sed -E 's/^[[:space:]]*//; s/[[:space:]]*$//; s/^"//; s/"$//; s/^_grand_repo\///')
+        for root_candidate in "$REPO_ROOT" "$REPO_ROOT/.." "$HOME/_grand_repo" "$HOME/repos"; do
+          if [ -f "$root_candidate/$pp" ] || [ -f "$root_candidate/$p" ]; then
+            SC_RESOLVED=$((SC_RESOLVED + 1))
+            break
+          fi
+        done
+      done <<< "$SC_PATHS"
+
+      if [ "$SC_RESOLVED" = "0" ]; then
+        TIER4_EXT_FAIL="'session_chain:' block has $SC_PATH_COUNT path entries but NONE resolve to existing files (checked REPO_ROOT, parent, ~/_grand_repo, ~/repos)"
+      fi
+    fi
+  fi
+
+  if [ -n "$TIER4_EXT_FAIL" ]; then
+    cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 6 violation: session-chain invalid (Tier 4-ext, v05)
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: $TIER4_EXT_FAIL
+
+Per /asae Aspect 10 (Session-chain provenance, FM-2.1 closure), gates
+dated 2026-04-26 or later must enumerate prior sessions/gates this
+gate continues from, with each path resolving to an existing file.
+
+Required schema:
+
+  session_chain:
+    - kind: session_handoff
+      path: <relative or absolute path to SESSION_HANDOFF_*.md>
+      relation: <how this gate continues>
+    - kind: gate
+      path: <relative path to deprecated/asae-logs/gate-NN-*.md>
+      relation: <predecessor relationship>
+
+EOF
+    exit 1
+  fi
+fi
+
+# ============================================================================
+# RULE 7 — TIER 5 (v05): PERSONA ROLE-MANIFEST PRESENCE + RESOLUTION
+# ============================================================================
+#
+# Forward-only: gates dated 2026-04-26+ must declare `persona_role_manifest:`
+# block with `path:` referencing a YAML file under role-manifests/. The path
+# must resolve to an existing file. Closes MAST FM-1.2 (role mismatch) per
+# /asae Aspect 9. Deep scope_bounds verification deferred to v06.
+
+if [ "$APPLY_V05_TIERS" = "true" ]; then
+  HAS_RM_BLOCK=$(grep -cE '^persona_role_manifest:' "$AUDIT_LOG_FULL" || echo "0")
+  TIER5_FAIL=""
+  if [ "$HAS_RM_BLOCK" = "0" ]; then
+    TIER5_FAIL="frontmatter missing 'persona_role_manifest:' block (required for gates dated 2026-04-26+)"
+  else
+    RM_PATH=$(awk '
+      /^persona_role_manifest:/ { in_block = 1; next }
+      /^[a-zA-Z_]+:/ && in_block { exit }
+      /^---[[:space:]]*$/ && in_block { exit }
+      in_block && /^[[:space:]]+path:/ { sub(/^[[:space:]]+path:[[:space:]]*/, ""); print; exit }
+    ' "$AUDIT_LOG_FULL" | sed -E 's/^[[:space:]]*//; s/[[:space:]]*$//; s/^"//; s/"$//')
+
+    if [ -z "$RM_PATH" ]; then
+      TIER5_FAIL="'persona_role_manifest:' block missing 'path:' field"
+    else
+      # Try to resolve under several roots
+      RM_RESOLVED=false
+      RM_PATH_NORMALIZED=$(echo "$RM_PATH" | sed -E 's/^_grand_repo\///')
+      for root_candidate in "$REPO_ROOT" "$REPO_ROOT/.." "$HOME/_grand_repo" "$HOME/repos"; do
+        if [ -f "$root_candidate/$RM_PATH_NORMALIZED" ] || [ -f "$root_candidate/$RM_PATH" ]; then
+          RM_RESOLVED=true
+          break
+        fi
+      done
+
+      if [ "$RM_RESOLVED" = "false" ]; then
+        TIER5_FAIL="'persona_role_manifest.path' = '$RM_PATH' but no role-manifest file found (checked REPO_ROOT, parent, ~/_grand_repo, ~/repos)"
+      fi
+    fi
+  fi
+
+  if [ -n "$TIER5_FAIL" ]; then
+    cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 7 violation: role-manifest invalid (Tier 5, v05)
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: $TIER5_FAIL
+
+Per /asae Aspect 9 (Role-bounded action authority, FM-1.2 closure),
+gates dated 2026-04-26 or later must declare the persona's role-
+manifest at gate-author time.
+
+Required schema:
+
+  persona_role_manifest:
+    path: _grand_repo/role-manifests/<persona-slug>.yaml
+    loaded_at_gate_authoring: yes
+    scope_bounds_satisfied: yes
+
+The role-manifest YAML file must exist at the declared path.
+
+EOF
+    exit 1
+  fi
+fi
+
+# ============================================================================
+# RULE 8 — TIER 6 (v05): INPUTS-PROCESSED COUNT-PARITY VERIFICATION
+# ============================================================================
+#
+# Forward-only: gates dated 2026-04-26+ must declare `inputs_processed:`
+# block. Each entry in `sources:` (top-level frontmatter list) should have a
+# corresponding entry in `inputs_processed:`. Hook layer is count-parity
+# (presence check); deep semantic verification is rater extension brief.
+# Closes MAST FM-2.5 (ignored other-agent input) per /asae Aspect 12.
+
+if [ "$APPLY_V05_TIERS" = "true" ]; then
+  HAS_IP_BLOCK=$(grep -cE '^inputs_processed:' "$AUDIT_LOG_FULL" || echo "0")
+  TIER6_FAIL=""
+  if [ "$HAS_IP_BLOCK" = "0" ]; then
+    TIER6_FAIL="frontmatter missing 'inputs_processed:' block (required for gates dated 2026-04-26+)"
+  else
+    SOURCES_COUNT=$(awk '
+      /^sources:/ { in_block = 1; next }
+      /^[a-zA-Z_]+:/ && in_block { exit }
+      /^---[[:space:]]*$/ && in_block { exit }
+      in_block && /^[[:space:]]+-/ { c++ }
+      END { print c+0 }
+    ' "$AUDIT_LOG_FULL")
+    INPUTS_COUNT=$(awk '
+      /^inputs_processed:/ { in_block = 1; next }
+      /^[a-zA-Z_]+:/ && in_block { exit }
+      /^---[[:space:]]*$/ && in_block { exit }
+      in_block && /^[[:space:]]+-[[:space:]]+source:/ { c++ }
+      END { print c+0 }
+    ' "$AUDIT_LOG_FULL")
+
+    if [ "$INPUTS_COUNT" -lt "$SOURCES_COUNT" ]; then
+      TIER6_FAIL="'sources:' has $SOURCES_COUNT entries but 'inputs_processed:' has only $INPUTS_COUNT entries with 'source:' fields. Each source must be acknowledged."
+    fi
+  fi
+
+  if [ -n "$TIER6_FAIL" ]; then
+    cat >&2 <<EOF
+
+==================================================================
+COMMIT REFUSED - Rule 8 violation: inputs-processed missing (Tier 6, v05)
+==================================================================
+
+File:    $AUDIT_LOG_PATH
+Problem: $TIER6_FAIL
+
+Per /asae Aspect 12 (Upstream-input processing verification, FM-2.5
+closure), gates dated 2026-04-26 or later must declare an
+'inputs_processed:' block with one entry per 'sources:' entry.
+
+Required schema (per source):
+
+  inputs_processed:
+    - source: <path matching an entry in sources:>
+      processed: yes
+      extracted: <what was extracted>
+      influenced: <how it influenced the output>
+    # OR if a source was loaded but not processed:
+    - source: <path>
+      processed: no
+      reason: <why source was loaded but not processed>
+
+D1 universal scope: required for all gates regardless of severity policy.
+
+EOF
+    exit 1
+  fi
 fi
 
 # ============================================================================
