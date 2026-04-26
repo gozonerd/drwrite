@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# commit-msg — Martinez Methods structural IP + gate enforcement (v05)
+# commit-msg — Martinez Methods structural IP + gate enforcement (v05.1)
 #
 # CLASSIFICATION: INTERNAL ONLY — gate-script structure is mechanism-by-design
 # and uses clustered methodology vocabulary as required-phrase regex targets.
@@ -204,7 +204,13 @@ IS_PROPAGATION_CLASS=false
 
 if [ -n "$PROPAGATION_TRAILER" ]; then
   # Parse the referenced gate-NN-* identifier
-  PROP_GATE=$(echo "$PROPAGATION_TRAILER" | sed -E 's/^[Pp]ropagation-[Ff]rom:[[:space:]]*//' | grep -oE 'gate-[0-9]+(-[0-9a-z-]+)?' | head -1)
+  # v05.1 fix (gate-45): capture gate number only (not full descriptor).
+  # Prior regex 'gate-[0-9]+(-[0-9a-z-]+)?' greedy-captured the full
+  # 'gate-NN-<descriptor>-YYYY-MM-DD' string; the search at line ~225
+  # then appends '-' producing '^gate-NN-<descriptor>-YYYY-MM-DD-' which
+  # never matches files ending in '.md'. Capturing only the gate number
+  # makes the search '^gate-NN-' work uniformly regardless of trailer form.
+  PROP_GATE=$(echo "$PROPAGATION_TRAILER" | sed -E 's/^[Pp]ropagation-[Ff]rom:[[:space:]]*//' | grep -oE 'gate-[0-9]+' | head -1)
 
   PROP_GATE_FOUND=""
   if [ -n "$PROP_GATE" ]; then
