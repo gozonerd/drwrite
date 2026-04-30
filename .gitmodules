@@ -1,0 +1,6 @@
+[submodule ".claude/canonical/mm-claude-canonical"]
+	path = .claude/canonical/mm-claude-canonical
+	url = https://github.com/Martinez-Methods/mm-claude-canonical.git
+[submodule ".claude/canonical/mm-d2r-code-plan-stack"]
+	path = .claude/canonical/mm-d2r-code-plan-stack
+	url = https://github.com/Martinez-Methods/mm-d2r-code-plan-stack.git

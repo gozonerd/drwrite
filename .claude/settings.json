@@ -1,0 +1,14 @@
+{
+  "_comment": "Canonical settings.json template for Martinez Methods consumer repos. Phase 9 wire-consumer-repo.sh copies/merges this into <consumer-repo>/.claude/settings.json. Per design doc 11.9 lock: canonical-template (one source of truth for hook config across all consumers).",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "command": "bash .claude/canonical/mm-claude-canonical/scripts/session-start-pull.sh",
+        "timeoutMs": 30000,
+        "failurePolicy": "warn-and-continue"
+      }
+    ]
+  }
+}
