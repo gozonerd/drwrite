@@ -563,6 +563,89 @@ status: positive-case
 
 ---
 
+### PAT-HOOK-CONSUMER-PRE-PUSH-FAILURE
+
+```yaml
+id: PAT-HOOK-CONSUMER-PRE-PUSH-FAILURE
+description: |
+  Consumer repos with non-Martinez-Methods pre-push hooks (npm format
+  check, custom auth gates, build-required-before-push, etc.) block
+  Phase-9-style canonical SSOT wire commits at push time. Wire commit
+  builds + commits successfully in the consumer's worktree (commit-msg
+  hook validates Tier 0 propagation cleanly), but `git push` fails
+  because the consumer's pre-push hook (a non-MM hook installed
+  per-consumer for code-quality / CI gating) refuses the push.
+  Per Krystal standing protocol "never skip hooks unless explicitly
+  asked," `--no-verify` is not the workaround. Each affected consumer
+  needs per-repo manual handling: run the required pre-push action
+  manually (e.g., `npm run format`), commit the satisfaction first,
+  THEN re-attempt the wire push. OR have the consumer's primary
+  author handle the wire push themselves with their normal pre-push
+  workflow context. Cluster-wide propagations need to budget for
+  ~10-15% of consumers hitting this class.
+observed_in:
+  - mm-claude-canonical/deprecated/asae-logs/gate-17-phase-9-summary-report-2026-04-30.md  # Phase 9 cluster wiring summary; 3 of 22 attempted consumers blocked
+  - 3 affected consumer repos (Phase 9 documentation): orchestra (pre-push hook + auth issues), governance-assessment (pre-push hook), fmt-classifier (verbatim error: "Formatting check failed. Run npm run format to fix.")
+taxonomy:
+  family: cross-repo-coordination (NEW category)
+  failure_class: external-hook-interference
+  meta_mod_candidate: hook v10 candidate — could detect consumer-side pre-push hooks during wire-consumer-repo.sh state validation + flag-skip rather than refuse-mid-execution; deferred per design intent (Phase 9 explicit-flag pattern is honest signaling)
+severity: MEDIUM
+frequency: 3 of 22 wired-attempted consumers in Phase 9 (~14%)
+mitigations:
+  - per-repo manual handling: run required pre-push action, commit, then re-wire
+  - flagged-for-manual-handling category in cluster summary reports (per Phase 9 §"Flagged for manual handling")
+  - wire-consumer-repo.sh enhancement candidate: scan for `.git/hooks/pre-push` or `.husky/pre-push` content during Step 1 state validation + warn before attempting commit
+related_patterns:
+  - PAT-HOOK-REAL-TIME-COMPLIANCE-CATCH  # opposite case (MM hook real-time-catches; consumer non-MM hooks late-catches at push)
+  - PAT-ITERATIVE-HOOK-COMPLIANCE  # same iterative-fix pattern but at non-MM-hook layer
+status: active
+```
+
+---
+
+### PAT-WIRE-SUBMODULE-ADD-SILENT-FAIL
+
+```yaml
+id: PAT-WIRE-SUBMODULE-ADD-SILENT-FAIL
+description: |
+  `git submodule add` on large pre-existing consumer repos (2000+ files
+  in checkout) can silently fail mid-operation, leaving the worktree in
+  a partial state. The wire script reports "Wiring complete" because
+  shell exit-code propagation through `set -uo pipefail` doesn't catch
+  this specific submodule-mechanics failure mode. Symptom: only 1 of
+  6 expected wire files (`.claude-canonical-ref`) reaches the worktree
+  as untracked; the 5 submodule-related files (`.gitmodules` modifications
+  + 2 submodule pointers + `.claude/settings.json` + `CLAUDE.md` prepend)
+  are absent. Subsequent `git commit` fails with "no changes added to
+  commit" because nothing is staged. Wire script's stdout looks
+  successful but the actual file-system state is incomplete.
+observed_in:
+  - mm-claude-canonical/deprecated/asae-logs/gate-17-phase-9-summary-report-2026-04-30.md  # Phase 9 cluster wiring summary
+  - 1 affected consumer (Phase 9 documentation): StrongMinds-DMIS (2329-file repo; failure consistently reproduced across 2 wire attempts)
+taxonomy:
+  family: tooling
+  failure_class: silent-failure-set-uo-pipefail-gap
+  meta_mod_candidate: wire-consumer-repo.sh hardening — explicit per-step exit-code checks with abort-on-failure rather than relying on `set -uo pipefail` catch-all; specifically wrap each `git submodule add` invocation in an explicit success-check
+severity: MEDIUM
+frequency: 1 of 22 wired-attempted consumers in Phase 9 (~5%); correlates with consumer-repo size (large repos hit it; small repos don't)
+mitigations:
+  - wire-consumer-repo.sh enhancement: explicit per-step exit-code checks
+    after each `git submodule add`; abort with diagnostic if either submodule add doesn't produce expected staged content
+  - manual fallback: `git submodule add` invocations one-at-a-time in a fresh
+    consumer worktree with verbose output; investigate any specific consumer-
+    repo config interfering with submodule mechanics
+  - investigate root cause: hypothesis is filesystem-state quirk during
+    `git submodule add` on large pre-existing checkouts; needs reproduction
+    + git debug logging
+related_patterns:
+  - PAT-RATER-SILENT-FAILURE  # same family (silent failure where surface signal looks successful)
+  - PAT-HOOK-CONSUMER-PRE-PUSH-FAILURE  # both surface as "consumer wire blocked" but different root cause
+status: active
+```
+
+---
+
 ## Cross-pattern observations
 
 ### Family clustering
@@ -573,11 +656,13 @@ status: positive-case
 - **Hook family** (2 patterns): PAT-ITERATIVE-HOOK-COMPLIANCE (semantics observation), PAT-HOOK-COSMETIC-SHELL-BUG (one-line fix).
 - **Methodology-implementation family** (1 pattern): PAT-CLEAN-BATCH-IMPLEMENTATION (positive baseline).
 - **Enum-drift family** (1 pattern): PAT-ENUM-DRIFT-HOOK-VS-SKILL.
+- **Cross-repo-coordination family** (1 pattern, NEW 2026-04-30): PAT-HOOK-CONSUMER-PRE-PUSH-FAILURE (consumer non-MM hooks blocking cluster-wide propagation).
+- **Tooling family** (1 pattern, NEW 2026-04-30): PAT-WIRE-SUBMODULE-ADD-SILENT-FAIL (silent-failure-set-uo-pipefail-gap on git submodule add at large repo scale).
 
 ### Severity distribution
 
 - **HIGH** (4): PAT-RATER-PARENT-ONLY-SPAWN, PAT-SUB-AGENT-SELF-RATING-RECURRENCE, PAT-RATER-SILENT-FAILURE, PAT-CONVERGENCE-COUNTER-GAMING
-- **MEDIUM** (2): PAT-INHERITED-BRAND-DEBT, PAT-ENUM-DRIFT-HOOK-VS-SKILL
+- **MEDIUM** (4): PAT-INHERITED-BRAND-DEBT, PAT-ENUM-DRIFT-HOOK-VS-SKILL, PAT-HOOK-CONSUMER-PRE-PUSH-FAILURE, PAT-WIRE-SUBMODULE-ADD-SILENT-FAIL
 - **LOW** (2): PAT-ITERATIVE-HOOK-COMPLIANCE, PAT-HOOK-COSMETIC-SHELL-BUG
 - **N/A — recovery patterns** (4): all PAT-DRR-* patterns
 - **N/A — positive-case** (3): PAT-RATER-EXEMPLAR-BRIEF, PAT-HOOK-REAL-TIME-COMPLIANCE-CATCH, PAT-CLEAN-BATCH-IMPLEMENTATION
