@@ -1,0 +1,86 @@
+# Reference: schemas/tt25_output.yaml
+# Synthesis Fidelity Verification Output Schema
+
+description: Component-by-component fidelity assessment of synthesized content
+
+structure:
+  component_audit:
+    type: array
+    description: Fidelity check for each winning component
+    items:
+      component_id:
+        type: string
+      source_section:
+        type: string
+      winning_thread_id:
+        type: string
+      status:
+        type: string
+        enum: [present_intact, present_modified, missing, distorted]
+      fidelity_score:
+        type: number
+        description: "0-1 scale; 1.0 = perfectly preserved"
+      changes_detected:
+        type: array
+        description: List of modifications if any
+        items:
+          change_type:
+            type: string
+            enum: [wording, omission, addition, reframing]
+          description:
+            type: string
+          severity:
+            type: string
+            enum: [none, minor, major]
+
+  completeness_check:
+    type: object
+    properties:
+      total_winning_components:
+        type: integer
+      components_present:
+        type: integer
+      components_missing:
+        type: integer
+      completeness_score:
+        type: number
+        description: "Ratio of present to total winning components"
+
+  novel_content_detection:
+    type: object
+    properties:
+      novel_sections_detected:
+        type: array
+        items:
+          section_location:
+            type: string
+          content_snippet:
+            type: string
+          confidence:
+            type: string
+            enum: [high, medium, low]
+      total_novel_count:
+        type: integer
+
+  distortion_assessment:
+    type: object
+    properties:
+      distorted_components:
+        type: array
+      distortion_severity:
+        type: string
+        enum: [none, minor, moderate, severe]
+
+  fidelity_summary:
+    type: object
+    properties:
+      overall_fidelity_score:
+        type: number
+        description: "Weighted average across all components; threshold >= 0.95"
+      status:
+        type: string
+        enum: [pass, fail, conditional]
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  minimum_fidelity_threshold: 0.95

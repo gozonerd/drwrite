@@ -1,0 +1,56 @@
+---
+task_type: TT-26
+example_id: "EX-26-01"
+description: "Client readiness assessment of CommCare deployment document"
+
+readiness_assessment:
+  overall_readiness_score: 78
+  readiness_decision: "ready"
+
+  dimension_scores:
+    completeness: 85
+    clarity: 82
+    accuracy: 88
+    actionability: 76
+    format_compliance: 72
+
+critical_blockers: []
+
+recommendations:
+  - priority: "high"
+    recommendation: "Expand implementation timeline from 6 months to 8 months; client has limited training capacity"
+    estimated_effort: "2-3 hours revision"
+
+  - priority: "high"
+    recommendation: "Add cost breakdown by office; client needs budget allocation by location"
+    estimated_effort: "4-6 hours data compilation"
+
+  - priority: "medium"
+    recommendation: "Simplify technical section on CommCare DET; reduce jargon for non-technical stakeholders"
+    estimated_effort: "2-3 hours rewriting"
+
+  - priority: "medium"
+    recommendation: "Add case study/comparison with other similar deployments"
+    estimated_effort: "3-4 hours research"
+
+client_context_alignment:
+  objectives_addressed:
+    - "Standardize mobile data collection across 4 offices"
+    - "Reduce paper-based form processing"
+    - "Enable offline-first data capture"
+    - "Integrate with existing SMS infrastructure"
+
+  constraints_respected:
+    - "4-office deployment scope (SMU, SMZ, SMG, SM-US)"
+    - "Budget ceiling of $150K"
+    - "6-month timeline (with requested 8-month adjustment)"
+    - "Preference for open-source/Digital Public Good solutions"
+
+  known_gaps:
+    - "Advanced CommCare analytics dashboard (deferred to Phase 2)"
+    - "Custom mobile app development (out of scope; using CommCare)"
+    - "Data migration from legacy systems (handled separately)"
+
+summary:
+  conclusion: "Document is ready for client delivery with recommended revisions noted above."
+  sign_off_recommendation: "Proceed to client delivery; address high-priority recommendations before finalization"

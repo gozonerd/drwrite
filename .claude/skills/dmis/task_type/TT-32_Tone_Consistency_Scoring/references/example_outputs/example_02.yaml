@@ -1,0 +1,93 @@
+---
+task_type: TT-32
+example_id: "EX-32-02"
+description: "Tone inconsistency flagging excessive variation"
+
+tone_dimensions:
+  target_formality: 7.0
+  target_technicality: 5.5
+  target_verbosity: 5.0
+  target_reader_assumption: "intermediate"
+
+section_tone_scores:
+  - section_id: "2"
+    section_title: "CommCare Overview"
+    tone_scores:
+      formality: 8.5
+      technicality: 3.2
+      verbosity: 4.1
+      reader_assumption_level: "novice"
+      active_voice_ratio: 0.82
+
+  - section_id: "3"
+    section_title: "Mobile Data Collection"
+    tone_scores:
+      formality: 6.8
+      technicality: 5.9
+      verbosity: 5.2
+      reader_assumption_level: "intermediate"
+      active_voice_ratio: 0.74
+
+  - section_id: "5"
+    section_title: "Implementation Planning"
+    tone_scores:
+      formality: 4.2
+      technicality: 7.8
+      verbosity: 7.9
+      reader_assumption_level: "expert"
+      active_voice_ratio: 0.48
+
+  - section_id: "8"
+    section_title: "Recommendations"
+    tone_scores:
+      formality: 5.9
+      technicality: 4.1
+      verbosity: 3.8
+      reader_assumption_level: "novice"
+      active_voice_ratio: 0.81
+
+statistical_summary:
+  document_mean_formality: 6.4
+  document_std_formality: 1.8
+  document_mean_technicality: 5.3
+  document_std_technicality: 1.9
+  document_mean_verbosity: 5.2
+  document_std_verbosity: 1.8
+  mean_active_voice_ratio: 0.71
+
+deviations_flagged:
+  - section_id: "2"
+    dimension: "formality"
+    deviation_magnitude: 1.17
+    flagged_as: "problematic"
+    remediation: "Section 2 is overly formal; reduce jargon and use more accessible language"
+
+  - section_id: "5"
+    dimension: "formality"
+    deviation_magnitude: 1.22
+    flagged_as: "problematic"
+    remediation: "Section 5 is too casual; technical content warrants more formal tone"
+
+  - section_id: "5"
+    dimension: "technicality"
+    deviation_magnitude: 1.32
+    flagged_as: "problematic"
+    remediation: "Section 5 assumes expert knowledge; add explanations for intermediate audience"
+
+  - section_id: "5"
+    dimension: "verbosity"
+    deviation_magnitude: 1.50
+    flagged_as: "problematic"
+    remediation: "Section 5 is too wordy; condense and reorganize for clarity"
+
+  - section_id: "5"
+    dimension: "voice"
+    deviation_magnitude: 1.28
+    flagged_as: "problematic"
+    remediation: "Section 5 uses excessive passive voice (52%); increase active voice to 70%+"
+
+consistency_score:
+  overall_tone_consistency: 0.64
+  recommendation: "Document has significant tone inconsistencies. Section 5 is particularly problematic. Recommend substantial rewriting for coherent voice."
+
+result: "Tone consistency score: 0.64/1.0 (BELOW ACCEPTABLE). Multiple sections deviate significantly from document mean. Major revisions required."

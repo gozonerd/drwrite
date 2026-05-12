@@ -1,0 +1,61 @@
+---
+example_id: "TT-21_EX-01"
+description: "Writing quality review - professional standard met"
+task_type: "TT-21"
+version: v02_I
+
+grammar_mechanics:
+  errors_found: 2
+  - location: "Section 2.3, paragraph 1"
+    error_type: "Subject-verb agreement"
+    original_text: "The data shows the results was consistent"
+    corrected_text: "The data show the results were consistent"
+    confidence: 0.98
+
+  - location: "Section 4.1, bullet 3"
+    error_type: "Pronoun ambiguity"
+    original_text: "When staff implement the system, they need to ensure it functions properly."
+    issue: "Unclear antecedent - 'it' could refer to system or implementation"
+    corrected_text: "When staff implement the system, they need to ensure the system functions properly."
+    confidence: 0.85
+
+spelling_punctuation:
+  errors_found: 0
+  assessment: "Spelling and punctuation are correct throughout document"
+
+style_guide_compliance:
+  compliance_score: 0.94
+  verified_elements:
+    - "Capitalization: Consistent (CommCare, Dimagi proper)"
+    - "Abbreviations: First use expanded, subsequent abbreviated correctly"
+    - "Citation format: APA style consistently applied"
+    - "List formatting: Consistent punctuation and structure"
+  minor_observation: "One abbreviation introduced in Appendix not in main text - minor inconsistency"
+
+tone_consistency:
+  tone_inventory:
+    - section: "1. Introduction"
+      tone: "Formal, professional"
+
+    - section: "2. Methodology"
+      tone: "Formal, technical"
+
+    - section: "3. Findings"
+      tone: "Neutral, evidence-based"
+
+  consistency_score: 0.92
+  assessment: "Tone remains professional throughout with appropriate variation by section"
+
+clarity_concision:
+  issues_found: 0
+  strengths: ["Active voice predominant", "Sentence structure clear and varied", "Paragraph length appropriate"]
+
+professional_polish:
+  score: 0.93
+  observations: ["Document presents professionally", "Formatting clean and consistent", "No typographical irregularities"]
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-21"
+  overall_recommendation: "Document is publication-ready with minor corrections noted above"
+  required_edits: "2 grammar corrections recommended"

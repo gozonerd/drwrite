@@ -1,0 +1,71 @@
+---
+# TT-12 Output Schema Reference
+# This file provides a schema reference for TT-12 Full Pipeline Chain Tracing outputs
+# Complete authoritative schema defined in: schemas/tt12_output.yaml
+
+schema_name: "TT-12 Pipeline Chain Tracing Output"
+version: v02_I
+date: 2026-03-06
+
+# Output Structure Reference
+output_structure:
+  provenance_traces:
+    description: "Array of complete backward provenance chains for each primary claim"
+    required: true
+    properties:
+      claim_id:
+        description: "Unique identifier for the claim"
+        type: string
+      final_statement:
+        description: "The claim as it appears in P4 final integration"
+        type: string
+      trace_chain:
+        description: "Complete backward trace through pipeline stages"
+        type: array
+        items:
+          stage:
+            description: "Pipeline stage (P4, P3, P2, P1)"
+            type: string
+          element_location:
+            description: "Where this claim appeared in processing stage"
+            type: string
+          supporting_evidence:
+            description: "Thread count and source documentation at this stage"
+            type: object
+          convergence_score:
+            description: "QA α and Methodology α scores at this stage"
+            type: object
+      primary_sources:
+        description: "Original source document identifiers"
+        type: array
+        items:
+          source_id:
+            description: "Reference identifier for primary source"
+            type: string
+          source_type:
+            description: "Type of source material"
+            type: string
+      trace_status:
+        description: "Complete (full backward trace), Partial (missing stage), Broken (cannot trace)"
+        type: string
+      gaps:
+        description: "Any breaks or gaps in trace chain"
+        type: array
+
+# Accuracy Rules Reference
+accuracy_rules_applied:
+  - "ACC-001: CommCare current use vs. history distinction"
+  - "ACC-002: Dimagi pilot scope (StrongMinds-wide)"
+  - "ACC-003: Dimagi vs. CommCare distinction"
+  - "ACC-004: Four office attribution requirement"
+  - "ACC-005: DATS terminology"
+  - "ACC-006: EFD methodology naming"
+  - "ACC-007: Convergence thresholds (QA α ≥ 0.70, Methodology α ≥ 0.75)"
+  - "ACC-008: CommCare Digital Public Good status"
+  - "ACC-009: CommCare DET standalone status"
+
+# Quality Metrics
+quality_expectations:
+  completeness_threshold: "100% of primary claims must have documented trace"
+  convergence_compliance: "All trace stages must show required convergence scores"
+  gap_documentation: "Any trace breaks must be explicitly documented with explanation"

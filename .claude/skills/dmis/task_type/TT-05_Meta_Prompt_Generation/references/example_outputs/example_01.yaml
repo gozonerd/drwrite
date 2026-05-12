@@ -1,0 +1,78 @@
+---
+title: "Example Meta-Prompt: Domain Knowledge Synthesis Brief"
+task_type: "TT-05"
+version: "v02_I"
+date: "2026-03-06"
+
+task_overview: |
+  You are tasked with synthesizing authoritative domain knowledge on digital health implementation in resource-limited settings. Your output will inform client-facing guidance and training materials. The synthesis must integrate evidence from multiple sources while maintaining clear traceability to original sources. Every factual assertion must have a citable source; uncertain claims must be flagged for verification.
+
+input_specification:
+  materials:
+    - "Evidence corpus: Research articles, technical documentation, and organizational case studies on digital health implementation"
+    - "Domain scope: Digital health platform selection, implementation planning, and operational management"
+    - "Organizational context: StrongMinds' four-office structure and CommCare deployments"
+
+  constraints:
+    - "Must distinguish CommCare (platform) from Dimagi (consulting firm) consistently"
+    - "Must distinguish Zambia active deployment from Uganda exploratory pilot"
+    - "Must reference all 9 Accuracy Rules (ACC-001 through ACC-009) in compliance statement"
+    - "Must apply all 6 Anti-Fabrication Rules (AFR-001 through AFR-006) in content generation"
+
+output_requirements:
+  format: "YAML document with structured sections"
+  key_sections:
+    - "executive_summary: 2-3 paragraph overview"
+    - "fundamentals: 3-5 key foundational concepts"
+    - "key_concepts: 4-6 major domain frameworks"
+    - "evidence_findings: 6-10 research-based insights with source attribution"
+    - "operational_applications: 3-5 specific applications to StrongMinds context"
+    - "references: Complete bibliography"
+
+  citation_requirements:
+    - "Every factual assertion requires attributed source"
+    - "Direct quotes must include page/section references"
+    - "Statistics must cite original research with publication details"
+    - "Regulatory claims must reference specific statute sections"
+
+quality_criteria:
+  - "Completeness: All major domain concepts are addressed"
+  - "Evidence-Grounded: Every claim is supported by cited source material"
+  - "Accuracy: Citations are precise and verifiable"
+  - "Coherence: Concepts flow logically; no contradictory assertions"
+  - "Applicability: Domain knowledge explicitly connects to StrongMinds operations"
+  - "Transparency: Uncertain claims are flagged [NEEDS VERIFICATION]"
+
+guardrails:
+  accuracy_rules: |
+    All 9 Critical Accuracy Rules must be honored:
+    - ACC-001: Distinguish CommCare current use (SMZ) from history (Uganda pilot)
+    - ACC-002: Dimagi pilot = StrongMinds-wide
+    - ACC-003: Dimagi ≠ CommCare
+    - ACC-004: 4 offices always (SMU, SMZ, SMG, SM-US)
+    - ACC-005: DATS not DAD
+    - ACC-006: EFD not RQ-RE
+    - ACC-007: α ≥ 0.70 QA / ≥ 0.75 methodology
+    - ACC-008: CommCare IS a Digital Public Good (GID0090016)
+    - ACC-009: CommCare DET is standalone
+
+  anti_fabrication_rules: |
+    All 6 Anti-Fabrication Rules must be applied:
+    - AFR-001: Every factual claim requires traceable source
+    - AFR-002: Never invent statistics, quotes, regulatory citations
+    - AFR-003: Flag uncertain claims as [NEEDS VERIFICATION]
+    - AFR-004: Cross-reference claims against Evidence Library
+    - AFR-005: Regulatory citations must reference specific statute sections
+    - AFR-006: Quote verification: fuzzy match ≥ 85% against source
+
+examples:
+  - claim: "CommCare is a Digital Public Good"
+    correct_form: "CommCare is a Digital Public Good (GID0090016), enabling cost-effective platform use"
+    source_attribution: "Digital Public Goods Registry, GID0090016"
+
+  - claim: "StrongMinds uses CommCare"
+    correct_form: "StrongMinds Zambia operates an active CommCare deployment; Uganda conducted an exploratory pilot with Dimagi support"
+    source_attribution: "Distinguish per ACC-001"
+
+execution_notes: |
+  This synthesis must achieve publication quality without requiring further editing by human reviewers. All citations must be verifiable. All facts must be either well-established or flagged [NEEDS VERIFICATION]. The synthesis serves as authoritative domain reference material.

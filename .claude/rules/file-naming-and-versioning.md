@@ -1,5 +1,5 @@
 ---
-description: Mandatory file naming pattern and version increment logic for all Stahl Systems outputs
+description: Mandatory file naming pattern and version increment logic for all Martinez Methods outputs
 globs: "**/*"
 ---
 

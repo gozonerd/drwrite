@@ -1,0 +1,77 @@
+# Reference: schemas/tt26_output.yaml
+# Client Readiness Assessment Output Schema
+
+description: Holistic assessment of deliverable readiness for client delivery
+
+structure:
+  readiness_assessment:
+    type: object
+    properties:
+      overall_readiness_score:
+        type: number
+        description: "0-100 scale; ready threshold >= 70"
+      readiness_decision:
+        type: string
+        enum: [ready, conditional, not_ready]
+
+      dimension_scores:
+        type: object
+        properties:
+          completeness:
+            type: number
+            description: "All stated objectives and sections delivered"
+          clarity:
+            type: number
+            description: "Target audience can understand without training"
+          accuracy:
+            type: number
+            description: "Factual claims verified and sourced"
+          actionability:
+            type: number
+            description: "Recommendations are concrete and implementable"
+          format_compliance:
+            type: number
+            description: "Meets client's format and delivery requirements"
+
+  critical_blockers:
+    type: array
+    description: "Issues preventing delivery (if any)"
+    items:
+      blocker_id:
+        type: string
+      description:
+        type: string
+      impact:
+        type: string
+        enum: [delivery_blocker, significant, minor]
+      remediation:
+        type: string
+
+  recommendations:
+    type: array
+    description: "Prioritized refinements"
+    items:
+      priority:
+        type: string
+        enum: [critical, high, medium, low]
+      recommendation:
+        type: string
+      estimated_effort:
+        type: string
+
+  client_context_alignment:
+    type: object
+    properties:
+      objectives_addressed:
+        type: array
+        description: "List of client objectives met by deliverable"
+      constraints_respected:
+        type: array
+        description: "List of client constraints accounted for"
+      known_gaps:
+        type: array
+        description: "Deliberate scope exclusions explained to client"
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  client_readiness_threshold: 70/100

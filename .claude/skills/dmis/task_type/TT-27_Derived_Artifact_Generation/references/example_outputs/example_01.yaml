@@ -1,0 +1,71 @@
+---
+task_type: TT-27
+example_id: "EX-27-01"
+description: "Glossary generation from CommCare deployment document"
+
+artifacts:
+  - artifact_id: "ART-27-001"
+    artifact_type: "glossary"
+    title: "CommCare Deployment Glossary"
+    content:
+      entries:
+        - term: "CommCare"
+          definition: "Mobile application platform developed by Dimagi for structured data collection via smartphones and feature phones"
+          source: "Section 2.1"
+
+        - term: "Digital Public Good"
+          definition: "Open-source software, data, and/or AI system developed in collaboration with and leveraging the strengths of a range of stakeholders"
+          source: "Section 2.2, GID0090016"
+
+        - term: "CommCare DET"
+          definition: "Data Exchange Token - standalone system for secure data export from CommCare without intermediary platform"
+          source: "Section 6.3"
+
+        - term: "EFD"
+          definition: "Electronic Forms Data system for standardized form design, validation logic, and mobile submission"
+          source: "Section 4.1"
+
+        - term: "SMS Gateway"
+          definition: "Service provider enabling two-way SMS communication between mobile devices and backend systems"
+          source: "Section 3.1"
+
+    source_sections:
+      - section_id: "2.1"
+        extraction_method: "direct"
+      - section_id: "6.3"
+        extraction_method: "direct"
+      - section_id: "4.1"
+        extraction_method: "direct"
+
+    entry_count: 5
+    completeness_check:
+      expected_entries: 5
+      actual_entries: 5
+      coverage_ratio: 1.0
+
+extraction_metadata:
+  - entry_id: "ENTRY-001"
+    artifact_id: "ART-27-001"
+    source_location: "Section 2.1, paragraph 2"
+    extraction_confidence: "high"
+
+  - entry_id: "ENTRY-002"
+    artifact_id: "ART-27-001"
+    source_location: "Section 2.2, reference to GID0090016"
+    extraction_confidence: "high"
+
+  - entry_id: "ENTRY-003"
+    artifact_id: "ART-27-001"
+    source_location: "Section 6.3, CommCare DET specification"
+    extraction_confidence: "high"
+
+validation_summary:
+  total_artifacts: 1
+  extraction_fidelity: 1.0
+  novel_content_count: 0
+  compliance_status: "compliant"
+
+summary:
+  result: "Glossary successfully generated from document with zero novel content. All entries directly extracted from source."
+  accuracy_rules_enforced: [ACC-001, ACC-006, ACC-008, ACC-009]
+  anti_fabrication_rules_enforced: [AFR-001, AFR-006]

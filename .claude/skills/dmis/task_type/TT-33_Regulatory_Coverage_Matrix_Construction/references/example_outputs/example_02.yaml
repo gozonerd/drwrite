@@ -1,0 +1,65 @@
+---
+task_type: TT-33
+example_id: "EX-33-02"
+description: "Regulatory coverage matrix with full compliance"
+
+regulatory_scope:
+  applicable_jurisdictions:
+    - "United States (Federal)"
+  frameworks:
+    - "HIPAA Privacy Rule"
+    - "HIPAA Security Rule"
+  scope_justification: "CommCare deployment is US-only for this engagement (SM-US office). HIPAA applies to all operations."
+
+requirements_inventory:
+  - requirement_id: "REQ-33-004"
+    framework: "HIPAA"
+    jurisdiction: "United States"
+    requirement_text: "Minimum Necessary rule: organizations must limit PHI use to what is necessary for purpose"
+    requirement_type: "mandatory"
+
+  - requirement_id: "REQ-33-005"
+    framework: "HIPAA"
+    jurisdiction: "United States"
+    requirement_text: "Audit controls: implement mechanisms to record access to PHI"
+    requirement_type: "mandatory"
+
+  - requirement_id: "REQ-33-006"
+    framework: "HIPAA"
+    jurisdiction: "United States"
+    requirement_text: "Breach notification: notify affected individuals within 60 days of breach discovery"
+    requirement_type: "mandatory"
+
+coverage_matrix:
+  - requirement_id: "REQ-33-004"
+    coverage_status: "fully_addressed"
+    sections_addressing: ["3.1", "3.2", "4.1"]
+    evidence: "Section 3.1: 'CommCare form design restricts data collection to clinical assessment data only; SMS confirmation messages do not transmit PHI'"
+    adequacy_assessment: "adequate"
+
+  - requirement_id: "REQ-33-005"
+    coverage_status: "fully_addressed"
+    sections_addressing: ["7.2", "7.4"]
+    evidence: "Section 7.2: 'CommCare maintains audit logs for all user actions; logs retained for 6 years per HIPAA requirement'"
+    adequacy_assessment: "adequate"
+
+  - requirement_id: "REQ-33-006"
+    coverage_status: "fully_addressed"
+    sections_addressing: ["7.5"]
+    evidence: "Section 7.5: 'Breach response protocol includes notification to affected individuals within 60 days; SMS-based notification system in place'"
+    adequacy_assessment: "adequate"
+
+gap_analysis:
+  critical_gaps: []
+  minor_gaps: []
+
+coverage_summary:
+  total_requirements: 3
+  fully_addressed: 3
+  partially_addressed: 0
+  not_addressed: 0
+  coverage_percentage: 1.0
+  critical_gap_count: 0
+  readiness_assessment: "compliant"
+
+result: "Regulatory compliance: COMPLIANT (100% coverage). All HIPAA mandatory requirements fully addressed with adequate evidence."

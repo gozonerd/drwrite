@@ -1,0 +1,117 @@
+---
+title: "Example Source Reference Integrity: All Sources Verified"
+task_type: "TT-10"
+version: "v02_I"
+date: "2026-03-06"
+
+citation_inventory:
+  total_citations: 6
+  high_priority_citations: 6
+  citations:
+    - citation_id: "CITE-ACC-001"
+      claimed_source: "StrongMinds ACCURACY_RULES.md, ACC-001"
+      location: "Section 2.1, rule definition"
+      accessibility: "ACCESSIBLE - Source document in project repository"
+      verification_status: "VERIFIED"
+
+    - citation_id: "CITE-DPG"
+      claimed_source: "Digital Public Goods Registry, GID0090016"
+      location: "Section 3.1, paragraph 1; Section 5.2, paragraph 2"
+      accessibility: "ACCESSIBLE - Public registry online"
+      verification_status: "VERIFIED"
+
+    - citation_id: "CITE-ACC-007"
+      claimed_source: "StrongMinds ACCURACY_RULES.md, ACC-007"
+      location: "Section 5.2, paragraph 4"
+      accessibility: "ACCESSIBLE - Source document in project repository"
+      verification_status: "VERIFIED"
+
+    - citation_id: "CITE-EFD"
+      claimed_source: "Convergence Methods Master Reference, EFD methodology"
+      location: "Section 5.2, paragraph 1"
+      accessibility: "ACCESSIBLE - Reference document in project repository"
+      verification_status: "VERIFIED"
+
+    - citation_id: "CITE-ACCURACY-RULES-FULL"
+      claimed_source: "StrongMinds ACCURACY_RULES.md (comprehensive)"
+      location: "Section 2.1, Section 3.1"
+      accessibility: "ACCESSIBLE - Source document in project repository"
+      verification_status: "VERIFIED"
+
+    - citation_id: "CITE-PIPELINE-CATALOG"
+      claimed_source: "Pipeline Task Type Catalog 2026-02-27"
+      location: "Section 4, audit layer descriptions"
+      accessibility: "ACCESSIBLE - Organizational documentation"
+      verification_status: "VERIFIED"
+
+source_accessibility:
+  total_sources: 6
+  accessible: 6
+  inaccessible: 0
+  accessibility_rate: "100%"
+
+accuracy_assessment:
+  - citation: "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+    claim_in_document: "Rules are enumerated in Section 2.1"
+    source_verification: "ACCURACY_RULES.md contains all 9 rules as specified"
+    accuracy: "PERFECT - Content matches source exactly"
+    page_references: "ACCURATE - Section references verified"
+    confidence: "VERY HIGH"
+
+  - citation: "CommCare GID0090016"
+    claim_in_document: "CommCare is Digital Public Good with registry ID GID0090016"
+    source_verification: "Digital Public Goods Registry confirms CommCare entry with GID0090016"
+    accuracy: "PERFECT - Registry ID confirmed"
+    confidence: "VERY HIGH"
+
+  - citation: "Convergence thresholds: α ≥ 0.70 QA, α ≥ 0.75 methodology"
+    claim_in_document: "Section 5.2 cites exact thresholds"
+    source_verification: "ACCURACY_RULES.md ACC-007 confirms identical threshold values"
+    accuracy: "PERFECT - Numbers match source exactly"
+    confidence: "VERY HIGH"
+
+  - citation: "Three-tier audit approach"
+    claim_in_document: "Section 4 describes TT-06, TT-07, TT-08 audit layers"
+    source_verification: "Pipeline Task Type Catalog confirms layer definitions"
+    accuracy: "PERFECT - Audit layer assignments match source"
+    confidence: "VERY HIGH"
+
+context_analysis:
+  direct_quotes: 2
+  quote_1:
+    text: "This framework builds on the Evidence-based Framework for Data quality (EFD) methodology"
+    source_location: "Convergence Methods Master Reference"
+    verification: "PERFECT MATCH - Word-for-word match with source"
+    context_assessment: "Used in appropriate context; accurately represents source"
+    confidence: "VERY HIGH"
+
+  quote_2:
+    text: "convergence thresholds of α ≥ 0.70 for quality assurance and α ≥ 0.75 for methodology application"
+    source_location: "ACCURACY_RULES.md, ACC-007"
+    verification: "PERFECT MATCH - Exact citation of source values"
+    context_assessment: "Used in appropriate context; maintains source intent"
+    confidence: "VERY HIGH"
+
+  paraphrased_claims: 0
+  summary: "No paraphrased claims; all assertions are either direct citations or structural descriptions traceable to source"
+
+integrity_summary:
+  all_sources_accessible: true
+  all_citations_accurate: true
+  quote_accuracy_rate: "100%"
+  quote_context_preservation: "100%"
+  no_distortions: true
+  no_out_of_context_citations: true
+  overall_integrity_assessment: "EXCELLENT - All citations verified, accurate, and properly contextualized"
+
+publication_readiness:
+  citation_quality: "PUBLICATION GRADE"
+  source_traceability: "PERFECT"
+  confidence_in_accuracy: "VERY HIGH"
+  recommendation: "Citation integrity verified; document ready for publication"
+
+accuracy_compliance:
+  - "ACC-007: Convergence thresholds cited exactly (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+  - "ACC-008: CommCare DPG status verified with GID0090016"
+  - "AFR-001: All claims traceable to authoritative sources with perfect verification"
+  - "AFR-006: Quote verification 100% accuracy (exceeds ≥ 85% threshold)"

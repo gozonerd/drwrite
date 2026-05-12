@@ -1,0 +1,102 @@
+# Reference: schemas/tt31_output.yaml
+# Narrative Arc and Reader Journey Assessment Output Schema
+
+description: Document-level logical flow and coherence evaluation
+
+structure:
+  narrative_flow_assessment:
+    type: object
+    properties:
+      logical_sequence_score:
+        type: number
+        description: "0-10 scale; how well sections build logically"
+      thesis_statement:
+        type: string
+        description: "Primary purpose/thesis as identified"
+      key_messages:
+        type: array
+        description: "Main messages that should persist throughout document"
+
+  section_transitions:
+    type: array
+    description: Quality of section-to-section flow
+    items:
+      from_section:
+        type: string
+      to_section:
+        type: string
+      transition_quality:
+        type: string
+        enum: [strong, adequate, weak, missing]
+      bridge_present:
+        type: boolean
+        description: "Does transition sentence/paragraph exist?"
+      coherence_issue:
+        type: string
+        description: "If weak or missing, what's the gap?"
+
+  key_message_tracking:
+    type: array
+    description: How main messages evolve through document
+    items:
+      message_id:
+        type: string
+      message:
+        type: string
+      introduced_at:
+        type: string
+      reinforced_at:
+        type: array
+      final_position:
+        type: string
+      message_drift:
+        type: string
+        enum: [none, minor, significant]
+
+  reader_journey_analysis:
+    type: object
+    properties:
+      target_audience:
+        type: string
+      confusion_points:
+        type: array
+        description: "Where reader might lose thread"
+        items:
+          location:
+            type: string
+          issue:
+            type: string
+          recommendation:
+            type: string
+      engagement_arc:
+        type: string
+        description: "How document holds reader attention over time"
+
+  executive_summary_alignment:
+    type: object
+    properties:
+      summary_present:
+        type: boolean
+      content_coverage:
+        type: number
+        description: "% of main points from summary that appear in body"
+      message_fidelity:
+        type: number
+        description: "How accurately summary captures document"
+      alignment_issues:
+        type: array
+
+  coherence_summary:
+    type: object
+    properties:
+      overall_coherence_score:
+        type: number
+        description: "0-10 scale"
+      flow_assessment:
+        type: string
+        enum: [excellent, good, acceptable, poor]
+      narrative_recommendations:
+        type: array
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009

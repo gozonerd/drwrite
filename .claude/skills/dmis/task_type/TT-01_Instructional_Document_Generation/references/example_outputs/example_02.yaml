@@ -1,0 +1,46 @@
+---
+title: "Example Instructional Document: Quality Audit Procedure"
+task_type: "TT-01"
+version: "v02_I"
+date: "2026-03-06"
+
+overview: |
+  This example demonstrates an instructional document for conducting data quality audits on completed CommCare forms. It provides quality assurance personnel with clear procedures for verifying data accuracy and completeness.
+
+prerequisites:
+  - "Access to completed CommCare form submissions in reporting system"
+  - "Completed training on data quality standards and accuracy rules"
+  - "Access to original source documents (patient records, case files)"
+  - "Familiarity with accuracy rules (ACC-001 through ACC-009)"
+
+procedures:
+  - step_number: 1
+    action: "Access the CommCare reporting dashboard and filter for forms submitted in the past 7 days"
+    expected_outcome: "Dashboard displays list of submitted forms with submission dates and data entry staff names"
+    verification_checkpoint: "Confirm date range shows correct 7-day window and all forms from that period are displayed"
+
+  - step_number: 2
+    action: "Select the first form in the list and review all data fields against the source document"
+    expected_outcome: "Form data and source document are open for side-by-side comparison"
+    verification_checkpoint: "Compare each field value in the form against the source document and confirm matches"
+
+  - step_number: 3
+    action: "For any data discrepancy, flag the form in the audit log with specific field reference"
+    expected_outcome: "Flag is recorded in the audit log with form ID, field name, discrepancy details"
+    verification_checkpoint: "Confirm flag includes specific field reference and clear description of the discrepancy"
+
+quality_checkpoints:
+  - "Source document must be physically present and legible before beginning audit"
+  - "All data comparisons must be documented with specific field references"
+  - "Flags must be clear enough that data entry staff can understand and correct the error"
+
+appendices:
+  data_quality_standards: |
+    - All required fields must be completed
+    - Text entries must match source documents exactly
+    - Regulatory citations must reference specific statute sections (AFR-005)
+
+accuracy_compliance:
+  - "ACC-005: Document uses correct DATS terminology throughout"
+  - "ACC-007: Audit convergence thresholds match organizational standards (α ≥ 0.70)"
+  - "AFR-001: All quality criteria based on traceable organizational policies"

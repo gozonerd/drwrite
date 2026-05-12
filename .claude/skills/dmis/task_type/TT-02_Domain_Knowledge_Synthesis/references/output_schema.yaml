@@ -1,0 +1,33 @@
+# Reference to authoritative schema
+# See: schemas/tt02_output.yaml for full validation schema
+schema_ref: "schemas/tt02_output.yaml"
+task_type: "TT-02"
+description: "Comprehensive domain learning document synthesized from evidence corpus with integrated citations and authoritative references"
+output_format: "YAML"
+key_sections:
+  - section: "executive_summary"
+    description: "High-level overview of domain knowledge with key insights"
+  - section: "fundamentals"
+    description: "Foundational concepts and terminology required for domain mastery"
+  - section: "key_concepts"
+    description: "Major frameworks, principles, and ideas central to the domain"
+  - section: "evidence_findings"
+    description: "Research findings and evidence-based insights with citations"
+  - section: "operational_applications"
+    description: "How domain knowledge applies to StrongMinds operations"
+  - section: "references"
+    description: "Complete bibliography with source materials and citations"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "executive_summary"
+  - "fundamentals"
+  - "evidence_findings"
+  - "references"
+validation_rules:
+  - "Every factual assertion must have traceable source citation (AFR-001)"
+  - "All evidence claims must be cross-referenced to Evidence Library (AFR-004)"
+  - "All regulatory citations must include specific statute sections (AFR-005)"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"
+  - "All quoted material must have source attribution"

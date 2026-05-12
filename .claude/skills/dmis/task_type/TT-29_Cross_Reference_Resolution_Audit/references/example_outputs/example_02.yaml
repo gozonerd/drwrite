@@ -1,0 +1,60 @@
+---
+task_type: TT-29
+example_id: "EX-29-02"
+description: "Cross-reference audit with broken reference detection"
+
+reference_inventory:
+  - reference_id: "REF-29-005"
+    reference_type: "section_link"
+    context: "Implementation timeline is discussed in Section 9"
+    target: "9"
+    location: "Section 1.3"
+
+  - reference_id: "REF-29-006"
+    reference_type: "figure_citation"
+    context: "See Figure 10 for architecture diagram"
+    target: "Figure 10"
+    location: "Section 6.1"
+
+  - reference_id: "REF-29-007"
+    reference_type: "footnote"
+    context: "CommCare is a Digital Public Good (see footnote 3)"
+    target: "footnote 3"
+    location: "Section 2.1"
+
+resolution_results:
+  - reference_id: "REF-29-005"
+    status: "resolved"
+    target_found: true
+    target_location: "Section 9: Implementation Roadmap"
+    format_valid: true
+    context_appropriate: true
+
+  - reference_id: "REF-29-006"
+    status: "unresolved"
+    target_found: false
+    target_location: null
+    format_valid: true
+    context_appropriate: null
+
+  - reference_id: "REF-29-007"
+    status: "resolved"
+    target_found: true
+    target_location: "Footnote 3, page 12"
+    format_valid: true
+    context_appropriate: true
+
+broken_references:
+  - reference_id: "REF-29-006"
+    missing_target: "Figure 10"
+    intended_reference: "Architecture diagram referenced in Section 6.1"
+    remediation: "Either: (a) Add Figure 10 to document; (b) Update reference to correct figure; (c) Remove reference and move content inline"
+
+summary:
+  total_references: 3
+  resolved: 2
+  unresolved: 1
+  resolution_rate: 0.67
+  format_errors: 0
+
+result: "Resolution rate below threshold (0.67 < 0.95). One broken reference must be remediated before publication."

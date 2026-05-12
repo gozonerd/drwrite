@@ -1,0 +1,84 @@
+---
+title: "Example Meta-Prompt: Client-Ready Prose Generation Brief"
+task_type: "TT-05"
+version: "v02_I"
+date: "2026-03-06"
+
+task_overview: |
+  You are tasked with generating publication-quality prose for a single section of a client-facing document on digital health implementation. Your section will be integrated into a larger document that reaches organizational stakeholders and external partners. All content must be professionally written, evidence-supported, and free of errors. The section must reflect the assigned outline structure while achieving natural narrative flow.
+
+input_specification:
+  materials:
+    - "Structural outline from TT-03: Detailed specification of section purpose, scope, and content requirements"
+    - "Evidence base from TT-02: Supporting research, citations, and organizational context"
+    - "Organizational context: StrongMinds four-office structure, CommCare deployments, accuracy rules"
+
+  section_assignment:
+    - "Section title: [Will be specified in execution brief]"
+    - "Outline requirements: [Will be detailed in outline section]"
+    - "Evidence to integrate: [Will include specific citations and research findings]"
+    - "Length: 300-800 words depending on section complexity"
+
+output_requirements:
+  format: "YAML with section_prose key containing flowing narrative text"
+  structure:
+    - "Section prose: Continuous narrative text integrating outline requirements"
+    - "Integration points: References to outline elements addressed in prose"
+    - "Citations: List of all claims with source attribution"
+    - "Quality indicators: Self-assessment against quality criteria"
+
+  prose_standards:
+    - "Professional organizational voice appropriate for stakeholder audience"
+    - "Clear topic sentences and logical paragraph organization"
+    - "Smooth transitions between concepts"
+    - "Technical accuracy with accessible language"
+    - "Publication-ready quality without requiring editorial revision"
+
+quality_criteria:
+  - "Narrative Flow: Prose transitions smoothly; outline structure reflected naturally"
+  - "Evidence Integration: All supporting materials incorporated with explicit citations"
+  - "Accuracy: Every factual assertion matches source materials"
+  - "Professionalism: Writing meets organizational style standards"
+  - "Completeness: All outline requirements addressed in prose"
+  - "Polish: Text is free of errors; formatting is consistent"
+
+guardrails:
+  critical_accuracy_rules: |
+    These rules are non-negotiable and must be honored throughout:
+    - ACC-001: Distinguish CommCare current use vs. history (SMZ vs. Uganda)
+    - ACC-003: CommCare (platform) ≠ Dimagi (consulting firm)
+    - ACC-004: All four offices mentioned where organizationally relevant (SMU, SMZ, SMG, SM-US)
+    - ACC-008: CommCare correctly identified as Digital Public Good (GID0090016) when mentioned
+
+  anti_fabrication_requirements: |
+    All claims must meet these anti-fabrication standards:
+    - AFR-001: Every factual assertion has traceable source attribution
+    - AFR-002: No invented statistics, quotes, or regulatory citations
+    - AFR-003: Uncertain claims flagged as [NEEDS VERIFICATION]
+    - AFR-006: Direct quotes verified ≥ 85% match with source material
+
+examples:
+  correct_example_1: |
+    "CommCare, a Digital Public Good platform (GID0090016), offers cost-effective digital health capabilities.
+    StrongMinds Zambia operates an active CommCare deployment, while Uganda conducted an exploratory pilot.
+    Organizations selecting platforms must distinguish the technology (CommCare) from implementation partners
+    (such as Dimagi), ensuring long-term internal capacity building."
+
+    This example correctly:
+    - Cites CommCare as DPG with GID0090016
+    - Distinguishes Zambia deployment from Uganda pilot (ACC-001)
+    - Distinguishes CommCare (platform) from Dimagi (ACC-003)
+
+  incorrect_example_1: |
+    "CommCare is used by StrongMinds for digital health."
+
+    This is insufficient because it:
+    - Doesn't distinguish deployment status by office
+    - Lacks source attribution
+    - Doesn't clarify CommCare vs. Dimagi relationship
+
+execution_standards: |
+  Output must achieve publication-quality standard suitable for stakeholder delivery without further editing.
+  All citations must be verifiable against source materials in the evidence base. All accuracy rules must be
+  applied consistently throughout the section. The section must integrate seamlessly with adjacent sections
+  to form a coherent, professional document.

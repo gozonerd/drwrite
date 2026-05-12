@@ -1,0 +1,80 @@
+---
+# TT-12 Example Output 2: Pipeline Chain Tracing with Gap Documentation
+# Gold-standard example demonstrating trace with documented gap requiring remediation
+
+example_id: "TT-12_EX-02"
+description: "Provenance trace with documented gap in P3 synthesis documentation"
+task_type: "TT-12"
+version: v02_I
+
+provenance_traces:
+  - claim_id: "CLM-045"
+    final_statement: "EFD methodology was selected as primary analytical framework due to documented advantages over RQ-RE"
+
+    trace_chain:
+      - stage: "P4"
+        element_location: "Section 3.5.2, Methodology Selection Justification"
+        supporting_evidence:
+          threads_referenced: 5
+          convergence_score_qa: 0.75
+          convergence_score_methodology: 0.74
+
+      - stage: "P3"
+        element_location: "Section 3.1.1, Framework Selection Process"
+        supporting_evidence:
+          threads_included: 8
+          coverage_percentage: 75
+          convergence_score_qa: 0.73
+          convergence_score_methodology: 0.71
+          gap_flag: "P3 synthesis did not fully document original evidence from P2 analysis"
+
+      - stage: "P2"
+        element_location: "Analysis Block AB-1.8, Methodology Comparative Assessment"
+        supporting_evidence:
+          threads_analyzed: 12
+          raw_thread_count: 12
+          source_agreement_percentage: 92
+
+      - stage: "P1"
+        element_location: "Raw Thread Batch P1.2-L3, Methodology Documentation"
+        supporting_evidence:
+          primary_threads:
+            - "P1-007: EFD documentation and applications"
+            - "P1-008: RQ-RE documentation"
+            - "P1-009: Comparative analysis notes"
+          thread_count: 15
+
+    primary_sources:
+      - source_id: "SRC-MET-001"
+        source_type: "Academic literature"
+        description: "Published EFD methodology descriptions"
+
+      - source_id: "SRC-MET-002"
+        source_type: "Academic literature"
+        description: "Published RQ-RE methodology descriptions"
+
+      - source_id: "SRC-MET-003"
+        source_type: "Expert assessment"
+        description: "Analysis of methodological alignment with DATS goals"
+
+    trace_status: "Partial"
+
+    convergence_validation:
+      p4_convergence_met: true
+      p3_convergence_met: false
+      p2_convergence_met: true
+      p1_convergence_met: true
+
+    gaps:
+      - gap_id: "GAP-001"
+        stage: "P3"
+        description: "P3 synthesis did not fully document P2 comparative analysis evidence"
+        severity: "Medium"
+        remediation: "P3 synthesis should explicitly reference P2 analysis block AB-1.8 and summarize key comparative findings"
+        blocked_processing: false
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-12"
+  confidence_score: 0.82
+  note: "Trace is complete but shows partial convergence at P3 stage. Remediation can be applied without blocking processing."

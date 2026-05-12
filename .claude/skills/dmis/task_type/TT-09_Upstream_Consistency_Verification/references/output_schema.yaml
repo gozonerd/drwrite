@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt09_output.yaml for full validation schema
+schema_ref: "schemas/tt09_output.yaml"
+task_type: "TT-09"
+description: "Upstream consistency verification report assessing downstream representation of upstream source materials"
+output_format: "YAML"
+key_sections:
+  - section: "consistency_summary"
+    description: "Overall assessment of downstream fidelity to upstream sources"
+  - section: "mapping_verification"
+    description: "Explicit mapping of upstream content to downstream sections"
+  - section: "distortion_detection"
+    description: "Identification of cases where downstream content misrepresents upstream intent"
+  - section: "integration_assessment"
+    description: "Assessment of how upstream materials are integrated in downstream artifact"
+  - section: "fidelity_analysis"
+    description: "Detailed analysis of paraphrasing accuracy and meaning preservation"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "consistency_summary"
+  - "mapping_verification"
+  - "distortion_detection"
+validation_rules:
+  - "All major upstream content must be represented downstream"
+  - "Mapping must explicitly show where upstream content appears downstream"
+  - "Distortions must be identified with specific examples"
+  - "Omissions must be flagged as fidelity issues"
+  - "Paraphrasing assessment must evaluate meaning preservation"

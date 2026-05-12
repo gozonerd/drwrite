@@ -1,0 +1,101 @@
+# Reference: schemas/tt33_output.yaml
+# Regulatory Coverage Matrix Output Schema
+
+description: Jurisdiction × requirement compliance matrix with gap analysis
+
+structure:
+  regulatory_scope:
+    type: object
+    properties:
+      applicable_jurisdictions:
+        type: array
+        description: "Jurisdictions in scope for compliance"
+      frameworks:
+        type: array
+        description: "Regulatory frameworks checked"
+      scope_justification:
+        type: string
+
+  requirements_inventory:
+    type: array
+    description: All applicable regulatory requirements
+    items:
+      requirement_id:
+        type: string
+      framework:
+        type: string
+      jurisdiction:
+        type: string
+      requirement_text:
+        type: string
+      requirement_type:
+        type: string
+        enum: [mandatory, recommended, best_practice]
+
+  coverage_matrix:
+    type: array
+    description: Requirement × section coverage mapping
+    items:
+      requirement_id:
+        type: string
+      coverage_status:
+        type: string
+        enum: [fully_addressed, partially_addressed, not_addressed]
+      sections_addressing:
+        type: array
+        description: "Section IDs that address this requirement"
+      evidence:
+        type: string
+        description: "Direct quote or reference from content"
+      adequacy_assessment:
+        type: string
+        enum: [adequate, insufficient, missing]
+
+  gap_analysis:
+    type: object
+    properties:
+      critical_gaps:
+        type: array
+        description: "Gaps in mandatory requirements; must address for compliance"
+        items:
+          requirement_id:
+            type: string
+          requirement_text:
+            type: string
+          severity:
+            type: string
+            enum: [critical, high]
+          remediation:
+            type: string
+
+      minor_gaps:
+        type: array
+        description: "Gaps in recommended/best-practice; enhancement"
+        items:
+          requirement_id:
+            type: string
+          remediation:
+            type: string
+
+  coverage_summary:
+    type: object
+    properties:
+      total_requirements:
+        type: integer
+      fully_addressed:
+        type: integer
+      partially_addressed:
+        type: integer
+      not_addressed:
+        type: integer
+      coverage_percentage:
+        type: number
+      critical_gap_count:
+        type: integer
+      readiness_assessment:
+        type: string
+        enum: [compliant, non_compliant, conditional]
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  minimum_coverage_for_compliance: all critical requirements

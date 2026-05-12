@@ -1,0 +1,94 @@
+# Reference: schemas/tt30_output.yaml
+# Terminology Consistency Audit Output Schema
+
+description: Document-wide terminology index and consistency assessment
+
+structure:
+  terminology_index:
+    type: array
+    description: All extracted domain terms with occurrences
+    items:
+      term_id:
+        type: string
+      term:
+        type: string
+      definition:
+        type: string
+        description: "Definition from document (if provided)"
+      occurrence_count:
+        type: integer
+      first_occurrence_location:
+        type: string
+      all_occurrences:
+        type: array
+        items:
+          location:
+            type: string
+          context:
+            type: string
+
+  consistency_findings:
+    type: array
+    description: Terms with inconsistencies
+    items:
+      term_id:
+        type: string
+      term:
+        type: string
+      inconsistency_type:
+        type: string
+        enum: [definition_variance, formatting_inconsistency, acronym_undefined, acronym_inconsistent]
+      description:
+        type: string
+      locations:
+        type: array
+      severity:
+        type: string
+        enum: [critical, major, minor]
+
+  acronym_audit:
+    type: array
+    description: All acronyms and definitions
+    items:
+      acronym:
+        type: string
+      expansion:
+        type: string
+      first_defined_at:
+        type: string
+      defined_on_first_use:
+        type: boolean
+      consistent_expansion:
+        type: boolean
+
+  glossary_coverage:
+    type: object
+    properties:
+      total_indexed_terms:
+        type: integer
+      glossary_entries:
+        type: integer
+      coverage_rate:
+        type: number
+        description: "Ratio of glossary entries to indexed terms; threshold >= 0.90"
+      missing_from_glossary:
+        type: array
+
+  summary:
+    type: object
+    properties:
+      total_inconsistencies:
+        type: integer
+      critical_count:
+        type: integer
+      major_count:
+        type: integer
+      minor_count:
+        type: integer
+      overall_consistency_score:
+        type: number
+        description: "0-1 scale"
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  minimum_coverage_threshold: 0.90

@@ -1,0 +1,48 @@
+---
+title: "Example Instructional Document: CommCare Data Entry Training"
+task_type: "TT-01"
+version: "v02_I"
+date: "2026-03-06"
+
+overview: |
+  This example demonstrates a structured instructional document for training field staff on CommCare data entry procedures. The document provides clear prerequisites, step-by-step procedures with embedded verification checkpoints, and troubleshooting guidance for common errors.
+
+prerequisites:
+  - "Basic smartphone literacy and ability to navigate mobile menus"
+  - "Completion of orientation to CommCare mobile application interface"
+  - "Access to CommCare form on assigned device"
+  - "Understanding of data collection schedule and timeline"
+
+procedures:
+  - step_number: 1
+    action: "Open CommCare application on mobile device"
+    expected_outcome: "CommCare home screen displays with list of available forms"
+    verification_checkpoint: "Confirm you see 'Home' at top of screen and list of forms below"
+
+  - step_number: 2
+    action: "Select the 'Patient Intake' form from the list"
+    expected_outcome: "Form opens to the first data entry field (Patient Name)"
+    verification_checkpoint: "Confirm form title shows 'Patient Intake' and first field is empty and ready for input"
+
+  - step_number: 3
+    action: "Enter patient name in the text field using patient ID card as reference"
+    expected_outcome: "Text appears in the Patient Name field"
+    verification_checkpoint: "Confirm text entered matches exactly what is on the ID card"
+
+quality_checkpoints:
+  - "Every name entry must match the source ID card exactly; verify spelling"
+  - "All required fields must show as complete before proceeding to next section"
+  - "Form must save successfully without error messages before considering data entry complete"
+
+troubleshooting:
+  - error: "Field shows red highlight and message 'Required field'"
+    cause: "A required piece of information is missing"
+    recovery: "Look at field label, find the required information, and enter it in the highlighted field"
+  - error: "Form fails to save with 'Network error' message"
+    cause: "Device has lost connection to network"
+    recovery: "Check WiFi or cellular signal, wait 30 seconds, then tap Save button again"
+
+accuracy_compliance:
+  - "ACC-001: Document does not make claims about CommCare deployment history"
+  - "ACC-003: Document clearly distinguishes CommCare platform from Dimagi consulting"
+  - "AFR-001: All procedural steps derived from official CommCare training materials"

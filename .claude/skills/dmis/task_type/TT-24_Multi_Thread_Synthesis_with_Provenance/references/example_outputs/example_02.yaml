@@ -1,0 +1,36 @@
+---
+task_type: TT-24
+example_id: "EX-24-02"
+description: "Synthesis of EFD implementation section with divergence on naming convention"
+
+synthesized_content:
+  sections:
+    - section_id: "SYNTH-24-2-01"
+      title: "Data Collection Framework Selection"
+      content: "The Electronic Forms Data (EFD) system was selected as the primary data collection framework for all four StrongMinds offices, providing standardized form design, validation logic, and mobile submission capabilities."
+      source_thread_id: "P3-THREAD-002"
+      audit_decision_applied: "Thread 002 version enforced per ACC-006 (EFD not RQ-RE)"
+
+provenance_chain:
+  - decision_id: "PROV-24-003"
+    conflict_description: "Naming discrepancy: Thread A calls it 'EFD'; Thread B calls it 'RQ-RE form system'; Thread C uses both interchangeably"
+    resolution_method: "audit_recommendation"
+    winning_version: "P3-THREAD-002"
+    losing_versions: ["P3-THREAD-001", "P3-THREAD-004"]
+    rationale: "Audit flagged terminology error per ACC-006; enforced correct name 'EFD' throughout synthesis"
+
+divergence_log:
+  - divergence_id: "DIV-24-003"
+    description: "System naming convention violation across 3 threads"
+    q1_factual_ground_truth: true
+    q2_downstream_dependency: true
+    q3_framing_only: false
+    decision: "RESOLVE_BEFORE_SYNTHESIS"
+    resolution_status: "Resolved via ACC-006 rule enforcement; all references updated to EFD"
+
+summary:
+  total_sections_synthesized: 8
+  unique_conflicts_resolved: 1
+  unresolved_divergences: 0
+  accuracy_rules_applied: [ACC-006]
+  anti_fabrication_rules_enforced: [AFR-001]
