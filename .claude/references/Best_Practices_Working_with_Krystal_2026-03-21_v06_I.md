@@ -10,8 +10,6 @@ applied_updates:
   - Session-2026-02-27 (universal application principle, handwritten annotation protocol, regulatory pipeline trust context)
   - Session-2026-03-16 (capture-first design principle)
   - Session-2026-03-21 (inverted sycophancy — self-deception about capabilities)
-audience: martinez_methods_internal
-classification_reason: INTERNAL _I classification per Martinez Methods classification convention; not approved for external release pending pre-publication IP scrub.
 ---
 
 # Best Practices for Working with Krystal

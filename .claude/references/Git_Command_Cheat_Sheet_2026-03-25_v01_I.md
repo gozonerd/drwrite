@@ -3,8 +3,6 @@ document_type: Quick Reference
 version: v01_I
 created: 2026-03-25
 purpose: Git Bash command reference for Krystal's daily workflow
-audience: martinez_methods_internal
-classification_reason: INTERNAL _I classification per Martinez Methods classification convention; not approved for external release pending pre-publication IP scrub.
 ---
 
 # Git Command Cheat Sheet

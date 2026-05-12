@@ -6,8 +6,6 @@ status: Research Snapshot
 researcher: Claude (Sonnet 4.6 → Opus 4.6)
 purpose: Document industry-standard diagram types for visualizing AI orchestration of pipelines, with Claude capability matrix
 context: Research conducted for Stahl Systems Learning Experience Generation Playbook (v04) diagramming
-audience: martinez_methods_internal
-classification_reason: INTERNAL _I classification per Martinez Methods classification convention; not approved for external release pending pre-publication IP scrub.
 ---
 
 # AI Pipeline Orchestration Diagram Types: Industry Standard Research
