@@ -5,7 +5,7 @@
     "SessionStart": [
       {
         "matcher": ".*",
-        "command": "bash .claude/canonical/mm-claude-canonical/scripts/session-start-pull.sh",
+        "command": ,
         "timeoutMs": 30000,
         "failurePolicy": "warn-and-continue"
       }
