@@ -1,0 +1,81 @@
+---
+title: "Example Regulatory Cross-Reference Verification: Accuracy Rules Framework"
+task_type: "TT-07"
+version: "v02_I"
+date: "2026-03-06"
+
+regulatory_claims_summary: |
+  The data quality framework document makes 12 regulatory and standards-based claims. All 12 claims are
+  accurately referenced with proper attribution to source documents. Citations include exact statute sections,
+  registry IDs, and document titles. Verification confidence: 98%.
+
+source_verification:
+  - claim_id: "CLAIM-001"
+    claim_text: "CommCare is a Digital Public Good (GID0090016)"
+    cited_source: "Digital Public Goods Registry, GID0090016"
+    verification_method: "Direct lookup in DPG registry using provided ID"
+    result: "Source confirmed; CommCare entry located with exact ID match"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "CLAIM-002"
+    claim_text: "Convergence thresholds: α ≥ 0.70 for QA, α ≥ 0.75 for methodology"
+    cited_source: "StrongMinds ACCURACY_RULES.md, ACC-007"
+    verification_method: "Review of ACCURACY_RULES.md source document"
+    result: "Thresholds cited exactly as stated in authoritative source"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "CLAIM-003"
+    claim_text: "EFD is the correct methodology name (not RQ-RE)"
+    cited_source: "StrongMinds ACCURACY_RULES.md, ACC-006"
+    verification_method: "Review of ACC-006 definition"
+    result: "EFD terminology confirmed as correct; RQ-RE correctly excluded"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "CLAIM-004"
+    claim_text: "Dimagi pilot = StrongMinds-wide (both Uganda and Zambia)"
+    cited_source: "StrongMinds ACCURACY_RULES.md, ACC-002"
+    verification_method: "Review of ACC-002 specification"
+    result: "Claim accurately reflects source specification"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "CLAIM-005"
+    claim_text: "CommCare DET is standalone (separate Python CLI)"
+    cited_source: "StrongMinds ACCURACY_RULES.md, ACC-009"
+    verification_method: "Review of ACC-009 specification"
+    result: "Claim accurately reflects source specification"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+citation_accuracy:
+  all_citations: "ACCURATE"
+  summary: "All citations follow proper format with document references, version numbers, or registry IDs"
+  specific_verification:
+    - source: "ACCURACY_RULES.md, ACC-007"
+      format_check: "PASS - Includes document name and rule ID"
+    - source: "Digital Public Goods Registry, GID0090016"
+      format_check: "PASS - Includes registry name and ID"
+    - source: "StrongMinds Zambia Deployment Report, 2025"
+      format_check: "PASS - Includes organization, geographic context, and year"
+
+discrepancy_analysis:
+  no_discrepancies_found: true
+  verification_notes: "All regulatory claims in document align with authoritative source materials; no conflicting assertions detected"
+
+trust_assessment:
+  overall_trust: "VERY HIGH"
+  verification_count: "12 of 12 claims verified with VERY HIGH or HIGH confidence"
+  trust_reasoning: "Document demonstrates meticulous regulatory compliance; citations are precise and traceable; no speculation or invented claims"
+  recommendation: "Document is suitable for authoritative organizational use; citations are publication-quality"
+
+accuracy_compliance:
+  - "ACC-002: Dimagi pilot correctly framed as StrongMinds-wide"
+  - "ACC-006: EFD methodology name correctly used (not RQ-RE)"
+  - "ACC-007: Convergence thresholds cited exactly (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+  - "ACC-008: CommCare DPG status verified with GID0090016"
+  - "ACC-009: CommCare DET standalone status verified"
+  - "AFR-001: All regulatory claims traceable to authoritative sources"
+  - "AFR-005: All regulatory citations reference specific documents or statute sections"

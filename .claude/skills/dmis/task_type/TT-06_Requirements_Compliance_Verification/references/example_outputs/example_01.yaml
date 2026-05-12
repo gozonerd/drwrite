@@ -1,0 +1,64 @@
+---
+title: "Example Requirements Compliance Verification Report"
+task_type: "TT-06"
+version: "v02_I"
+date: "2026-03-06"
+
+compliance_summary: |
+  Requirements compliance verification of digital health implementation guide identifies 18 of 20 specified
+  requirements with corresponding content in the deliverable output. Two requirements (staff skill assessment
+  procedure and contingency procedures) lack explicit treatment. Overall compliance: 90%.
+
+requirement_mapping:
+  - requirement_id: "REQ-001"
+    requirement: "Document must explain CommCare platform selection rationale"
+    output_location: "Section 3.1, paragraphs 2-3"
+    evidence: "Discussion of CommCare DPG status, cost-effectiveness, and licensing implications"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-002"
+    requirement: "Document must distinguish Zambia active deployment from Uganda pilot"
+    output_location: "Section 2.1, paragraph 1; Section 3.1, paragraph 1"
+    evidence: "Explicit references to SMZ active deployment and Uganda exploratory pilot with Dimagi support"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-003"
+    requirement: "Document must explain staff training approach"
+    output_location: "Section 4.1, entire section"
+    evidence: "Comprehensive training program design including prerequisites, modules, and delivery methods"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-004"
+    requirement: "Document must include staff skill assessment procedure"
+    output_location: "NOT FOUND"
+    evidence: ""
+    status: "NOT SATISFIED"
+    remediation: "Add section 4.2 detailing assessment methodology and competency checkpoints"
+
+gap_analysis:
+  missing_requirements:
+    - requirement: "REQ-004: Staff skill assessment procedure"
+      implication: "Training program lacks formal mechanism to verify staff competency before go-live"
+      remediation_priority: "HIGH"
+
+    - requirement: "REQ-018: Contingency procedures for system failures"
+      implication: "Operations section does not address failure scenarios or recovery procedures"
+      remediation_priority: "MEDIUM"
+
+  marginal_coverage:
+    - requirement: "REQ-012: Support structure for ongoing operations"
+      output_location: "Section 5, paragraph 2"
+      coverage_assessment: "Mentions support but lacks specific procedures, roles, and escalation paths"
+      remediation: "Expand section 5 with detailed support model specification"
+
+traceability_summary:
+  total_requirements: 20
+  satisfied: 18
+  not_satisfied: 2
+  compliance_percentage: 90
+  confidence_level: "HIGH - all satisfied requirements have explicit location references"
+
+accuracy_compliance:
+  - "ACC-001: Requirement mapping preserves distinction between Zambia deployment and Uganda pilot"
+  - "ACC-003: Documentation correctly attributes CommCare (platform) and Dimagi (consulting firm)"
+  - "AFR-001: All requirement mappings traceable to specific output locations"

@@ -1,0 +1,94 @@
+---
+example_id: "TT-22_EX-02"
+description: "Visual element audit - identified accessibility and labeling issues"
+task_type: "TT-22"
+version: v02_I
+
+visual_inventory:
+  total_elements: 12
+  elements:
+    - element_id: "FIG-008"
+      element_type: "Figure"
+      title: "Status unknown"
+      location: "Page 34"
+      status: "Issues identified"
+
+    - element_id: "TBL-005"
+      element_type: "Table"
+      title: "Table 1 (unclear reference)"
+      location: "Page 28"
+      status: "Issues identified"
+
+labeling_audit:
+  - element_id: "FIG-008"
+    title_present: false
+    issues:
+      - "Missing title or caption"
+      - "No explanation of what figure represents"
+      - "Axis labels abbreviated without legend"
+    severity: "High"
+    remediation: "Add descriptive title and caption explaining figure purpose"
+
+  - element_id: "TBL-005"
+    title_present: true
+    column_headers_clear: false
+    issues:
+      - "Column headers abbreviated (UMA, SAM, DAT) without explanation"
+      - "Row labels unclear"
+    severity: "High"
+    remediation: "Expand abbreviations and clarify row/column structure"
+
+reference_audit:
+  - element_id: "FIG-008"
+    referenced: false
+    issues: ["Figure not referenced anywhere in text"]
+    severity: "High"
+    remediation: "Either remove orphaned figure or add reference in narrative"
+
+  - element_id: "TBL-005"
+    referenced: true
+    reference_locations: ["Section 4.1 mentions 'Table 1' but caption refers to 'Table 5'"]
+    issues: ["Reference numbering mismatch"]
+    severity: "Medium"
+    remediation: "Correct table numbering to match references"
+
+source_verification:
+  - element_id: "FIG-008"
+    source_documented: false
+    issues: ["No source attribution for data"]
+    severity: "High"
+    remediation: "Document source of data and any limitations"
+
+  - element_id: "TBL-005"
+    source_documented: true
+    source_verified: false
+    issues: ["Source cited but data cannot be traced back to original"]
+    severity: "Medium"
+
+accessibility_evaluation:
+  - element_id: "FIG-008"
+    alt_text_present: false
+    issues:
+      - "No alt text for screen readers"
+      - "Color-only encoding of critical information (red vs. green bars)"
+      - "Small text size unreadable"
+    severity: "Critical"
+    remediation: "Add alt text, use pattern/texture in addition to color, increase font size"
+
+  - element_id: "TBL-005"
+    alt_text_present: false
+    contrast_score: 0.42
+    issues:
+      - "Low color contrast between text and background"
+      - "No alt text"
+    severity: "Critical"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-22"
+  total_elements_audited: 12
+  compliant_elements: 8
+  elements_with_issues: 4
+  critical_issues: 3
+  recommendation: "Significant remediation required for accessibility and clarity before publication"
+  estimated_effort: "6-8 hours to address all issues"

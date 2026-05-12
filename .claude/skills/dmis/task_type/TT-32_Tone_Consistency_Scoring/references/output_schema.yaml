@@ -1,0 +1,103 @@
+# Reference: schemas/tt32_output.yaml
+# Tone Consistency Scoring Output Schema
+
+description: Per-section tone dimension scores and deviation flags
+
+structure:
+  tone_dimensions:
+    type: object
+    description: Target tone profile for document
+    properties:
+      target_formality:
+        type: number
+        description: "0-10 scale; expected level"
+      target_technicality:
+        type: number
+      target_verbosity:
+        type: number
+      target_reader_assumption:
+        type: string
+
+  section_tone_scores:
+    type: array
+    description: Tone assessment for each section
+    items:
+      section_id:
+        type: string
+      section_title:
+        type: string
+      tone_scores:
+        type: object
+        properties:
+          formality:
+            type: number
+            description: "0-10 scale"
+          technicality:
+            type: number
+          verbosity:
+            type: number
+          reader_assumption_level:
+            type: string
+            enum: [novice, intermediate, expert]
+          active_voice_ratio:
+            type: number
+            description: "0-1 scale; % of sentences in active voice"
+      deviation_from_mean:
+        type: object
+        description: "Deviation on each dimension (in standard deviations)"
+        properties:
+          formality_deviation:
+            type: number
+          technicality_deviation:
+            type: number
+          verbosity_deviation:
+            type: number
+
+  statistical_summary:
+    type: object
+    properties:
+      document_mean_formality:
+        type: number
+      document_std_formality:
+        type: number
+      document_mean_technicality:
+        type: number
+      document_std_technicality:
+        type: number
+      document_mean_verbosity:
+        type: number
+      document_std_verbosity:
+        type: number
+      mean_active_voice_ratio:
+        type: number
+
+  deviations_flagged:
+    type: array
+    description: Sections with significant tone deviations
+    items:
+      section_id:
+        type: string
+      dimension:
+        type: string
+        enum: [formality, technicality, verbosity, voice]
+      deviation_magnitude:
+        type: number
+        description: "Standard deviations from mean"
+      flagged_as:
+        type: string
+        enum: [problematic, contextually_justified, intentional]
+      remediation:
+        type: string
+
+  consistency_score:
+    type: object
+    properties:
+      overall_tone_consistency:
+        type: number
+        description: "0-1 scale; inverse of variance"
+      recommendation:
+        type: string
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  deviation_threshold: 1.5 standard deviations

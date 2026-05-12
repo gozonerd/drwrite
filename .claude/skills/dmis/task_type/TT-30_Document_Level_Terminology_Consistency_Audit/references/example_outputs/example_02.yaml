@@ -1,0 +1,60 @@
+---
+task_type: TT-30
+example_id: "EX-30-02"
+description: "Terminology audit with major inconsistency on core term"
+
+terminology_index:
+  - term_id: "TERM-30-005"
+    term: "DATS"
+    definition: "Data Analysis and Testing System (per Section 1.1)"
+    occurrence_count: 35
+    first_occurrence_location: "Section 1.1"
+
+  - term_id: "TERM-30-006"
+    term: "DAD"
+    definition: "Appears in Sections 2.3, 5.1 but never formally defined"
+    occurrence_count: 8
+    first_occurrence_location: "Section 2.3"
+
+consistency_findings:
+  - term_id: "TERM-30-005"
+    term: "DATS"
+    inconsistency_type: "definition_variance"
+    description: "Section 1.1: 'Data Analysis and Testing System'; Section 9.2: 'Data Aggregation Tracking Solution' - conflicting definitions"
+    locations: ["Section 1.1", "Section 9.2"]
+    severity: "critical"
+
+  - term_id: "TERM-30-006"
+    term: "DAD"
+    inconsistency_type: "acronym_undefined"
+    description: "Acronym 'DAD' used 8 times but never expanded or defined in document"
+    locations: ["Section 2.3", "Section 5.1", "Section 6.2"]
+    severity: "critical"
+
+acronym_audit:
+  - acronym: "DAD"
+    expansion: "unknown"
+    first_defined_at: "undefined"
+    defined_on_first_use: false
+    consistent_expansion: false
+
+glossary_coverage:
+  total_indexed_terms: 18
+  glossary_entries: 12
+  coverage_rate: 0.67
+  missing_from_glossary:
+    - "DATS"
+    - "DAD"
+    - "offline mode"
+    - "bidirectional sync"
+    - "form validation"
+    - "data export"
+
+summary:
+  total_inconsistencies: 2
+  critical_count: 2
+  major_count: 0
+  minor_count: 0
+  overall_consistency_score: 0.72
+
+result: "CRITICAL: Two major inconsistencies must be resolved before publication. DATS definition conflict (ACC-005 violation suspected); DAD acronym never defined."

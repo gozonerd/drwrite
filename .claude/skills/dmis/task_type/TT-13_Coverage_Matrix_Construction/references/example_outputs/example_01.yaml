@@ -1,0 +1,60 @@
+---
+example_id: "TT-13_EX-01"
+description: "Coverage matrix for technology infrastructure analysis"
+task_type: "TT-13"
+version: v02_I
+
+coverage_matrix:
+  required_elements:
+    - "CommCare deployment history"
+    - "Current system configuration"
+    - "User adoption metrics"
+    - "Technical support capacity"
+    - "Integration ecosystem"
+
+  threads_sources: ["Thread-001", "Thread-003", "Thread-005", "Thread-008", "Thread-012"]
+
+  coverage:
+    - element: "CommCare deployment history"
+      coverage_by_thread:
+        Thread-001: "Addressed"
+        Thread-003: "Addressed"
+        Thread-005: "Partial"
+        Thread-008: "Addressed"
+        Thread-012: "Addressed"
+
+    - element: "Current system configuration"
+      coverage_by_thread:
+        Thread-001: "Partial"
+        Thread-003: "Addressed"
+        Thread-005: "Addressed"
+        Thread-008: "Missing"
+        Thread-012: "Addressed"
+
+    - element: "User adoption metrics"
+      coverage_by_thread:
+        Thread-001: "Addressed"
+        Thread-003: "Partial"
+        Thread-005: "Missing"
+        Thread-008: "Partial"
+        Thread-012: "Addressed"
+
+coverage_aggregation:
+  element_coverage:
+    "CommCare deployment history": 0.95
+    "Current system configuration": 0.80
+    "User adoption metrics": 0.75
+    "Technical support capacity": 0.70
+    "Integration ecosystem": 0.85
+  overall_coverage: 0.81
+
+gap_analysis:
+  gaps:
+    - element: "User adoption metrics"
+      threads_missing: ["Thread-005"]
+      severity: "Low"
+      remediation: "Seek supplementary data on user training outcomes"
+
+metadata:
+  generated_date: "2026-03-06"
+  thread_count_compliance: "All threads within specification limits"

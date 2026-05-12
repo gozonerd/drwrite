@@ -1,0 +1,49 @@
+---
+schema_name: "TT-20 AI Consumer Quality Rubric Scoring Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  rubric_dimensions:
+    description: "Individual scores for each quality dimension relevant to AI consumption"
+    type: array
+    items:
+      dimension: string
+      score: number
+      evidence: string
+      strengths: array
+      weaknesses: array
+
+  dimension_scores:
+    evidence_quality: number
+    structural_readiness: number
+    clarity_for_parsing: number
+    actionability: number
+    completeness: number
+    consistency: number
+    confidence_communication: number
+
+  aggregate_quality_score:
+    description: "Combined quality score for downstream AI consumption"
+    type: number
+
+  threshold_comparison:
+    description: "How scores compare to quality thresholds"
+    meets_minimum: boolean
+    exceeds_target: boolean
+
+  remediation_priorities:
+    description: "Prioritized recommendations by impact"
+    type: array
+    items:
+      dimension: string
+      gap: string
+      priority: string
+      impact: string
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  dimension_clarity: "Each rubric dimension clearly defined and measurable"
+  ai_relevance: "Dimensions reflect actual downstream AI consumer needs"

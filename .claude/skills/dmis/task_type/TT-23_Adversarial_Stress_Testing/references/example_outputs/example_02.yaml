@@ -1,0 +1,57 @@
+---
+task_type: TT-23
+example_id: "EX-23-02"
+description: "Adversarial stress test of CommCare configuration section"
+
+attack_cards:
+  - attack_id: "ATK-23-006"
+    category: "regulatory"
+    severity: "critical"
+    description: "CommCare deployment claims HIPAA compliance but document never specifies BAA or encryption standards"
+    evidence: "Section 7.2 asserts 'HIPAA-compliant setup' but Appendix C lists no encryption protocols"
+    remediation: "Add explicit HIPAA BAA requirement, encryption method (AES-256), and audit trail specification"
+    section_reference: "Section 7.2: Security and Compliance"
+
+  - attack_id: "ATK-23-007"
+    category: "logical"
+    severity: "high"
+    description: "Dimagi pilot scope is stated as StrongMinds-wide in Section 2 but Recommendation 1 proposes pilot rollout again in Section 8"
+    evidence: "Section 2: 'Dimagi pilot supports all 4 StrongMinds offices' vs. Section 8: 'Recommend piloting in 2 offices'"
+    remediation: "Clarify: is Dimagi already organization-wide or being proposed? Remove redundant pilot recommendation"
+    section_reference: "Sections 2 and 8: Scope Inconsistency (ACC-002)"
+
+  - attack_id: "ATK-23-008"
+    category: "technical"
+    severity: "high"
+    description: "CommCare DET (Data Exchange Token) integration assumes API v2; no mention of v1 or compatibility concerns"
+    evidence: "Section 6.3 references 'DET via CommCare API' but never specifies version or backwards compatibility"
+    remediation: "Specify API version requirement and document migration path if upgrading"
+    section_reference: "Section 6.3: CommCare Data Exchange"
+
+  - attack_id: "ATK-23-009"
+    category: "feasibility"
+    severity: "medium"
+    description: "Training timeline allows 2 weeks for 150 field workers; no data on learning curve or turnover"
+    evidence: "Section 9: '2-week training program' proposed for 150 workers; Section 3 notes 25% annual turnover"
+    remediation: "Adjust timeline or provide phased training plan accounting for turnover rate"
+    section_reference: "Sections 3 and 9: Training Feasibility"
+
+  - attack_id: "ATK-23-010"
+    category: "operational"
+    severity: "medium"
+    description: "Mobile data collection assumes cellular/WiFi availability but operational context mentions rural settings with limited coverage"
+    evidence: "Section 1.2 describes rural clinic context; Section 3.1 assumes 'regular mobile connectivity'"
+    remediation: "Provide offline-first capability or dual-channel fallback for areas with poor connectivity"
+    section_reference: "Sections 1.2 and 3.1: Connectivity Mismatch"
+
+summary:
+  total_attacks: 5
+  critical_count: 1
+  high_count: 2
+  medium_count: 2
+  priority_remediation_list:
+    - "ATK-23-006: Add HIPAA/BAA/encryption specifications (critical regulatory gap)"
+    - "ATK-23-007: Resolve Dimagi pilot scope contradiction (critical logical error - ACC-002 violation)"
+    - "ATK-23-008: Specify CommCare API version (technical clarity)"
+    - "ATK-23-009: Revise training timeline for turnover (feasibility risk)"
+    - "ATK-23-010: Add offline-first or dual-channel fallback (operational context mismatch)"

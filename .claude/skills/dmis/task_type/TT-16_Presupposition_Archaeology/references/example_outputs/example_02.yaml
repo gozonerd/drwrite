@@ -1,0 +1,46 @@
+---
+example_id: "TT-16_EX-02"
+description: "Presupposition archaeology with critical ungrounded assumptions"
+task_type: "TT-16"
+version: v02_I
+
+assumptions_identified:
+  - assumption_id: "PRES-045"
+    location: "Section 5.3, success metrics"
+    assumption_statement: "Reader understands what constitutes 'user adoption' in this context"
+    grounding_status: "Implied only"
+    gap_type: "Missing definition"
+    audience_impact: "High"
+    current_context: "Metrics presented without defining what 'adoption' means (login frequency? Feature usage? Sustained engagement?)"
+
+  - assumption_id: "PRES-046"
+    location: "Section 6.1, recommendations"
+    assumption_statement: "Reader understands the organizational capacity of implementing organizations"
+    grounding_status: "External prerequisite"
+    gap_type: "Missing context"
+    audience_impact: "High"
+    current_context: "Recommendations assume 'sufficient technical staff' without assessing actual capacity"
+
+critical_assumptions:
+  - assumption_id: "PRES-045"
+    criticality: "Critical"
+    reason: "Success of entire intervention depends on definition of adoption metric"
+
+  - assumption_id: "PRES-046"
+    criticality: "Critical"
+    reason: "Recommendations are infeasible without understanding organizational capacity"
+
+remediation:
+  - assumption_id: "PRES-045"
+    priority: "Critical"
+    recommended_addition: "Add explicit definition: 'In this analysis, user adoption is measured as [specific criteria with measurement approach and threshold]'"
+
+  - assumption_id: "PRES-046"
+    priority: "Critical"
+    recommended_addition: "Add capacity assessment section before recommendations detailing required organizational resources and technical staff profiles"
+
+metadata:
+  generated_date: "2026-03-06"
+  audience_specification: "Implementation teams with limited technical background"
+  reviewer: "SK-16"
+  note: "Two critical assumptions require remediation before document is ready for distribution"

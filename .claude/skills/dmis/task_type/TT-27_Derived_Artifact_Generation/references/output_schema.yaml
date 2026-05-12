@@ -1,0 +1,76 @@
+# Reference: schemas/tt27_output.yaml
+# Derived Artifact Generation Output Schema
+
+description: Extracted and consolidated reference materials from source sections
+
+structure:
+  artifacts:
+    type: array
+    description: Collection of generated derived artifacts
+    items:
+      artifact_id:
+        type: string
+      artifact_type:
+        type: string
+        enum: [glossary, reference_matrix, index, bibliography, supplementary_table, appendix]
+      title:
+        type: string
+      content:
+        type: object
+        description: "Artifact content (varies by type)"
+      source_sections:
+        type: array
+        description: "Sections from which content was extracted"
+        items:
+          section_id:
+            type: string
+          extraction_method:
+            type: string
+            description: "How content was extracted (direct, consolidated, reformatted)"
+      entry_count:
+        type: integer
+        description: "Number of entries in artifact"
+      completeness_check:
+        type: object
+        properties:
+          expected_entries:
+            type: integer
+          actual_entries:
+            type: integer
+          coverage_ratio:
+            type: number
+
+  extraction_metadata:
+    type: array
+    description: Tracking for each extracted entry
+    items:
+      entry_id:
+        type: string
+      artifact_id:
+        type: string
+      source_location:
+        type: string
+        description: "Original section/page reference"
+      extraction_confidence:
+        type: string
+        enum: [high, medium, low]
+
+  validation_summary:
+    type: object
+    properties:
+      total_artifacts:
+        type: integer
+      extraction_fidelity:
+        type: number
+        description: "Ratio of entries accurately extracted vs. altered/fabricated"
+      novel_content_count:
+        type: integer
+        description: "Should be zero per AFR-006"
+      compliance_status:
+        type: string
+        enum: [compliant, non_compliant]
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  anti_fabrication_rules: AFR-001 through AFR-006
+  extraction_only: No novel content generation permitted

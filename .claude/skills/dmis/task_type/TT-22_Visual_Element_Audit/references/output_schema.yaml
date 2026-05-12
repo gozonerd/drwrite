@@ -1,0 +1,65 @@
+---
+schema_name: "TT-22 Visual Element Audit Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  visual_inventory:
+    description: "Complete inventory of all tables, figures, diagrams with metadata"
+    type: array
+    items:
+      element_id: string
+      element_type: string
+      title: string
+      location: string
+      status: string
+
+  labeling_audit:
+    description: "Verification of titles, axis labels, legends, captions"
+    type: array
+    items:
+      element_id: string
+      title_present: boolean
+      axis_labels_complete: boolean
+      legend_present: boolean
+      caption_adequate: boolean
+      issues: array
+
+  reference_audit:
+    description: "Verification that all visual elements are referenced in text"
+    type: array
+    items:
+      element_id: string
+      referenced: boolean
+      reference_locations: array
+      adequately_explained: boolean
+
+  source_verification:
+    description: "Verification of data sourcing and documentation"
+    type: array
+    items:
+      element_id: string
+      source_documented: boolean
+      source_verified: boolean
+      source_citations: array
+
+  accuracy_validation:
+    description: "Verify visual representation matches source data"
+    type: array
+
+  accessibility_evaluation:
+    description: "Color contrast, alt text, readability assessment"
+    type: array
+    items:
+      element_id: string
+      alt_text_present: boolean
+      color_accessible: boolean
+      text_readable: boolean
+      issues: array
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  completeness: "All visual elements inventoried and evaluated"
+  accuracy: "Data representation matches source material"

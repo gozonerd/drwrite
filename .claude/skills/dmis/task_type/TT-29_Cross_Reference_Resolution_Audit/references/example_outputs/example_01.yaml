@@ -1,0 +1,69 @@
+---
+task_type: TT-29
+example_id: "EX-29-01"
+description: "Cross-reference audit of 5-section CommCare deployment document"
+
+reference_inventory:
+  - reference_id: "REF-29-001"
+    reference_type: "section_link"
+    context: "Details on security architecture are provided in Section 7.2"
+    target: "7.2"
+    location: "Section 3.1"
+
+  - reference_id: "REF-29-002"
+    reference_type: "figure_citation"
+    context: "As shown in Figure 4, the SMS workflow includes three steps"
+    target: "Figure 4"
+    location: "Section 3.3"
+
+  - reference_id: "REF-29-003"
+    reference_type: "table_reference"
+    context: "Table 5 below summarizes the cost model"
+    target: "Table 5"
+    location: "Section 5.1"
+
+  - reference_id: "REF-29-004"
+    reference_type: "appendix_link"
+    context: "CommCare API documentation is in Appendix B"
+    target: "Appendix B"
+    location: "Section 6.3"
+
+resolution_results:
+  - reference_id: "REF-29-001"
+    status: "resolved"
+    target_found: true
+    target_location: "Section 7.2: Security Architecture"
+    format_valid: true
+    context_appropriate: true
+
+  - reference_id: "REF-29-002"
+    status: "resolved"
+    target_found: true
+    target_location: "Section 3.3, after paragraph 2"
+    format_valid: true
+    context_appropriate: true
+
+  - reference_id: "REF-29-003"
+    status: "resolved"
+    target_found: true
+    target_location: "Section 5.1, following paragraph 3"
+    format_valid: true
+    context_appropriate: true
+
+  - reference_id: "REF-29-004"
+    status: "resolved"
+    target_found: true
+    target_location: "Appendix B: CommCare API Reference"
+    format_valid: true
+    context_appropriate: true
+
+broken_references: []
+
+summary:
+  total_references: 4
+  resolved: 4
+  unresolved: 0
+  resolution_rate: 1.0
+  format_errors: 0
+
+result: "All internal references successfully resolved. Document is ready for publication."

@@ -1,0 +1,57 @@
+---
+task_type: TT-24
+example_id: "EX-24-01"
+description: "Synthesis of CommCare deployment section from 3 parallel threads"
+
+synthesized_content:
+  sections:
+    - section_id: "SYNTH-24-1-01"
+      title: "CommCare Platform Overview"
+      content: "CommCare is a mobile application platform developed by Dimagi that enables structured data collection via smartphones and feature phones. CommCare is recognized as a Digital Public Good (GID0090016) and supports offline-first mobile data collection with two-way SMS integration."
+      source_thread_id: "P2-THREAD-007"
+      audit_decision_applied: "Thread 007 version preferred for accuracy of platform description (ACC-008 compliance)"
+
+    - section_id: "SYNTH-24-1-02"
+      title: "StrongMinds Dimagi Pilot Context"
+      content: "StrongMinds has completed a Dimagi pilot with CommCare covering all four offices (SMU, SMZ, SMG, SM-US) and has confirmed platform-wide adoption. The pilot demonstrated feasibility of SMS-based data collection and provided usage patterns for the full rollout plan."
+      source_thread_id: "P1-THREAD-003"
+      audit_decision_applied: "Thread 003 version aligned with ACC-002 (Dimagi pilot = StrongMinds-wide)"
+
+provenance_chain:
+  - decision_id: "PROV-24-001"
+    conflict_description: "Three threads offered different coverage claims for CommCare deployment scope"
+    resolution_method: "audit_recommendation"
+    winning_version: "P1-THREAD-003"
+    losing_versions: ["P2-THREAD-001", "P3-THREAD-001"]
+    rationale: "Audit evaluation flagged Thread 003 as most accurate per ACC-002; verified that Dimagi pilot covers all 4 offices"
+
+  - decision_id: "PROV-24-002"
+    conflict_description: "Implementation timeline: Thread 007 proposed 6-month rollout; Thread 012 proposed 3-month rollout"
+    resolution_method: "divergence_decision_tree"
+    winning_version: "P2-THREAD-007"
+    losing_versions: ["P2-THREAD-012"]
+    rationale: "Q2 = true (downstream dependency on training, staff hiring). Audit recommended longer timeline; 6-month version less risky"
+
+divergence_log:
+  - divergence_id: "DIV-24-001"
+    description: "SMS accuracy claims: Thread 1 claims 95% delivery rate; Thread 2 claims 87%"
+    q1_factual_ground_truth: true
+    q2_downstream_dependency: true
+    q3_framing_only: false
+    decision: "RESOLVE_BEFORE_SYNTHESIS"
+    resolution_status: "Resolved via Dimagi benchmark data; 91% used as compromise"
+
+  - divergence_id: "DIV-24-002"
+    description: "CommCare-vs-Dimagi terminology: Thread 3 conflates them; Thread 4 distinguishes clearly"
+    q1_factual_ground_truth: true
+    q2_downstream_dependency: false
+    q3_framing_only: false
+    decision: "RESOLVE_BEFORE_SYNTHESIS"
+    resolution_status: "Resolved per ACC-003; CommCare is platform, Dimagi is vendor"
+
+summary:
+  total_sections_synthesized: 12
+  unique_conflicts_resolved: 5
+  unresolved_divergences: 0
+  accuracy_rules_applied: [ACC-001, ACC-002, ACC-003, ACC-004, ACC-008]
+  anti_fabrication_rules_enforced: [AFR-001, AFR-002, AFR-006]

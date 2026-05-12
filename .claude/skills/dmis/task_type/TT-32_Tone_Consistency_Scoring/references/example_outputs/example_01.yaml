@@ -1,0 +1,69 @@
+---
+task_type: TT-32
+example_id: "EX-32-01"
+description: "Tone consistency assessment of CommCare document with minor variations"
+
+tone_dimensions:
+  target_formality: 7.5
+  target_technicality: 6.0
+  target_verbosity: 5.5
+  target_reader_assumption: "intermediate"
+
+section_tone_scores:
+  - section_id: "1"
+    section_title: "Introduction"
+    tone_scores:
+      formality: 7.8
+      technicality: 4.2
+      verbosity: 5.8
+      reader_assumption_level: "intermediate"
+      active_voice_ratio: 0.78
+
+  - section_id: "2"
+    section_title: "CommCare Overview"
+    tone_scores:
+      formality: 7.5
+      technicality: 6.1
+      verbosity: 5.4
+      reader_assumption_level: "intermediate"
+      active_voice_ratio: 0.75
+
+  - section_id: "3"
+    section_title: "Mobile Data Collection"
+    tone_scores:
+      formality: 7.3
+      technicality: 6.8
+      verbosity: 5.3
+      reader_assumption_level: "intermediate"
+      active_voice_ratio: 0.72
+
+  - section_id: "7"
+    section_title: "Security and Compliance"
+    tone_scores:
+      formality: 8.1
+      technicality: 7.5
+      verbosity: 6.2
+      reader_assumption_level: "intermediate"
+      active_voice_ratio: 0.68
+
+statistical_summary:
+  document_mean_formality: 7.5
+  document_std_formality: 0.35
+  document_mean_technicality: 6.2
+  document_std_technicality: 1.2
+  document_mean_verbosity: 5.4
+  document_std_verbosity: 0.4
+  mean_active_voice_ratio: 0.73
+
+deviations_flagged:
+  - section_id: "7"
+    dimension: "technicality"
+    deviation_magnitude: 1.08
+    flagged_as: "contextually_justified"
+    remediation: "Security section appropriately technical for audience; deviation acceptable"
+
+consistency_score:
+  overall_tone_consistency: 0.93
+  recommendation: "Document maintains strong tone consistency across sections. Variations are minimal and contextually appropriate."
+
+result: "Tone consistency score: 0.93/1.0. Document ready for publication. Minor variation in Section 7 is appropriate given security subject matter."

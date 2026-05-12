@@ -1,0 +1,38 @@
+---
+example_id: "TT-17_EX-02"
+description: "Actionability assessment flagging critical blockers"
+task_type: "TT-17"
+version: v02_I
+
+specifications_evaluated:
+  - specification_id: "SPEC-018"
+    specification_text: "Implement automated data quality checks to flag inconsistent responses"
+    actionability_score: "Underspecified"
+    critical_blocker: true
+    missing_details:
+      - "What constitutes 'inconsistent'? Specific validation rules required"
+      - "How should flagged data be handled? Reject? Alert? Quarantine?"
+      - "Who reviews flags? What is decision process?"
+      - "System resources needed for automated checks not specified"
+
+use_case_validation:
+  - specification_id: "SPEC-018"
+    consumer_profile: "System administrator implementing automated checks"
+    can_execute: false
+    blockers:
+      - "Cannot determine validation rule logic without concrete examples"
+      - "Cannot configure system without knowing alert/rejection workflow"
+      - "Cannot estimate system resource requirements"
+    confidence: 0.15
+
+remediation:
+  - specification_id: "SPEC-018"
+    priority: "Critical"
+    blocking: true
+    recommended_approach: "Add validation rule specification document with: (1) specific field-by-field validation rules with examples, (2) decision tree for handling flagged records, (3) technical architecture for quality check implementation, (4) resource requirements estimate"
+    cannot_proceed_without: true
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-17"
+  note: "This specification cannot be acted upon without substantial additional detail. Synthesis should proceed only if specification can be expanded or deferred."

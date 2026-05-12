@@ -1,0 +1,47 @@
+---
+example_id: "TT-14_EX-02"
+description: "Consensus claim with weak external corroboration flagged"
+task_type: "TT-14"
+version: v02_I
+
+consensus_claims:
+  - claim_id: "CONS-015"
+    statement: "User adoption rates increased by 45% after implementation"
+    source_agreement: 1.0
+    thread_count: 12
+
+external_verification:
+  - claim_id: "CONS-015"
+    external_corroboration:
+      sources_found: 1
+      evidence_quality: "Medium"
+      confidence_increase: 0.05
+    external_sources:
+      - "Comparable implementation case study (different organization)"
+    verification_result: "Weakly Corroborated"
+
+shared_bias_assessment:
+  - claim_id: "CONS-015"
+    bias_risk_level: "Medium"
+    shared_assumptions:
+      - "Definition of 'adoption'"
+      - "Baseline measurement methodology"
+      - "Timeline and measurement period"
+    independent_corroboration: false
+    assessment: "Internal consensus may reflect shared measurement approach rather than ground truth"
+
+confidence_scoring:
+  - claim_id: "CONS-015"
+    internal_consensus_strength: 1.0
+    external_corroboration_score: 0.35
+    combined_confidence: 0.68
+    flag: "Below threshold for high confidence"
+
+remediation:
+  - claim_id: "CONS-015"
+    recommendation: "Seek independent measurement of adoption metrics or clarify measurement methodology"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-14"
+  note: "Consensus unsupported by external evidence; requires additional scrutiny"

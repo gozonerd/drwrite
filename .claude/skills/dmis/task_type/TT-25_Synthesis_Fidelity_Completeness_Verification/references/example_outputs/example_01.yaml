@@ -1,0 +1,60 @@
+---
+task_type: TT-25
+example_id: "EX-25-01"
+description: "Fidelity check of synthesized mobile data collection section"
+
+component_audit:
+  - component_id: "COMP-25-001"
+    source_section: "Section 3.1: SMS Message Validation"
+    winning_thread_id: "P2-THREAD-007"
+    status: "present_intact"
+    fidelity_score: 1.0
+    changes_detected: []
+
+  - component_id: "COMP-25-002"
+    source_section: "Section 4.2: Data Retention Policies"
+    winning_thread_id: "P1-THREAD-003"
+    status: "present_modified"
+    fidelity_score: 0.96
+    changes_detected:
+      - change_type: "wording"
+        description: "Original: 'data retained 24 months'; Synthesis: 'data retained for 24-month period'"
+        severity: "minor"
+
+  - component_id: "COMP-25-003"
+    source_section: "Section 5.2: Cost Model"
+    winning_thread_id: "P3-THREAD-001"
+    status: "missing"
+    fidelity_score: 0.0
+    changes_detected:
+      - change_type: "omission"
+        description: "Entire cost model section not present in synthesis"
+        severity: "major"
+
+completeness_check:
+  total_winning_components: 15
+  components_present: 14
+  components_missing: 1
+  completeness_score: 0.93
+
+novel_content_detection:
+  novel_sections_detected:
+    - section_location: "Section 3.5: Advanced Validation Features"
+      content_snippet: "CommCare's advanced validation engine uses machine learning to detect anomalous submissions..."
+      confidence: "high"
+  total_novel_count: 1
+
+distortion_assessment:
+  distorted_components: []
+  distortion_severity: "none"
+
+fidelity_summary:
+  overall_fidelity_score: 0.94
+  status: "conditional"
+
+summary:
+  audit_result: "Fidelity threshold not met (0.94 < 0.95). Missing critical cost model; 1 novel section detected."
+  recommendations:
+    - "Restore missing cost model component from Thread 3"
+    - "Remove novel content on ML-based validation (not in source threads)"
+    - "Recheck synthesis for other omissions"

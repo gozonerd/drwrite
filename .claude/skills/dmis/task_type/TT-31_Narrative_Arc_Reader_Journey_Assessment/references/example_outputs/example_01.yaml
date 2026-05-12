@@ -1,0 +1,73 @@
+---
+task_type: TT-31
+example_id: "EX-31-01"
+description: "Narrative arc assessment of well-structured CommCare deployment document"
+
+narrative_flow_assessment:
+  logical_sequence_score: 8.5
+  thesis_statement: "CommCare offers a scalable, secure mobile data collection solution aligned with StrongMinds' institutional objectives and budget constraints"
+  key_messages:
+    - "CommCare is a proven platform (Digital Public Good) with strong institutional adoption"
+    - "Implementation is feasible within 6-8 month timeline and budget"
+    - "Security and regulatory compliance are fully addressed"
+    - "Offline-first capability ensures usability in low-connectivity settings"
+
+section_transitions:
+  - from_section: "1: Introduction"
+    to_section: "2: CommCare Overview"
+    transition_quality: "strong"
+    bridge_present: true
+    coherence_issue: null
+
+  - from_section: "2: CommCare Overview"
+    to_section: "3: Mobile Data Collection"
+    transition_quality: "strong"
+    bridge_present: true
+    coherence_issue: null
+
+  - from_section: "3: Mobile Data Collection"
+    to_section: "4: Data Management"
+    transition_quality: "adequate"
+    bridge_present: true
+    coherence_issue: "Minor: could strengthen link between SMS validation and data quality"
+
+  - from_section: "4: Data Management"
+    to_section: "5: Security and Compliance"
+    transition_quality: "strong"
+    bridge_present: true
+    coherence_issue: null
+
+key_message_tracking:
+  - message_id: "MSG-31-001"
+    message: "CommCare is Digital Public Good with institutional adoption"
+    introduced_at: "Section 2.1"
+    reinforced_at: ["Section 2.2", "Appendix A"]
+    final_position: "Executive Summary"
+    message_drift: "none"
+
+  - message_id: "MSG-31-002"
+    message: "Implementation is feasible within 6-month timeline"
+    introduced_at: "Section 1.3"
+    reinforced_at: ["Section 8.1", "Section 8.2"]
+    final_position: "Section 8: Recommendations"
+    message_drift: "minor"
+
+reader_journey_analysis:
+  target_audience: "Non-technical stakeholders (project managers, finance, compliance teams)"
+  confusion_points: []
+  engagement_arc: "Excellent. Opens with compelling value proposition (CommCare benefits), builds through feasibility evidence, closes with concrete action plan."
+
+executive_summary_alignment:
+  summary_present: true
+  content_coverage: 0.95
+  message_fidelity: 0.94
+  alignment_issues: []
+
+coherence_summary:
+  overall_coherence_score: 8.5
+  flow_assessment: "excellent"
+  narrative_recommendations:
+    - "Optional: Slightly strengthen transition between Sections 3 and 4 with explicit reference to data quality benefits"
+    - "Otherwise, document flows logically and maintains reader engagement throughout"
+
+result: "Document has excellent narrative coherence and logical flow. Reader journey is clear and aligned with key messages. Ready for publication."

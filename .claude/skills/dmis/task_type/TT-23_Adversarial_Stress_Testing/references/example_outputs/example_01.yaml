@@ -1,0 +1,57 @@
+---
+task_type: TT-23
+example_id: "EX-23-01"
+description: "Adversarial stress test of mobile data collection section"
+
+attack_cards:
+  - attack_id: "ATK-23-001"
+    category: "regulatory"
+    severity: "critical"
+    description: "Data retention policy does not address GDPR right-to-be-forgotten for SMS-based submissions"
+    evidence: "Section 4.2 states 'SMS data retained for 24 months' but provides no mechanism for deletion requests"
+    remediation: "Add explicit GDPR compliance language and deletion request workflow"
+    section_reference: "Section 4.2: Data Retention Policies"
+
+  - attack_id: "ATK-23-002"
+    category: "technical"
+    severity: "high"
+    description: "SMS character encoding assumes ASCII; non-Latin scripts will truncate or corrupt"
+    evidence: "Section 3.1 references SMS validation but never addresses multi-byte character handling"
+    remediation: "Specify UTF-8 support or document language limitations"
+    section_reference: "Section 3.1: SMS Message Validation"
+
+  - attack_id: "ATK-23-003"
+    category: "feasibility"
+    severity: "high"
+    description: "Recommended 4-office rollout assumes unlimited SMS API budget; no cost estimation provided"
+    evidence: "Appendix B suggests nationwide SMS campaign but offers no budget, only 'will scale'"
+    remediation: "Provide cost model: SMS volume × rate per message × 12 months"
+    section_reference: "Appendix B: Scalability"
+
+  - attack_id: "ATK-23-004"
+    category: "logical"
+    severity: "medium"
+    description: "Section 5 claims SMS achieves 95% response rate but Section 2 documents only 78% SMS adoption"
+    evidence: "Section 2.3: 'SMS adoption 78%' vs. Section 5.1: '95% response rate'"
+    remediation: "Clarify: is 95% of adopters or of total population? Reconcile definitions"
+    section_reference: "Sections 2.3 and 5.1: Response Rate Inconsistency"
+
+  - attack_id: "ATK-23-005"
+    category: "operational"
+    severity: "medium"
+    description: "No fallback mechanism if SMS gateway provider outage occurs during critical data collection window"
+    evidence: "Section 6.1 describes SMS-only protocol with no contingency plan mentioned"
+    remediation: "Add backup channel (e.g., voice call, web form) and failover triggers"
+    section_reference: "Section 6.1: Data Collection Protocol"
+
+summary:
+  total_attacks: 5
+  critical_count: 1
+  high_count: 2
+  medium_count: 2
+  priority_remediation_list:
+    - "ATK-23-001: Add GDPR deletion mechanism (critical compliance gap)"
+    - "ATK-23-002: Document character encoding support (data integrity risk)"
+    - "ATK-23-003: Provide SMS cost model (financial feasibility)"
+    - "ATK-23-004: Reconcile response rate claims (logical contradiction)"
+    - "ATK-23-005: Add SMS gateway failover plan (operational resilience)"

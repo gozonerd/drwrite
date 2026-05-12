@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt08_output.yaml for full validation schema
+schema_ref: "schemas/tt08_output.yaml"
+task_type: "TT-08"
+description: "Rule-based compliance test report with deterministic pass/fail results for all 9 Accuracy Rules"
+output_format: "YAML"
+key_sections:
+  - section: "compliance_summary"
+    description: "Overall compliance status across all 9 rules"
+  - section: "rule_test_results"
+    description: "Pass/fail determination for each rule ACC-001 through ACC-009"
+  - section: "evidence_details"
+    description: "Specific evidence from deliverable supporting each rule result"
+  - section: "violation_log"
+    description: "Detailed documentation of all rule violations with locations"
+  - section: "remediation_guidance"
+    description: "Recommendations for addressing rule violations"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "compliance_summary"
+  - "rule_test_results"
+  - "violation_log"
+validation_rules:
+  - "All 9 rules must be tested (no rules omitted)"
+  - "Each rule result must include supporting evidence from deliverable"
+  - "Pass/fail determinations must be binary and defensible"
+  - "Violations must include specific location in deliverable"
+  - "Testing must apply consistent standards across all rules"

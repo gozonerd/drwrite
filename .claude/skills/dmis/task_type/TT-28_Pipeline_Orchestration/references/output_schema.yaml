@@ -1,0 +1,111 @@
+# Reference: schemas/tt28_output.yaml
+# Pipeline Orchestration Log Schema
+
+description: Execution log and monitoring record for pipeline stage coordination
+
+structure:
+  orchestration_metadata:
+    type: object
+    properties:
+      pipeline_id:
+        type: string
+      stage:
+        type: string
+      start_time:
+        type: string
+        format: "ISO 8601"
+      end_time:
+        type: string
+        format: "ISO 8601"
+
+  execution_log:
+    type: array
+    description: Detailed log of execution events
+    items:
+      timestamp:
+        type: string
+        format: "ISO 8601"
+      stage:
+        type: string
+      task_type:
+        type: string
+      action:
+        type: string
+        enum: [prompt_assembled, submitted, validating, validation_passed, validation_failed, retrying, completed]
+      status:
+        type: string
+        enum: [running, success, failed, retrying]
+      details:
+        type: string
+      thread_count:
+        type: integer
+
+  validation_results:
+    type: object
+    properties:
+      task_type:
+        type: string
+      schema_applied:
+        type: string
+      total_outputs_validated:
+        type: integer
+      passed:
+        type: integer
+      failed:
+        type: integer
+      failures:
+        type: array
+        items:
+          thread_id:
+            type: string
+          error:
+            type: string
+          remediation:
+            type: string
+
+  retry_log:
+    type: array
+    description: Retry attempts and outcomes
+    items:
+      retry_id:
+        type: string
+      original_failure:
+        type: string
+      retry_count:
+        type: integer
+        description: "Max 1 per audit spec"
+      final_status:
+        type: string
+        enum: [resolved, unresolved]
+
+  notifications:
+    type: array
+    items:
+      recipient:
+        type: string
+      event_type:
+        type: string
+      timestamp:
+        type: string
+      delivered:
+        type: boolean
+
+  completion_summary:
+    type: object
+    properties:
+      stage_status:
+        type: string
+        enum: [passed, failed, partial]
+      total_duration_seconds:
+        type: number
+      prompt_assembly_time:
+        type: number
+      execution_time:
+        type: number
+      validation_time:
+        type: number
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  retry_limit: 1
+  timeout_per_task: configurable

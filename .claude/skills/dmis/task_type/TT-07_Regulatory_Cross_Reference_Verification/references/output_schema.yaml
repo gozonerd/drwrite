@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt07_output.yaml for full validation schema
+schema_ref: "schemas/tt07_output.yaml"
+task_type: "TT-07"
+description: "Regulatory cross-reference verification report validating citations against authoritative sources"
+output_format: "YAML"
+key_sections:
+  - section: "regulatory_claims_summary"
+    description: "Summary of all regulatory assertions identified in the deliverable"
+  - section: "source_verification"
+    description: "Verification that cited sources are authoritative and accessible"
+  - section: "citation_accuracy"
+    description: "Assessment of whether claims match cited sources"
+  - section: "discrepancy_analysis"
+    description: "Documentation of any mismatches between claims and sources"
+  - section: "trust_assessment"
+    description: "Confidence ratings for verification results"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "regulatory_claims_summary"
+  - "source_verification"
+  - "discrepancy_analysis"
+validation_rules:
+  - "All regulatory claims must be verified against authoritative sources"
+  - "Citation format must include specific statute sections (AFR-005)"
+  - "Discrepancies must be documented with specific evidence"
+  - "Confidence ratings must reflect source accessibility"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"

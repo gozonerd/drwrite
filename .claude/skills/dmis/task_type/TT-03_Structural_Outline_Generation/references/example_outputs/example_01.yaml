@@ -1,0 +1,65 @@
+---
+title: "Example Structural Outline: Digital Health Implementation Guide"
+task_type: "TT-03"
+version: "v02_I"
+date: "2026-03-06"
+
+table_of_contents: |
+  1. Executive Summary
+  2. Implementation Planning
+     2.1 Stakeholder Assessment
+     2.2 Infrastructure Readiness
+  3. Platform Configuration
+     3.1 Data Model Design
+     3.2 Form Customization
+  4. Training and Change Management
+     4.1 Staff Training Program
+     4.2 Implementation Timeline
+  5. Operations and Support
+  6. Conclusion and Next Steps
+
+section_descriptions:
+  - section: "1. Executive Summary"
+    purpose: "Orient readers to document scope and key recommendations"
+    upstream_source: "TT-02 domain synthesis on digital health implementation"
+    content_type: "Narrative overview integrating key findings"
+
+  - section: "2. Implementation Planning"
+    purpose: "Provide systematic approach to planning digital health deployment"
+    subsections:
+      - "2.1: Assessment of organizational readiness, staff capacity, and infrastructure"
+      - "2.2: Infrastructure requirements and gap analysis"
+    upstream_source: "TT-01 instructional document on implementation procedures"
+
+  - section: "3. Platform Configuration"
+    purpose: "Technical specifications for CommCare platform setup"
+    note: "Uses CommCare (platform) terminology, not Dimagi (consulting firm)"
+    upstream_source: "TT-02 synthesis on CommCare Digital Public Good status"
+
+integration_points:
+  - upstream: "TT-01 Instructional Document on Data Entry"
+    downstream_sections: ["3.2 Form Customization", "4.1 Staff Training Program"]
+    mapping_note: "Procedures from TT-01 are incorporated as specific examples in form design section"
+
+  - upstream: "TT-02 Domain Synthesis on Implementation Best Practices"
+    downstream_sections: ["2. Implementation Planning", "5. Operations and Support"]
+    mapping_note: "Evidence-based findings from TT-02 provide rationale for planning recommendations"
+
+coverage_verification:
+  - requirement: "Document must address StrongMinds' four offices (SMU, SMZ, SMG, SM-US)"
+    outline_coverage: "Section 2.1 stakeholder assessment includes office-specific considerations"
+    status: "COVERED"
+
+  - requirement: "Document must distinguish active CommCare deployment (Zambia) from pilot (Uganda)"
+    outline_coverage: "Section 2.1 explicitly addresses geographic differences in readiness and deployment models"
+    status: "COVERED"
+
+  - requirement: "All regulatory compliance content must use EFD methodology terminology"
+    outline_coverage: "Section on quality assurance uses EFD (not RQ-RE) consistently"
+    status: "COVERED"
+
+accuracy_compliance:
+  - "ACC-001: Outline distinguishes SMZ active deployment from Uganda pilot"
+  - "ACC-003: CommCare (platform) properly distinguished from Dimagi (consulting firm)"
+  - "ACC-004: All four offices acknowledged in stakeholder assessment section"
+  - "AFR-001: Integration points trace to specific upstream content"

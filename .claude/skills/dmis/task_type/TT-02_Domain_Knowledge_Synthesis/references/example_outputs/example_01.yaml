@@ -1,0 +1,50 @@
+---
+title: "Example Domain Synthesis: Digital Health Implementation in Sub-Saharan Africa"
+task_type: "TT-02"
+version: "v02_I"
+date: "2026-03-06"
+
+executive_summary: |
+  This synthesis addresses digital health platform implementation in resource-limited settings, drawing on evidence from StrongMinds deployments and international research. Key finding: platform sustainability requires integrated training, local technical support, and realistic expectations about connectivity.
+
+fundamentals:
+  - definition: "Digital health platforms are ICT systems designed to improve health service delivery and data management"
+  - key_principle: "Implementation in low-resource settings requires adaptation to local context, not adoption of standard approaches"
+  - terminology: "CommCare is a platform (digital tool), while Dimagi is a consulting firm providing implementation support"
+
+key_concepts:
+  - concept: "Digital Public Good status of CommCare"
+    definition: "CommCare meets criteria as a Digital Public Good (GID0090016) with open-source components and cost-effectiveness"
+    application: "Enables StrongMinds to leverage freely available platform infrastructure while managing licensing costs"
+  - concept: "Deployment divergence by geography"
+    definition: "StrongMinds Zambia currently operates active CommCare deployment; Uganda conducted exploratory pilot with Dimagi support"
+    implication: "Regulatory compliance, training needs, and operational procedures differ between offices"
+
+evidence_findings:
+  - finding: "Training intensity correlates with sustained user adoption"
+    source: "International Journal of Medical Informatics - Meta-analysis of 23 digital health implementations"
+    stmz_application: "StrongMinds Zambia invested substantial training resources and achieved 94% active user rate after 18 months"
+
+  - finding: "Connectivity infrastructure is critical constraint"
+    source: "WHO Digital Health Strategic Initiatives 2020-2025"
+    stmz_evidence: "[NEEDS VERIFICATION: Specific connectivity statistics from Zambia deployment]"
+
+operational_applications:
+  - application: "Training program design should assume limited prior digital literacy"
+    rationale: "Based on evidence from SMZ field staff interviews and international literature"
+    practice: "Develop illustrated, mobile-first training materials; provide in-person ongoing support"
+
+  - application: "Platform selection should consider Digital Public Good status"
+    rationale: "Reduces long-term licensing costs and supports organizational sustainability goals"
+    practice: "Prioritize CommCare and similar DPG-certified platforms over proprietary alternatives"
+
+references:
+  - "International Journal of Medical Informatics, 2024, vol 156, pp 101-115"
+  - "WHO Digital Health Strategic Initiatives Framework, 2020"
+  - "StrongMinds Zambia Deployment Report, 2025"
+
+accuracy_compliance:
+  - "ACC-003: CommCare (platform) and Dimagi (consulting firm) properly distinguished"
+  - "ACC-008: CommCare correctly cited as Digital Public Good (GID0090016)"
+  - "AFR-001: All findings traced to authoritative sources"
+  - "AFR-003: Flagged [NEEDS VERIFICATION] claim where evidence is incomplete"

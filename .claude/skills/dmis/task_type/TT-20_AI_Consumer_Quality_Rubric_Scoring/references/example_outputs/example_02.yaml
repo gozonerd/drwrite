@@ -1,0 +1,71 @@
+---
+example_id: "TT-20_EX-02"
+description: "AI Consumer Quality Rubric Scoring - below threshold quality"
+task_type: "TT-20"
+version: v02_I
+
+dimension_scores:
+  evidence_quality:
+    score: 0.62
+    weaknesses: ["Single source for some claims", "Convergence thresholds not met"]
+
+  structural_readiness:
+    score: 0.58
+    weaknesses: ["Inconsistent heading levels", "No table of contents", "Difficult for automated extraction"]
+
+  clarity_for_parsing:
+    score: 0.52
+    weaknesses: ["Undefined technical terms", "Inconsistent terminology use", "Jargon not explained"]
+
+  actionability:
+    score: 0.48
+    weaknesses: ["Vague recommendations", "No success metrics", "Missing decision criteria"]
+
+  completeness:
+    score: 0.65
+    weaknesses: ["Significant gaps in methodology documentation", "Risk assessment incomplete"]
+
+  consistency:
+    score: 0.55
+    weaknesses: ["Terminology used inconsistently", "Categorical errors noted", "Formatting irregular"]
+
+  confidence_communication:
+    score: 0.42
+    weaknesses: ["No convergence scores provided", "Uncertainty not documented", "Confidence levels absent"]
+
+aggregate_quality_score: 0.54
+
+threshold_comparison:
+  minimum_threshold: 0.70
+  target_threshold: 0.80
+  meets_minimum: false
+  exceeds_target: false
+  assessment: "Output falls significantly below minimum quality threshold for AI consumption"
+
+remediation_priorities:
+  - dimension: "Confidence communication"
+    gap: "No confidence scores or convergence metrics provided"
+    priority: "Critical"
+    impact: "AI cannot assess reliability of claims"
+
+  - dimension: "Clarity for parsing"
+    gap: "Undefined terminology and inconsistent usage"
+    priority: "Critical"
+    impact: "AI systems cannot reliably extract meaning"
+
+  - dimension: "Actionability"
+    gap: "Recommendations lack concrete metrics and decision criteria"
+    priority: "Critical"
+    impact: "Downstream decision support cannot be implemented"
+
+  - dimension: "Structural readiness"
+    gap: "Format not suitable for automated processing"
+    priority: "High"
+    impact: "Requires manual preprocessing before AI consumption"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-20"
+  ai_consumer_profile: "Automated decision support systems"
+  recommendation: "Do not release for AI consumption without substantial remediation"
+  required_work: "Complete overhaul of documentation structure, clarity, and confidence communication required"

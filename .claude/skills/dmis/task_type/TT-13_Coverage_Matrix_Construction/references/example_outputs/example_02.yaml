@@ -1,0 +1,42 @@
+---
+example_id: "TT-13_EX-02"
+description: "Coverage matrix with identified gaps requiring source expansion"
+task_type: "TT-13"
+version: v02_I
+
+coverage_matrix:
+  required_elements:
+    - "Policy framework documentation"
+    - "Implementation guidance"
+    - "Success metrics definition"
+    - "Risk assessment"
+
+  coverage_aggregation:
+    element_coverage:
+      "Policy framework documentation": 0.95
+      "Implementation guidance": 0.65
+      "Success metrics definition": 0.45
+      "Risk assessment": 0.70
+    overall_coverage: 0.69
+
+gap_analysis:
+  gaps:
+    - element: "Implementation guidance"
+      threads_missing: ["Thread-007", "Thread-009"]
+      severity: "Medium"
+      remediation: "Expand source material on operational procedures and decision frameworks"
+
+    - element: "Success metrics definition"
+      threads_missing: ["Thread-004", "Thread-006", "Thread-010"]
+      severity: "High"
+      remediation: "Critical gap - requires additional expert assessment of measurement approaches"
+
+    - element: "Risk assessment"
+      threads_missing: ["Thread-002"]
+      severity: "Medium"
+      remediation: "Include specialized risk analysis from technical domain experts"
+
+metadata:
+  generated_date: "2026-03-06"
+  overall_gap_severity: "High"
+  note: "Success metrics definition requires source expansion before synthesis can proceed"

@@ -1,0 +1,57 @@
+---
+title: "Example Client-Ready Prose: Data Quality Assurance Framework"
+task_type: "TT-04"
+version: "v02_I"
+date: "2026-03-06"
+
+section_title: "5.2 Quality Assurance Framework"
+
+section_prose: |
+  StrongMinds implements a comprehensive data quality assurance framework that applies systematic rules and multi-layer verification to ensure accuracy and consistency across all digital health outputs. This framework builds on the Evidence-based Framework for Data quality (EFD) methodology, which provides proven approaches to assessing and maintaining data integrity throughout digital health system operations.
+
+  The framework establishes nine Critical Accuracy Rules (ACC-001 through ACC-009) that serve as guardrails for all organizational outputs. These rules specify correct usage of terminology, organizational context, and factual claims. For example, Rule 001 requires clear distinction between CommCare's current deployment in Zambia and the exploratory pilot conducted in Uganda with Dimagi support. Rule 003 specifies that CommCare, as a platform, must be distinguished from Dimagi, the consulting firm providing implementation support. These distinctions prevent misunderstanding about current organizational deployments and partnership structures.
+
+  Beyond accuracy rules, the framework incorporates Anti-Fabrication Rules (AFR-001 through AFR-006) for knowledge generation tasks. These rules require that every factual claim has a traceable source, that no statistics or quotes are invented, and that uncertain claims are flagged for verification. Together, the accuracy and anti-fabrication rules create guardrails that maintain organizational credibility and ensure decision-makers receive reliable information.
+
+  The framework applies verification across three audit layers: requirements compliance verification (checking that all specified requirements appear in outputs), regulatory cross-reference verification (validating regulatory citations), and rule-based compliance testing (applying enumerated accuracy rules deterministically). This multi-layer approach achieves convergence thresholds of α ≥ 0.70 for quality assurance and α ≥ 0.75 for methodology application, ensuring systematic quality maintenance.
+
+integration_points:
+  - outline_element: "5. Operations and Support"
+    prose_section: "Detailed explanation of data quality assurance framework"
+    fidelity_note: "Prose incorporates operational requirements while explaining quality framework principles"
+
+  - upstream_source: "TT-03 structural outline on data quality assurance"
+    prose_integration: "Section structure and content assignments from TT-03 reflected in prose organization"
+
+citations:
+  - claim: "Evidence-based Framework for Data quality (EFD) provides proven approaches"
+    source: "ACCURACY_RULES.md, ACC-006"
+    verification_status: "VERIFIED"
+
+  - claim: "Convergence thresholds: α ≥ 0.70 QA, α ≥ 0.75 methodology"
+    source: "ACCURACY_RULES.md, ACC-007"
+    verification_status: "VERIFIED"
+
+  - claim: "CommCare deployment in Zambia vs. Uganda pilot"
+    source: "ACCURACY_RULES.md, ACC-001"
+    verification_status: "VERIFIED"
+
+quality_indicators:
+  - indicator: "Narrative Coherence"
+    assessment: "Prose flows from rules to applications to verification, creating logical argument"
+    status: "PASS"
+
+  - indicator: "Technical Accuracy"
+    assessment: "All rule citations match source; convergence thresholds stated exactly as specified"
+    status: "PASS"
+
+  - indicator: "Stakeholder Clarity"
+    assessment: "Framework explained in accessible language while maintaining technical precision"
+    status: "PASS"
+
+accuracy_compliance:
+  - "ACC-001: Clearly distinguishes Zambia active deployment from Uganda pilot"
+  - "ACC-006: EFD methodology name used (not RQ-RE)"
+  - "ACC-007: Convergence thresholds cited exactly (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+  - "AFR-001: All framework references traceable to ACCURACY_RULES.md"
+  - "AFR-005: All accuracy rule numbers cited correctly (ACC-001 through ACC-009, AFR-001 through AFR-006)"

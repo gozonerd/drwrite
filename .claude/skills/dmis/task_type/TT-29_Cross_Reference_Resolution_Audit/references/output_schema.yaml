@@ -1,0 +1,76 @@
+# Reference: schemas/tt29_output.yaml
+# Cross-Reference Resolution Audit Output Schema
+
+description: Internal reference validation and resolution report
+
+structure:
+  reference_inventory:
+    type: array
+    description: All internal references extracted from document
+    items:
+      reference_id:
+        type: string
+      reference_type:
+        type: string
+        enum: [section_link, figure_citation, table_reference, footnote, appendix_link, equation_ref]
+      context:
+        type: string
+        description: "Text surrounding the reference"
+      target:
+        type: string
+        description: "Intended target label or ID"
+      location:
+        type: string
+        description: "Source section/page"
+
+  resolution_results:
+    type: array
+    description: Validation results for each reference
+    items:
+      reference_id:
+        type: string
+      status:
+        type: string
+        enum: [resolved, unresolved, format_error]
+      target_found:
+        type: boolean
+      target_location:
+        type: string
+      format_valid:
+        type: boolean
+      context_appropriate:
+        type: boolean
+        description: "Does reference make sense in local context?"
+
+  broken_references:
+    type: array
+    description: Detailed info on unresolved references
+    items:
+      reference_id:
+        type: string
+      missing_target:
+        type: string
+      intended_reference:
+        type: string
+      remediation:
+        type: string
+        description: "How to fix the reference"
+
+  summary:
+    type: object
+    properties:
+      total_references:
+        type: integer
+      resolved:
+        type: integer
+      unresolved:
+        type: integer
+      resolution_rate:
+        type: number
+        description: "Ratio resolved/total; threshold >= 0.95"
+      format_errors:
+        type: integer
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  minimum_resolution_rate: 0.95

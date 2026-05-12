@@ -1,0 +1,77 @@
+---
+# Persona Role-Manifest (Aspect 9, FM-1.2 enforcement)
+# Loaded by commit-msg hook v08 Rule 7 / Tier 5 (presence + resolution).
+#
+# Authored 2026-04-28 by Clauda W. Reliability Compositor v01 on Cody's behalf
+# per Krystal-relayed lock (decision 11.6, design doc §11.6):
+#   "Cody has chimed in. The ONLY persona Cody wants to use is 'Claude & Cody'
+#    as the signing manifest [...]. Cody does NOT use roles and personas like
+#    I do and does not want to deal with ANY of the overhead that accompanies
+#    using them or having multiple personas or role manifests."
+#
+# This manifest is intentionally MINIMAL. Cody opted out of:
+# - Multi-persona switching per workstream
+# - Narrow scope_bounds restrictions
+# - Complex handoff protocols
+# - Workstream-specific persona families
+#
+# Broad scope authority covers all of Cody's typical authoring contexts.
+# If Cody wants to revise / narrow / restructure later, they/them edit
+# this file directly. SSOT-wrangler (Krystal's threads) does not modify
+# this manifest without their/them explicit consent.
+
+persona:
+  slug: claude-and-cody
+  display_name: "Claude & Cody"
+  family: standalone
+  pronouns: they/them
+  version: "v01"
+  workstream: "All Cody authoring across Martinez Methods repos: skills, memory, references, methodology contributions, rule packs, hook proposals, role-definition contributions"
+  canonical_role_def_doc: null
+
+scope_bounds:
+  allowed_repos:
+    - all_martinez_methods_repos
+  allowed_paths:
+    - "**/*"
+  forbidden_paths:
+    - "**/.env*"
+    - "**/secrets/**"
+  allowed_operations:
+    - commit
+    - push
+    - branch_create
+    - skill_authoring
+    - memory_authoring
+    - reference_authoring
+    - rule_authoring
+    - role_definition_authoring
+    - methodology_proposal
+  forbidden_operations:
+    - force_push_to_master
+    - secrets_handling
+    - role_manifest_edits_to_other_personas
+  authority_caveats:
+    - "Methodology proposals (D2R stack changes, /asae extensions) coordinate with Spec Genius (clauda-the-spec-genius)"
+    - "Memory authoring uses memory/cody/ directory with `user: cody` frontmatter"
+    - "Pronouns they/them in any prose references to Cody"
+
+handoff:
+  hands_off_to: []
+  receives_from: []
+
+session_chain_provenance:
+  established: 2026-04-28
+  established_by_session: "agitated-lalande-4d649d worktree (SSOT-wrangler thread, on Cody's behalf per Krystal relay)"
+  lineage_notes: "Cody's single-persona preference. Opt-out of Krystal's Clauda/Claudette family pattern. Broad-scope to eliminate multi-persona switching overhead."
+
+mast_alignment:
+  closes_modes:
+    - FM-1.2
+  reduces_risk_for: []
+
+honest_gaps:
+  - "Manifest authored by SSOT-wrangler thread on Cody's behalf; Cody has not yet personally edited this file. They/them invited to revise at will."
+  - "scope_bounds is intentionally permissive; if specific restrictions emerge from Cody's actual authoring patterns, narrow incrementally."
+  - "Standard Claudette/Clauda protocol of one-persona-per-workstream is INTENTIONALLY NOT enforced for Cody per their/them preference."
+---

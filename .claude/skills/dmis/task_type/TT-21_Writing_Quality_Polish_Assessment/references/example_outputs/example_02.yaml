@@ -1,0 +1,65 @@
+---
+example_id: "TT-21_EX-02"
+description: "Writing quality review - substantial editing required"
+task_type: "TT-21"
+version: v02_I
+
+grammar_mechanics:
+  errors_found: 8
+  sample_errors:
+    - location: "Section 1.1"
+      error_type: "Run-on sentence"
+      original_text: "The pilot was successful it achieved all targets and users were satisfied with the system."
+      corrected_text: "The pilot was successful. It achieved all targets, and users were satisfied with the system."
+
+    - location: "Section 3.2"
+      error_type: "Dangling modifier"
+      original_text: "After analyzing the data, the recommendations became clear to everyone involved."
+      issue: "Who analyzed the data? Unclear subject."
+      corrected_text: "After we analyzed the data, the recommendations became clear to everyone involved."
+
+spelling_punctuation:
+  errors_found: 5
+  errors:
+    - "Section 2.1: 'accomodate' should be 'accommodate'"
+    - "Section 4.3: 'recieve' should be 'receive'"
+    - "Multiple: Missing Oxford comma in lists (style inconsistency)"
+
+style_guide_compliance:
+  compliance_score: 0.62
+  violations:
+    - "Inconsistent capitalization of 'Digital Public Good' (sometimes DPG, sometimes digital public good)"
+    - "Abbreviations not consistently expanded on first use"
+    - "Citation format mixes APA and Chicago style"
+
+tone_consistency:
+  consistency_score: 0.68
+  issues:
+    - location: "Section 2"
+      issue: "Tone shifts from formal to conversational ('CommCare is really great')"
+    - location: "Conclusion"
+      issue: "Overly enthusiastic tone contrasts with evidence-based methodology sections"
+
+clarity_concision:
+  issues_found: 6
+  examples:
+    - location: "Section 3.1"
+      issue: "Passive voice overused - makes writing dense and unclear"
+      example: "The system was implemented by staff at facilities and training was provided by consultants."
+
+    - location: "Section 4.2"
+      issue: "Verbosity - multiple sentences could be condensed"
+
+professional_polish:
+  score: 0.55
+  observations:
+    - "Formatting inconsistent (fonts, spacing)"
+    - "Some sections poorly organized"
+    - "Professional polish below publication standard"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-21"
+  overall_recommendation: "Substantial editing required before publication"
+  required_edits: "8 grammar corrections, 5 spelling corrections, 6 clarity improvements, and style guide standardization needed"
+  estimated_effort: "8-10 hours of editing required"

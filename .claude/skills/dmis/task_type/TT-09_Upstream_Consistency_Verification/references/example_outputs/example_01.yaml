@@ -1,0 +1,56 @@
+---
+title: "Example Upstream Consistency Verification Report"
+task_type: "TT-09"
+version: "v02_I"
+date: "2026-03-06"
+
+consistency_summary: |
+  Verification of client-ready prose section against upstream outline and domain synthesis shows strong
+  fidelity to source materials. 94% of upstream content is represented in downstream prose. Minor omissions
+  of supporting detail do not distort upstream meaning. Overall consistency: HIGH.
+
+mapping_verification:
+  - upstream_section: "TT-03 Outline: Section 3.1 scope"
+    downstream_section: "Generated prose section 3.1"
+    mapping_status: "COMPLETE"
+    fidelity_assessment: "Prose fully addresses outline requirements including CommCare DPG status, cost-effectiveness, and partnership structure"
+
+  - upstream_section: "TT-02 Domain synthesis: Digital Public Good evidence"
+    downstream_section: "Generated prose paragraph 2, sentences 1-3"
+    mapping_status: "COMPLETE"
+    content_represented: "CommCare DPG status, cost-effectiveness benefits, organizational independence implications"
+    fidelity_assessment: "Prose accurately represents synthesis findings; no distortion of evidence intent"
+
+  - upstream_section: "TT-02 Domain synthesis: Implementation partner discussion"
+    downstream_section: "Generated prose paragraph 2, sentences 4-6"
+    mapping_status: "COMPLETE"
+    content_represented: "Platform vs. consulting firm distinction, consulting acceleration benefits, organizational capacity building emphasis"
+    fidelity_assessment: "Prose maintains emphasis on long-term internal capacity; accurately reflects synthesis concerns"
+
+distortion_detection:
+  potential_distortions: 0
+  meaning_preservation: "EXCELLENT"
+  paraphrasing_assessment: "Paraphrasing accurately maintains original emphasis and intent throughout"
+
+integration_assessment:
+  upstream_material_integration: "94%"
+  omitted_upstream_content:
+    - content: "Specific statistics on training intensity and user adoption rates from meta-analysis"
+      omission_reason: "Detail-level evidence appropriate for domain synthesis but excessive for prose section"
+      impact: "No distortion; key finding (training importance) is maintained"
+    - content: "Regulatory compliance discussion from domain synthesis"
+      omission_reason: "Not applicable to platform selection section scope"
+      impact: "Appropriate scoping; no meaning loss"
+
+fidelity_analysis:
+  overall_assessment: "HIGH FIDELITY"
+  summary: |
+    The generated prose section faithfully represents upstream outline structure and domain synthesis content.
+    Paraphrasing maintains the intent and emphasis of original material. Strategic omissions of excessive detail
+    actually improve prose clarity without losing key findings. No distortions or subtle meaning changes detected.
+  confidence: "VERY HIGH"
+
+accuracy_compliance:
+  - "ACC-008: CommCare DPG status (GID0090016) maintained from upstream synthesis"
+  - "ACC-003: CommCare-Dimagi distinction preserved from upstream outline"
+  - "AFR-001: All prose content traceable to upstream materials"

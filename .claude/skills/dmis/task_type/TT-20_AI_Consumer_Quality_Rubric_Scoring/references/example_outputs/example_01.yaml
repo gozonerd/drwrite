@@ -1,0 +1,68 @@
+---
+example_id: "TT-20_EX-01"
+description: "AI Consumer Quality Rubric Scoring - high quality output"
+task_type: "TT-20"
+version: v02_I
+
+dimension_scores:
+  evidence_quality:
+    score: 0.92
+    evidence: "Sources are primary materials, cross-threaded, convergence thresholds met"
+    strengths: ["Diverse source types", "Clear source documentation", "Convergence scoring provided"]
+    weaknesses: []
+
+  structural_readiness:
+    score: 0.88
+    evidence: "Headings organized logically, consistent formatting, table of contents present"
+    strengths: ["Clear hierarchical structure", "Machine-readable section markers", "Consistent field naming"]
+    weaknesses: ["Some sections could be more granular for AI extraction"]
+
+  clarity_for_parsing:
+    score: 0.85
+    evidence: "Technical terms defined, acronyms explained, consistent terminology"
+    strengths: ["Terminology glossary provided", "Definitions clear and specific"]
+    weaknesses: ["Some complex sentences require parsing"]
+
+  actionability:
+    score: 0.79
+    evidence: "Specifications mostly include success criteria and decision rules"
+    strengths: ["Most specifications quantified", "Decision trees provided for key choices"]
+    weaknesses: ["Some recommendations lack concrete metrics"]
+
+  completeness:
+    score: 0.83
+    evidence: "All required elements present, coverage matrix shows 89% coverage"
+    strengths: ["Comprehensive topic coverage", "Appendices with supporting detail"]
+    weaknesses: ["Minor gaps in risk assessment coverage"]
+
+  consistency:
+    score: 0.90
+    evidence: "No major terminology inconsistencies, categorical structure maintained"
+    strengths: ["Consistent use of technical terms", "Uniform formatting", "Stable categorical framework"]
+
+  confidence_communication:
+    score: 0.81
+    evidence: "Convergence scores provided, uncertainty documented, confidence levels specified"
+    strengths: ["Explicit confidence thresholds", "Convergence metrics documented"]
+    weaknesses: ["Some findings lack explicit confidence scores"]
+
+aggregate_quality_score: 0.86
+
+threshold_comparison:
+  minimum_threshold: 0.70
+  target_threshold: 0.80
+  meets_minimum: true
+  exceeds_target: true
+  assessment: "Output exceeds target quality threshold for AI consumption"
+
+remediation_priorities:
+  - dimension: "Actionability"
+    gap: "Some recommendations need concrete success metrics"
+    priority: "Medium"
+    impact: "Improves downstream decision support"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-20"
+  ai_consumer_profile: "Policy decision support systems"
+  overall_assessment: "Ready for downstream AI consumption with minor improvements possible"

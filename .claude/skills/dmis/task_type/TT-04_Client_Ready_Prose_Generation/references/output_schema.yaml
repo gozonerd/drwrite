@@ -1,0 +1,29 @@
+# Reference to authoritative schema
+# See: schemas/tt04_output.yaml for full validation schema
+schema_ref: "schemas/tt04_output.yaml"
+task_type: "TT-04"
+description: "Publication-quality section prose integrating outline structure with evidence materials and professional writing standards"
+output_format: "YAML"
+key_sections:
+  - section: "section_prose"
+    description: "Polished narrative text for the section with integrated citations"
+  - section: "integration_points"
+    description: "References to outline structure elements reflected in prose"
+  - section: "citation_verification"
+    description: "Evidence that all cited materials are accurate and traceable"
+  - section: "quality_indicators"
+    description: "Assessment of prose quality against organizational standards"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "section_prose"
+  - "section_title"
+  - "citations"
+validation_rules:
+  - "All citations must reference supporting evidence materials"
+  - "All factual claims must have source attribution (AFR-001)"
+  - "Text must follow organizational style guide and tone standards"
+  - "Prose must be publication-ready without further editing"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"
+  - "Outline structure must be reflected naturally in prose flow"

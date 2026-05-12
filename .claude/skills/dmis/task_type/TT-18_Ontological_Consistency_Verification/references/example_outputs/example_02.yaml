@@ -1,0 +1,48 @@
+---
+example_id: "TT-18_EX-02"
+description: "Ontological consistency verification - identified inconsistencies"
+task_type: "TT-18"
+version: v02_I
+
+consistency_audit:
+  - term: "Digital Public Good"
+    inconsistencies_found: 2
+    usage_instances:
+      - location: "Section 2.1"
+        text: "CommCare is a Digital Public Good"
+        usage_type: "Correct - proper definition applied"
+
+      - location: "Section 4.3"
+        text: "This analysis focuses on digital public goods like open-source systems"
+        usage_type: "Semantic drift - incorrectly conflates DPG with open-source"
+
+    inconsistency_type: "Semantic drift"
+    severity: "Medium"
+    remediation: "Clarify that while many DPGs are open-source, the defining characteristic is developer-centered access (GID0090016)"
+
+  - term: "pilot"
+    inconsistencies_found: 1
+    usage_instances:
+      - location: "Section 3.1"
+        text: "Uganda pilot conducted 2018-2020"
+        definition_applied: "Time-limited implementation with evaluation"
+
+      - location: "Section 5.2"
+        text: "Zambia pilot expanded to nationwide deployment"
+        definition_applied: "Incorrectly uses 'pilot' to describe scaled deployment"
+
+    inconsistency_type: "Scope violation"
+    severity: "High"
+    remediation: "Replace 'Zambia pilot' with 'Zambia implementation' in Section 5.2 to reflect scaled deployment"
+
+framework_alignment:
+  - framework: "Office attribution"
+    inconsistencies_found: 1
+    severity: "High"
+    issue: "Section 6.1 attributes finding to 'StrongMinds Central' instead of specific office"
+    remediation: "Clarify whether attribution belongs to specific office or document which office provided information"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-18"
+  overall_assessment: "Two inconsistencies require remediation before distribution"

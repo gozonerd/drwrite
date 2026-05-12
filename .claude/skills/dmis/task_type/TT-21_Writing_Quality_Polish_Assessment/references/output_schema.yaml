@@ -1,0 +1,46 @@
+---
+schema_name: "TT-21 Writing Quality & Polish Assessment Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  grammar_mechanics:
+    description: "Grammar and punctuation errors identified with corrections"
+    type: array
+    items:
+      location: string
+      error_type: string
+      original_text: string
+      corrected_text: string
+      confidence: number
+
+  spelling_punctuation:
+    description: "Spelling and punctuation issues"
+    type: array
+
+  style_guide_compliance:
+    description: "Verification of style guide adherence"
+    compliance_score: number
+    violations: array
+
+  tone_consistency:
+    description: "Assessment of voice and tone across sections"
+    tone_inventory: array
+    consistency_score: number
+
+  clarity_concision:
+    description: "Evaluation of readability and verbosity"
+    issues: array
+
+  professional_polish:
+    description: "Overall presentation quality assessment"
+    score: number
+    observations: array
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  accuracy: "Corrections are correct and improve writing"
+  consistency: "Style and tone standards applied uniformly"
+  completeness: "All obvious errors identified"

@@ -1,0 +1,71 @@
+# Reference: schemas/tt24_output.yaml
+# Multi-Thread Synthesis Output Schema
+
+description: Synthesized coherent document with provenance chain metadata
+
+structure:
+  synthesized_content:
+    type: object
+    description: Merged content from all threads
+    properties:
+      sections:
+        type: array
+        items:
+          section_id:
+            type: string
+          title:
+            type: string
+          content:
+            type: string
+          source_thread_id:
+            type: string
+            description: Original thread ID (for provenance)
+          audit_decision_applied:
+            type: string
+            description: Audit recommendation that selected this version
+
+  provenance_chain:
+    type: array
+    description: Complete audit trail of synthesis decisions
+    items:
+      decision_id:
+        type: string
+      conflict_description:
+        type: string
+      resolution_method:
+        type: string
+        enum: [audit_recommendation, divergence_decision_tree, default_first]
+      winning_version:
+        type: string
+      losing_versions:
+        type: array
+      rationale:
+        type: string
+
+  divergence_log:
+    type: array
+    description: Log of unresolved divergences and classification
+    items:
+      divergence_id:
+        type: string
+      description:
+        type: string
+      q1_factual_ground_truth:
+        type: boolean
+        description: "Is this a factual ground truth issue?"
+      q2_downstream_dependency:
+        type: boolean
+        description: "Is there downstream dependency impact?"
+      q3_framing_only:
+        type: boolean
+        description: "Is divergence framing only, not content?"
+      decision:
+        type: string
+        enum: [RESOLVE_BEFORE_SYNTHESIS, HALT, DOCUMENT_ONLY]
+      resolution_status:
+        type: string
+
+constraints:
+  accuracy_rules: ACC-001 through ACC-009
+  anti_fabrication_rules: AFR-001 through AFR-006
+  provenance_completeness: Every section must have source attribution

@@ -1,0 +1,72 @@
+---
+title: "Example Upstream Consistency Verification: Outline to Prose"
+task_type: "TT-09"
+version: "v02_I"
+date: "2026-03-06"
+
+consistency_summary: |
+  Verification of data quality assurance prose section against upstream outline specifications shows
+  excellent alignment. All outline requirements are addressed in prose. No content distortions detected.
+  Prose achieves natural narrative flow while maintaining structural integrity. Overall consistency: VERY HIGH.
+
+mapping_verification:
+  - upstream_outline_requirement: "OL-1: Define all 9 Accuracy Rules"
+    downstream_prose_location: "Paragraph 2, sentences 1-3"
+    coverage: "100%"
+    fidelity: "EXCELLENT"
+    evidence: "Prose references 'nine Critical Accuracy Rules (ACC-001 through ACC-009)' with specific examples (Rules 001 and 003)"
+    distortion_check: "No distortion; outline requirement fully satisfied"
+
+  - upstream_outline_requirement: "OL-2: Explain platform vs. consulting firm distinction"
+    downstream_prose_location: "Paragraph 2, sentences 4-7"
+    coverage: "100%"
+    fidelity: "EXCELLENT"
+    evidence: "Prose clearly distinguishes CommCare (platform) from Dimagi (consulting firm)"
+    distortion_check: "No distortion; emphasis on organizational independence maintained"
+
+  - upstream_outline_requirement: "OL-3: Connect rules to organizational practice"
+    downstream_prose_location: "Paragraph 3, sentences 1-2"
+    coverage: "100%"
+    fidelity: "EXCELLENT"
+    evidence: "Prose explains how rules prevent misunderstanding and support credibility"
+    distortion_check: "No distortion; practical implications clearly stated"
+
+  - upstream_outline_requirement: "OL-4: Describe multi-layer audit approach"
+    downstream_prose_location: "Paragraph 4, entire section"
+    coverage: "100%"
+    fidelity: "EXCELLENT"
+    evidence: "Prose details three audit layers with convergence thresholds"
+    distortion_check: "No distortion; technical detail matches outline specification"
+
+integration_assessment:
+  upstream_materials_from_outline: "100% integrated"
+  upstream_materials_from_domain_synthesis: "95% integrated"
+  integration_quality: "SEAMLESS"
+  narrative_continuity: "EXCELLENT - Prose flows naturally despite multiple upstream sources"
+
+distortion_detection:
+  major_distortions: 0
+  minor_distortions: 0
+  meaning_drift: 0
+  emphasis_preservation: "PERFECT"
+  technical_accuracy: "100%"
+
+fidelity_analysis:
+  paraphrasing_accuracy: "VERY HIGH"
+  detail_level: "APPROPRIATE"
+  summary: |
+    Generated prose section demonstrates excellent fidelity to upstream materials. Each outline requirement
+    is addressed with proper emphasis. Domain synthesis evidence is integrated without distortion. Paraphrasing
+    maintains technical accuracy and original intent. Strategic use of prose conventions (topic sentences,
+    transitions) enhances clarity without compromising content fidelity. No meaning drift or emphasis changes
+    detected. Prose achieves publication quality while remaining grounded in upstream structure and content.
+
+confidence_assessment:
+  upstream_representation: "95%+ of upstream content represented"
+  fidelity_confidence: "VERY HIGH"
+  publication_readiness: "READY"
+
+accuracy_compliance:
+  - "ACC-006: EFD methodology correctly referenced (not RQ-RE)"
+  - "ACC-007: Convergence thresholds cited exactly as specified (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+  - "AFR-001: All prose content traceable to upstream outline and domain synthesis"

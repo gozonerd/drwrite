@@ -1,0 +1,35 @@
+---
+example_id: "TT-15_EX-02"
+description: "Contradiction documented as framing difference (Q3=YES)"
+task_type: "TT-15"
+version: v02_I
+
+contradictions_identified:
+  - contradiction_id: "CTR-015"
+    claim_a: "CommCare implementation was successful"
+    claim_b: "CommCare implementation faced significant challenges"
+    thread_a: "P1-008 (Implementer perspective)"
+    thread_b: "P1-009 (User feedback)"
+    specific_evidence_a: "Interview: 'We achieved all deployment targets on schedule'"
+    specific_evidence_b: "Interview: 'Users struggled with the system initially and adoption was slow'"
+
+decision_tree_classifications:
+  - contradiction_id: "CTR-015"
+    q1_factual_ground_truth: false
+    q1_rationale: "'Success' is evaluative, not factually verifiable - depends on criteria"
+    q2_downstream_dependency: false
+    q2_rationale: "Both framings can be presented without blocking synthesis"
+    q3_framing_interpretation: true
+    q3_rationale: "Implementer and user perspectives both valid; reflects different success criteria"
+    classification: "DOCUMENT-ONLY"
+    rationale: "Include both framings in output as legitimate alternative perspectives on implementation outcomes"
+    recommended_presentation: "Section 5.2: Discuss implementation success from multiple perspectives - operational timeline vs. user experience"
+
+resolution_status:
+  halt_required: false
+  can_proceed_to_synthesis: true
+  note: "Contradiction reflects legitimate difference in perspectives. Both can be included in synthesis."
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-15"

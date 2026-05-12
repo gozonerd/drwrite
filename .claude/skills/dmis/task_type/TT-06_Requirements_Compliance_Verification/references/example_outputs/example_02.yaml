@@ -1,0 +1,81 @@
+---
+title: "Example Requirements Compliance Verification: Data Quality Framework"
+task_type: "TT-06"
+version: "v02_I"
+date: "2026-03-06"
+
+compliance_summary: |
+  Verification of data quality framework document against specification requirements. Document satisfies
+  all 15 specified requirements with clear, traceable evidence of implementation. Compliance: 100%.
+
+requirement_mapping:
+  - requirement_id: "REQ-QA-001"
+    requirement: "Document must define all 9 Accuracy Rules (ACC-001 through ACC-009)"
+    output_location: "Section 2.1, lines 15-45"
+    evidence: "Complete list of ACC-001 through ACC-009 with definitions and organizational context"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-002"
+    requirement: "Document must define all 6 Anti-Fabrication Rules (AFR-001 through AFR-006)"
+    output_location: "Section 3.1, lines 50-80"
+    evidence: "Complete list of AFR-001 through AFR-006 with application guidance"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-003"
+    requirement: "Document must specify convergence thresholds (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+    output_location: "Section 5, paragraph 3, line 120"
+    evidence: "Explicit statement of convergence thresholds with application context"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-004"
+    requirement: "Document must describe three-tier audit process"
+    output_location: "Section 4, entire section (lines 85-115)"
+    evidence: "Detailed description of TT-06 (requirements compliance), TT-07 (regulatory verification), TT-08 (rule-based testing)"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-005"
+    requirement: "Document must specify retry limit = 1 for audit layers"
+    output_location: "Section 4.3, paragraph 2"
+    evidence: "Explicit statement of retry limit with audit failure escalation procedure"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-006"
+    requirement: "Document must define CommCare current use vs. history distinction (ACC-001)"
+    output_location: "Section 2.1, ACC-001 definition, lines 18-22"
+    evidence: "Clear specification that ACC-001 requires distinction between SMZ active and Uganda pilot"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-007"
+    requirement: "Document must define CommCare vs. Dimagi distinction (ACC-003)"
+    output_location: "Section 2.1, ACC-003 definition, lines 26-29"
+    evidence: "Clear specification that CommCare (platform) must be distinguished from Dimagi (consulting firm)"
+    status: "SATISFIED"
+
+  - requirement_id: "REQ-QA-008"
+    requirement: "Document must reference CommCare DPG status (ACC-008)"
+    output_location: "Section 2.1, ACC-008 definition, lines 37-40"
+    evidence: "Statement that CommCare IS a Digital Public Good with GID0090016 citation"
+    status: "SATISFIED"
+
+gap_analysis:
+  missing_requirements: []
+  marginal_coverage: []
+  coverage_assessment: "All requirements are clearly and explicitly satisfied in the output document"
+
+traceability_summary:
+  total_requirements: 8
+  satisfied: 8
+  not_satisfied: 0
+  compliance_percentage: 100
+  confidence_level: "VERY HIGH - all requirements have specific line number references"
+
+verification_notes: |
+  This document represents gold-standard requirements compliance. Each requirement can be located precisely
+  in the output using provided line number references. No ambiguity exists regarding requirement satisfaction.
+  The document serves as a reference implementation for the data quality assurance framework.
+
+accuracy_compliance:
+  - "ACC-001: All requirement mappings preserve distinction between Zambia and Uganda"
+  - "ACC-003: CommCare and Dimagi properly distinguished in requirement definitions"
+  - "ACC-008: CommCare DPG status correctly cited with GID0090016"
+  - "AFR-001: All requirement mappings traceable to specific output locations with line numbers"

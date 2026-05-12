@@ -1,0 +1,77 @@
+---
+task_type: TT-30
+example_id: "EX-30-01"
+description: "Terminology audit with minor inconsistencies"
+
+terminology_index:
+  - term_id: "TERM-30-001"
+    term: "CommCare"
+    definition: "Mobile application platform developed by Dimagi"
+    occurrence_count: 47
+    first_occurrence_location: "Section 2.1"
+    all_occurrences:
+      - location: "Section 2.1"
+        context: "CommCare is a mobile application platform"
+      - location: "Section 3.2"
+        context: "CommCare deployment follows standard architecture"
+
+  - term_id: "TERM-30-002"
+    term: "SMS"
+    definition: "Short Message Service for SMS-based data collection"
+    occurrence_count: 23
+    first_occurrence_location: "Section 3.1"
+    all_occurrences:
+      - location: "Section 3.1"
+        context: "SMS gateway enables bidirectional messaging"
+      - location: "Section 3.3"
+        context: "SMS workflow includes three steps"
+
+  - term_id: "TERM-30-003"
+    term: "EFD"
+    definition: "Electronic Forms Data system"
+    occurrence_count: 12
+    first_occurrence_location: "Section 4.1"
+
+acronym_audit:
+  - acronym: "SMS"
+    expansion: "Short Message Service"
+    first_defined_at: "Section 3.1"
+    defined_on_first_use: true
+    consistent_expansion: true
+
+  - acronym: "API"
+    expansion: "Application Programming Interface"
+    first_defined_at: "Section 6.2"
+    defined_on_first_use: true
+    consistent_expansion: true
+
+  - acronym: "EFD"
+    expansion: "Electronic Forms Data"
+    first_defined_at: "Section 4.1"
+    defined_on_first_use: true
+    consistent_expansion: true
+
+glossary_coverage:
+  total_indexed_terms: 28
+  glossary_entries: 26
+  coverage_rate: 0.93
+  missing_from_glossary:
+    - "push notification"
+    - "offline mode"
+
+consistency_findings:
+  - term_id: "TERM-30-004"
+    term: "push notification"
+    inconsistency_type: "formatting_inconsistency"
+    description: "'Push notification' vs 'push-notification' used interchangeably"
+    locations: ["Section 5.2", "Section 5.4"]
+    severity: "minor"
+
+summary:
+  total_inconsistencies: 1
+  critical_count: 0
+  major_count: 0
+  minor_count: 1
+  overall_consistency_score: 0.96
+
+result: "Terminology is 96% consistent. One minor formatting inconsistency found. Glossary coverage at 93% (acceptable)."

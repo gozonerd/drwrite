@@ -1,0 +1,83 @@
+---
+task_type: TT-31
+example_id: "EX-31-02"
+description: "Narrative arc assessment with significant coherence issues"
+
+narrative_flow_assessment:
+  logical_sequence_score: 4.2
+  thesis_statement: "Document purpose unclear. Appears to discuss both CommCare platform AND organizational change management, but these threads don't converge."
+  key_messages:
+    - "CommCare technical capabilities" (Sections 2-4)
+    - "Organizational readiness concerns" (Sections 5-7)
+    - "Staff training needs" (Section 9)
+    - Primary message: UNCLEAR
+
+section_transitions:
+  - from_section: "1: Introduction"
+    to_section: "2: CommCare Overview"
+    transition_quality: "adequate"
+    bridge_present: true
+    coherence_issue: null
+
+  - from_section: "2: CommCare Overview"
+    to_section: "3: Mobile Data Collection"
+    transition_quality: "strong"
+    bridge_present: true
+    coherence_issue: null
+
+  - from_section: "4: Data Management"
+    to_section: "5: Organizational Change"
+    transition_quality: "weak"
+    bridge_present: false
+    coherence_issue: "Abrupt shift from technical to organizational topics with no transition; reader loses thread"
+
+  - from_section: "7: Staff Readiness"
+    to_section: "8: Recommendations"
+    transition_quality: "weak"
+    bridge_present: false
+    coherence_issue: "Recommendations inconsistent with preceding change management discussion"
+
+key_message_tracking:
+  - message_id: "MSG-31-003"
+    message: "CommCare technical capabilities are robust"
+    introduced_at: "Section 2"
+    reinforced_at: ["Section 3", "Section 4"]
+    final_position: "Section 8 (weakly)"
+    message_drift: "significant"
+
+  - message_id: "MSG-31-004"
+    message: "Implementation requires major organizational change"
+    introduced_at: "Section 5"
+    reinforced_at: ["Section 6", "Section 7"]
+    final_position: "Not reinforced in conclusion"
+    message_drift: "significant"
+
+reader_journey_analysis:
+  target_audience: "Non-technical stakeholders"
+  confusion_points:
+    - location: "Between Sections 4 and 5"
+      issue: "Abrupt shift from technical CommCare discussion to organizational change—feels like two different documents"
+      recommendation: "Add bridging section explaining how CommCare deployment triggers organizational changes"
+    - location: "Section 8: Recommendations"
+      issue: "Recommendations don't clearly prioritize between technical and organizational imperatives"
+      recommendation: "Reframe recommendations with clear hierarchy and explicit links to earlier sections"
+
+executive_summary_alignment:
+  summary_present: true
+  content_coverage: 0.60
+  message_fidelity: 0.50
+  alignment_issues:
+    - "Executive summary emphasizes technical benefits; body text focuses on organizational risk"
+    - "Summary's optimistic tone doesn't match cautionary message in Sections 5-7"
+
+coherence_summary:
+  overall_coherence_score: 4.2
+  flow_assessment: "poor"
+  narrative_recommendations:
+    - "MAJOR: Clarify overarching purpose. Is this primarily a platform assessment OR change management guide?"
+    - "Add bridging section between technical (Sections 2-4) and organizational (Sections 5-7) content"
+    - "Revise recommendations to reflect both technical AND organizational imperatives"
+    - "Update Executive Summary to align tone and key messages with body content"
+    - "Consider reordering sections or restructuring to improve flow"
+
+result: "Document coherence is poor. Reader loses thread between technical and organizational content. Major restructuring required before publication."

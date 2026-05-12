@@ -1,0 +1,42 @@
+---
+schema_name: "TT-18 Ontological Consistency Verification Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  terminology_inventory:
+    description: "Comprehensive glossary of all key terms with definitions and usage frequency"
+    type: array
+    items:
+      term: string
+      definition: string
+      scope: string
+      usage_count: integer
+
+  consistency_audit:
+    description: "Instances of inconsistent usage identified"
+    type: array
+    items:
+      term: string
+      usage_instances: array
+      inconsistency_type: string
+      severity: string
+
+  framework_alignment:
+    description: "Verify categorical structures applied consistently"
+    type: array
+    items:
+      framework: string
+      consistency_score: number
+      categories_used: array
+
+  inconsistency_classification:
+    description: "Type of inconsistency identified"
+    values: ["Semantic drift", "Definition mismatch", "Category error", "Scope violation"]
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  terminology_completeness: "All key terms and frameworks audited"
+  consistency_systematic: "Standards applied systematically throughout"

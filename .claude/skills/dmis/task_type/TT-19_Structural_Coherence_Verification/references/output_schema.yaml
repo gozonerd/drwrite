@@ -1,0 +1,48 @@
+---
+schema_name: "TT-19 Structural Coherence Verification Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  heading_hierarchy:
+    description: "Audit of heading levels and nesting consistency"
+    type: array
+    items:
+      heading_level: integer
+      instances: integer
+      consistency_score: number
+
+  logical_flow:
+    description: "Section sequencing and prerequisite satisfaction"
+    type: array
+    items:
+      section: string
+      position: integer
+      prerequisites_satisfied: boolean
+      forward_references: array
+
+  narrative_arc:
+    description: "Assessment of introduction, development, conclusion structure"
+    arc_integrity: string
+    missing_components: array
+
+  orphaned_elements:
+    description: "Content not integrated into navigation or referenced"
+    type: array
+    items:
+      element: string
+      location: string
+      severity: string
+
+  cross_references:
+    description: "Internal link validation and accuracy"
+    total_links: integer
+    valid_links: integer
+    broken_links: array
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  hierarchy_integrity: "Heading levels properly nested without illogical skips"
+  navigation_clarity: "Document structure supports finding topics"

@@ -1,0 +1,49 @@
+---
+example_id: "TT-16_EX-01"
+description: "Presupposition archaeology with documented assumptions"
+task_type: "TT-16"
+version: v02_I
+
+assumptions_identified:
+  - assumption_id: "PRES-001"
+    location: "Section 2.1, paragraph 3"
+    assumption_statement: "Reader understands CommCare is a mobile data collection platform"
+    grounding_status: "Implied only"
+    gap_type: "Missing definition"
+    audience_impact: "High"
+    current_context: "Document discusses 'CommCare capabilities' without defining CommCare"
+
+  - assumption_id: "PRES-002"
+    location: "Section 3.2, methodology choice"
+    assumption_statement: "Reader is familiar with EFD methodology"
+    grounding_status: "External prerequisite"
+    gap_type: "Missing citation"
+    audience_impact: "Medium"
+    current_context: "EFD referenced as methodology without citation or introduction"
+
+  - assumption_id: "PRES-003"
+    location: "Section 4.1, results section"
+    assumption_statement: "Reader understands StrongMinds is an international NGO"
+    grounding_status: "Explicitly stated"
+    gap_type: "None"
+    audience_impact: "Low"
+
+grounding_assessment:
+  explicitly_stated: 12
+  implied_only: 5
+  external_prerequisite: 3
+  total_assumptions: 20
+
+remediation:
+  - assumption_id: "PRES-001"
+    priority: "High"
+    recommended_addition: "Add to Section 2.0: 'CommCare is a cloud-based mobile data collection platform developed by Dimagi that allows organizations to build custom mobile applications for data gathering and management.'"
+
+  - assumption_id: "PRES-002"
+    priority: "Medium"
+    recommended_addition: "Add citation to EFD methodology and brief description: 'This analysis employs the Evidence-based Framework for Documentation (EFD) methodology [citation], which...'"
+
+metadata:
+  generated_date: "2026-03-06"
+  audience_specification: "Policy-level decision makers with general development background"
+  reviewer: "SK-16"
