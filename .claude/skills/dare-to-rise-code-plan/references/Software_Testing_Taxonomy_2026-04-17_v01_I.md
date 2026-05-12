@@ -5,6 +5,8 @@ type: reference
 skill: dare-to-rise-code-plan
 version: v01_I
 date: 2026-04-17
+audience: martinez_methods_internal
+classification_reason: INTERNAL _I classification per Martinez Methods classification convention; not approved for external release pending pre-publication IP scrub.
 ---
 
 # Software Testing Taxonomy — Complete Reference

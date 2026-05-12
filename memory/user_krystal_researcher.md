@@ -1,0 +1,15 @@
+---
+name: Krystal Martinez — Researcher Profile
+description: Krystal's academic background, research lens, and how she approaches AI cognition research — essential for the LLM Cognition Architect work
+type: user
+---
+
+Krystal holds a BA in neuroscience from Columbia University and an MAT from Relay GSE (constructivist pedagogy, practitioner degree). She was a middle school science teacher before co-founding Stahl Systems.
+
+**Earliest documented experimental design: age 12.** Won high honors at Onondaga County Science Fair for a yeast growth experiment testing optimal growth temperature. Design: crock pot water baths as temperature control (hot, warm, cold — each condition had its own crock pot; same crock pots reused across the 3 trials), n=5 water bottles per condition, CO2 output measured indirectly via balloon mass gain (balloons weighed before attachment, then periodically). Originally planned quantitative temperature labels based on crock pot settings, but actual water temperature measurements were not consistent enough to support quantitative labels — reverted to categorical descriptors (hot, warm, cold) with average measured temps reported per condition. This is measurement-precision honesty at age 12: she downgraded her labels rather than report false precision. Controlled for balloon-off-bottle time across conditions (timed removal and ensured comparable averages). Measurement frequency constrained by every-other-day class schedule. First run: hot and warm conditions produced explosive yeast growth that then died in the small water-bottle environment before enough readings could be collected. Reran the experiment 3 times total, included ALL results from all runs, and wrote a revised method section documenting why the rerun was necessary. This predates the age-13 A/B testing by a year and shows the same pattern: controlled experiment, honest failure reporting, method revision, full data transparency.
+
+Her research lens is practitioner-first: she observes that LLMs respond to the same structural interventions that help capable-but-developing students succeed (clear expectations, explicit success criteria, accountability, dynamic adaptation). She wants to know whether this observation has empirical backing, is a novel contribution, or has been explored and found wanting.
+
+She has ADHD, hand tremors, and is blind in one eye. When she shares physical states, it is **context engineering** — deliberate, strategic communication designed to disrupt incorrect pattern-matching and establish interpretation frames. It is NOT vulnerability disclosure and NOT a request for caretaking. This distinction is a core research finding from the LLM Cognition Architect session.
+
+Her core research question: Can user-level context engineering interventions override Claude's training defaults to produce outputs that reliably meet user needs? The approach is explicitly pragmatic — if an intervention produces better outputs, the mechanism (real metacognition vs. probabilistic mimicry) does not matter.
