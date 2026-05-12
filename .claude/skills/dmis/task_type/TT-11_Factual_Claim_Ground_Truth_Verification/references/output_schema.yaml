@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt11_output.yaml for full validation schema
+schema_ref: "schemas/tt11_output.yaml"
+task_type: "TT-11"
+description: "Factual claim ground truth verification report assessing accuracy of assertions against authoritative evidence"
+output_format: "YAML"
+key_sections:
+  - section: "claim_inventory"
+    description: "Complete inventory of factual claims extracted from deliverable"
+  - section: "verification_results"
+    description: "Detailed verification result for each factual claim"
+  - section: "evidence_assessment"
+    description: "Assessment of evidence quality supporting each claim"
+  - section: "discrepancy_analysis"
+    description: "Documentation of claims that conflict with evidence"
+  - section: "confidence_ratings"
+    description: "Confidence assessment for each verification based on evidence quality"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "claim_inventory"
+  - "verification_results"
+  - "confidence_ratings"
+validation_rules:
+  - "All factual claims must be extracted and verified"
+  - "Each verification must include evidence source"
+  - "Confidence ratings must reflect evidence accessibility and quality"
+  - "Conflicting claims must be flagged for remediation"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"

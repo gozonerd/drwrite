@@ -1,0 +1,33 @@
+---
+schema_name: "TT-15 Contradiction Detection & Divergence Classification Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  contradictions_identified:
+    description: "All contradictions between sources with specific claims and threads involved"
+    type: array
+
+  decision_tree_classifications:
+    description: "Classification for each contradiction using three-question decision tree"
+    type: array
+    items:
+      contradiction_id: string
+      q1_factual_ground_truth: boolean
+      q2_downstream_dependency: boolean
+      q3_framing_interpretation: boolean
+      classification: string
+      rationale: string
+
+  resolution_status:
+    description: "Aggregate status of contradiction classification"
+    halt_required: boolean
+    can_proceed_to_synthesis: boolean
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  tree_compliance: "All contradictions classified using prescribed decision tree"
+  evidence_grounding: "Classifications supported by source documentation"
+  halt_assessment: "Clear determination of whether processing can proceed"

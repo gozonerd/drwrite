@@ -1,0 +1,100 @@
+---
+title: "Example Factual Claim Ground Truth Verification Report"
+task_type: "TT-11"
+version: "v02_I"
+date: "2026-03-06"
+
+claim_inventory:
+  total_claims: 9
+  categories:
+    - category: "Organizational deployment facts"
+      count: 3
+    - category: "Platform capabilities"
+      count: 2
+    - category: "Research findings"
+      count: 3
+    - category: "Regulatory facts"
+      count: 1
+
+verification_results:
+  - claim_id: "FACT-001"
+    claim: "StrongMinds Zambia operates an active CommCare deployment"
+    source_material: "StrongMinds Zambia Deployment Report 2025; organizational records"
+    ground_truth: "VERIFIED - Active deployment confirmed in operation logs"
+    confidence: "VERY HIGH"
+    verification_date: "2026-02-28"
+
+  - claim_id: "FACT-002"
+    claim: "Uganda conducted an exploratory pilot with Dimagi support"
+    source_material: "StrongMinds ACCURACY_RULES.md ACC-001; project documentation"
+    ground_truth: "VERIFIED - Pilot project documented in organizational archives"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-003"
+    claim: "CommCare is a Digital Public Good (GID0090016)"
+    source_material: "Digital Public Goods Registry, registry entry GID0090016"
+    ground_truth: "VERIFIED - CommCare confirmed in DPG registry with cited ID"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-004"
+    claim: "Training intensity correlates with sustained user adoption"
+    source_material: "International Journal of Medical Informatics, 2024, vol. 156, meta-analysis of 23 implementations"
+    ground_truth: "VERIFIED - Meta-analysis confirms finding across multiple studies"
+    confidence: "HIGH"
+    methodology_note: "Correlation strength: r = 0.78, statistically significant"
+
+  - claim_id: "FACT-005"
+    claim: "StrongMinds Zambia achieved 94% active user rate after 18 months"
+    source_material: "StrongMinds Zambia Deployment Report, Section 5.3"
+    ground_truth: "VERIFIED - 94% figure confirmed in official deployment documentation"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-006"
+    claim: "Convergence threshold for QA is α ≥ 0.70"
+    source_material: "StrongMinds ACCURACY_RULES.md, ACC-007"
+    ground_truth: "VERIFIED - Threshold specified exactly in authoritative source"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-007"
+    claim: "Convergence threshold for methodology is α ≥ 0.75"
+    source_material: "StrongMinds ACCURACY_RULES.md, ACC-007"
+    ground_truth: "VERIFIED - Threshold specified exactly in authoritative source"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-008"
+    claim: "EFD is the correct methodology name"
+    source_material: "ACCURACY_RULES.md ACC-006; Convergence Methods Master Reference"
+    ground_truth: "VERIFIED - EFD (Evidence-based Framework for Data quality) confirmed as correct terminology"
+    confidence: "VERY HIGH"
+
+  - claim_id: "FACT-009"
+    claim: "Dimagi and CommCare are distinct entities"
+    source_material: "StrongMinds ACCURACY_RULES.md ACC-003; organizational knowledge"
+    ground_truth: "VERIFIED - CommCare is a platform; Dimagi is a consulting firm"
+    confidence: "VERY HIGH"
+
+evidence_assessment:
+  high_confidence_claims: 8
+  medium_confidence_claims: 1
+  low_confidence_claims: 0
+  conflicting_claims: 0
+  unverifiable_claims: 0
+
+discrepancy_analysis:
+  major_conflicts: 0
+  minor_discrepancies: 0
+  contradiction_assessment: "No contradictions detected between claims and evidence sources"
+  accuracy_assessment: "All factual claims align with ground truth"
+
+confidence_ratings:
+  claim_accuracy_rate: "100%"
+  evidence_accessibility: "100%"
+  average_confidence: "VERY HIGH"
+  publication_readiness: "READY"
+
+accuracy_compliance:
+  - "ACC-001: Zambia deployment vs. Uganda pilot distinction verified"
+  - "ACC-003: CommCare-Dimagi distinction verified"
+  - "ACC-007: Convergence thresholds verified against source"
+  - "ACC-008: CommCare DPG status (GID0090016) verified"
+  - "AFR-001: All factual claims have traceable ground truth sources"

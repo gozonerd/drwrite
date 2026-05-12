@@ -1,0 +1,48 @@
+---
+# TT-13 Output Schema Reference
+schema_name: "TT-13 Coverage Matrix Construction Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  coverage_matrix:
+    description: "Matrix mapping required elements to threads/sources with coverage indicators"
+    required_elements:
+      description: "Rows of matrix - all required elements from specification"
+      type: array
+    threads_sources:
+      description: "Columns of matrix - all available threads/sources"
+      type: array
+    coverage_cells:
+      description: "Coverage indicator for each element-thread combination"
+      values: ["Addressed", "Partial", "Missing"]
+
+  coverage_aggregation:
+    description: "Aggregate coverage metrics"
+    element_coverage:
+      description: "Coverage percentage per required element"
+      type: object
+    thread_coverage:
+      description: "Coverage percentage per thread"
+      type: object
+    overall_coverage:
+      description: "Overall coverage percentage across all element-thread combinations"
+      type: number
+
+  gap_analysis:
+    description: "Identified coverage gaps with severity classification"
+    gaps:
+      type: array
+      items:
+        element: string
+        threads_missing: array
+        severity: string
+        remediation: string
+
+accuracy_rules_applied:
+  - "ACC-001 through ACC-009 all applied"
+  - "Thread count compliance: P1=15, P2=25, P3=5, P4=5, P5=1"
+
+quality_expectations:
+  completeness: "All required elements and available threads represented"
+  gap_documentation: "All coverage gaps documented with severity and remediation"

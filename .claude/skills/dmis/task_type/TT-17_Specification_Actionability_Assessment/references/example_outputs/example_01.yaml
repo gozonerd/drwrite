@@ -1,0 +1,47 @@
+---
+example_id: "TT-17_EX-01"
+description: "Actionability assessment with fully specified guidance"
+task_type: "TT-17"
+version: v02_I
+
+specifications_evaluated:
+  - specification_id: "SPEC-001"
+    specification_text: "Deploy CommCare to three health facilities with mobile network coverage of at least 4G LTE"
+    actionability_score: "Fully Specified"
+    success_criteria_present: true
+    preconditions_defined: true
+    resource_requirements_defined: true
+    decision_rules_defined: true
+
+  - specification_id: "SPEC-002"
+    specification_text: "Train facility staff on CommCare data entry with emphasis on form completion accuracy"
+    actionability_score: "Partially Specified"
+    gap_identified: "Training duration, success metrics, and audience prerequisites not defined"
+    missing_details:
+      - "Training duration in hours"
+      - "Accuracy threshold definition"
+      - "Staff prerequisite skills (literacy level, computer familiarity)"
+
+use_case_validation:
+  - specification_id: "SPEC-001"
+    consumer_profile: "Implementation team with technical staff"
+    can_execute: true
+    blockers: []
+    confidence: 0.95
+
+  - specification_id: "SPEC-002"
+    consumer_profile: "Implementation team without training specialist"
+    can_execute: false
+    blockers:
+      - "No guidance on training methodology"
+      - "No success metrics defined"
+      - "No staff assessment tool provided"
+
+remediation:
+  - specification_id: "SPEC-002"
+    priority: "High"
+    recommended_addition: "Training should span 3 days (16 hours total), focus on 95% form completion accuracy, and assume staff have basic computer skills (email/web browser familiarity)"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-17"

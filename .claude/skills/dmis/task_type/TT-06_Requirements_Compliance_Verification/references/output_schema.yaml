@@ -1,0 +1,28 @@
+# Reference to authoritative schema
+# See: schemas/tt06_output.yaml for full validation schema
+schema_ref: "schemas/tt06_output.yaml"
+task_type: "TT-06"
+description: "Requirements compliance verification report with systematic mapping of requirements to output locations"
+output_format: "YAML"
+key_sections:
+  - section: "compliance_summary"
+    description: "Overall compliance percentage and summary of mapped vs. unmapped requirements"
+  - section: "requirement_mapping"
+    description: "Detailed mapping of each requirement to output location with evidence"
+  - section: "gap_analysis"
+    description: "Identification and categorization of unaddressed requirements"
+  - section: "traceability_details"
+    description: "Specific location references for each requirement satisfaction"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "compliance_summary"
+  - "requirement_mapping"
+  - "gap_analysis"
+validation_rules:
+  - "All requirements must be addressed in mapping or gap analysis"
+  - "Each requirement must include specific output location reference"
+  - "Compliance percentage must be calculated accurately"
+  - "Gaps must be clearly distinguished from marginal coverage"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"

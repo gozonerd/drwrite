@@ -1,0 +1,31 @@
+# Reference to authoritative schema
+# See: schemas/tt01_output.yaml for full validation schema
+schema_ref: "schemas/tt01_output.yaml"
+task_type: "TT-01"
+description: "Structured instructional document with prescriptive content, prerequisites, step-by-step procedures, quality checkpoints, and troubleshooting guidance"
+output_format: "YAML"
+key_sections:
+  - section: "overview"
+    description: "Executive summary of instructional purpose and scope"
+  - section: "prerequisites"
+    description: "Required prior knowledge and prerequisites for using this instruction"
+  - section: "procedures"
+    description: "Numbered, step-by-step procedures with actions and expected outcomes"
+  - section: "quality_checkpoints"
+    description: "Verification steps embedded throughout to confirm correct execution"
+  - section: "troubleshooting"
+    description: "Common errors, their causes, and recovery procedures"
+  - section: "appendices"
+    description: "Supporting materials, templates, and reference information"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "overview"
+  - "prerequisites"
+  - "procedures"
+validation_rules:
+  - "All factual claims must have traceable sources (AFR-001)"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"
+  - "Step numbers must be sequential and unambiguous"
+  - "Each procedure must have at least one quality checkpoint"

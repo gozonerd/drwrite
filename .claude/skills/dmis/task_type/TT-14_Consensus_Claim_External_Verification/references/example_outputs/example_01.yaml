@@ -1,0 +1,42 @@
+---
+example_id: "TT-14_EX-01"
+description: "Consensus claim verified by external evidence"
+task_type: "TT-14"
+version: v02_I
+
+consensus_claims:
+  - claim_id: "CONS-001"
+    statement: "CommCare is classified as a Digital Public Good"
+    source_agreement: 1.0
+    thread_count: 15
+
+external_verification:
+  - claim_id: "CONS-001"
+    external_corroboration:
+      sources_found: 3
+      evidence_quality: "High"
+      confidence_increase: 0.18
+    external_sources:
+      - "Digital Public Goods registry (GID0090016)"
+      - "CommCare Foundation documentation"
+      - "Academic literature on digital public goods"
+    verification_result: "Strongly Corroborated"
+
+shared_bias_assessment:
+  - claim_id: "CONS-001"
+    bias_risk_level: "Low"
+    shared_assumptions:
+      - "Definition of Digital Public Good"
+      - "Openness and accessibility criteria"
+    independent_corroboration: true
+    assessment: "Multiple independent sources confirm classification"
+
+confidence_scoring:
+  - claim_id: "CONS-001"
+    internal_consensus_strength: 1.0
+    external_corroboration_score: 0.95
+    combined_confidence: 0.97
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-14"

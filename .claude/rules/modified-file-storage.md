@@ -20,11 +20,11 @@ reports/
     CLI-SM-DATS_S03_Draft_2026-03-09_v01_I.md        ← superseded
 ```
 
-## Self-Audit-Edit Logs
+## ASAE Logs
 
-When the `ai-self-audit-edit` skill produces audit logs, they go in:
+When the `asae` skill produces audit logs, they go in:
 ```
-deprecated/self-audit-edit-logs/
+deprecated/asae-logs/
 ```
 Create this subfolder if it doesn't exist.
 

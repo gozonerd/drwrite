@@ -1,0 +1,54 @@
+# Reference: schemas/tt23_output.yaml
+# Adversarial Stress Testing Output Schema
+
+description: Structured attack card set documenting vulnerability vectors
+
+structure:
+  attack_cards:
+    type: array
+    description: Collection of attack vectors against document content
+    items:
+      attack_id:
+        type: string
+        description: Unique identifier for attack (e.g., ATK-23-001)
+      category:
+        type: string
+        enum: [regulatory, technical, operational, logical, feasibility]
+        description: Attack vector category
+      severity:
+        type: string
+        enum: [critical, high, medium]
+        description: Business impact severity rating
+      description:
+        type: string
+        description: Clear description of vulnerability
+      evidence:
+        type: string
+        description: Direct textual evidence from content
+      remediation:
+        type: string
+        description: Specific, actionable fix suggestion
+      section_reference:
+        type: string
+        description: Document section containing vulnerable content
+
+  summary:
+    type: object
+    description: Overall assessment summary
+    properties:
+      total_attacks:
+        type: integer
+        description: Number of attack vectors identified
+      critical_count:
+        type: integer
+      high_count:
+        type: integer
+      medium_count:
+        type: integer
+      priority_remediation_list:
+        type: array
+        description: Critical attacks sorted by priority
+
+constraints:
+  minimum_attacks: 5
+  accuracy_rules: ACC-001 through ACC-009

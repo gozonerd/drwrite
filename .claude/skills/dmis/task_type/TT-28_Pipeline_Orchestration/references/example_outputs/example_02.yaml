@@ -1,0 +1,106 @@
+---
+task_type: TT-28
+example_id: "EX-28-02"
+description: "P6 pipeline orchestration with validation cascade and escalation"
+
+orchestration_metadata:
+  pipeline_id: "PIPELINE-P6-001"
+  stage: "P6"
+  start_time: "2026-03-07T08:00:00Z"
+  end_time: "2026-03-07T14:30:00Z"
+
+execution_log:
+  - timestamp: "2026-03-07T08:00:30Z"
+    stage: "P6"
+    task_type: "TT-29"
+    action: "prompt_assembled"
+    status: "running"
+    details: "P6 L1 cross-reference audit prompts assembled (Pass 1)"
+    thread_count: 8
+
+  - timestamp: "2026-03-07T08:05:00Z"
+    stage: "P6"
+    task_type: "TT-29"
+    action: "submitted"
+    status: "running"
+    details: "8 cross-reference audit threads dispatched"
+    thread_count: 8
+
+  - timestamp: "2026-03-07T09:00:00Z"
+    stage: "P6"
+    task_type: "TT-29"
+    action: "validation_failed"
+    status: "failed"
+    details: "5 outputs passed; 3 outputs failed validation (broken reference detection inconsistencies)"
+    thread_count: 8
+
+  - timestamp: "2026-03-07T09:05:00Z"
+    stage: "P6"
+    task_type: "TT-29"
+    action: "retrying"
+    status: "retrying"
+    details: "Retrying 3 failed outputs with revised context"
+    thread_count: 3
+
+  - timestamp: "2026-03-07T10:15:00Z"
+    stage: "P6"
+    task_type: "TT-29"
+    action: "validation_passed"
+    status: "success"
+    details: "All 3 retry outputs passed validation"
+    thread_count: 3
+
+  - timestamp: "2026-03-07T10:30:00Z"
+    stage: "P6"
+    task_type: "TT-30"
+    action: "prompt_assembled"
+    status: "running"
+    details: "P6 L2 terminology audit prompts assembled (Pass 2)"
+    thread_count: 8
+
+validation_results:
+  task_type: "TT-29"
+  schema_applied: "schemas/tt29_output.yaml"
+  total_outputs_validated: 8
+  passed: 8
+  failed: 0
+  failures: []
+
+retry_log:
+  - retry_id: "RETRY-P6-001"
+    original_failure: "Thread-3: Reference extraction missed 12 internal links"
+    retry_count: 1
+    final_status: "resolved"
+
+  - retry_id: "RETRY-P6-002"
+    original_failure: "Thread-5: Incorrect target mapping for section references"
+    retry_count: 1
+    final_status: "resolved"
+
+  - retry_id: "RETRY-P6-003"
+    original_failure: "Thread-7: False positive broken references"
+    retry_count: 1
+    final_status: "resolved"
+
+notifications:
+  - recipient: "pipeline-ops@strongminds.org"
+    event_type: "P6_retry_triggered"
+    timestamp: "2026-03-07T09:05:00Z"
+    delivered: true
+
+  - recipient: "pipeline-ops@strongminds.org"
+    event_type: "P6_retry_complete"
+    timestamp: "2026-03-07T10:15:00Z"
+    delivered: true
+
+  - recipient: "qa-team@strongminds.org"
+    event_type: "P6_stage_progressing"
+    timestamp: "2026-03-07T10:30:00Z"
+    delivered: true
+
+completion_summary:
+  stage_status: "passed"
+  total_duration_seconds: 23400
+  prompt_assembly_time: 90
+  execution_time: 4800
+  validation_time: 1200

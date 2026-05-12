@@ -1,0 +1,64 @@
+---
+task_type: TT-27
+example_id: "EX-27-02"
+description: "Compliance coverage matrix generation"
+
+artifacts:
+  - artifact_id: "ART-27-002"
+    artifact_type: "reference_matrix"
+    title: "Regulatory Compliance Coverage Matrix"
+    content:
+      matrix:
+        - requirement: "HIPAA Data Protection"
+          sections_addressing: ["7.2", "7.3"]
+          coverage_status: "addressed"
+
+        - requirement: "GDPR Right to Deletion"
+          sections_addressing: ["4.2"]
+          coverage_status: "addressed"
+
+        - requirement: "Data Retention Policy"
+          sections_addressing: ["4.2", "4.3"]
+          coverage_status: "addressed"
+
+        - requirement: "Security Audit Trail"
+          sections_addressing: ["7.2"]
+          coverage_status: "addressed"
+
+    source_sections:
+      - section_id: "7.2"
+        extraction_method: "consolidated"
+      - section_id: "7.3"
+        extraction_method: "consolidated"
+      - section_id: "4.2"
+        extraction_method: "consolidated"
+      - section_id: "4.3"
+        extraction_method: "direct"
+
+    entry_count: 4
+    completeness_check:
+      expected_entries: 4
+      actual_entries: 4
+      coverage_ratio: 1.0
+
+extraction_metadata:
+  - entry_id: "ENTRY-004"
+    artifact_id: "ART-27-002"
+    source_location: "Sections 7.2 and 7.3 combined"
+    extraction_confidence: "high"
+
+  - entry_id: "ENTRY-005"
+    artifact_id: "ART-27-002"
+    source_location: "Section 4.2"
+    extraction_confidence: "high"
+
+validation_summary:
+  total_artifacts: 1
+  extraction_fidelity: 1.0
+  novel_content_count: 0
+  compliance_status: "compliant"
+
+summary:
+  result: "Compliance matrix successfully generated from extracted regulatory content. No novel entries introduced."
+  accuracy_rules_enforced: [ACC-001, ACC-004, ACC-006]
+  anti_fabrication_rules_enforced: [AFR-001, AFR-005, AFR-006]

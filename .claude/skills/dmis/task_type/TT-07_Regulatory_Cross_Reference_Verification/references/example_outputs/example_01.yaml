@@ -1,0 +1,64 @@
+---
+title: "Example Regulatory Cross-Reference Verification Report"
+task_type: "TT-07"
+version: "v02_I"
+date: "2026-03-06"
+
+regulatory_claims_summary: |
+  The deliverable contains 7 regulatory claims. Of these, 6 are accurately cited with proper statute references.
+  One claim (healthcare data privacy in Uganda) lacks specific statute section reference. No conflicts found
+  with authoritative sources. Verification confidence: 95%.
+
+source_verification:
+  - claim_id: "REG-001"
+    claim_text: "Digital health systems must comply with national data protection regulations"
+    claimed_source: "WHO Digital Health Strategic Initiatives Framework 2020-2025"
+    verification: "Source located and statement verified; framework addresses data protection comprehensively"
+    confidence: "HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "REG-002"
+    claim_text: "CommCare complies with digital public good standards (GID0090016)"
+    claimed_source: "Digital Public Goods Registry, Registry ID GID0090016"
+    verification: "Source accessed; CommCare confirmed in registry with cited ID"
+    confidence: "VERY HIGH"
+    status: "VERIFIED"
+
+  - claim_id: "REG-003"
+    claim_text: "Healthcare worker data must be collected per national employment regulations"
+    claimed_source: "[Zambia: Employment Act Cap 268; Uganda: Employment Act 2006]"
+    verification: "Zambia statute located and reviewed; Uganda statute identified but [NEEDS VERIFICATION: specific compliance requirements]"
+    confidence: "MEDIUM"
+    status: "PARTIALLY VERIFIED"
+
+citation_accuracy:
+  - citation: "Digital Public Goods Registry, GID0090016"
+    accuracy: "Correct and complete; registry ID format verified"
+    status: "ACCURATE"
+
+  - citation: "WHO Digital Health Strategic Initiatives Framework 2020-2025"
+    accuracy: "Correct; document title and year verified"
+    status: "ACCURATE"
+
+  - citation: "Zambia Employment Act Cap 268"
+    accuracy: "Correct citation format; statute located and verified"
+    status: "ACCURATE"
+
+discrepancy_analysis:
+  no_major_discrepancies: true
+  minor_issue_1:
+    claim: "Healthcare worker data must be collected per national employment regulations"
+    issue: "Uganda Employment Act 2006 cited without specific section number"
+    severity: "MINOR"
+    remediation: "Add specific statute sections (e.g., Section 25-30 on record-keeping requirements)"
+    impact: "Claim is accurate but lacks specificity required for compliance citation"
+
+trust_assessment:
+  overall_trust: "HIGH"
+  reasoning: "6 of 7 claims verified with high confidence; 1 claim verified with medium confidence due to Uganda statute specificity gap; no false claims detected"
+  recommendation: "Document is trustworthy for stakeholder use with minor citation improvement for Uganda reference"
+
+accuracy_compliance:
+  - "ACC-008: CommCare Digital Public Good status correctly cited with GID0090016"
+  - "AFR-005: Most regulatory citations reference specific statute sections; Uganda citation needs improvement"
+  - "AFR-001: All regulatory claims traceable to authoritative sources"

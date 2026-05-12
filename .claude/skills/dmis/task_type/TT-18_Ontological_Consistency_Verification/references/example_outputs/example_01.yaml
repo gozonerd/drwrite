@@ -1,0 +1,44 @@
+---
+example_id: "TT-18_EX-01"
+description: "Ontological consistency verification - terminology inventory"
+task_type: "TT-18"
+version: v02_I
+
+terminology_inventory:
+  - term: "CommCare"
+    definition: "Cloud-based mobile data collection platform"
+    scope: "Technology infrastructure"
+    usage_count: 47
+    all_usages_consistent: true
+
+  - term: "Dimagi"
+    definition: "Consulting firm and technology company that created CommCare"
+    scope: "Organization"
+    usage_count: 23
+    all_usages_consistent: true
+
+  - term: "user adoption"
+    definition: "Percentage of eligible staff who regularly use the system (at least 2 logins per week)"
+    scope: "Implementation metrics"
+    usage_count: 12
+    all_usages_consistent: true
+
+framework_alignment:
+  - framework: "Office-based organization structure"
+    consistency_score: 0.98
+    categories_defined:
+      - "StrongMinds Uganda (SMU)"
+      - "StrongMinds Zambia (SMZ)"
+      - "StrongMinds Ghana (SMG)"
+      - "StrongMinds USA (SM-US)"
+    all_references_aligned: true
+
+consistency_audit:
+  inconsistencies_found: 0
+  terminology_drift: "None detected"
+  category_errors: "None detected"
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-18"
+  overall_assessment: "Excellent ontological consistency maintained throughout document"

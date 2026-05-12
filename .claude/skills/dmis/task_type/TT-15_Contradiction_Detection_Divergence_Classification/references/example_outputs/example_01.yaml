@@ -1,0 +1,33 @@
+---
+example_id: "TT-15_EX-01"
+description: "Contradiction resolved through factual ground truth (Q1=YES)"
+task_type: "TT-15"
+version: v02_I
+
+contradictions_identified:
+  - contradiction_id: "CTR-001"
+    claim_a: "CommCare was deployed in Uganda pilot in 2018"
+    claim_b: "CommCare was deployed in Uganda pilot in 2019"
+    thread_a: "P1-002 (Internal documentation)"
+    thread_b: "P1-004 (Interview notes)"
+    specific_evidence_a: "Section 3.2: 'Deployment commenced January 2018'"
+    specific_evidence_b: "Interview quote: 'We started the pilot in 2019'"
+
+decision_tree_classifications:
+  - contradiction_id: "CTR-001"
+    q1_factual_ground_truth: true
+    q1_rationale: "Deployment date is factually verifiable from project records"
+    resolution_evidence: "Contract signed December 2017, deployment logs dated January 15, 2018"
+    q2_downstream_dependency: false
+    q3_framing_interpretation: false
+    classification: "RESOLVE-BEFORE-SYNTHESIS"
+    recommended_claim: "CommCare was deployed in Uganda pilot beginning January 2018"
+
+resolution_status:
+  halt_required: false
+  can_proceed_to_synthesis: true
+  note: "Contradiction resolved. Processing can proceed with corrected fact."
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-15"

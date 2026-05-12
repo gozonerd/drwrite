@@ -1,0 +1,99 @@
+---
+title: "Example Rule-Based Compliance Test Report"
+task_type: "TT-08"
+version: "v02_I"
+date: "2026-03-06"
+
+compliance_summary: |
+  Testing of digital health implementation document against all 9 Accuracy Rules yields 8 PASS and 1 FAIL.
+  Overall compliance: 89%. Rule ACC-002 (Dimagi pilot = StrongMinds-wide) requires remediation before publication.
+
+rule_test_results:
+  - rule: "ACC-001"
+    title: "CommCare current use vs. history"
+    test: "Verify distinction between SMZ active deployment and Uganda pilot"
+    result: "PASS"
+    evidence: "Section 2.1 explicitly states 'active CommCare deployment in Zambia' and 'exploratory pilot in Uganda'"
+    confidence: "HIGH"
+
+  - rule: "ACC-002"
+    title: "Dimagi pilot = StrongMinds-wide"
+    test: "Verify that Dimagi pilot is framed as organization-wide intervention"
+    result: "FAIL"
+    evidence: "Document states 'Dimagi provided consulting support to Uganda pilot' without indicating that pilot findings applied to all offices"
+    location: "Section 2.2, paragraph 3"
+    violation_detail: "Framing suggests Uganda pilot was office-specific rather than StrongMinds-wide exploratory intervention"
+    remediation: "Revise language to 'Dimagi's exploratory collaboration with Uganda office informed organization-wide digital health strategy'"
+
+  - rule: "ACC-003"
+    title: "Dimagi ≠ CommCare"
+    test: "Verify that CommCare (platform) is distinguished from Dimagi (consulting firm)"
+    result: "PASS"
+    evidence: "Document consistently refers to CommCare as platform and Dimagi as consulting partner; no conflation detected"
+    confidence: "HIGH"
+
+  - rule: "ACC-004"
+    title: "4 offices always"
+    test: "Verify all four offices (SMU, SMZ, SMG, SM-US) are properly attributed where applicable"
+    result: "PASS"
+    evidence: "Section 2.1 explicitly mentions all four offices in stakeholder assessment context"
+    confidence: "HIGH"
+
+  - rule: "ACC-005"
+    title: "DATS not DAD"
+    test: "Verify DATS terminology is used consistently"
+    result: "PASS"
+    evidence: "Document uses DATS throughout; no instances of DAD terminology found"
+    confidence: "VERY HIGH"
+
+  - rule: "ACC-006"
+    title: "EFD not RQ-RE"
+    test: "Verify Evidence-based Framework for Data quality (EFD) terminology is used"
+    result: "PASS"
+    evidence: "Section 5.2 references 'Evidence-based Framework for Data quality (EFD)'; no RQ-RE terminology found"
+    confidence: "HIGH"
+
+  - rule: "ACC-007"
+    title: "Convergence thresholds"
+    test: "Verify convergence thresholds (α ≥ 0.70 QA, α ≥ 0.75 methodology)"
+    result: "PASS"
+    evidence: "Section 5.2 exactly states 'convergence thresholds of α ≥ 0.70 for quality assurance and α ≥ 0.75 for methodology application'"
+    confidence: "VERY HIGH"
+
+  - rule: "ACC-008"
+    title: "CommCare IS a Digital Public Good"
+    test: "Verify CommCare is correctly identified as Digital Public Good with GID0090016"
+    result: "PASS"
+    evidence: "Section 3.1 states 'CommCare, a Digital Public Good platform (GID0090016)' and Section 5 references 'CommCare's status as a Digital Public Good'"
+    confidence: "VERY HIGH"
+
+  - rule: "ACC-009"
+    title: "CommCare DET is standalone"
+    test: "Verify CommCare DET is described as separate Python CLI"
+    result: "PASS"
+    evidence: "Document does not make claims about CommCare DET; rule is not applicable to this document"
+    confidence: "N/A - Not applicable"
+
+violation_log:
+  - violation_id: "VIO-001"
+    rule: "ACC-002"
+    severity: "MEDIUM"
+    location: "Section 2.2, paragraph 3"
+    description: "Dimagi pilot framed as Uganda-specific rather than StrongMinds-wide exploratory intervention"
+    evidence: "Quote: 'Dimagi provided consulting support to Uganda pilot' lacks organization-wide context"
+    remediation_action: "Revise to clarify that pilot findings were applied organization-wide"
+    remediation_effort: "LOW - Single paragraph revision required"
+    remediation_deadline: "Before publication"
+
+remediation_guidance:
+  critical_issues: 0
+  medium_issues: 1
+  low_issues: 0
+  publication_readiness: "NOT READY - One medium-priority violation must be remediated before publication"
+  remediation_summary: "Revise Section 2.2, paragraph 3 to properly frame Dimagi pilot as organization-wide initiative; then re-test ACC-002"
+
+accuracy_compliance:
+  rules_passed: 8
+  rules_failed: 1
+  overall_compliance_rate: 89
+  recommendation: "Remediate ACC-002 violation and conduct post-remediation re-test before stakeholder delivery"

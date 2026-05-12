@@ -16,7 +16,7 @@ globs: "**/*"
 ## Commit Messages
 - Descriptive, present tense
 - Reference what changed and why (not just "updated files")
-- Example: "Add self-audit-edit skill with iterative loop and audit log generation"
+- Example: "Add asae skill with iterative loop and audit log generation"
 
 ## Push Cadence
 - Push after every commit — don't accumulate local commits

@@ -1,0 +1,39 @@
+---
+schema_name: "TT-14 Consensus Claim External Verification Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  consensus_claims:
+    description: "Claims with 100% source agreement from P2 analysis"
+    type: array
+
+  external_verification:
+    description: "External evidence check results"
+    items:
+      claim_id: string
+      external_corroboration:
+        sources_found: integer
+        evidence_quality: string
+        confidence_increase: number
+
+  shared_bias_assessment:
+    description: "Risk assessment for shared bias in consensus"
+    bias_risk_level: string
+    shared_assumptions: array
+    independent_corroboration: boolean
+
+  confidence_scoring:
+    description: "Combined internal consensus and external corroboration score"
+    type: number
+
+  discrepancies:
+    description: "Where consensus diverges from external evidence"
+    type: array
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  all_consensus_verified: "Every consensus claim receives external verification attempt"
+  bias_analysis_explicit: "Shared-bias risks documented for each consensus claim"

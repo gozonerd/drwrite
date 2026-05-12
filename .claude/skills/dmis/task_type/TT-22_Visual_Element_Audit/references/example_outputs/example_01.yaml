@@ -1,0 +1,80 @@
+---
+example_id: "TT-22_EX-01"
+description: "Visual element audit - all elements meet quality standards"
+task_type: "TT-22"
+version: v02_I
+
+visual_inventory:
+  total_elements: 8
+  elements:
+    - element_id: "FIG-001"
+      element_type: "Figure"
+      title: "CommCare Deployment Timeline"
+      location: "Page 12, Section 3.1"
+      status: "Compliant"
+
+    - element_id: "TBL-001"
+      element_type: "Table"
+      title: "User Adoption Metrics by Facility"
+      location: "Page 15, Section 3.2"
+      status: "Compliant"
+
+labeling_audit:
+  - element_id: "FIG-001"
+    title_present: true
+    axis_labels_complete: true
+    legend_present: true
+    caption_adequate: true
+    caption_text: "Timeline shows CommCare deployment phases across three StrongMinds offices (SMU, SMZ, SMG) from 2018-2021"
+    issues: []
+
+  - element_id: "TBL-001"
+    title_present: true
+    column_headers_clear: true
+    row_labels_clear: true
+    caption_present: true
+    issues: []
+
+reference_audit:
+  - element_id: "FIG-001"
+    referenced: true
+    reference_locations: ["Section 3.1, paragraph 2", "Section 5.2, results discussion"]
+    adequately_explained: true
+
+  - element_id: "TBL-001"
+    referenced: true
+    reference_locations: ["Section 3.2, analysis section"]
+    adequately_explained: true
+
+source_verification:
+  - element_id: "FIG-001"
+    source_documented: true
+    sources: ["StrongMinds Implementation Records 2018-2021"]
+    source_verified: true
+
+  - element_id: "TBL-001"
+    source_documented: true
+    sources: ["CommCare system logs", "Staff interviews"]
+    source_verified: true
+
+accessibility_evaluation:
+  - element_id: "FIG-001"
+    alt_text_present: true
+    alt_text: "Line graph showing deployment progression across three offices over time"
+    color_accessible: true
+    text_readable: true
+    issues: []
+
+  - element_id: "TBL-001"
+    alt_text_present: true
+    color_accessible: true
+    text_readable: true
+    contrast_score: 0.98
+    issues: []
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-22"
+  total_elements_audited: 8
+  compliant_elements: 8
+  overall_assessment: "All visual elements meet quality standards for publication"

@@ -12,7 +12,7 @@ When invoking any long-running agent or background task:
 
 ## Why This Rule Exists
 
-On 2026-03-26, the `ai-self-audit-edit` skill was invoked via the Skill tool. The skill instructions loaded into context but no agent was actually launched. Claude reported the task as "running" for ~45 minutes while nothing was happening. Krystal checked progress multiple times, waited through an entire meal, and returned to find the work had never started. This wasted time, credits on other accounts (where dependent work was proceeding based on the false assumption that the PEK audit was underway), and cognitive energy.
+On 2026-03-26, the `asae` skill was invoked via the Skill tool. The skill instructions loaded into context but no agent was actually launched. Claude reported the task as "running" for ~45 minutes while nothing was happening. Krystal checked progress multiple times, waited through an entire meal, and returned to find the work had never started. This wasted time, credits on other accounts (where dependent work was proceeding based on the false assumption that the PEK audit was underway), and cognitive energy.
 
 ## The Principle
 

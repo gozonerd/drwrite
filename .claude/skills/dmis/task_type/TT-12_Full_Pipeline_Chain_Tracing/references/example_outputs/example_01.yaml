@@ -1,0 +1,72 @@
+---
+# TT-12 Example Output 1: Pipeline Chain Tracing
+# Gold-standard example demonstrating complete provenance trace
+
+example_id: "TT-12_EX-01"
+description: "Complete provenance trace for CommCare deployment claim"
+task_type: "TT-12"
+version: v02_I
+
+provenance_traces:
+  - claim_id: "CLM-001"
+    final_statement: "CommCare was actively deployed across StrongMinds Zambia operations at the time of the pilot"
+
+    trace_chain:
+      - stage: "P4"
+        element_location: "Section 4.2.1, Integrated Claim Set"
+        supporting_evidence:
+          threads_referenced: 8
+          convergence_score_qa: 0.82
+          convergence_score_methodology: 0.78
+
+      - stage: "P3"
+        element_location: "Section 3.1.2, Synthesis Layer - Technology Infrastructure"
+        supporting_evidence:
+          threads_included: 12
+          coverage_percentage: 100
+          convergence_score_qa: 0.79
+          convergence_score_methodology: 0.76
+
+      - stage: "P2"
+        element_location: "Analysis Block AB-2.5, CommCare Deployment Status"
+        supporting_evidence:
+          threads_analyzed: 15
+          raw_thread_count: 15
+          source_agreement_percentage: 87
+
+      - stage: "P1"
+        element_location: "Raw Thread Batch P1.2-L2, Deployment Documentation"
+        supporting_evidence:
+          primary_threads:
+            - "P1-001: StrongMinds Zambia operational documentation"
+            - "P1-003: CommCare system configuration records"
+            - "P1-004: Implementation timeline notes"
+          thread_count: 15
+
+    primary_sources:
+      - source_id: "SRC-ZA-001"
+        source_type: "Internal operational documentation"
+        description: "StrongMinds Zambia deployment records 2019-2021"
+
+      - source_id: "SRC-ZA-002"
+        source_type: "System configuration"
+        description: "CommCare instance configuration for SMZ"
+
+      - source_id: "SRC-ZA-003"
+        source_type: "Interview notes"
+        description: "Interviews with SMZ technology staff"
+
+    trace_status: "Complete"
+
+    convergence_validation:
+      p4_convergence_met: true
+      p3_convergence_met: true
+      p2_convergence_met: true
+      p1_convergence_met: true
+
+    gaps: []
+
+metadata:
+  generated_date: "2026-03-06"
+  reviewer: "SK-12"
+  confidence_score: 0.95

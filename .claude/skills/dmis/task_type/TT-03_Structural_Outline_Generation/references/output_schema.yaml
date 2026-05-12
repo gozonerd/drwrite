@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt03_output.yaml for full validation schema
+schema_ref: "schemas/tt03_output.yaml"
+task_type: "TT-03"
+description: "Detailed structural outline with hierarchical section organization, content mapping, and gap identification"
+output_format: "YAML"
+key_sections:
+  - section: "table_of_contents"
+    description: "Complete hierarchical outline of document structure"
+  - section: "section_descriptions"
+    description: "Purpose and scope for each major section"
+  - section: "subsection_details"
+    description: "Detailed specifications for subsections and content assignments"
+  - section: "integration_points"
+    description: "Explicit mapping of upstream content to outline locations"
+  - section: "coverage_verification"
+    description: "Verification that all specification requirements are addressed"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "table_of_contents"
+  - "section_descriptions"
+  - "integration_points"
+validation_rules:
+  - "All specification requirements must map to outline sections"
+  - "Section hierarchy must be logically consistent"
+  - "All upstream deliverables must be assigned to specific sections"
+  - "Coverage verification must confirm no gaps in specification requirements"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"

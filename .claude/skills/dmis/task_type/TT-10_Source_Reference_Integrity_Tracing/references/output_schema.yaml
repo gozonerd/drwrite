@@ -1,0 +1,30 @@
+# Reference to authoritative schema
+# See: schemas/tt10_output.yaml for full validation schema
+schema_ref: "schemas/tt10_output.yaml"
+task_type: "TT-10"
+description: "Source reference integrity verification report validating citations and context preservation"
+output_format: "YAML"
+key_sections:
+  - section: "citation_inventory"
+    description: "Complete list of all citations in deliverable with locations"
+  - section: "source_accessibility"
+    description: "Verification that cited sources are available and accessible"
+  - section: "accuracy_assessment"
+    description: "Verification that quotes match source text and page references are correct"
+  - section: "context_analysis"
+    description: "Assessment of whether quotes preserve source material intent"
+  - section: "integrity_summary"
+    description: "Overall assessment of citation integrity across the deliverable"
+required_fields:
+  - "title"
+  - "task_type"
+  - "version"
+  - "citation_inventory"
+  - "accuracy_assessment"
+  - "integrity_summary"
+validation_rules:
+  - "All citations must be verified against actual source material"
+  - "Quoted material must match source text word-for-word"
+  - "Page references must be correct and verifiable"
+  - "Context distortions must be identified and documented"
+  - "All 9 Accuracy Rules must be referenced in compliance statement"

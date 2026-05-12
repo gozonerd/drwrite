@@ -1,0 +1,54 @@
+---
+task_type: TT-26
+example_id: "EX-26-02"
+description: "Client readiness assessment flagging critical delivery blocker"
+
+readiness_assessment:
+  overall_readiness_score: 52
+  readiness_decision: "not_ready"
+
+  dimension_scores:
+    completeness: 60
+    clarity: 70
+    accuracy: 45
+    actionability: 55
+    format_compliance: 80
+
+critical_blockers:
+  - blocker_id: "BLK-26-001"
+    description: "Regulatory compliance section claims HIPAA compliance but provides no evidence of BAA or encryption specifications"
+    impact: "delivery_blocker"
+    remediation: "Add detailed HIPAA/BAA requirements, encryption protocols (AES-256), and audit trail specifications before client delivery"
+
+  - blocker_id: "BLK-26-002"
+    description: "Cost model contains conflicting figures ($120K vs $180K); no reconciliation provided"
+    impact: "delivery_blocker"
+    remediation: "Verify actual cost estimate; reconcile figures or provide range with clear assumptions"
+
+recommendations:
+  - priority: "critical"
+    recommendation: "Resolve HIPAA compliance documentation gaps (blocker BLK-26-001)"
+    estimated_effort: "6-8 hours research and documentation"
+
+  - priority: "critical"
+    recommendation: "Reconcile cost model discrepancies (blocker BLK-26-002)"
+    estimated_effort: "4-6 hours data verification"
+
+  - priority: "high"
+    recommendation: "Fix accuracy issues in SMS delivery rate claims; client cited conflicting statistics"
+    estimated_effort: "3-4 hours verification against Dimagi benchmarks"
+
+client_context_alignment:
+  objectives_addressed:
+    - "Mobile data collection infrastructure"
+
+  constraints_respected:
+    - "Budget constraint: noted but cost estimate unverified"
+
+  known_gaps:
+    - "Regulatory compliance (major gap - client's primary concern)"
+    - "Data security specifications (major gap - institutional requirement)"
+
+summary:
+  conclusion: "Document NOT ready for client delivery. Two critical blockers must be resolved before proceeding."
+  sign_off_recommendation: "Return to development. Address critical blockers and accuracy issues. Schedule reassessment."

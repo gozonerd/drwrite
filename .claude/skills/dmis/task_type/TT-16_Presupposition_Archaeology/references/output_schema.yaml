@@ -1,0 +1,39 @@
+---
+schema_name: "TT-16 Presupposition Archaeology Output"
+version: v02_I
+date: 2026-03-06
+
+output_structure:
+  assumptions_identified:
+    description: "All implicit assumptions identified by document location"
+    type: array
+    items:
+      assumption_id: string
+      location: string
+      assumption_statement: string
+      grounding_status: string
+      gap_type: string
+      audience_impact: string
+
+  grounding_assessment:
+    description: "Analysis of which assumptions are documented in text"
+    explicitly_stated: integer
+    implied_only: integer
+    external_prerequisite: integer
+
+  remediation:
+    description: "Suggested language additions to ground assumptions"
+    type: array
+    items:
+      assumption_id: string
+      current_text: string
+      recommended_addition: string
+      priority: string
+
+accuracy_rules_applied:
+  - "All 9 Accuracy Rules (ACC-001 through ACC-009)"
+
+quality_expectations:
+  audience_perspective: "Assumptions identified from target audience viewpoint"
+  completeness: "All key assumptions identified, not just obvious ones"
+  actionability: "Remediation provides specific language improvements"

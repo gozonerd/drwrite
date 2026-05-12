@@ -1,0 +1,74 @@
+---
+task_type: TT-33
+example_id: "EX-33-01"
+description: "Regulatory coverage matrix for multi-jurisdiction healthcare deployment"
+
+regulatory_scope:
+  applicable_jurisdictions:
+    - "United States (Federal)"
+    - "Uganda"
+    - "Kenya"
+    - "Zimbabwe"
+  frameworks:
+    - "HIPAA (US)"
+    - "GDPR (if any EU data subjects)"
+    - "Local healthcare data protection laws"
+  scope_justification: "StrongMinds operates in these four jurisdictions (ACC-004); HIPAA applies to US office; GDPR applies if EU individuals' data processed"
+
+requirements_inventory:
+  - requirement_id: "REQ-33-001"
+    framework: "HIPAA"
+    jurisdiction: "United States"
+    requirement_text: "Covered entities must have Business Associate Agreements in place before sharing PHI"
+    requirement_type: "mandatory"
+
+  - requirement_id: "REQ-33-002"
+    framework: "HIPAA"
+    jurisdiction: "United States"
+    requirement_text: "Data at rest must be encrypted using AES-256 or equivalent"
+    requirement_type: "mandatory"
+
+  - requirement_id: "REQ-33-003"
+    framework: "Uganda Data Protection"
+    jurisdiction: "Uganda"
+    requirement_text: "Personal data processors must register with Uganda Communications Commission"
+    requirement_type: "mandatory"
+
+coverage_matrix:
+  - requirement_id: "REQ-33-001"
+    coverage_status: "fully_addressed"
+    sections_addressing: ["7.2", "7.3"]
+    evidence: "Section 7.2: 'CommCare vendor has executed BAA with StrongMinds-US covering all PHI handling'"
+    adequacy_assessment: "adequate"
+
+  - requirement_id: "REQ-33-002"
+    coverage_status: "fully_addressed"
+    sections_addressing: ["7.2"]
+    evidence: "Section 7.2: 'Encryption uses AES-256 for all data at rest and in transit'"
+    adequacy_assessment: "adequate"
+
+  - requirement_id: "REQ-33-003"
+    coverage_status: "not_addressed"
+    sections_addressing: []
+    evidence: null
+    adequacy_assessment: "missing"
+
+gap_analysis:
+  critical_gaps:
+    - requirement_id: "REQ-33-003"
+      requirement_text: "Uganda data processor registration required"
+      severity: "critical"
+      remediation: "Add section on Uganda regulatory compliance; document processor registration status with Uganda Communications Commission"
+
+  minor_gaps: []
+
+coverage_summary:
+  total_requirements: 3
+  fully_addressed: 2
+  partially_addressed: 0
+  not_addressed: 1
+  coverage_percentage: 0.67
+  critical_gap_count: 1
+  readiness_assessment: "non_compliant"
+
+result: "Regulatory compliance: NON-COMPLIANT (67% coverage). Critical gap: Uganda data processor registration not addressed. Must add before publication."

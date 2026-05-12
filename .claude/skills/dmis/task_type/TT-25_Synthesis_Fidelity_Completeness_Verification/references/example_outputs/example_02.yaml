@@ -1,0 +1,50 @@
+---
+task_type: TT-25
+example_id: "EX-25-02"
+description: "Fidelity check of synthesized CommCare configuration section"
+
+component_audit:
+  - component_id: "COMP-25-004"
+    source_section: "Section 6: CommCare Setup and Configuration"
+    winning_thread_id: "P1-THREAD-002"
+    status: "present_intact"
+    fidelity_score: 1.0
+    changes_detected: []
+
+  - component_id: "COMP-25-005"
+    source_section: "Section 7.2: Security and HIPAA Compliance"
+    winning_thread_id: "P2-THREAD-011"
+    status: "present_intact"
+    fidelity_score: 1.0
+    changes_detected: []
+
+  - component_id: "COMP-25-006"
+    source_section: "Section 8: Implementation Timeline"
+    winning_thread_id: "P3-THREAD-002"
+    status: "present_intact"
+    fidelity_score: 1.0
+    changes_detected: []
+
+completeness_check:
+  total_winning_components: 8
+  components_present: 8
+  components_missing: 0
+  completeness_score: 1.0
+
+novel_content_detection:
+  novel_sections_detected: []
+  total_novel_count: 0
+
+distortion_assessment:
+  distorted_components: []
+  distortion_severity: "none"
+
+fidelity_summary:
+  overall_fidelity_score: 1.0
+  status: "pass"
+
+summary:
+  audit_result: "All winning components preserved intact. No novel content. Fidelity threshold exceeded."
+  recommendations:
+    - "Synthesis acceptable for client delivery"
+    - "No remediation required"
