@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "canonical_repo": "Martinez-Methods/mm-claude-canonical",
-  "canonical_sha": "232455b0254aff4905204fa1a201dea8bb71cc92",
+  "canonical_sha": "0f1f00e77909af5d3b9bdad4ac72791695fa938d",
   "d2r_repo": "Martinez-Methods/mm-d2r-code-plan-stack",
   "d2r_sha": "5517980c1f4fbc45d45e72f4665d0a84e8717045",
-  "propagated_at": "2026-05-12T18:17:38Z",
+  "propagated_at": "2026-05-12T18:23:12Z",
   "tier": "full",
   "skills_propagated": ["asae-render", "author-role-definition", "author-role-lockin-skill", "author-role-manifest", "author-role-propagation-script", "calibrate-estimates", "diagram-pack", "dmis", "le-prompt-brief", "new-repo", "no-man", "onboarding-trial", "present-and-defend", "rebrand-sweep", "role-definition-engagement-genius", "role-definition-excellence-inevitability", "role-definition-floor-inevitability", "role-definition-reliability-compositor", "role-definition-spec-genius", "role-definition-substrate-witness-genius", "scope-recap", "time-task", "upgrade-bundle", "write-avd", "write-prd", "write-pscad", "write-tqvcd", "write-trd"],
   "skills_skipped_local": ["ai-self-audit-edit", "asae", "best-practices-reading-journal", "bpmn-ai-orchestration", "claudette-the-code-debugger", "dare-to-rise-code-plan", "define-your-role-literal", "file-presentation", "file-versioning", "graphviz-ai-orchestration", "html-interactive-ai-orchestration", "ideate-to-d2r-ready", "mermaid-ai-orchestration", "plantuml-ai-orchestration", "print-docx", "react-best-practices", "reinforced-fenced-block", "role-definition-value-genius", "run-parallel-threads", "super-reinforced-fenced-block", "unified-deep-research", "update-backlog", "walk-me-through", "write-uxd"],
   "rules_count": 17,
-  "references_count": 19
+  "references_count": 20
 }
