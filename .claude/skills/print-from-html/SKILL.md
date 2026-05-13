@@ -1,7 +1,7 @@
 ---
 name: print-from-html
 description: "Generate a print-ready HTML file from any source file so Krystal can open it in a browser and Ctrl+P. Triggers on: '/print-from-html', '/print from html', 'print-from-html', 'make this printable', 'I need to print this', 'print this for my partner', 'give me a printable version', 'print-ready HTML', 'HTML for printing'. Handles any source format: SQL, Python, JS/TS, YAML, JSON, Markdown, plain text, CSV. Produces a single self-contained HTML file on the Desktop (or specified location) with format-appropriate styling, syntax highlighting for code, clean typography for prose, and print CSS (page breaks, margins, headers/footers, page numbers)."
-version: 1.1.0
+version: 1.1.1
 authored_by: Claudette the Code Debugger v01 (2026-05-12)
 type: skill
 classification: utility-class
@@ -9,6 +9,7 @@ provenance: Extracted from mm-fm-taxonomy Batch 2 partner-review workflow. Kryst
 changelog:
   - "1.0.0 (2026-05-12): Initial release. 16 file formats, syntax highlighting, markdown rendering, CSV tables, print CSS."
   - "1.1.0 (2026-05-12): Added Mermaid diagram handling — primary path via mmdc CLI pre-render to inline SVG (offline-capable); fallback via CDN-loaded mermaid.js (requires internet at print time). Anti-pattern about external dependencies updated to allow Mermaid CDN as documented exception."
+  - "1.1.1 (2026-05-12): Default output location changed from Desktop root (`C:\\Users\\NerdyKrystal\\Desktop\\`) to Krystal's curated print-queue subfolder (`C:\\Users\\NerdyKrystal\\Desktop\\claude files to print\\`). Folder is `mkdir -p`'d if missing — no silent fallback to Desktop root. Surfaced during the 2026-05-12 BoB play-journal print-to-html invocation; Krystal directed the change inline. Gate-31 canonical (strict-5 / 2 raters PARTIAL → corrected inline → effectively CONFIRMED; first attempt as gate-26 FLAGged for ID collision, renamed gate-30 per next-unused-integer)."
 ---
 
 # /print-from-html
@@ -36,7 +37,7 @@ Krystal works with a partner who reviews on paper. This skill eliminates the fri
 | Input | Required | Description |
 |-------|----------|-------------|
 | Source file path(s) | Yes | One or more files to make printable |
-| Output location | No | Where to write the HTML. Default: Desktop (`C:\Users\NerdyKrystal\Desktop\`) |
+| Output location | No | Where to write the HTML. Default: `C:\Users\NerdyKrystal\Desktop\claude files to print\` (Krystal's curated print-queue folder; keeps print-ready HTML separate from other Desktop clutter). Folder is created via `mkdir -p` if missing — no silent fallback to Desktop root (per Step 5). |
 | Paper size | No | Default: letter. Also supports A4. |
 | Custom title | No | Override the document title (default: filename) |
 
@@ -270,9 +271,11 @@ Examples:
 - `registry.yaml` → `registry-yaml-print.html`
 - `import_ssot.py` → `import-ssot-py-print.html`
 
-**Default location:** `C:\Users\NerdyKrystal\Desktop\`
+**Default location:** `C:\Users\NerdyKrystal\Desktop\claude files to print\`
 
-If the user specifies a different location, use that instead.
+This is Krystal's curated print-queue folder — keeps print-ready HTML files in one place rather than scattered across Desktop. If the folder doesn't exist at invocation time, create it (`mkdir -p`) rather than falling back silently to Desktop root. If the user specifies a different location, use that instead.
+
+*Added 2026-05-12 per Krystal's direction "put it in the claude files to print folder and add that step to the skill" (BoB play journal print-to-html invocation, this same date).*
 
 ### Step 6: Confirm
 
