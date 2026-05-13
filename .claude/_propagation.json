@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "canonical_repo": "Martinez-Methods/mm-claude-canonical",
-  "canonical_sha": "2ffea6a5374f4ed689a75eb2a1e15b15b04902f5",
+  "canonical_sha": "90feb7557380693c1536b3c8fd5c976af131805e",
   "d2r_repo": "Martinez-Methods/mm-d2r-code-plan-stack",
   "d2r_sha": "5517980c1f4fbc45d45e72f4665d0a84e8717045",
-  "propagated_at": "2026-05-13T00:05:31Z",
+  "propagated_at": "2026-05-13T01:08:05Z",
   "tier": "full",
-  "skills_propagated": ["app-update-rec", "asae-render", "author-role-definition", "author-role-lockin-skill", "author-role-manifest", "author-role-propagation-script", "calibrate-estimates", "create-database", "diagram-pack", "dmis", "le-prompt-brief", "new-repo", "no-man", "onboarding-trial", "present-and-defend", "print-from-html", "rebrand-sweep", "role-definition-calibration-inevitability", "role-definition-engagement-genius", "role-definition-excellence-inevitability", "role-definition-floor-inevitability", "role-definition-reliability-compositor", "role-definition-spec-genius", "role-definition-substrate-witness-genius", "scope-recap", "time-task", "upgrade-bundle", "write-avd", "write-prd", "write-pscad", "write-tqvcd", "write-trd"],
+  "skills_propagated": ["app-update-rec", "asae-render", "author-role-definition", "author-role-lockin-skill", "author-role-manifest", "author-role-propagation-script", "bit-by-tiny-bit", "calibrate-estimates", "create-database", "diagram-pack", "dmis", "le-prompt-brief", "new-repo", "no-man", "onboarding-trial", "present-and-defend", "print-from-html", "rebrand-sweep", "role-definition-calibration-inevitability", "role-definition-engagement-genius", "role-definition-excellence-inevitability", "role-definition-floor-inevitability", "role-definition-reliability-compositor", "role-definition-spec-genius", "role-definition-substrate-witness-genius", "scope-recap", "time-task", "upgrade-bundle", "write-avd", "write-prd", "write-pscad", "write-tqvcd", "write-trd"],
   "skills_skipped_local": ["ai-self-audit-edit", "asae", "best-practices-reading-journal", "bpmn-ai-orchestration", "claudette-the-code-debugger", "dare-to-rise-code-plan", "define-your-role-literal", "file-presentation", "file-versioning", "graphviz-ai-orchestration", "html-interactive-ai-orchestration", "ideate-to-d2r-ready", "mermaid-ai-orchestration", "plantuml-ai-orchestration", "print-docx", "react-best-practices", "reinforced-fenced-block", "role-definition-value-genius", "run-parallel-threads", "super-reinforced-fenced-block", "unified-deep-research", "update-backlog", "walk-me-through", "write-uxd"],
   "rules_count": 17,
   "references_count": 34
