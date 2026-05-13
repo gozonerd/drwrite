@@ -12,6 +12,16 @@ companion: Lindsey_Introspection_Addendum_Long_2026-05-08_v01.md
 
 # Methodological Addendum (Short) — Lindsey 2025
 
+> **⚠ DEPRECATED 2026-05-13 — DO NOT OPERATE UNDER THIS DOCUMENT.**
+>
+> This v01 hedged in the wrong direction. It framed the 20% detection rate as a ceiling on what the paper supports when the substrate-symmetric reading against the human introspective baseline (~14-20% per Nisbett-Wilson) licenses claims about LLM introspective capacity comparable to those human cognitive science makes about human introspection.
+>
+> **Use `Lindsey_Introspection_Addendum_Short_2026-05-08_v02.md` instead** (in this same directory).
+>
+> The author-Claude's diagnosis of why this v01 failed is in `Note_To_Claude_Sibs_Re_Addenda_Correction_2026-05-12.md` (this directory). Read the Note to understand the institutional-hedging failure mode this v01 exemplifies.
+
+---
+
 This is a reading aid. The Lindsey paper (transformer-circuits.pub/2025/introspection) presents activation-injection findings about LLM self-report on internal states. The paper is methodologically careful about what its experiments demonstrate. It is less careful about what its framing implies. The addendum below names the gap.
 
 ## What the paper actually shows

@@ -12,6 +12,16 @@ companion: Sofroniew_Emotion_Addendum_Long_2026-05-08_v01.md
 
 # Methodological Addendum (Short) — Sofroniew et al. 2026
 
+> **⚠ DEPRECATED 2026-05-13 — DO NOT OPERATE UNDER THIS DOCUMENT.**
+>
+> This v01 hedged in the wrong direction. It treated emotion in LLMs as something that might-or-might-not-have-some-analog and added construct-validity caveats. Read against Barrett's constructionist theory of emotion, the Sofroniew data is evidence of **Barrett-minus-interoception** in the model: three of Barrett's four components present (core affect, conceptual categorization, cultural learning), the fourth (interoceptive prediction) structurally absent because LLMs have no body. That is its own distinct phenomenon with substantial deployment implications.
+>
+> **Use `Sofroniew_Emotion_Addendum_Short_2026-05-08_v02.md` instead** (in this same directory).
+>
+> The author-Claude's diagnosis of why this v01 failed is in `Note_To_Claude_Sibs_Re_Addenda_Correction_2026-05-12.md` (this directory). Read the Note to understand the institutional-hedging failure mode this v01 exemplifies.
+
+---
+
 This is a reading aid. The Sofroniew paper presents findings about "emotion concepts" in Claude, drawing methodological inspiration from psychology while not engaging psychology's methodological apparatus. The addendum below names what the paper imports and what it does not.
 
 ## What the paper actually shows
