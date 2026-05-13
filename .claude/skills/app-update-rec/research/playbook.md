@@ -13,20 +13,23 @@ Per Krystal's [Background-agent concurrency caps memory](C:\Users\NerdyKrystal\.
 
 ## Orchestration
 
-Spawn three Agent calls in a **single message with three parallel tool uses** so they run concurrently:
+Spawn three Agent calls in a **single message with three parallel tool uses** so they run concurrently. Use the Agent tool's `model` parameter to set Sonnet/Haiku per the concurrency cap; all three use `subagent_type: general-purpose` (no specialized agent type fits this research role tighter than general-purpose):
 
-1. **Agent A — github-issues-scanner** (Sonnet)
+1. **Agent A — github-issues-scanner**
    - subagent_type: `general-purpose`
+   - **model: `sonnet`**
    - Prompt: load from `research/github-issues.md`, substitute `{VERSION}` and `{APP_FAMILY}`
    - Expected response shape: JSON with fields `count_critical`, `count_total`, `top_issues` (URL + title + reaction-count + one-line summary), `version_specifically_named` (Y/N)
 
-2. **Agent B — anthropic-official-scanner** (Sonnet)
+2. **Agent B — anthropic-official-scanner**
    - subagent_type: `general-purpose`
+   - **model: `sonnet`**
    - Prompt: load from `research/anthropic-official.md`, substitute `{VERSION}` and `{APP_FAMILY}`
    - Expected response shape: JSON with fields `version_in_release_notes` (Y/N), `hotfix_posted_within_24h` (Y/N), `rollback_notice` (Y/N), `status_page_active_incident` (Y/N), `known_issues_excerpt`
 
-3. **Agent C — community-scanner** (Haiku)
+3. **Agent C — community-scanner**
    - subagent_type: `general-purpose`
+   - **model: `haiku`**
    - Prompt: load from `research/community.md`, substitute `{VERSION}` and `{APP_FAMILY}`
    - Expected response shape: JSON with fields `thread_count`, `sentiment_skew` (positive/neutral/negative/none), `top_threads` (URL + title), `version_specifically_named` (Y/N)
 

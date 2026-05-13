@@ -159,15 +159,20 @@ if ($Component -in 'Config','All') {
     }
 }
 
-# Worktrees (git bundles — requires manual fetch)
+# Worktrees (git bundles — requires manual fetch; auto-restore is risky)
 if ($Component -in 'Worktrees','All') {
     Write-Host "`nWorktree-bundles tier:" -ForegroundColor Cyan
     if ($manifest.tiers.worktrees_dirty) {
         foreach ($wt in $manifest.tiers.worktrees_dirty) {
-            Write-Host "  $($wt.name): bundle at $($wt.bundle), HEAD was $($wt.git_head)"
-            Write-Host "    Manual restore: git -C <worktree> bundle verify <bundle> ; git -C <worktree> fetch <bundle> ..."
+            Write-Host "  $($wt.name): bundle at $($wt.bundle), HEAD was $($wt.git_head), $($wt.dirty_lines) dirty/untracked lines"
+            Write-Host "    To inspect:    git bundle list-heads `"$($wt.bundle)`""
+            Write-Host "    To verify:     git -C `"$($wt.worktree)`" bundle verify `"$($wt.bundle)`""
+            Write-Host "    To fetch:      git -C `"$($wt.worktree)`" fetch `"$($wt.bundle)`" '*:bundle/*'"
+            Write-Host "    Then inspect the bundle/* refs and merge/cherry-pick selectively."
         }
-        Write-Host "  Worktree bundles are not auto-restored — review with Krystal first." -ForegroundColor Yellow
+        Write-Host "  Worktree bundles are NOT auto-restored — they may overwrite work the user has done since the snapshot. Review each one with Krystal first." -ForegroundColor Yellow
+    } else {
+        Write-Host "  No dirty worktrees were captured in this snapshot." -ForegroundColor Green
     }
 }
 

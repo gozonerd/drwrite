@@ -251,10 +251,17 @@ if ($ghOk) {
         Pop-Location
     }
 
-    # Zip large tiers and upload as release asset
+    # Zip large tiers (excluding memory — already committed raw to repo above) and upload as release asset
     $zipPath = Join-Path $BackupRoot "$timestamp.zip"
-    Compress-Archive -Path (Join-Path $snapshotDir '*') -DestinationPath $zipPath -CompressionLevel Optimal -Force
-    & gh release create "snapshot-$timestamp" $zipPath --repo $GitHubRepo --notes "Snapshot before update $Version. Verdict $Verdict." --title "Snapshot $timestamp" 2>&1 | Out-Null
+    $zipStaging = Join-Path $env:TEMP "zip-staging-$timestamp"
+    if (Test-Path $zipStaging) { Remove-Item $zipStaging -Recurse -Force }
+    New-Item -ItemType Directory -Force -Path $zipStaging | Out-Null
+    Get-ChildItem $snapshotDir -Exclude 'memory' | ForEach-Object {
+        Copy-Item $_.FullName $zipStaging -Recurse -Force
+    }
+    Compress-Archive -Path (Join-Path $zipStaging '*') -DestinationPath $zipPath -CompressionLevel Optimal -Force
+    Remove-Item $zipStaging -Recurse -Force -ErrorAction SilentlyContinue
+    & gh release create "snapshot-$timestamp" $zipPath --repo $GitHubRepo --notes "Snapshot before update $Version. Verdict $Verdict. Memory tier in repo tree at backups/$timestamp/memory/; this zip contains everything else." --title "Snapshot $timestamp" 2>&1 | Out-Null
 
     Write-Host "Pushed: https://github.com/$GitHubRepo/tree/main/backups/$timestamp" -ForegroundColor Green
     Write-Host "Release: https://github.com/$GitHubRepo/releases/tag/snapshot-$timestamp" -ForegroundColor Green

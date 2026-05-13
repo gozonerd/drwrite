@@ -24,11 +24,18 @@ param(
 # Per locked decision #6: Claude Desktop + Claude Code only.
 # Cursor / JetBrains AI / VS Code Claude ext are out of v1 scope.
 # PowerShell process matching is case-insensitive — list distinct names only.
+#
+# 'claude' is the only name validated by dry-run on Krystal's Windows machine
+# (2026-05-12) — caught both Claude Desktop main process AND Claude Code CLI.
+# The other names are best-effort: 'Claude Helper' is the macOS pattern;
+# 'ClaudeDesktop' and 'AnthropicClaude' are speculative for alternate
+# installer naming. They return nothing if not present (no harm); kept
+# defensively for cross-machine portability and future installer changes.
 $claudeProcessNames = @(
-    'Claude Helper',   # Claude Desktop helper
-    'ClaudeDesktop',   # Alternate naming
-    'claude',          # Both Claude Desktop main process AND Claude Code CLI
-    'AnthropicClaude'  # Traditional installer process name
+    'Claude Helper',   # Speculative — macOS-style helper naming
+    'ClaudeDesktop',   # Speculative — alternate naming
+    'claude',          # VALIDATED 2026-05-12 — both Desktop main + Code CLI
+    'AnthropicClaude'  # Speculative — possible traditional installer name
 )
 
 $running = @{}

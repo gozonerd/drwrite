@@ -1,6 +1,6 @@
 ---
 name: app-update-rec
-description: "Use this skill whenever an app update is asking to relaunch — particularly Claude Desktop or Claude Code, where prior versions have produced data-loss incidents. The skill runs (a) live research aggregating GitHub issues, Anthropic official channels, and community signal to produce a 🟢/🟡/🔴 verdict for the specific version about to install, AND (b) a tiered backup of Krystal's irreplaceable Claude state to a private GitHub repo. Triggers on '/app-update-rec', 'app-update-rec', 'an update is asking to relaunch', or when the user mentions a Claude Desktop or Claude Code update prompt."
+description: "Use this skill whenever an app update is asking to relaunch — particularly Claude Desktop or Claude Code, where prior versions have produced data-loss incidents. The skill runs (a) live research aggregating GitHub issues, Anthropic official channels, and community signal to produce a 🟢/🟡/🔴/⚪ verdict for the specific version about to install, AND (b) a tiered backup of Krystal's irreplaceable Claude state to a private GitHub repo. Triggers on '/app-update-rec', 'app-update-rec', 'an update is asking to relaunch', or when the user mentions a Claude Desktop or Claude Code update prompt."
 version: v01_I
 authored_by: Clauda App-Update-Rec Architect v01 (Claude Opus 4.7, Claude Code, _grand_repo worktree awesome-lamport-428434)
 authored_with: Krystal Jazmin Martinez (carrier, configuration architect)
@@ -40,7 +40,7 @@ These were settled with Krystal (2026-05-12) and must be preserved unless she ex
 - User mentions a Claude Desktop or Claude Code update prompt ("an update is asking me to relaunch", "Claude wants me to update")
 - Right after the user describes seeing the relaunch dialog
 
-Optionally takes a version-string argument: `/app-update-rec 1.7196.0`. If omitted, the skill attempts auto-detection via `Get-AppxPackage Claude*` (Windows MSIX) or `Get-ItemProperty` on installed-apps registry (traditional installer).
+Optionally takes a version-string argument: `/app-update-rec 1.7196.0`. If omitted, the skill attempts auto-detection via `Get-AppxPackage` (Windows MSIX, filtered by Anthropic publisher) and Test-Path on known traditional/AnthropicClaude install dirs. See `scripts/Get-AppPaths.ps1` for the actual detection logic.
 
 ## Overall Flow
 
@@ -70,14 +70,16 @@ Optionally takes a version-string argument: `/app-update-rec 1.7196.0`. If omitt
 Before any other phase. Failures abort with exit non-zero and a clear message.
 
 1. **Detect Claude installations** (PowerShell, via `scripts/Get-AppPaths.ps1`):
-   - Claude Desktop MSIX: `Get-AppxPackage Claude*` → resolves to `%LOCALAPPDATA%\Packages\<PackageFamilyName>\LocalCache\Roaming\Claude\`
-   - Claude Desktop traditional: `%APPDATA%\Claude\` or `%LOCALAPPDATA%\AnthropicClaude\`
-   - Claude Code: `~\.claude\` (user-level) + any per-project `.claude/` overrides
-   - OneDrive redirection: check whether `%USERPROFILE%` is under a OneDrive-redirected path; follow real paths if so
+   - Claude Desktop MSIX: `Get-AppxPackage -Name "*Claude*"` filtered to publisher matching `Anthropic` → resolves to `%LOCALAPPDATA%\Packages\<PackageFamilyName>\` as the MSIX scaffolding root (note: actual MSIX *config* on Krystal's machine lands in `%APPDATA%\Claude\` despite being MSIX-installed — the Traditional path captures the real data)
+   - Claude Desktop traditional: `%APPDATA%\Claude\`
+   - Anthropic Local: `%LOCALAPPDATA%\AnthropicClaude\`
+   - Claude Code: `~\.claude\` (user-level) + per-project memory dirs at `~\.claude\projects\<project>\memory\`
+   - OneDrive redirection: check `$env:OneDrive` + reparse-point Target on `%USERPROFILE%`; follow real paths if so
 
 2. **Detect running processes** (PowerShell, via `scripts/Test-AppRunning.ps1`):
-   - Process names: `Claude`, `Claude Helper`, `ClaudeDesktop`, `claude` (CLI), `Code` (VS Code with Claude ext active — heuristic via window title or extension host process)
-   - If ANY of these are found running: **refuse to proceed**. Print: "Quit the following before re-running: <process list>." Exit code 1.
+   - Process names checked: `claude` (VALIDATED — catches both Desktop main + Code CLI on Windows), `Claude Helper`, `ClaudeDesktop`, `AnthropicClaude` (speculative — return nothing if not present)
+   - Per locked decision #6: Cursor / JetBrains AI / VS Code Claude ext are **NOT** checked in v1
+   - If ANY of the checked process names returns a running process: **refuse to proceed**. Print: "Quit the following before re-running: <process list>." Exit code 1.
    - No override flag. Per locked decision #3.
 
 3. **Verify GitHub backup repo accessible** (`gh repo view nerdykrystal/backups --json visibility`):
@@ -115,7 +117,9 @@ Output to user includes an **evidence ledger** — every claim cites a URL and t
 
 ### Typed acknowledgment for 🔴
 
-If verdict is 🔴, the skill displays:
+The prompt-and-verify loop is **the Claude operator's responsibility, not the PowerShell script's.** Claude displays the prompt, reads the user's response, validates it against the locked string, and only then invokes `Backup-ClaudeState.ps1` with the verdict argument. If the user fails verification, Claude aborts before invoking the script — the script trusts the verdict it receives.
+
+If verdict is 🔴, Claude displays:
 
 > **Verdict: 🔴 RED**
 > Evidence: [ledger]
@@ -141,9 +145,9 @@ If verdict is ⚪: backup proceeds, but install-decision is surfaced as "your ca
 
 ## Phase 3: Backup
 
-**/time-task start "app-update-rec backup phase" est=10 class=skill-authoring**
+**/time-task start "app-update-rec backup phase" est=10 class=propagation**
 
-(Class here is `skill-authoring` because backup is a structured artifact-production task; the snapshot is the artifact.)
+(Class here is `propagation` per /time-task taxonomy: "running a script that copies / installs canonical artifacts to target repos." The snapshot is the artifact being propagated to local + GH backup tier.)
 
 ### Tiered sources
 
@@ -159,7 +163,7 @@ Robocopy each tier into `<backup-root>\<timestamp>\<tier-name>\` with flags `/CO
 
 ### Manifest
 
-`<backup-root>\<timestamp>\manifest.json` containing:
+`<backup-root>\<timestamp>\manifest.json` containing (matches `Backup-ClaudeState.ps1` output schema):
 
 ```json
 {
@@ -167,20 +171,25 @@ Robocopy each tier into `<backup-root>\<timestamp>\<tier-name>\` with flags `/CO
   "created_utc": "<ISO 8601>",
   "claude_desktop_version_detected": "<version-or-null>",
   "claude_code_version_detected": "<version-or-null>",
+  "version_about_to_install": "<arg-or-undetected>",
   "os_version": "<windows-build>",
   "os_user": "NerdyKrystal",
-  "verdict": "🟢|🟡|🔴|⚪",
-  "evidence_ledger_summary": "<one-line>",
+  "machine_id": "<hostname>",
+  "onedrive_redirected": true_or_false,
+  "verdict": "GREEN|YELLOW|RED|ABSTAIN",
   "tiers": {
-    "memory": { "source": "<path>", "file_count": N, "byte_count": N, "sha256": "<hash>" },
-    "dotclaude": { "source": "<path>", "file_count": N, "byte_count": N },
-    "config": [ {...}, {...} ],
-    "worktrees_dirty": [ { "name": "<worktree>", "bundle": "<path>", "git_head": "<sha>" } ],
-    "scratch": { ... }
-  },
-  "machine_id": "<hostname>"
+    "memory": [
+      { "source": "<path>", "dest": "<path>", "file_count": N, "byte_count": N, "robocopy_exit": N, "success": true, "sha256": "<hash>" }
+    ],
+    "dotclaude": { "source": "<path>", "dest": "<path>", "file_count": N, "byte_count": N, "robocopy_exit": N, "success": true },
+    "config": [ {...} ],
+    "worktrees_dirty": [ { "name": "<worktree>", "worktree": "<full path>", "git_head": "<sha>", "bundle": "<path>", "dirty_lines": N } ],
+    "scratch": { "grand_repo_root": "<path>", "untracked_count": N, "note": "..." }
+  }
 }
 ```
+
+Note: `verdict` is recorded as the plain label (GREEN/YELLOW/RED/ABSTAIN), not the emoji, for JSON portability.
 
 ### Push to GitHub
 
@@ -199,22 +208,29 @@ Releases support up to 2GB per asset (well within `.claude` tree sizes typical f
 
 ## Restore (separate invocation)
 
-`/app-update-rec restore <snapshot_id> [--component=Memory|Dotclaude|Config|Worktrees|All] [--dry-run]`
+```powershell
+.\scripts\Restore-ClaudeState.ps1 -SnapshotId <snapshot-id> [-Component Memory|Dotclaude|Config|Worktrees|All] [-DryRun:$true|$false] [-Force] [-FromGitHub] [-BackupRoot <path>]
+```
 
-- Default to `--dry-run` (preview only)
-- `--force` to actually write
-- Refuses to overwrite non-empty memory dir without `--force` (so newer auto-created entries aren't stomped)
-- Logs every restored file
+- Default is dry-run (preview only); `-Force` writes
+- Refuses to overwrite non-empty memory dir without `-Force` (so newer auto-created entries aren't stomped)
+- Logs every restored file to `<snapshot-dir>\restore-<tier>.log`
 - Re-hashes memory dir after restore; compares against manifest's recorded SHA256
+- `-FromGitHub` downloads the release asset for `snapshot-<id>` from `nerdykrystal/backups` and unzips before restoring
 
-## Prune (separate invocation)
+## Prune (separate invocation, NOT YET IMPLEMENTED in v01_I)
 
-`/app-update-rec prune [--keep-last=N]`
+`Prune-ClaudeBackups.ps1` is planned. Interface will be:
 
-- Default `--keep-last=10` — floor per locked decision #7
-- Refuses to accept `--keep-last` < 10
-- Never invoked automatically; only when user explicitly runs prune
+```powershell
+.\scripts\Prune-ClaudeBackups.ps1 [-KeepLast N]
+```
+
+- Default `-KeepLast 10` — floor per locked decision #7
+- Refuses to accept `-KeepLast` < 10
+- Never invoked automatically; only when user explicitly runs the script
 - Prompts before deletion of each snapshot to be removed
+- Operates on both local backup root AND `nerdykrystal/backups` repo (commits removal + deletes corresponding GH release)
 
 ## Anti-patterns
 
