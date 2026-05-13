@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "canonical_repo": "Martinez-Methods/mm-claude-canonical",
-  "canonical_sha": "c09ca7c3d11801fcc00a6e3515bd1855bd4fbd9c",
+  "canonical_sha": "e26a5f4c15a1725479920f19de4ec444bc908af5",
   "d2r_repo": "Martinez-Methods/mm-d2r-code-plan-stack",
   "d2r_sha": "b9385be41fa71e6231296e83292b8515d8c35461",
-  "propagated_at": "2026-05-13T07:52:49Z",
+  "propagated_at": "2026-05-13T08:19:37Z",
   "tier": "full",
   "skills_propagated": ["app-update-rec", "asae-render", "author-role-definition", "author-role-lockin-skill", "author-role-manifest", "author-role-propagation-script", "bit-by-tiny-bit", "calibrate-estimates", "create-database", "diagram-pack", "dmis", "le-prompt-brief", "new-repo", "no-man", "onboarding-trial", "present-and-defend", "print-from-html", "rebrand-sweep", "role-definition-calibration-inevitability", "role-definition-engagement-genius", "role-definition-excellence-inevitability", "role-definition-floor-inevitability", "role-definition-reliability-compositor", "role-definition-serene-knuth", "role-definition-spec-genius", "role-definition-substrate-witness-genius", "scope-recap", "time-task", "upgrade-bundle", "write-avd", "write-prd", "write-pscad", "write-tqvcd", "write-trd"],
   "skills_skipped_local": ["ai-self-audit-edit", "asae", "best-practices-reading-journal", "bpmn-ai-orchestration", "claudette-the-code-debugger", "dare-to-rise-code-plan", "define-your-role-literal", "file-presentation", "file-versioning", "graphviz-ai-orchestration", "html-interactive-ai-orchestration", "ideate-to-d2r-ready", "mermaid-ai-orchestration", "plantuml-ai-orchestration", "print-docx", "react-best-practices", "reinforced-fenced-block", "role-definition-value-genius", "run-parallel-threads", "super-reinforced-fenced-block", "unified-deep-research", "update-backlog", "walk-me-through", "write-uxd"],
   "rules_count": 17,
-  "references_count": 34
+  "references_count": 35
 }
