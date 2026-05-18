@@ -1,0 +1,312 @@
+#!/usr/bin/env bash
+#
+# asae-stop-check-v01 — ASAE Stop hook wrapper (Layer 2 of 4)
+#
+# authored_by:     Clauda W. Value Genius v03 (Claude Sonnet 4.6)
+# gate_context:    Phase B wrapper 1 of 4 — Wave 0 Layer-2 hook authorship
+# contract_ref:
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/adapters/claude-code/_spec.md
+#     §3.2 (Stop hook — required behavior)
+#     §4   (refusal semantics — JSON + exit 2)
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/references/
+#     validator-binaries-spec.md §1 (C1: frontmatter validator)
+#     validator-binaries-spec.md §3 (C3: recovery-events validator)
+# canonical_ssot_path:
+#   C:/Users/NerdyKrystal/martinez-methods/mm-claude-canonical/hooks/
+#     asae-stop-check-v01
+# propagation_note:
+#   This file propagates to consumer repos at:
+#     .githooks/hooks/asae-stop-check.sh
+#   via wire-consumer-repo.sh (same pattern as commit-msg-v08/v09 → .githooks/commit-msg).
+#   Consumer repos invoke this script as:
+#     bash "${REPO_ROOT}/.githooks/hooks/asae-stop-check.sh"
+#   per settings.json Stop hook binding.
+# created: 2026-05-18
+#
+# SEMANTIC INTENT (adapter spec §3.2):
+#   Thread is about to stop. Refuse if:
+#     (a) any gate log under deprecated/asae-logs/gate-NN-* is open (no
+#         CONFIRMED-closed verdict detected in its body), OR
+#     (b) the session-state file .claude/scratch/asae-session-state.json
+#         declares in-flight gate entries, OR
+#     (c) the C3 recovery-events validator reports unmatched mid-flight failures.
+#   Pass silently (exit 0) when all gates are closed and no recovery is required.
+#   Fail-closed: any internal error → refuse.
+#
+# VALIDATORS INVOKED:
+#   C1 — asae-validate-frontmatter-v05.py
+#          Invoked against each gate log file found in deprecated/asae-logs/.
+#          Structural frontmatter check; BLOCK-severity = gate is malformed.
+#   C3 — asae-validate-recovery-events.py
+#          Invoked once with synthesized thread-state JSON built from:
+#            - session-state file (if present)
+#            - open gate logs (as proxy for in-flight activity)
+#          Refusal if unmatched mid-flight failures exist.
+#   NOTE: open-gate detection (audit (a) and (b) above) is performed by this
+#   wrapper in bash BEFORE invoking validators. C1 is invoked as a secondary
+#   structural check on each gate log found. C3 is invoked to check recovery
+#   discipline. The primary open-gate refusal path does NOT depend on either
+#   validator — it fires from the bash scan directly (fail-closed posture).
+#
+# REFUSAL OUTPUT FORMAT (adapter spec §4.2):
+#   Stdout JSON:
+#     {"hookSpecificOutput":{"hookEventName":"Stop","permissionDecision":"deny",
+#      "permissionDecisionReason":"<diagnostic>"}}
+#   Exit 2 as fallback.
+#
+# MANUAL SMOKE TEST (run from repo root after symlinking/copying to .githooks/hooks/):
+#   # Expect pass (no gate logs, no session state):
+#   echo '{"session_id":"test"}' | bash .githooks/hooks/asae-stop-check.sh
+#   echo "exit: $?"
+#
+#   # Expect refusal (gate log present with no CONFIRMED verdict):
+#   mkdir -p deprecated/asae-logs
+#   echo "# gate log without CONFIRMED" > deprecated/asae-logs/gate-01-test-2026-05-18.md
+#   echo '{}' | bash .githooks/hooks/asae-stop-check.sh
+#   echo "exit: $?"
+#   rm deprecated/asae-logs/gate-01-test-2026-05-18.md
+#
+#   # Expect refusal (session-state with open gate):
+#   mkdir -p .claude/scratch
+#   printf '{"in_flight_gates":[{"gate_id":"gate-01","status":"open"}]}' \
+#     > .claude/scratch/asae-session-state.json
+#   echo '{}' | bash .githooks/hooks/asae-stop-check.sh
+#   echo "exit: $?"
+#   rm .claude/scratch/asae-session-state.json
+
+set -uo pipefail
+
+# ---------------------------------------------------------------------------
+# VARIABLE RESOLUTION
+# ---------------------------------------------------------------------------
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+VALIDATORS_DIR="${REPO_ROOT}/.githooks/validators"
+
+# Fallback to SSOT canonical path when consumer-repo validators not yet installed
+if [ ! -d "${VALIDATORS_DIR}" ]; then
+    VALIDATORS_DIR="${REPO_ROOT}/scripts/validators"
+fi
+
+AUDIT_LOG_DIR="${REPO_ROOT}/deprecated/asae-logs"
+SESSION_STATE_FILE="${REPO_ROOT}/.claude/scratch/asae-session-state.json"
+
+# ---------------------------------------------------------------------------
+# CLEANUP: temp file trap
+# ---------------------------------------------------------------------------
+_TMPFILES=()
+_cleanup() {
+    for f in "${_TMPFILES[@]+"${_TMPFILES[@]}"}"; do
+        rm -f "$f" 2>/dev/null || true
+    done
+}
+trap _cleanup EXIT
+
+# ---------------------------------------------------------------------------
+# REFUSAL HELPER
+# ---------------------------------------------------------------------------
+refuse_with() {
+    local event="$1"
+    local reason="$2"
+    python3 -c "
+import json, sys
+print(json.dumps({
+    'hookSpecificOutput': {
+        'hookEventName': sys.argv[1],
+        'permissionDecision': 'deny',
+        'permissionDecisionReason': sys.argv[2]
+    }
+}))
+" "$event" "$reason"
+    exit 2
+}
+
+# ---------------------------------------------------------------------------
+# JSON PARSING HELPER — prefer python3; no jq required
+# ---------------------------------------------------------------------------
+_json_get() {
+    # Usage: _json_get <json_file> <dotted.key> [default]
+    # Outputs the string value; returns 1 if key absent or python3 unavailable.
+    local json_file="$1"
+    local key="$2"
+    local default="${3:-}"
+    if command -v python3 >/dev/null 2>&1; then
+        python3 -c "
+import sys, json
+try:
+    d = json.load(open(sys.argv[1]))
+    keys = sys.argv[2].split('.')
+    v = d
+    for k in keys:
+        v = v[k]
+    print(str(v) if v is not None else '')
+except Exception:
+    print(sys.argv[3] if len(sys.argv) > 3 else '')
+" "$json_file" "$key" "$default" 2>/dev/null
+    else
+        echo "$default"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# READ STDIN (Claude Code Stop hook passes event JSON on stdin)
+# Drain stdin to avoid broken-pipe on the calling process.
+# We do not currently need fields from the Stop event payload, but draining
+# is required by the hook contract.
+# ---------------------------------------------------------------------------
+_stdin_file="$(mktemp /tmp/asae-stop-stdin-XXXXXX.json)"
+_TMPFILES+=("${_stdin_file}")
+cat - > "${_stdin_file}" 2>/dev/null || true
+
+# ---------------------------------------------------------------------------
+# CHECK (a): SESSION-STATE FILE — in-flight gate entries
+# ---------------------------------------------------------------------------
+if [ -f "${SESSION_STATE_FILE}" ]; then
+    # Parse the in_flight_gates array via python3
+    # If any entry has status != "closed", refuse.
+    _open_from_state=""
+    if command -v python3 >/dev/null 2>&1; then
+        _open_from_state="$(python3 -c "
+import sys, json
+try:
+    d = json.load(open('${SESSION_STATE_FILE}'))
+    gates = d.get('in_flight_gates', [])
+    open_ids = [g.get('gate_id','?') for g in gates if g.get('status','') != 'closed']
+    if open_ids:
+        print(','.join(open_ids))
+except Exception as e:
+    # Fail-closed: parse error on session state → report as open
+    print('parse-error:' + str(e)[:80])
+" 2>/dev/null)" || true
+    fi
+
+    if [ -n "${_open_from_state}" ]; then
+        refuse_with "Stop" \
+            "ASAE Stop-hook: session-state file declares open gate(s): ${_open_from_state}. Close all gates before thread stops."
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# CHECK (b): SCAN deprecated/asae-logs/ FOR OPEN GATE LOG FILES
+# A gate log is considered "open" if it exists but does not contain a line
+# matching the CONFIRMED-closed verdict pattern.
+# Pattern: "verdict: CONFIRMED" OR "ASAE-Gate:.*strict-.*PASS" in log body.
+# Fail-closed: if we cannot read a log file, treat it as open.
+# ---------------------------------------------------------------------------
+if [ -d "${AUDIT_LOG_DIR}" ]; then
+    _open_logs=""
+    for log_file in "${AUDIT_LOG_DIR}"/gate-[0-9]*-*.md; do
+        # Glob may produce literal string if no files match
+        [ -f "$log_file" ] || continue
+
+        # Check for a closed-verdict marker
+        _is_closed=0
+        if command -v python3 >/dev/null 2>&1; then
+            python3 -c "
+import sys, re
+try:
+    content = open(sys.argv[1], encoding='utf-8', errors='replace').read()
+    # Closed-verdict patterns (case-insensitive):
+    #   'verdict: CONFIRMED'
+    #   'ASAE-Gate: strict-N-PASS' or 'strict-N CONFIRMED'
+    #   'permissionDecision.*deny' would be an open indicator — we look for PASS
+    patterns = [
+        r'verdict\s*:\s*CONFIRMED',
+        r'ASAE-Gate\s*:.*(?:strict-\d+-PASS|PASS)',
+        r'## PASS\b',
+    ]
+    for p in patterns:
+        if re.search(p, content, re.IGNORECASE):
+            sys.exit(0)  # closed
+    sys.exit(1)  # open
+except Exception:
+    sys.exit(1)  # fail-closed
+" "$log_file" 2>/dev/null
+            _is_closed=$?
+        else
+            # python3 unavailable: fail-closed → treat as open
+            _is_closed=1
+        fi
+
+        if [ "${_is_closed}" -ne 0 ]; then
+            _basename="$(basename "$log_file")"
+            if [ -n "${_open_logs}" ]; then
+                _open_logs="${_open_logs}, ${_basename}"
+            else
+                _open_logs="${_basename}"
+            fi
+        fi
+    done
+
+    if [ -n "${_open_logs}" ]; then
+        refuse_with "Stop" \
+            "ASAE Stop-hook: open audit log(s) detected: ${_open_logs}. Close all gates before thread stops."
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# CHECK (c): C3 RECOVERY-EVENTS VALIDATOR
+# Build a minimal thread-state JSON and pipe to asae-validate-recovery-events.py.
+# If validator is absent, fail-closed (refuse).
+# ---------------------------------------------------------------------------
+C3_VALIDATOR="${VALIDATORS_DIR}/asae-validate-recovery-events.py"
+
+if [ -f "${C3_VALIDATOR}" ]; then
+    # Build minimal thread-state JSON for C3.
+    # We synthesize from what we know: empty message history means no failures
+    # to check; the validator will return exit 0 (no recovery required).
+    # If the session-state file has a recovery_events field, forward it.
+    _c3_input_file="$(mktemp /tmp/asae-stop-c3-XXXXXX.json)"
+    _TMPFILES+=("${_c3_input_file}")
+
+    python3 -c "
+import sys, json, os
+
+state_file = '${SESSION_STATE_FILE}'
+out = {
+    'current_time_task_bracket': {'open': False, 'start_timestamp': '', 'task_class': 'other'},
+    'thread_message_history': [],
+    'audit_log_recovery_events': []
+}
+
+if os.path.isfile(state_file):
+    try:
+        d = json.load(open(state_file))
+        if 'current_time_task_bracket' in d:
+            out['current_time_task_bracket'] = d['current_time_task_bracket']
+        if 'thread_message_history' in d:
+            out['thread_message_history'] = d['thread_message_history']
+        if 'audit_log_recovery_events' in d:
+            out['audit_log_recovery_events'] = d['audit_log_recovery_events']
+    except Exception:
+        pass  # session-state parse error: use empty defaults (fail-safe for C3)
+
+print(json.dumps(out))
+" 2>/dev/null > "${_c3_input_file}" || printf '{"current_time_task_bracket":{"open":false,"start_timestamp":"","task_class":"other"},"thread_message_history":[],"audit_log_recovery_events":[]}' > "${_c3_input_file}"
+
+    _c3_exit=0
+    _c3_output="$(python3 "${C3_VALIDATOR}" < "${_c3_input_file}" 2>/dev/null)" || _c3_exit=$?
+
+    if [ "${_c3_exit}" -ne 0 ]; then
+        # Parse reason from C3 output if available
+        _c3_reason="$(python3 -c "
+import sys, json
+try:
+    d = json.loads(sys.argv[1])
+    print(d.get('reason', 'unmatched mid-flight failure(s) detected'))
+except Exception:
+    print('recovery-events validator refused (exit ${_c3_exit})')
+" "${_c3_output}" 2>/dev/null)" || _c3_reason="recovery-events validator refused"
+
+        refuse_with "Stop" \
+            "ASAE Stop-hook: C3 recovery-events check failed — ${_c3_reason}. Log all mid-flight failure recovery events before thread stops."
+    fi
+else
+    # Validator binary absent — fail-closed: refuse with diagnostic
+    refuse_with "Stop" \
+        "ASAE Stop-hook: C3 validator not found at ${C3_VALIDATOR}. Cannot verify recovery discipline. Install validators before stopping."
+fi
+
+# ---------------------------------------------------------------------------
+# ALL CHECKS PASSED — exit 0 (silent pass per spec §3.2)
+# ---------------------------------------------------------------------------
+exit 0

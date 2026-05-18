@@ -1,0 +1,267 @@
+#!/usr/bin/env bash
+#
+# asae-preuse-agent-check-v01 — ASAE PreToolUse/Agent hook wrapper (Layer 2 of 4)
+#
+# authored_by:     Clauda W. Value Genius v03 (Claude Sonnet 4.6)
+# gate_context:    Phase B wrapper 2 of 4 — Wave 0 Layer-2 hook authorship
+# contract_ref:
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/adapters/claude-code/_spec.md
+#     §3.3 (PreToolUse-on-Agent — required behavior)
+#     §4   (refusal semantics — JSON + exit 2)
+#     §7.2 (PreToolUse-Agent validator invocation — concrete runnable example)
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/references/
+#     validator-binaries-spec.md §2 (C2: subagent-brief validator)
+#     validator-binaries-spec.md §3 (C3: recovery-events validator — retry path)
+# canonical_ssot_path:
+#   C:/Users/NerdyKrystal/martinez-methods/mm-claude-canonical/hooks/
+#     asae-preuse-agent-check-v01
+# propagation_note:
+#   This file propagates to consumer repos at:
+#     .githooks/hooks/asae-preuse-agent-check.sh
+#   via wire-consumer-repo.sh.
+#   Consumer repos invoke this script as:
+#     bash "${REPO_ROOT}/.githooks/hooks/asae-preuse-agent-check.sh"
+#   per settings.json PreToolUse (matcher: Agent|Task) hook binding.
+# created: 2026-05-18
+#
+# SEMANTIC INTENT (adapter spec §3.3):
+#   Before any Agent/Task tool call executes, validate that the subagent brief
+#   (the Agent tool's `input.prompt` field) conforms to the 8-field required
+#   schema defined in references/subagent-brief-schema.md.
+#   Refuse delegation if the brief is absent, non-YAML, or schema-invalid.
+#   On retry of a previously-failed delegation: additionally invoke C3
+#   (recovery-events) to verify the prior failure was logged before retry.
+#
+# VALIDATORS INVOKED:
+#   C2 — asae-validate-subagent-brief.py
+#          Primary validator. Reads the subagent brief from a temp file.
+#          Exit 1 from C2 → refuse delegation.
+#   C3 — asae-validate-recovery-events.py (RETRY PATH ONLY)
+#          Invoked only when session state indicates this Agent call is a retry
+#          of a previously failed delegation (heuristic: session-state file has
+#          an entry for the same prompt or a failed-delegation flag).
+#          Exit 1 from C3 → refuse retry until recovery event is logged.
+#
+# REFUSAL OUTPUT FORMAT (adapter spec §4.2):
+#   Stdout JSON:
+#     {"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny",
+#      "permissionDecisionReason":"<diagnostic>"}}
+#   Exit 2 as fallback.
+#
+# MANUAL SMOKE TEST (run from repo root after symlinking/copying to .githooks/hooks/):
+#   # Expect refusal (empty/invalid brief):
+#   printf '{"tool_name":"Agent","input":{"prompt":""}}' \
+#     | bash .githooks/hooks/asae-preuse-agent-check.sh
+#   echo "exit: $?"
+#
+#   # Expect refusal (brief missing required fields):
+#   printf '{"tool_name":"Agent","input":{"prompt":"role_manifest_reference: foo.yaml\nasae_mode: free-flow\n"}}' \
+#     | bash .githooks/hooks/asae-preuse-agent-check.sh
+#   echo "exit: $?"
+#
+#   # Expect pass (valid minimal brief — must satisfy all 8 fields):
+#   VALID_BRIEF=$(python3 -c "
+# import yaml, json, sys
+# brief = {
+#   'role_manifest_reference': 'C:/Users/NerdyKrystal/martinez-methods/mm-claude-canonical/role-manifests/clauda-the-value-genius.yaml',
+#   'asae_mode': 'code-build',
+#   'scope': {'target': 'test', 'sources': ['x'], 'expected_return_format': 'report'},
+#   'step_6_7_rater_protocol_clause': {'subagent_spawns_own_raters': False, 'parent_spawns_raters_after_return': True},
+#   'null_clean_counter_inheritance': True,
+#   'time_task_bracketing': {'estimate_minutes': 30, 'class': 'new-authorship'},
+#   'parent_persona_attribution': 'Clauda W. Value Genius v03',
+#   'downstream_handoff_expectations': 'none'
+# }
+# print(json.dumps({'tool_name': 'Agent', 'input': {'prompt': yaml.dump(brief)}}))
+# ")
+#   echo "${VALID_BRIEF}" | bash .githooks/hooks/asae-preuse-agent-check.sh
+#   echo "exit: $?"
+
+set -uo pipefail
+
+# ---------------------------------------------------------------------------
+# VARIABLE RESOLUTION
+# ---------------------------------------------------------------------------
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+VALIDATORS_DIR="${REPO_ROOT}/.githooks/validators"
+
+if [ ! -d "${VALIDATORS_DIR}" ]; then
+    VALIDATORS_DIR="${REPO_ROOT}/scripts/validators"
+fi
+
+SESSION_STATE_FILE="${REPO_ROOT}/.claude/scratch/asae-session-state.json"
+
+# ---------------------------------------------------------------------------
+# CLEANUP: temp file trap
+# ---------------------------------------------------------------------------
+_TMPFILES=()
+_cleanup() {
+    for f in "${_TMPFILES[@]+"${_TMPFILES[@]}"}"; do
+        rm -f "$f" 2>/dev/null || true
+    done
+}
+trap _cleanup EXIT
+
+# ---------------------------------------------------------------------------
+# REFUSAL HELPER
+# ---------------------------------------------------------------------------
+refuse_with() {
+    local event="$1"
+    local reason="$2"
+    python3 -c "
+import json, sys
+print(json.dumps({
+    'hookSpecificOutput': {
+        'hookEventName': sys.argv[1],
+        'permissionDecision': 'deny',
+        'permissionDecisionReason': sys.argv[2]
+    }
+}))
+" "$event" "$reason"
+    exit 2
+}
+
+# ---------------------------------------------------------------------------
+# READ STDIN — Claude Code passes the PreToolUse event JSON on stdin
+# Extract input.prompt field (the subagent brief text)
+# ---------------------------------------------------------------------------
+_stdin_file="$(mktemp /tmp/asae-preuse-stdin-XXXXXX.json)"
+_TMPFILES+=("${_stdin_file}")
+cat - > "${_stdin_file}" 2>/dev/null || true
+
+# Extract the prompt field from the hook event JSON
+_brief_tmpfile="$(mktemp /tmp/asae-brief-XXXXXX.yaml)"
+_TMPFILES+=("${_brief_tmpfile}")
+
+_extract_exit=0
+python3 -c "
+import sys, json
+try:
+    with open(sys.argv[1]) as fh:
+        d = json.load(fh)
+    # Claude Code PreToolUse event shape:
+    #   { 'tool_name': '<name>', 'input': { 'prompt': '<brief text>', ... } }
+    prompt = d.get('input', {}).get('prompt', '')
+    if not prompt or not str(prompt).strip():
+        sys.stderr.write('ASAE PreToolUse-Agent: input.prompt is absent or empty.\n')
+        sys.exit(1)
+    # Write prompt text to the brief temp file
+    with open(sys.argv[2], 'w', encoding='utf-8') as out:
+        out.write(str(prompt))
+    sys.exit(0)
+except Exception as e:
+    sys.stderr.write('ASAE PreToolUse-Agent: failed to parse hook event JSON: ' + str(e) + '\n')
+    sys.exit(1)
+" "${_stdin_file}" "${_brief_tmpfile}" 2>/dev/null
+_extract_exit=$?
+
+if [ "${_extract_exit}" -ne 0 ]; then
+    refuse_with "PreToolUse" \
+        "ASAE PreToolUse-Agent: subagent brief is absent or unreadable in hook event payload. Agent delegation refused. Provide a valid brief with all 8 required fields."
+fi
+
+# ---------------------------------------------------------------------------
+# C2 VALIDATOR — asae-validate-subagent-brief.py
+# ---------------------------------------------------------------------------
+C2_VALIDATOR="${VALIDATORS_DIR}/asae-validate-subagent-brief.py"
+
+if [ ! -f "${C2_VALIDATOR}" ]; then
+    refuse_with "PreToolUse" \
+        "ASAE PreToolUse-Agent: C2 validator not found at ${C2_VALIDATOR}. Cannot validate subagent brief. Install validators before delegating."
+fi
+
+_c2_output=""
+_c2_exit=0
+_c2_output="$(python3 "${C2_VALIDATOR}" < "${_brief_tmpfile}" 2>/dev/null)" || _c2_exit=$?
+
+if [ "${_c2_exit}" -ne 0 ]; then
+    # Parse human-readable reason from C2 JSON output
+    _c2_reason="$(python3 -c "
+import sys, json
+try:
+    d = json.loads(sys.argv[1])
+    violations = d.get('schema_violations', [])
+    missing = d.get('missing_required_fields', [])
+    parts = []
+    if missing:
+        parts.append('missing required fields: ' + ', '.join(missing))
+    if violations:
+        vdescs = [v.get('field','?') + ' — ' + v.get('violation','?') for v in violations[:3]]
+        parts.append('violations: ' + '; '.join(vdescs))
+    print('. '.join(parts) if parts else 'brief fails schema validation')
+except Exception:
+    print('brief fails schema validation (C2 exit ${_c2_exit})')
+" "${_c2_output}" 2>/dev/null)" || _c2_reason="brief fails schema validation"
+
+    refuse_with "PreToolUse" \
+        "ASAE PreToolUse-Agent: subagent brief fails C2 schema validation — ${_c2_reason}. Conform to references/subagent-brief-schema.md before delegating."
+fi
+
+# ---------------------------------------------------------------------------
+# C3 VALIDATOR — RETRY PATH ONLY
+# Check session-state for a prior failed delegation. If detected, verify
+# a recovery event was logged before allowing the retry.
+# ---------------------------------------------------------------------------
+C3_VALIDATOR="${VALIDATORS_DIR}/asae-validate-recovery-events.py"
+
+_is_retry=0
+if [ -f "${SESSION_STATE_FILE}" ] && [ -f "${C3_VALIDATOR}" ]; then
+    _is_retry="$(python3 -c "
+import sys, json
+try:
+    d = json.load(open('${SESSION_STATE_FILE}'))
+    # Heuristic: session state has a 'failed_delegations' list or
+    # 'thread_message_history' with error-status entries
+    history = d.get('thread_message_history', [])
+    failed = [m for m in history if m.get('status','') in ('error','timeout','refused')]
+    print('1' if failed else '0')
+except Exception:
+    print('0')
+" 2>/dev/null)" || _is_retry=0
+
+    if [ "${_is_retry}" = "1" ]; then
+        _c3_input_file="$(mktemp /tmp/asae-preuse-c3-XXXXXX.json)"
+        _TMPFILES+=("${_c3_input_file}")
+
+        python3 -c "
+import sys, json, os
+state_file = '${SESSION_STATE_FILE}'
+out = {
+    'current_time_task_bracket': {'open': True, 'start_timestamp': '', 'task_class': 'other'},
+    'thread_message_history': [],
+    'audit_log_recovery_events': []
+}
+if os.path.isfile(state_file):
+    try:
+        d = json.load(open(state_file))
+        for key in ('current_time_task_bracket', 'thread_message_history', 'audit_log_recovery_events'):
+            if key in d:
+                out[key] = d[key]
+    except Exception:
+        pass
+print(json.dumps(out))
+" 2>/dev/null > "${_c3_input_file}" || printf '{"current_time_task_bracket":{"open":true,"start_timestamp":"","task_class":"other"},"thread_message_history":[],"audit_log_recovery_events":[]}' > "${_c3_input_file}"
+
+        _c3_exit=0
+        _c3_output="$(python3 "${C3_VALIDATOR}" < "${_c3_input_file}" 2>/dev/null)" || _c3_exit=$?
+
+        if [ "${_c3_exit}" -ne 0 ]; then
+            _c3_reason="$(python3 -c "
+import sys, json
+try:
+    d = json.loads(sys.argv[1])
+    print(d.get('reason', 'unmatched mid-flight failure(s) detected'))
+except Exception:
+    print('recovery-events check failed (exit ${_c3_exit})')
+" "${_c3_output}" 2>/dev/null)" || _c3_reason="recovery-events check failed"
+
+            refuse_with "PreToolUse" \
+                "ASAE PreToolUse-Agent (retry): prior delegation failure has no logged recovery event — ${_c3_reason}. Log the recovery event before retrying delegation."
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# ALL CHECKS PASSED — exit 0 (delegation permitted)
+# ---------------------------------------------------------------------------
+exit 0

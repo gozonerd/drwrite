@@ -1,0 +1,225 @@
+#!/usr/bin/env bash
+#
+# asae-prompt-submit-check-v01 — ASAE UserPromptSubmit hook wrapper (Layer 2 of 4)
+#
+# authored_by:     Clauda W. Value Genius v03 (Claude Sonnet 4.6)
+# gate_context:    Phase B wrapper 4 of 4 — Wave 0 Layer-2 hook authorship
+# contract_ref:
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/adapters/claude-code/_spec.md
+#     §3.5 (UserPromptSubmit — required behavior)
+#     §4   (refusal semantics — JSON + exit 2)
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/references/
+#     validator-binaries-spec.md §5 (C5: ship-intent validator)
+# canonical_ssot_path:
+#   C:/Users/NerdyKrystal/martinez-methods/mm-claude-canonical/hooks/
+#     asae-prompt-submit-check-v01
+# propagation_note:
+#   This file propagates to consumer repos at:
+#     .githooks/hooks/asae-prompt-submit-check.sh
+#   via wire-consumer-repo.sh.
+#   Consumer repos invoke this script as:
+#     bash "${REPO_ROOT}/.githooks/hooks/asae-prompt-submit-check.sh"
+#   per settings.json UserPromptSubmit (matcher: .*) hook binding.
+# created: 2026-05-18
+#
+# SEMANTIC INTENT (adapter spec §3.5):
+#   On every user prompt submission, detect ship/send/hand-off semantic intent
+#   and cross-check against in-flight deliverables manifest. If ship intent is
+#   detected AND ungated deliverables exist, refuse the prompt submission.
+#
+#   Manifest location: .claude/state/in-flight-deliverables.json
+#   If the manifest is absent, C5 invocation is SKIPPED (no deliverables
+#   declared → no ship-before-gate risk to guard against). This is a
+#   deliberate design choice per validator-binaries-spec.md §5 call pattern:
+#   "skip check if manifest absent."
+#
+# VALIDATORS INVOKED:
+#   C5 — asae-validate-ship-intent.py
+#          Reads prompt text from stdin; requires manifest via CLI arg.
+#          Exit 1 → refuse prompt submission.
+#          Exit 2 → fail-closed (refuse).
+#          If manifest absent → skip C5, exit 0.
+#
+# REFUSAL OUTPUT FORMAT (adapter spec §4.2):
+#   Stdout JSON:
+#     {"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","permissionDecision":"deny",
+#      "permissionDecisionReason":"<diagnostic>"}}
+#   Exit 2 as fallback.
+#
+# MANUAL SMOKE TEST (run from repo root after symlinking/copying to .githooks/hooks/):
+#   # Expect pass (no manifest — no in-flight deliverables):
+#   printf '{"prompt":"ship it now"}' \
+#     | bash .githooks/hooks/asae-prompt-submit-check.sh
+#   echo "exit: $?"   # should be 0
+#
+#   # Expect refusal (manifest present with open gate, ship intent in prompt):
+#   mkdir -p .claude/state
+#   printf '[{"file":"/tmp/foo.md","gate_status":"open"}]' \
+#     > .claude/state/in-flight-deliverables.json
+#   printf '{"prompt":"ship it now"}' \
+#     | bash .githooks/hooks/asae-prompt-submit-check.sh
+#   echo "exit: $?"   # should be 2
+#   rm .claude/state/in-flight-deliverables.json
+#
+#   # Expect pass (manifest present but all gates closed):
+#   printf '[{"file":"/tmp/foo.md","gate_status":"closed"}]' \
+#     > .claude/state/in-flight-deliverables.json
+#   printf '{"prompt":"ship it now"}' \
+#     | bash .githooks/hooks/asae-prompt-submit-check.sh
+#   echo "exit: $?"   # should be 0
+#   rm .claude/state/in-flight-deliverables.json
+#
+#   # Expect pass (no ship intent, open gate — not a ship action):
+#   printf '[{"file":"/tmp/foo.md","gate_status":"open"}]' \
+#     > .claude/state/in-flight-deliverables.json
+#   printf '{"prompt":"what is the next step?"}' \
+#     | bash .githooks/hooks/asae-prompt-submit-check.sh
+#   echo "exit: $?"   # should be 0
+#   rm .claude/state/in-flight-deliverables.json
+
+set -uo pipefail
+
+# ---------------------------------------------------------------------------
+# VARIABLE RESOLUTION
+# ---------------------------------------------------------------------------
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+VALIDATORS_DIR="${REPO_ROOT}/.githooks/validators"
+
+if [ ! -d "${VALIDATORS_DIR}" ]; then
+    VALIDATORS_DIR="${REPO_ROOT}/scripts/validators"
+fi
+
+MANIFEST_FILE="${REPO_ROOT}/.claude/state/in-flight-deliverables.json"
+
+# ---------------------------------------------------------------------------
+# CLEANUP: temp file trap
+# ---------------------------------------------------------------------------
+_TMPFILES=()
+_cleanup() {
+    for f in "${_TMPFILES[@]+"${_TMPFILES[@]}"}"; do
+        rm -f "$f" 2>/dev/null || true
+    done
+}
+trap _cleanup EXIT
+
+# ---------------------------------------------------------------------------
+# REFUSAL HELPER
+# ---------------------------------------------------------------------------
+refuse_with() {
+    local event="$1"
+    local reason="$2"
+    python3 -c "
+import json, sys
+print(json.dumps({
+    'hookSpecificOutput': {
+        'hookEventName': sys.argv[1],
+        'permissionDecision': 'deny',
+        'permissionDecisionReason': sys.argv[2]
+    }
+}))
+" "$event" "$reason"
+    exit 2
+}
+
+# ---------------------------------------------------------------------------
+# READ STDIN — Claude Code passes UserPromptSubmit event JSON on stdin
+# Extract `prompt` field (the raw user prompt text)
+# C5 expects the raw prompt text on its own stdin (not the JSON event)
+# ---------------------------------------------------------------------------
+_stdin_file="$(mktemp /tmp/asae-promptsubmit-stdin-XXXXXX.json)"
+_TMPFILES+=("${_stdin_file}")
+cat - > "${_stdin_file}" 2>/dev/null || true
+
+_prompt_tmpfile="$(mktemp /tmp/asae-prompt-text-XXXXXX.txt)"
+_TMPFILES+=("${_prompt_tmpfile}")
+
+_extract_exit=0
+python3 -c "
+import sys, json
+try:
+    with open(sys.argv[1]) as fh:
+        d = json.load(fh)
+    # UserPromptSubmit event shape:
+    #   { 'prompt': '<raw user prompt text>', ... }
+    # Also accepted: { 'message': '<text>' } variant
+    prompt = d.get('prompt', d.get('message', ''))
+    if not prompt or not str(prompt).strip():
+        sys.stderr.write('ASAE UserPromptSubmit: prompt field is absent or empty.\n')
+        sys.exit(1)
+    with open(sys.argv[2], 'w', encoding='utf-8') as out:
+        out.write(str(prompt))
+    sys.exit(0)
+except Exception as e:
+    sys.stderr.write('ASAE UserPromptSubmit: failed to parse hook event JSON: ' + str(e) + '\n')
+    sys.exit(1)
+" "${_stdin_file}" "${_prompt_tmpfile}" 2>/dev/null
+_extract_exit=$?
+
+if [ "${_extract_exit}" -ne 0 ]; then
+    # Cannot extract prompt — fail-closed: refuse
+    refuse_with "UserPromptSubmit" \
+        "ASAE UserPromptSubmit: prompt field absent or unreadable in hook event payload. Prompt submission refused (fail-closed)."
+fi
+
+# ---------------------------------------------------------------------------
+# MANIFEST CHECK — skip C5 entirely if manifest is absent
+# Per spec §5 call pattern: "skip check if manifest absent"
+# Rationale: no manifest → no in-flight deliverables declared → no ship risk.
+# ---------------------------------------------------------------------------
+if [ ! -f "${MANIFEST_FILE}" ]; then
+    exit 0
+fi
+
+# ---------------------------------------------------------------------------
+# C5 VALIDATOR — asae-validate-ship-intent.py
+# ---------------------------------------------------------------------------
+C5_VALIDATOR="${VALIDATORS_DIR}/asae-validate-ship-intent.py"
+
+if [ ! -f "${C5_VALIDATOR}" ]; then
+    # Validator absent with a manifest present — fail-closed: refuse
+    refuse_with "UserPromptSubmit" \
+        "ASAE UserPromptSubmit: C5 validator not found at ${C5_VALIDATOR} but in-flight deliverables manifest is present. Cannot verify ship intent. Install validators before proceeding."
+fi
+
+_c5_output=""
+_c5_exit=0
+_c5_output="$(python3 "${C5_VALIDATOR}" \
+    --in-flight-deliverables-manifest "${MANIFEST_FILE}" \
+    < "${_prompt_tmpfile}" 2>/dev/null)" || _c5_exit=$?
+
+# Exit codes per validator-binaries-spec.md §5:
+#   0 = safe to proceed
+#   1 = refusal required (ship intent + ungated deliverables)
+#   2 = usage error — fail-closed: treat as 1
+# Any other exit code: fail-closed (treat as 1)
+
+if [ "${_c5_exit}" -eq 0 ]; then
+    exit 0
+fi
+
+# Exit 1 or any non-zero (including 2 and crash codes) → refuse
+_c5_reason_file="$(mktemp /tmp/asae-c5-reason-XXXXXX.txt)"
+_TMPFILES+=("${_c5_reason_file}")
+python3 - "${_c5_output}" "${_c5_exit}" > "${_c5_reason_file}" 2>/dev/null <<'PYEOF'
+import sys, json
+try:
+    d = json.loads(sys.argv[1])
+    ungated = d.get('ungated_deliverables', [])
+    matched = d.get('matched_pattern', '')
+    parts = []
+    if matched:
+        parts.append('ship-intent pattern matched: ' + str(matched))
+    if ungated:
+        files = [u.get('file', '?') for u in ungated[:3]]
+        parts.append('ungated deliverable(s): ' + ', '.join(files))
+    msg = '. '.join(parts) if parts else 'ship intent detected with ungated deliverables'
+    sys.stdout.write(msg + '\n')
+except Exception as exc:
+    exit_code = sys.argv[2] if len(sys.argv) > 2 else '?'
+    sys.stdout.write('C5 validator refused (exit ' + exit_code + ')\n')
+PYEOF
+_c5_reason="$(cat "${_c5_reason_file}" 2>/dev/null)" || _c5_reason="ship intent detected with ungated deliverables (C5 exit ${_c5_exit})"
+[ -n "${_c5_reason}" ] || _c5_reason="ship intent detected with ungated deliverables (C5 exit ${_c5_exit})"
+
+refuse_with "UserPromptSubmit" \
+    "ASAE UserPromptSubmit: ship intent detected with ungated deliverable(s) — ${_c5_reason}. Close all gates before shipping."

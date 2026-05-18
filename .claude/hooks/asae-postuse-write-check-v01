@@ -1,0 +1,322 @@
+#!/usr/bin/env bash
+#
+# asae-postuse-write-check-v01 — ASAE PostToolUse/Write|Edit hook wrapper (Layer 2 of 4)
+#
+# authored_by:     Clauda W. Value Genius v03 (Claude Sonnet 4.6)
+# gate_context:    Phase B wrapper 3 of 4 — Wave 0 Layer-2 hook authorship
+# contract_ref:
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/adapters/claude-code/_spec.md
+#     §3.4 (PostToolUse on Write/Edit — required behavior)
+#     §4   (refusal semantics — advisory for PostToolUse per §3.4)
+#   C:/Users/NerdyKrystal/repos/.claude/skills/asae/references/
+#     validator-binaries-spec.md §1 (C1: frontmatter validator)
+#     validator-binaries-spec.md §4 (C4: capability-scope validator)
+# canonical_ssot_path:
+#   C:/Users/NerdyKrystal/martinez-methods/mm-claude-canonical/hooks/
+#     asae-postuse-write-check-v01
+# propagation_note:
+#   This file propagates to consumer repos at:
+#     .githooks/hooks/asae-postuse-write-check.sh
+#   via wire-consumer-repo.sh.
+#   Consumer repos invoke this script as:
+#     bash "${REPO_ROOT}/.githooks/hooks/asae-postuse-write-check.sh"
+#   per settings.json PostToolUse (matcher: Write|Edit) hook binding.
+# created: 2026-05-18
+#
+# SEMANTIC INTENT (adapter spec §3.4):
+#   After a Write or Edit tool call completes, check the written file against:
+#   (1) C1 frontmatter validator — if the file is .md or .yaml/.yml and
+#       matches enforce_paths globs in .asae-policy.
+#   (2) C4 capability-scope validator — if a role manifest is detectable for
+#       the current session, verify the write op is within scope-bounds.
+#
+#   ADVISORY ONLY — this hook does NOT refuse (exit 2) on validator BLOCK.
+#   Per adapter spec §3.4: "PostToolUse is informational; Stop hook is the
+#   enforcement point." On violation, we emit a structured stderr warning.
+#   This is intentional and non-negotiable per spec §3.4.
+#
+#   Exception: C4 exit 2 (usage error — role manifest unloadable) emits an
+#   advisory stderr warning but still does not refuse. Fail-closed posture
+#   for this hook is advisory-level (warn, not block) per §3.4.
+#
+# VALIDATORS INVOKED:
+#   C1 — asae-validate-frontmatter-v05.py
+#          Invoked for .md / .yaml / .yml files matching enforce_paths.
+#          BLOCK severity → stderr warning (advisory).
+#   C4 — asae-validate-capability-scope.py
+#          Invoked with --op-path and --op-type write (or edit).
+#          Exit 1 → stderr warning (advisory).
+#          Exit 2 → stderr warning noting manifest load failure (advisory).
+#
+# REFUSAL OUTPUT FORMAT:
+#   Advisory mode: no stdout JSON deny. Emit diagnostics to stderr only.
+#   Exit 0 always (this hook is informational per §3.4).
+#
+# MANUAL SMOKE TEST (run from repo root after symlinking/copying to .githooks/hooks/):
+#   # Expect advisory warning on .md file with missing frontmatter:
+#   printf '{"tool_name":"Write","tool_result":{"filePath":"/tmp/test-no-frontmatter.md"},"input":{}}' \
+#     > /tmp/test-no-frontmatter.md
+#   printf '{"tool_name":"Write","tool_result":{"filePath":"/tmp/test-no-frontmatter.md"},"input":{}}' \
+#     | bash .githooks/hooks/asae-postuse-write-check.sh
+#   echo "exit: $?"   # should be 0
+#
+#   # Expect clean pass on a non-.md file:
+#   printf '{"tool_name":"Write","tool_result":{"filePath":"/tmp/foo.txt"},"input":{}}' \
+#     | bash .githooks/hooks/asae-postuse-write-check.sh
+#   echo "exit: $?"   # should be 0
+
+set -uo pipefail
+
+# ---------------------------------------------------------------------------
+# VARIABLE RESOLUTION
+# ---------------------------------------------------------------------------
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+VALIDATORS_DIR="${REPO_ROOT}/.githooks/validators"
+
+if [ ! -d "${VALIDATORS_DIR}" ]; then
+    VALIDATORS_DIR="${REPO_ROOT}/scripts/validators"
+fi
+
+ASAE_POLICY_FILE="${REPO_ROOT}/.asae-policy"
+SESSION_STATE_FILE="${REPO_ROOT}/.claude/scratch/asae-session-state.json"
+
+# ---------------------------------------------------------------------------
+# CLEANUP: temp file trap
+# ---------------------------------------------------------------------------
+_TMPFILES=()
+_cleanup() {
+    for f in "${_TMPFILES[@]+"${_TMPFILES[@]}"}"; do
+        rm -f "$f" 2>/dev/null || true
+    done
+}
+trap _cleanup EXIT
+
+# ---------------------------------------------------------------------------
+# NOTE: this hook is advisory only — no refuse_with() needed.
+# We define it for structural consistency across the 4 wrappers,
+# but it is never called in this script.
+# ---------------------------------------------------------------------------
+refuse_with() {
+    local event="$1"
+    local reason="$2"
+    python3 -c "
+import json, sys
+print(json.dumps({
+    'hookSpecificOutput': {
+        'hookEventName': sys.argv[1],
+        'permissionDecision': 'deny',
+        'permissionDecisionReason': sys.argv[2]
+    }
+}))
+" "$event" "$reason"
+    exit 2
+}
+
+# Advisory warning — writes to stderr, does not exit non-zero
+_warn() {
+    local reason="$1"
+    printf '[ASAE PostToolUse-Write advisory] %s\n' "$reason" >&2
+}
+
+# ---------------------------------------------------------------------------
+# READ STDIN — Claude Code passes PostToolUse event JSON on stdin
+# Extract tool_result.filePath field
+# ---------------------------------------------------------------------------
+_stdin_file="$(mktemp /tmp/asae-postuse-stdin-XXXXXX.json)"
+_TMPFILES+=("${_stdin_file}")
+cat - > "${_stdin_file}" 2>/dev/null || true
+
+# Extract file path and tool name from hook event JSON
+_file_path=""
+_tool_name=""
+if command -v python3 >/dev/null 2>&1; then
+    _parsed="$(python3 -c "
+import sys, json
+try:
+    with open(sys.argv[1]) as fh:
+        d = json.load(fh)
+    # PostToolUse event shape:
+    #   { 'tool_name': '<Write|Edit>', 'tool_result': { 'filePath': '<path>' }, 'input': {...} }
+    # Also accepted (some versions): tool_result may be at top level or under result
+    file_path = ''
+    for key in ('tool_result', 'result'):
+        tr = d.get(key, {})
+        if isinstance(tr, dict):
+            file_path = tr.get('filePath', tr.get('file_path', ''))
+            if file_path:
+                break
+    tool_name = d.get('tool_name', d.get('tool', ''))
+    print(file_path + '|' + tool_name)
+except Exception:
+    print('|')
+" "${_stdin_file}" 2>/dev/null)" || _parsed="|"
+
+    _file_path="${_parsed%%|*}"
+    _tool_name="${_parsed##*|}"
+fi
+
+if [ -z "${_file_path}" ]; then
+    # Cannot determine file path — emit advisory and exit clean
+    _warn "could not extract filePath from PostToolUse event; skipping validation."
+    exit 0
+fi
+
+# ---------------------------------------------------------------------------
+# DETERMINE OPERATION TYPE
+# ---------------------------------------------------------------------------
+_op_type="write"
+case "${_tool_name}" in
+    Edit|edit) _op_type="edit" ;;
+    *) _op_type="write" ;;
+esac
+
+# ---------------------------------------------------------------------------
+# DETERMINE FILE EXTENSION
+# ---------------------------------------------------------------------------
+_ext="${_file_path##*.}"
+_ext_lower="$(printf '%s' "${_ext}" | python3 -c "import sys; print(sys.stdin.read().lower())" 2>/dev/null)" || _ext_lower="${_ext}"
+
+# ---------------------------------------------------------------------------
+# CHECK enforce_paths globs from .asae-policy
+# If the file matches enforce_paths, we proceed with C1 validation.
+# If .asae-policy is absent or enforce_paths is not set, default to checking
+# all .md and .yaml/.yml files (SSOT floor — fail-closed on missing policy).
+# ---------------------------------------------------------------------------
+_should_check_frontmatter=0
+
+if [ "${_ext_lower}" = "md" ] || [ "${_ext_lower}" = "yaml" ] || [ "${_ext_lower}" = "yml" ]; then
+    if [ -f "${ASAE_POLICY_FILE}" ] && command -v python3 >/dev/null 2>&1; then
+        # Read enforce_paths from .asae-policy (YAML)
+        _matches="$(python3 -c "
+import sys, os, fnmatch
+try:
+    import yaml
+    with open(sys.argv[1]) as fh:
+        policy = yaml.safe_load(fh)
+    enforce_paths = policy.get('enforce_paths', []) if isinstance(policy, dict) else []
+    file_path = sys.argv[2]
+    if not enforce_paths:
+        # enforce_paths absent — default: check all md/yaml/yml
+        print('1')
+        sys.exit(0)
+    for pattern in enforce_paths:
+        if fnmatch.fnmatch(file_path, pattern) or fnmatch.fnmatch(os.path.basename(file_path), pattern):
+            print('1')
+            sys.exit(0)
+    print('0')
+except ImportError:
+    # PyYAML unavailable — fail-closed: check the file
+    print('1')
+except Exception:
+    # Policy parse error — fail-closed: check the file
+    print('1')
+" "${ASAE_POLICY_FILE}" "${_file_path}" 2>/dev/null)" || _matches="1"
+        _should_check_frontmatter="${_matches}"
+    else
+        # No policy file or no python3 — SSOT floor: check all md/yaml/yml
+        _should_check_frontmatter=1
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# C1 VALIDATOR — asae-validate-frontmatter-v05.py (advisory)
+# ---------------------------------------------------------------------------
+if [ "${_should_check_frontmatter}" = "1" ] && [ -f "${_file_path}" ]; then
+    C1_VALIDATOR="${VALIDATORS_DIR}/asae-validate-frontmatter-v05.py"
+
+    if [ -f "${C1_VALIDATOR}" ]; then
+        _c1_output=""
+        _c1_exit=0
+        _c1_output="$(printf '%s\n' "${_file_path}" | python3 "${C1_VALIDATOR}" 2>/dev/null)" || _c1_exit=$?
+
+        if [ "${_c1_exit}" -eq 1 ]; then
+            # BLOCK-level violation — advisory warning (not refusal per §3.4)
+            _c1_reason="$(python3 -c "
+import sys, json
+try:
+    lines = sys.argv[1].strip().splitlines()
+    if lines:
+        d = json.loads(lines[0])
+        violations = d.get('schema_violations', [])
+        missing = d.get('missing_blocks', [])
+        parts = []
+        if missing:
+            parts.append('missing blocks: ' + ', '.join(missing))
+        if violations:
+            vdescs = [v.get('field','?') + ': ' + v.get('violation','?') for v in violations[:2]]
+            parts.append('; '.join(vdescs))
+        print('. '.join(parts) if parts else 'frontmatter BLOCK')
+    else:
+        print('frontmatter BLOCK (no output from C1)')
+except Exception:
+    print('C1 validator returned exit 1')
+" "${_c1_output}" 2>/dev/null)" || _c1_reason="frontmatter validation BLOCK"
+
+            _warn "C1 frontmatter check — BLOCK on '${_file_path}': ${_c1_reason}. Stop hook will enforce at thread close."
+        elif [ "${_c1_exit}" -eq 2 ]; then
+            _warn "C1 frontmatter check — usage error on '${_file_path}' (C1 exit 2). Continuing advisory pass."
+        fi
+        # C1 exit 0 (PASS/WARN): no advisory needed
+    else
+        _warn "C1 validator not found at ${C1_VALIDATOR}; skipping frontmatter check for '${_file_path}'."
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# C4 VALIDATOR — asae-validate-capability-scope.py (advisory)
+# ---------------------------------------------------------------------------
+C4_VALIDATOR="${VALIDATORS_DIR}/asae-validate-capability-scope.py"
+
+if [ -f "${C4_VALIDATOR}" ]; then
+    # Locate role manifest from session state or .asae-policy
+    _role_manifest=""
+    if [ -f "${SESSION_STATE_FILE}" ] && command -v python3 >/dev/null 2>&1; then
+        _role_manifest="$(python3 -c "
+import sys, json
+try:
+    d = json.load(open('${SESSION_STATE_FILE}'))
+    print(d.get('current_role_manifest', d.get('role_manifest', '')))
+except Exception:
+    print('')
+" 2>/dev/null)" || _role_manifest=""
+    fi
+
+    if [ -n "${_role_manifest}" ] && [ -f "${_role_manifest}" ]; then
+        _c4_output=""
+        _c4_exit=0
+        _c4_output="$(python3 "${C4_VALIDATOR}" \
+            --role-manifest "${_role_manifest}" \
+            --op-path "${_file_path}" \
+            --op-type "${_op_type}" 2>/dev/null)" || _c4_exit=$?
+
+        if [ "${_c4_exit}" -eq 1 ]; then
+            _c4_reason="$(python3 -c "
+import sys, json
+try:
+    d = json.loads(sys.argv[1])
+    parts = []
+    pm = d.get('forbidden_path_match')
+    om = d.get('forbidden_op_match')
+    if pm:
+        parts.append('path matches forbidden glob: ' + pm)
+    if om:
+        parts.append('operation type forbidden: ' + om)
+    print('; '.join(parts) if parts else 'operation denied by scope-bounds')
+except Exception:
+    print('C4 validator returned exit 1')
+" "${_c4_output}" 2>/dev/null)" || _c4_reason="operation denied by scope-bounds"
+
+            _warn "C4 capability-scope check — DENIED for '${_file_path}' (${_op_type}): ${_c4_reason}. Stop hook will enforce at thread close."
+        elif [ "${_c4_exit}" -eq 2 ]; then
+            _warn "C4 capability-scope check — usage error (exit 2). Role manifest may be absent or unreadable. Continuing advisory pass."
+        fi
+        # C4 exit 0: operation permitted — no advisory needed
+    fi
+    # If role manifest not detectable, skip C4 silently (no manifest → no scope-bounds to enforce)
+fi
+
+# ---------------------------------------------------------------------------
+# EXIT CLEAN — PostToolUse is advisory only per adapter spec §3.4
+# Stop hook is the enforcement point.
+# ---------------------------------------------------------------------------
+exit 0
