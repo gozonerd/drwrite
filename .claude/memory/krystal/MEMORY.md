@@ -135,3 +135,4 @@ user: krystal
 - [Krystal taught 7th grade exclusively](reference_krystal_taught_7th_grade.md) — 12-13yo audience for ALL pedagogy examples; don't assume HS/college
 - [Family IS the Syracuse West Side](reference_family_west_side_embedding.md) — 115+ cousins, 5-gen great-grandmother; structurally embedded
 - [Frontier academic lineage handoff](reference_frontier_lineage_handoff.md) — full doc in canonical references; read before lineage-dependent work; verify-discipline applies
+- [Abacus RouteLLM key + how to call it](reference_abacus_routellm_key_and_cloudflare_ua.md) — working key in `super-resume-verification.env` (OneDrive `.api-keys/` today, home after 2026-05-21); a browser User-Agent is REQUIRED (Cloudflare blocks python-urllib → 403 `error code: 1010`); two different 403s — auth/JSON body = wrong key file, `error code: 1010` = Cloudflare UA block (key is fine), so read the body before re-hunting keys
