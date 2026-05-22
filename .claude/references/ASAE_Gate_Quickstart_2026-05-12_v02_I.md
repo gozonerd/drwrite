@@ -2,7 +2,7 @@
 title: ASAE Gate Quickstart — Onboarding for New Threads
 id: ASAE_Gate_Quickstart_2026-05-12
 created: 2026-04-28
-updated: 2026-05-13
+updated: 2026-05-20
 version: v05_I
 classification: INTERNAL ONLY
 audience: martinez_methods_internal
@@ -316,6 +316,8 @@ Eight checks to run after authoring but BEFORE dispatching raters. These catch t
 ## Independent rater spawn (Step 6)
 
 Required for ALL /asae invocations regardless of severity policy. For strict-5 + 2-rater: spawn TWO independent raters via Agent tool from the parent thread (Mod 13 Rule A; sub-agents MUST NOT spawn raters). Each rater gets a self-contained brief (no shared context); each must return CONFIRMED for gate PASS.
+
+**Cross-architectural rater composition + adjudication (REQUIRED reading):** rater rigs must be **≥50% Chinese-architecture (non-Claude)** — same-architecture concurrence is not cross-architectural consensus (five Claude raters agreeing is one substrate agreeing with itself). For how to compose the rig (the ≥50% floor; the kimi→deepseek→glm→qwen order; the Grok hard-exclusion; Gemini-via-Google-only), how to invoke a non-Claude rater (Abacus RouteLLM + the browser-User-Agent requirement), how to attest a rater that has **no Claude agentId** (transport-identity, not the 16-char hex shown below), and — critically — how to **adjudicate** a cross-architectural finding (extract the valid core; neither sycophantically comply nor dismiss), see **`Cross_Architectural_Rater_Patterns_2026-05-20_v01_I.md`**.
 
 **Canonical exemplar:** gate-69 Spec Genius role-definition lock-in rater spawn (2026-04-27, agentId `a091234b0ca0e3b05`). The exemplar's six load-bearing properties are documented at /asae SKILL.md Step 6 Exemplar section. Cite this when uncertain how to structure your brief.
 
@@ -674,7 +676,8 @@ If your gate commit reveals a substantive failure mid-loop and you need to recov
 - `Carry_Marker_Convention_2026-04-28_v01_I.md` (carry-marker schema)
 - `Production_Pattern_Catalog_2026-04-27_v01_I.md` (failure-mode catalog)
 - `Fork_Origin_Catalog_2026-04-28_v01_I.md` (fork-event metadata)
-- Anti-fabrication discipline (rater agentId traceability; not yet a standalone reference — principles documented in "Audit-log structural requirements" + "Independent rater spawn" sections above)
+- `Cross_Architectural_Rater_Patterns_2026-05-20_v01_I.md` (cross-architectural rater composition + selection constraints — ≥50% Chinese-arch, Grok hard-exclusion — + the finding-adjudication pattern: extract-the-valid-core, neither comply nor dismiss; non-Claude transport-identity attestation)
+- Anti-fabrication discipline (rater agentId traceability; not yet a standalone reference — principles documented in "Audit-log structural requirements" + "Independent rater spawn" sections above; for non-Claude raters that have no Claude agentId, see the cross-architectural reference above)
 - Hook v08 / v09 — `mm-claude-canonical/hooks/`
 - Lib scripts — `mm-claude-canonical/scripts/lib/`
 - Wave 0 proposal doc — `docs/ASAE_Quickstart_Additions_From_V03_Wave_0_2026-05-12_v01_I.md`
