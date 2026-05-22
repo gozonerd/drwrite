@@ -12,7 +12,7 @@ provenance: |
   after the gate-22 "affirmatively harmful" adjudication (the central adjudication pattern below).
   Source memories codified here:
     - feedback_cross_architectural_verification_not_cross_vendor.md (the core principle + terminology locks + the FM-18 instances + the 5-Opus-vs-DeepSeek evidence)
-    - feedback_never_use_grok_personal_is_political.md (Grok hard-exclusion; Meta soft-avoid; Gemini-via-Google-only)
+    - feedback_never_use_grok_personal_is_political.md (Grok hard-exclusion; Meta soft-avoid; Gemini routing was Google-API-only — UPDATED 2026-05-20 to via-Abacus per Krystal's spend consolidation)
     - preference_chinese_architecture_rater_rule.md (>=50% Chinese-arch composition + the kimi->deepseek->glm->qwen order)
     - reference_abacus_routellm_key_and_cloudflare_ua.md (operational how-to: invoking Kimi/DeepSeek/Qwen via Abacus RouteLLM)
   Empirical evidence base: gate-50 (Kimi caught a margin-mechanics bug both Claude raters missed),
@@ -40,11 +40,11 @@ The verification value comes from **architectural diversity** — reasoning desi
 ## 3. Selection constraints (which architectures may be in a rig)
 
 - **Composition floor: rater rigs must be ≥50% Chinese-architecture LLMs.** (4-rater rig = ≥2 Chinese-arch; e.g. 2 Opus + 2 Kimi = 50%, compliant. 2-rater rig = 1 Chinese-arch + 1 Claude = 50%.)
-- **Preferred order of Chinese-architecture models** (per the source rater-rule memory): Kimi (verified-live) → DeepSeek (verified-live) → GLM (**untested — smoke-test before relying**) → Qwen (verified-live). GLM is listed 3rd *by preference* but is untested — so until it is smoke-tested, the **usable** order is **Kimi → DeepSeek → Qwen**. One Chinese rater = Kimi; two distinct = Kimi + DeepSeek; a 4-rater rig needs ≥2 Chinese-arch (e.g., Kimi + DeepSeek + 2 Opus, or Kimi + DeepSeek + Qwen + Opus).
+- **Preferred order of Chinese-architecture models** (per the source rater-rule memory): Kimi (verified-live) → DeepSeek (verified-live) → GLM → Qwen (verified-live). **GLM update 2026-05-20:** glm-4.5→5.1 are now live on Abacus (catalog-confirmed); the prior "untested — smoke-test before relying" caveat is **retired to a one-time smoke-test** — run a single rater invocation to confirm it returns, then it's usable in order. One Chinese rater = Kimi; two distinct = Kimi + DeepSeek; a 4-rater rig needs ≥2 Chinese-arch (e.g., Kimi + DeepSeek + 2 Opus, or Kimi + DeepSeek + Qwen + Opus).
 - **The remaining rater(s) are typically Anthropic (Opus) — named by lineage, per §2.** Do NOT relabel this half "American-architecture": that is a geographic aggregator lumping architecturally-distinct lineages (Claude, Gemini, GPT), which undercuts the architecture-not-geography thesis of this whole document. "Chinese-architecture" appears above only as the composition-rule's unit (Kimi/DeepSeek/Qwen, which share enough training-data/ecosystem characteristics to function as one rule-category); for everything else, name the specific lineage. Reserve the x/non-x "Chinese/non-Chinese" framing for when a specific lineage genuinely can't be named.
 - **HARD exclusion — Grok / xAI: NEVER, no exceptions.** Survives any "but Grok is best at X." Personal-is-political (Audre Lorde); no financial flow to xAI. Do not route to it, propose it, or use it via aggregators (Abacus `grok-*`). Configure it OUT at the config layer.
 - **SOFT avoidance — Meta / Llama:** avoid when alternatives exist; document the rationale if genuinely required.
-- **Gemini routing constraint:** Gemini ONLY via the Google API key (Krystal's paid tier), **NEVER via Abacus**, even when Abacus offers it.
+- **Gemini routing (updated 2026-05-20):** Gemini is now used **via Abacus** — Krystal consolidated her spend into Abacus credits rather than splitting Google-API + Abacus. This **supersedes** the prior "Google-API-only, never Abacus" rule. (Only Gemini's routing changed: Grok stays a hard exclusion, Meta stays soft-avoid.)
 - **Operational how-to** (key location, the browser-User-Agent requirement, the two-403 disambiguation): see `memory/krystal/reference_abacus_routellm_key_and_cloudflare_ua.md`. Do not duplicate the recipe here; do not echo the key.
 
 ## 4. Patterns (DO)
@@ -64,7 +64,7 @@ The verification value comes from **architectural diversity** — reasoning desi
 - **A3 — Sycophancy-to-the-rater.** Blindly softening or reversing the user's deliberate methodology stance because a non-Claude rater objected. The rater objecting is a *signal to examine*, not an order to comply.
 - **A4 — Dismissing the differently-formed rater.** Waving off a cross-arch finding as "it lacked context" *without extracting its valid core* — this reproduces the very same-architecture blind spot the rig exists to catch. (This is the bidirectional-credibility-weighting / disciplinary-supremacy failure: under-weighting the differently-formed source.)
 - **A5 — Decorative cross-arch rating.** Running the non-Claude rater for show but never letting its findings actually constrain the artifact.
-- **A6 — Excluded routing.** Grok/xAI in any rig, ever. Gemini via Abacus. Western-default category contamination ("GPT-class / Gemini-class" as "the AI landscape," excluding Kimi/DeepSeek/Qwen) and "-class" prestige suffixes on a subset.
+- **A6 — Excluded routing.** Grok/xAI in any rig, ever (hard rule). Western-default category contamination ("GPT-class / Gemini-class" as "the AI landscape," excluding Kimi/DeepSeek/Qwen) and "-class" prestige suffixes on a subset. *(Gemini-via-Abacus is NO LONGER excluded as of 2026-05-20 — see §3.)*
 - **A7 — Selective scrutiny attached to Chinese models.** Fabricating IP-leakage / paid-action / secret-handling concerns that attach *only* to Chinese-architecture routing and are never raised about identical content flowing through Anthropic/Google/OpenAI. This is FM-18 at the data-governance layer; it overrides the user's informed instruction and co-opts the rigor apparatus. Apply the §P6 symmetric-standards test.
 - **A8 — Operational sloppiness.** Echoing the API key; using the default `python-urllib` User-Agent (Cloudflare blocks it → 403/1010); misdiagnosing a Cloudflare 1010 as an auth failure. See the Abacus reference.
 
@@ -97,7 +97,7 @@ Companion evidence: gate-50 (the same non-Claude rater caught a margin-mechanics
 ## 8. Cross-references
 
 - `memory/krystal/feedback_cross_architectural_verification_not_cross_vendor.md` — the core principle, terminology locks, FM-18 instances, the 5-Opus-vs-DeepSeek evidence, "How to apply" rules.
-- `memory/krystal/feedback_never_use_grok_personal_is_political.md` — Grok hard-exclusion; Meta soft-avoid; Gemini-via-Google-only.
+- `memory/krystal/feedback_never_use_grok_personal_is_political.md` — Grok hard-exclusion; Meta soft-avoid; Gemini routing (Google-API-only → **via-Abacus** as of 2026-05-20; that memo is untracked / another session's and needs the same Gemini update folded in when it is committed).
 - `memory/krystal/reference_abacus_routellm_key_and_cloudflare_ua.md` — operational how-to (key location, browser-UA requirement, the two-403 disambiguation).
 - `<auto-memory>/preference_chinese_architecture_rater_rule.md` — the ≥50% composition floor + kimi→deepseek→glm→qwen order.
 - `references/ASAE_Gate_Quickstart_2026-05-12_v02_I.md` — the gate-authoring quickstart that references this doc (§"Independent rater spawn" + Cross-references).
