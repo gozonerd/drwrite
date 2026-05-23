@@ -33,7 +33,7 @@
 #   ADVISORY ONLY — this hook does NOT refuse (exit 2) on validator BLOCK.
 #   Per adapter spec §3.4: "PostToolUse is informational; Stop hook is the
 #   enforcement point." On violation, we emit a structured stderr warning.
-#   This is intentional and non-negotiable per spec §3.4.
+#   This advisory default is intentional; §3.4 permits optional escalation via scope_declaration_enforcement, so it is the default — not non-negotiable.
 #
 #   Exception: C4 exit 2 (usage error — role manifest unloadable) emits an
 #   advisory stderr warning but still does not refuse. Fail-closed posture
