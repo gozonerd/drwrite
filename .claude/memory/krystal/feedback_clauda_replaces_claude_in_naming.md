@@ -20,12 +20,13 @@ The original Clauda/Claudette binary was workstream-typed as coding (Claudette) 
 | **Claudessa** | Research | Claudessa W. Serene Knuth (raw-data-collection for FM taxonomy research) |
 | **Claudette** | Coding | Claudette W. Calibration Inevitability, Claudette W. Excellence Inevitability, Claudette W. Floor Inevitability, Claudette W. Code Debugger, Claudette W. Failure Fixer, Claudette W. PEK Remediator |
 | **Clauda** | Catch-all (legacy + cross-workstream) | Clauda W. Value Genius, Clauda W. Experiment PI, Clauda W. Spec Genius, Clauda Reliability Compositor |
+| **Claudalisse** | ASAE / convergence-gate stewardship | Claudalisse W. Convergence Genius (ASAE methodology + enforcement steward; ratified 2026-05-23) |
 
 **Clauda remains valid** as the catch-all / legacy / cross-workstream prefix for personas whose workstream doesn't cleanly map to the four-name partition OR whose canonical role-definition pre-dates the 2026-05-12 expansion. The hook accepts Clauda alongside the four typed prefixes.
 
 ## How to apply
 
-1. **Persona / role names** use Clauda, Claudette, Claudessa, Claudolina, or Claudenza per the four-name canon.
+1. **Persona / role names** use Clauda, Claudette, Claudessa, Claudolina, Claudenza, or Claudalisse per the canon.
 2. **Workstream type drives the prefix:**
    - Portfolio work (deck, pitch, valuation, capital narrative) → Claudenza
    - Infrastructure work (canonical SSOT submodule, propagation scripts, repo wiring, hooks plumbing) → Claudolina
@@ -46,6 +47,7 @@ The original Clauda/Claudette binary was workstream-typed as coding (Claudette) 
 - **Claudessa (research):** Serene Knuth (v01; inaugural Claudessa-family persona, ratified 2026-05-12)
 - **Claudolina (infrastructure):** Standpoint Witness
 - **Claudenza (portfolio):** none yet
+- **Claudalisse (ASAE / convergence stewardship):** Convergence Genius (v01; inaugural Claudalisse-family persona, ratified 2026-05-23)
 
 ## Co-landing artifacts (2026-05-12)
 
@@ -56,6 +58,16 @@ The four-name canon update co-lands with:
 - `mm-claude-canonical/scripts/propagate-role-skill-serene-knuth.sh`
 - `mm-claude-canonical/.asae-policy` (schema extension: `type: raw-data-collection` added to the type enum)
 
+## Co-landing artifacts (2026-05-23)
+
+The Claudalisse-family prefix sanction (this update) co-lands with the role lock-in (gate-54):
+- `mm-claude-canonical/docs/Role_Definition_Claudalisse_W_Convergence_Genius_2026-05-23_v01_I.md` (inaugural Claudalisse-family persona)
+- `mm-claude-canonical/role-manifests/claudalisse-convergence-genius.yaml`
+- `mm-claude-canonical/.claude/skills/role-definition-convergence-genius/SKILL.md`
+- `mm-claude-canonical/scripts/propagate-role-skill-convergence-genius.sh`
+
 ## Hook enforcement note
 
-Commit-msg hook v05+ Rule 1 enforces the family-prefix discipline on Co-Authored-By trailers. The hook's regex pattern accepts Clauda/Claudette/Claudessa/Claudolina/Claudenza. If a new family prefix is ever introduced, the hook regex needs a corresponding update (Value Genius scope; flagged as follow-up if the canon expands further beyond the current five prefixes).
+Commit-msg hook v05+ Rule 1 enforces the family-prefix discipline on Co-Authored-By trailers. **Rule 1 is a _negative_ check** — it refuses a persona that begins with the bare word "Claude" (`^[Cc]laude($|[[:space:]]|-|,)`); it does **not** enumerate a positive allowlist. Every sanctioned prefix (Clauda / Claudette / Claudessa / Claudolina / Claudenza / **Claudalisse**) passes because none is the bare token "Claude" (e.g. "Claudalisse" begins "Clauda-"; "Claudette"/"Claudessa"/"Claudenza" have a non-boundary char after "Claude"). **Introducing a new sanctioned prefix therefore needs no hook change — only this canon update.**
+
+> **Correction (2026-05-23, Claudalisse W. Convergence Genius v01):** prior text here stated the regex "accepts Clauda/Claudette/Claudessa/Claudolina/Claudenza" and that a new prefix "needs a hook update." That was inaccurate — the hook only forbids the bare token "Claude" (verified against `hooks/commit-msg-v09` Rule 1). Corrected forward-only; a fuller spec↔enforcement reconciliation of this doc is tracked for a later ASAE gate.

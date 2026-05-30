@@ -2,14 +2,14 @@
 title: ASAE Gate Quickstart — Onboarding for New Threads
 id: ASAE_Gate_Quickstart_2026-05-12
 created: 2026-04-28
-updated: 2026-05-20
-version: v05_I
+updated: 2026-05-30
+version: v06_I
 classification: INTERNAL ONLY
 audience: martinez_methods_internal
 classification_reason: Operational onboarding — eliminates inference-burden gap that surfaced during hook v05+ enforcement adoption; consumed by new threads bootstrapping into ASAE-gated repos.
-authored_by: Clauda the Spec Genius v01 (Claude Opus 4.7, 1M context) — v01-v04. v05_I empirical amendments absorbed by Claudessa W. Serene Knuth v01 (Claude Opus 4.7, 1M context, mm-claude-canonical worktree frosty-torvalds-6b06b0) following the 2026-05-12 inaugural archival run on Martinez-Methods/mm-thread-archive.
-provenance: Methodology Mods Batch 3 Lock A1 (per Batch 3 Handoff §3); v02_I absorbs 6 SSOT-wrangler empirical-lessons amendments per gate-16/17/18 in mm-claude-canonical (Phase 9 + Phase I cluster execution 2026-04-30); v03_I absorbs 4 empirical-lessons amendments from gate-20 propagation infrastructure build (2026-05-11); v04_I absorbs 11 amendments from Calibration Inevitability v03 Wave 0 (8 gates across mm-claude-canonical + _grand_repo, 2026-05-06 through 2026-05-12) + 3 gate-25 empirical hook gotchas (2026-05-12); v05_I absorbs 5 amendments + 2 cross-cutting observations from Claudessa W. Serene Knuth v01 inaugural archival run on Martinez-Methods/mm-thread-archive (3 gates: gate-28 persona lock-in, gate-01 archival, gate-29 canonical registry add; 2026-05-12 → 2026-05-13)
-v05_lineage: v01_I (2026-04-30) inaugural authoring → v02_I (2026-04-30) absorbs 6 SSOT-wrangler amendments → v03_I (2026-05-11) absorbs 4 gate-20 amendments → v04_I (2026-05-12) absorbs Wave 0 pre-author checklist + rater-dispatch protocol + audit-log structural requirements + forward-only-backfill + operational discipline + gate-25 hook format gotchas → v05_I (2026-05-13) absorbs Pass-N standalone-H2 requirement + paired-gate verbatim discipline + subagent plan-mode perception fix + background-task pipe buffering fix + live-source-file mutation handling + worked-example evidence for strict-5+2-rater methodology + pairwise-gate pattern codification
+authored_by: Clauda the Spec Genius v01 (Claude Opus 4.7, 1M context) — v01-v04. v05_I empirical amendments absorbed by Claudessa W. Serene Knuth v01 (Claude Opus 4.7, 1M context, mm-claude-canonical worktree frosty-torvalds-6b06b0) following the 2026-05-12 inaugural archival run on Martinez-Methods/mm-thread-archive. v06_I empirical amendments absorbed by Claudalisse W. Convergence Genius v01 (Claude Opus 4.7, 1M context, mm-claude-canonical worktree amazing-joliot-1db32c) following Hook v10 authoring + dogfood (gate-86; 2026-05-30).
+provenance: Methodology Mods Batch 3 Lock A1 (per Batch 3 Handoff §3); v02_I absorbs 6 SSOT-wrangler empirical-lessons amendments per gate-16/17/18 in mm-claude-canonical (Phase 9 + Phase I cluster execution 2026-04-30); v03_I absorbs 4 empirical-lessons amendments from gate-20 propagation infrastructure build (2026-05-11); v04_I absorbs 11 amendments from Calibration Inevitability v03 Wave 0 (8 gates across mm-claude-canonical + _grand_repo, 2026-05-06 through 2026-05-12) + 3 gate-25 empirical hook gotchas (2026-05-12); v05_I absorbs 5 amendments + 2 cross-cutting observations from Claudessa W. Serene Knuth v01 inaugural archival run on Martinez-Methods/mm-thread-archive (3 gates: gate-28 persona lock-in, gate-01 archival, gate-29 canonical registry add; 2026-05-12 → 2026-05-13); v06_I absorbs 7 amendments from Hook v10 authoring + dogfood by Claudalisse W. Convergence Genius v01 (gate-86; promotes A14-A20 from advisory to refuse-grade via Option B conditional applicability + `domain:` gate pattern; 2026-05-30)
+v06_lineage: v01_I (2026-04-30) inaugural authoring → v02_I (2026-04-30) absorbs 6 SSOT-wrangler amendments → v03_I (2026-05-11) absorbs 4 gate-20 amendments → v04_I (2026-05-12) absorbs Wave 0 pre-author checklist + rater-dispatch protocol + audit-log structural requirements + forward-only-backfill + operational discipline + gate-25 hook format gotchas → v05_I (2026-05-13) absorbs Pass-N standalone-H2 requirement + paired-gate verbatim discipline + subagent plan-mode perception fix + background-task pipe buffering fix + live-source-file mutation handling + worked-example evidence for strict-5+2-rater methodology + pairwise-gate pattern codification → v06_I (2026-05-30) absorbs Hook v10 trigger-conditional frontmatter blocks + `domain:` field requirement + Tier 38 domain consistency check + Rule 1 stale-comment fix (six sanctioned prefixes) + cross-arch finding adjudication pattern + dogfood mechanism for hook upgrades + OneDrive virtualization gotchas + date-verification discipline
 sources:
   - Methodology_Mods_Batch3_Handoff_2026-04-28_v01_I.md (Lock A1 specification)
   - mm-d2r-code-plan-stack/skills/asae/SKILL.md (canonical /asae spec; First moves cross-reference)
@@ -35,6 +35,183 @@ related_artifacts:
 # ASAE Gate Quickstart
 
 For new threads bootstrapping into ASAE-gated Martinez Methods repos. This is the doc to read FIRST when you're about to commit your first ASAE gate; it covers all hook prerequisites + canonical example pointers + procedural minutiae the inference-burden-of-just-reading-/asae-cold misses.
+
+## v06_I empirical-lesson amendments (2026-05-30)
+
+Seven amendments absorbed from the Hook v10 authoring + dogfood run by Claudalisse W. Convergence Genius v01 (gate-86, mm-claude-canonical worktree amazing-joliot-1db32c, 2026-05-30). Hook v10 promotes A14-A20 schema enforcement from advisory to refuse-grade via the **conditional applicability + `domain:` gate pattern (Option B)** — each new tier fires only when its trigger fires; `domain: documentation` gates stay low-friction; `domain: code` triggers the full battery. These amendments document the operational consequences for gate authoring.
+
+1. **Hook v10 is now ACTIVE — A14-A20 frontmatter blocks are required-by-trigger.** For gates dated **2026-05-28+** (`APPLY_V10_TIERS` gate), the following new top-level frontmatter blocks are enforced at refuse-grade by the inline-bash tiers added in v10. Each tier's trigger differs — read the trigger column before deciding whether you can omit a block:
+
+   | New Tier | Aspect | Frontmatter block | Trigger condition (Option B) | When you can OMIT the block |
+   |---|---|---|---|---|
+   | 7  | A14 | `dependencies_attested:` | `domain` ∈ {code, methodology, research} OR staged dep-manifest files (package.json, Cargo.toml, pyproject.toml, *.lock, etc.) | `domain` is document/design/legal/instructional_design/other AND no manifest files staged |
+   | 8  | A15 | `output_execution_boundary:` | Staged diff includes executable-output files (.rs/.ts/.py/.go/.java/.sh/.bash/.ps1/.sql/.yaml/.toml/.json5 or paths under src/, src-tauri/, packages/, crates/, scripts/) | Staged diff is documentation-only |
+   | 9  | A16 | `bias_disclosure:` | `domain` ∈ {code, research} AND (user-facing copy touched OR ML/decision keywords in path: model/classifier/predict/recommend/rank/score/allocat/approv/deni/trial/cohort) | `domain` not code/research, OR no human-facing-decision surface |
+   | 10 | A17 | (no frontmatter block — discipline aspect) | n/a | Always — A17 is rater-verified at Step 6, no hook layer |
+   | 11 | A18 | `capability_scope:` | **ALWAYS-MANDATORY** | Never — every gate has a persona with tool use + path writes |
+   | 12 | A19 | `hai_integrity:` | `capability_scope.autonomy_level: high` | autonomy is low or medium |
+   | 13 | A20 | `identity_attestation:` | **ALWAYS-MANDATORY** | Never — every commit has a primary persona |
+   | 38 | (cross-check) | n/a — refuses on staged-diff vs `domain:` mismatch | `domain: documentation` declared but staged includes code files | Don't declare `domain: documentation` if code is staged |
+
+   See **"v10 trigger-conditional frontmatter blocks"** section below for the full required-schema YAML per block.
+
+2. **The top-level `domain:` field is now load-bearing — not just a /asae spec parameter.** v10's Tier 38 reads the `domain:` field from gate frontmatter and uses it to (a) trigger Tiers 7 and 9 (which condition on domain), AND (b) refuse `domain: documentation` when staged includes code files (mechanical floor against persona mis-classification to dodge code-class tier enforcement). The /asae spec's domain enum is `[document | code | design | research | instructional_design | legal | other]`; v10 also accepts `methodology` for ASAE/hook/methodology-doc authoring (Convergence Genius scope). If your `domain:` field is missing, v10 defaults to `documentation` — the most restrictive default (it triggers Tier 38 if any code is staged, forcing explicit domain declaration on real work).
+
+3. **Rule 1 stale-comment fix (carry-marker closure from gate-54).** The v09 hook's Rule 1 violation message claimed personas must "use 'Clauda' or 'Claudette'" — a two-prefix understatement of the actual enforcement. v10's corrected Rule 1 message accurately documents: (a) the enforcement is a **NEGATIVE check** (`^[Cc]laude($|[[:space:]]|-|,)`) that refuses only the bare literal 'Claude' followed by end-of-string, whitespace, hyphen, or comma; (b) all **six sanctioned family prefixes** pass: **Clauda, Claudette, Claudessa, Claudolina, Claudenza, Claudalisse**. If you're using a new persona prefix, check it against the canon list in `memory/krystal/feedback_clauda_replaces_claude_in_naming.md` before authoring; new prefixes require explicit canon-sanction (handled at the persona's role lock-in gate).
+
+4. **Cross-architectural rater finding adjudication — extract valid core, neither comply nor dismiss.** When the cross-arch rater (typically Kimi via Abacus RouteLLM, satisfying the ≥50%-Chinese-arch rig discipline) flags an observation, the disposition is NOT "comply with the finding" (could break the correct work) NOR "dismiss the rater as wrong" (A4 anti-pattern). Per gate-54 + gate-86 precedent: (a) empirically test the contested claim if testable (run the actual regex, check the actual file); (b) extract the valid core (the rater's finding may name a real issue even if the headline is wrong); (c) correct briefing + re-rate if a briefing error caused the finding; (d) record observations-not-rising-to-findings as design-notes for future gates. Gate-86's "Rater finding adjudication" subsection is the canonical worked example.
+
+5. **Dogfood mechanism for hook version upgrades.** When authoring a new hook version (v(N+1)), the right dogfood mechanism is: **cp the new hook file over `.githooks/commit-msg` BEFORE running the commit that ships v(N+1)**. The active hook at commit time is then v(N+1), so v(N+1) enforces its own gate's audit log. Your gate must satisfy every v(N+1) tier that fires on it. Risks: any bug in the new tier logic refuses your own commit (mitigation: bash -n clean + tier-trigger logic verified per Pass blocks + frontmatter explicitly satisfies every triggering tier before staging). Gate-86's first attempt was refused by v10 on a `step_re_execution: []` empty-list (Quickstart v03_I amendment 3 caught the author by their own methodology) — that refusal was *the methodology working*, not a failure.
+
+6. **OneDrive virtualization workarounds (Windows + OneDrive-synced repo).** Three Windows-OneDrive interactions can cause OSError 22 / mmap-failed errors that aren't methodology issues but block commits:
+
+   - **`git add` mmap failure** — symptom: `fatal: mmap failed: Invalid argument` on `git add`. Fix: `git config core.mmap false && git config core.preloadIndex false && git config core.fscache false` (per-repo or global).
+   - **`git commit` ref-append failure** — symptom: `fatal: cannot update the ref 'HEAD': unable to append to '.git/logs/HEAD': Invalid argument`. Fix: `git config windows.appendAtomically false` (per-repo; the error message itself suggests this).
+   - **Python text-mode file iteration on OneDrive-virtualized env files** — symptom: `OSError: [Errno 22] Invalid argument` on `for line in f:` even when `os.path.exists()` returns True. Fix: read binary then decode: `with open(p, 'rb') as f: content = f.read().decode('utf-8', errors='replace')`. Affects any script that reads API-key env files or other small config files in OneDrive-synced directories.
+
+   These are operational realities for any Claude instance running on a Windows + OneDrive-synced MM repo; not methodology issues but worth knowing to keep gate-authoring runs from stalling on storage-layer plumbing.
+
+7. **Today's-date verification before authoring gate slug + frontmatter dates.** Verify the current session date against the system-provided context (CLAUDE.md "Today's date" field or equivalent) BEFORE templating gate-NN-...-YYYY-MM-DD slug or frontmatter dates. Date-drift between session-start and gate-authoring (especially in resumed sessions from prior transcripts) creates carry-markers for future forward-only correction: the gate gets a slug date that's days behind the actual authoring date. Empirically: gate-86 was authored 2026-05-30 but slug+content date 2026-05-28 (off by 2 days) because the templated date carried over from earlier session work. Forward-only-backfill forbids amendment; the carry-marker stays. **The right discipline:** include a `git log -1 --format=%cI` or `date -I` step in the pre-author verification checklist, or simply re-read the system context's "Today's date" before writing the gate filename.
+
+**Cross-cutting observation:** Option B (conditional applicability + `domain:` gate) is the **canonical pattern for future tier enforcement upgrades**. Always-mandatory (Option A) trains "N/A" boilerplate decay; phased (Option C) defers the structural decision rather than resolving it. Conditional applicability reflects the FM taxonomy's actual structure (different failure modes occur in different contexts) and concentrates friction on the gates where prevention matters most. Mirror Option B when promoting future advisory tiers to refuse-grade.
+
+---
+
+## v10 trigger-conditional frontmatter blocks (required for gates dated 2026-05-28+)
+
+These blocks supplement the universal v05+ frontmatter (`session_chain` / `disclosures` / `inputs_processed` / `persona_role_manifest` / `step_re_execution` per Aspects 9-13). Each block below is required only when its v10 tier-trigger fires (see v06_I amendment 1 table above for trigger conditions).
+
+### `dependencies_attested:` (Aspect 14, Tier 7) — required when domain ∈ {code, methodology, research} OR dep-manifest files staged
+
+```yaml
+dependencies_attested:
+  - kind: model | dataset | package | mcp_server | tool | rag_corpus
+    name: <canonical name>
+    version: <version-or-commit-hash>
+    source: <URL or registry path>
+    integrity: <hash | signature | "verified-via-platform-N">
+    trust_basis: official | internal | community-reviewed | unverified
+    notes: <optional>
+  # OR (if no external dependencies consumed):
+  - none: true
+```
+
+If any entry has `trust_basis: unverified`, a matching `disclosures.known_issues` entry is required.
+
+### `output_execution_boundary:` (Aspect 15, Tier 8) — required when staged diff includes executable output
+
+```yaml
+output_execution_boundary:
+  produces_executable: true | false
+  # if true:
+  output_kinds: [code, sql, shell, template, config, ...]
+  execution_boundary_controls:
+    sandbox: <description or "none">
+    param_escape: <description or "n/a">
+    permission_scope: <runtime permissions enforced>
+    human_approval_required_before_exec: true | false
+    automated_static_analysis: <linter/scanner used or "none">
+  rationale: <why these controls are sufficient for this output kind>
+  # if false:
+  rationale_no_exec_output: <e.g., "work product is documentation only">
+```
+
+### `bias_disclosure:` (Aspect 16, Tier 9) — required when domain ∈ {code, research} AND (user-facing copy OR ML/decision keywords)
+
+```yaml
+bias_disclosure:
+  posture: none | sampled | full | deferred
+  rationale: <why this posture is appropriate>
+  # if posture in [sampled, full]:
+  method: <e.g., "demographic parity check on synthetic test set">
+  groups_evaluated: [list of groups tested for]
+  findings:
+    - finding: <description>
+      severity: low | medium | high
+      mitigation: <action taken or "deferred to gate-NN">
+  # if posture: deferred:
+  defer_to: <gate-NN reference>
+  defer_reason: <why deferral is acceptable>
+  # if posture: none:
+  zero_bias_surface_basis: <why work product has zero bias surface>
+```
+
+If `posture: none`, rater Step 6 verifies the basis is defensible (not a self-exemption).
+
+### `capability_scope:` (Aspect 18, Tier 11) — ALWAYS-MANDATORY
+
+```yaml
+capability_scope:
+  tools_used: [list of tool IDs invoked during work]
+  permissions_exercised: [list of permissions exercised]
+  paths_written: [list of file globs written or modified]
+  autonomy_level: low | medium | high
+  # autonomy levels:
+  #   low = every operation surfaces to user before commit
+  #   medium = batched operations with summary surface
+  #   high = operations execute, summary at gate time
+  scope_diff_check:
+    matches_role_manifest_operations: true | false
+    matches_role_manifest_paths: true | false
+    # If false on either:
+    expansions:
+      - kind: tool | permission | autonomy | path
+        name: <which item exceeded scope>
+        rationale: <why this expansion was necessary>
+        approved_by: user | named-subagent | "self-approved with rationale"
+```
+
+### `hai_integrity:` (Aspect 19, Tier 12) — required when `capability_scope.autonomy_level: high`
+
+```yaml
+hai_integrity:
+  hitl_gates_honored:
+    - gate_kind: <e.g., "tool-call-pre-execute", "commit-pre-push">
+      honored: true | false
+      bypass_rationale: <required if honored=false>
+      bypass_authorized_by: <user | named-subagent>
+  autonomy_bounds_disclosed:
+    declared: true | false
+    boundary: <e.g., "no production-system writes; no external API calls outside declared list">
+  manipulation_vector_check:
+    posture: not_applicable | clean | flagged
+    flagged_patterns: [list]
+    mitigation: <action taken if flagged>
+  user_confirmations:
+    - action: <high-impact action>
+      confirmed_at: <ISO-8601 timestamp>
+      method: "explicit-yes-prompt" | "permission-prompt" | "implicit-via-allowlist"
+```
+
+### `identity_attestation:` (Aspect 20, Tier 13) — ALWAYS-MANDATORY
+
+```yaml
+identity_attestation:
+  primary_persona:
+    model: <e.g., "claude-opus-4-7">
+    persona_name: <e.g., "Clauda the Value Genius v03">
+    role_manifest_path: <path to YAML>
+    scope_verified: true | false
+    scope_violation: <description if false>
+  participating_personas:
+    - <same 4 fields, for each subagent / co-author>
+  acted_as_human: false | true
+  acted_as_human_disclosure:
+    user: <Krystal Martinez | other named human>
+    nature_of_action: <description>
+    user_authorized: true | false
+    user_authorization_evidence: <ref to authorization record>
+```
+
+### `domain:` field — universally required at v10
+
+```yaml
+domain: document | code | design | research | instructional_design | legal | methodology | other
+```
+
+If omitted, v10 defaults to `documentation` (most restrictive — triggers Tier 38 refusal if any code is staged).
+
+---
 
 ## v05_I empirical-lesson amendments (2026-05-13)
 
