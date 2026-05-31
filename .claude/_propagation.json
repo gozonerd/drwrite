@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
   "canonical_repo": "Martinez-Methods/mm-claude-canonical",
-  "canonical_sha": "f5a774357a2e9f457caf0f93ab8805c84f1ea54e",
+  "canonical_sha": "ab0fe23269d7070a06eaf486fe02a2d9ba2943ba",
   "d2r_repo": "Martinez-Methods/mm-d2r-code-plan-stack",
   "d2r_sha": "136dec6d386be6d761d69e8c6e7576469be6d8fb",
-  "propagated_at": "2026-05-31T17:35:54Z",
+  "propagated_at": "2026-05-31T21:42:48Z",
   "tier": "full",
   "skills_propagated": ["app-update-rec", "asae-render", "author-role-definition", "author-role-lockin-skill", "author-role-manifest", "author-role-propagation-script", "bit-by-tiny-bit", "calibrate-estimates", "create-database", "decide-one-at-a-time", "diagram-pack", "dmis", "le-prompt-brief", "new-repo", "no-man", "onboarding-trial", "present-and-defend", "print-from-html", "print-to-html-to-edit", "quick-progress-check", "rebrand-sweep", "role-definition-calibration-inevitability", "role-definition-convergence-genius", "role-definition-empirical-inevitability", "role-definition-engagement-genius", "role-definition-excellence-inevitability", "role-definition-floor-inevitability", "role-definition-reliability-compositor", "role-definition-serene-knuth", "role-definition-spec-genius", "role-definition-substrate-witness-genius", "scope-recap", "time-task", "upgrade-bundle", "write-avd", "write-prd", "write-pscad", "write-tqvcd", "write-trd"],
   "skills_skipped_local": ["ai-self-audit-edit", "asae", "best-practices-reading-journal", "bpmn-ai-orchestration", "claudette-the-code-debugger", "dare-to-rise-code-plan", "define-your-role-literal", "file-presentation", "file-versioning", "graphviz-ai-orchestration", "html-interactive-ai-orchestration", "ideate-to-d2r-ready", "mermaid-ai-orchestration", "plantuml-ai-orchestration", "print-docx", "react-best-practices", "reinforced-fenced-block", "role-definition-value-genius", "run-parallel-threads", "super-reinforced-fenced-block", "unified-deep-research", "update-backlog", "walk-me-through", "write-uxd"],
