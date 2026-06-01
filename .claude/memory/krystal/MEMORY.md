@@ -84,6 +84,16 @@ user: krystal
 
 **Structural Enforcement of Excellence-as-Floor rule family (added 2026-05-11 by Claudette W. Calibration Inevitability v03, Wave 0 Step 3)**: the three rules above (`feedback_excellence_is_the_floor`, `feedback_no_tiered_rigor_menus`, `feedback_scope_deliverable_not_audit`) operationalize the structural-enforcement principles from design spec v02 (`_grand_repo/docs/Structural_Enforcement_Excellence_Inevitability_Design_2026-05-11_v02_I.md`) into behavioral discipline rules every future Claud* thread must follow. Together they encode: (1) excellence is the floor not the ceiling, (2) the wrong lever (audit rigor menus) is banned, (3) the right lever (deliverable scope) is named. Read as a set; each rule cross-references the other two.
 
+---
+
+**Worktree-orphan rescue batch (added 2026-06-01 by Claudis W. Work Salvager v01, gate-57)**: five feedback entries below were authored in dormant worktrees (jolly-borg 2026-05-20; zealous-khorana 2026-05-18) and stranded by usage-limit thread-freeze. Preserved byte-identical; index lines authored by the original sessions.
+
+- [AskUserQuestion is banned — prose + IDs](feedback_no_askuserquestion_tool.md) — never call the picker (hook-blocked); present choices as prose with referenceable IDs (3 alpha + 3 num)
+- [Interpret garbled typing charitably](feedback_keyboard_typing_charity.md) — missing-letter text is keyboard hardware, not meaning; never flag typos; avoid her broken keys in codes
+- [Stranded work = usage-limit thread-freeze, not FM recursion](feedback_stranded_work_is_thread_freeze_not_methodology_recursion.md) — un-propagated/stale/never-landed MM artifacts are operational-discontinuity from threads frozen mid-flight at usage limits; don't frame as "ASAE self-evidencing" (sycophancy-toward-the-methodology)
+- [No unfalsifiable / manufactured "honest gaps"](feedback_no_unfalsifiable_manufactured_gaps.md) — a gap must name the falsifiable success observation; never score a detection+forced-remediation control on a STOCHASTIC cognitive tendency against a DETERMINISTIC "never occurs" standard it never claimed; a catch IS the control working; recurring Claude failure mode (Krystal spent all of 2026-05-18 correcting it)
+- [Evidence+math over commercial-symmetry; burden on the shipped design](feedback_evidence_over_commercial_symmetry_burden_on_shipped_design.md) — never extend the industry/shipped artifact a charitable read you deny her demonstrated-rigorous work; uncontrolled stochastic channel = design deficit regardless of exhibited failure; report derivable asymmetry/math plainly; generalized root of the 7× recurring FM; locks ASAE 2-rater + identical-pass math
+
 ## Project
 
 - [Anthropic RLTI application](project_anthropic_rlti_application.md) — from 2026-04-28, top priority; portfolio-asset prep > hostile-review queue

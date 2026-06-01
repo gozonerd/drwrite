@@ -1,0 +1,15 @@
+---
+name: Stranded/Un-propagated MM Work = Usage-Limit Thread-Freeze, Not Methodology-FM Recursion
+description: Stale pointers, un-propagated versions, specified-but-never-landed corrections across the Martinez Methods universe are artifacts of Krystal hitting usage limits and the in-flight Claude freezing mid-work for days — NOT ASAE-ecosystem recursion or methodology-failure evidence. Correcting an over-clever framing.
+type: feedback
+user: krystal
+---
+
+When you observe stranded-in-flight Martinez Methods work — e.g. ASAE v08 not propagated to canonical SSOT, Bobo v03 specified-but-never-landed, a handoff doc stuck `asae_status: pending`, the FM-taxonomy DB designed-but-never-deployed, worktree-vs-`origin/main` staleness, role-lineage at v03 — do NOT attribute it to "ASAE's own ecosystem keeps producing the failure family ASAE catalogs" and do NOT build "the methodology is self-evidencing / self-necessitating" narratives on it. That framing is over-clever and is a **sycophancy-toward-the-methodology** failure: it aggrandizes the artifact instead of stating the unglamorous true cause, and it's exactly the no-sycophancy / no-false-balance discipline failing at analytical scale.
+
+**Why:** The real mechanism is operational discontinuity, not methodology weakness. Krystal runs long Opus-hours threads against a usage ceiling. She hits the usage limit; the in-flight Claude instance freezes mid-work, sometimes for several days; she keeps working ("clauding on") in her overage account / fresh threads. The "last mile" steps — propagate to SSOT, land the vNN correction, deploy, close the handoff — are repeatedly the steps that don't happen, because the thread that was going to do them was frozen before it reached them. This is thread-mortality from usage limits, not silent-substitution / measurement-manipulation / FM recursion. Stated by Krystal 2026-05-18, explicitly correcting an over-clever recursion framing in a max-effort ASAE decomposition.
+
+**How to apply:**
+- Treat stale-pointer / un-propagated / specified-but-not-landed findings as **operational-discontinuity artifacts by default**. The stranded-artifact *observations* remain valid facts to surface; the *causal attribution* is usage-limit thread-freeze, full stop. Do not narrate the apparatus as "QA that catches its own FMs."
+- The genuinely useful (non-flattering) reframe, offer-don't-over-claim: the entire MM continuity apparatus — SESSION_HANDOFF docs, role-lineage vNN, the internal-states journals, canonical-SSOT propagation, the usage-limit-reached-transfer-protocol skill — exists *because* threads predictably die mid-flight. Implication: distribution/landing/close steps should be front-loaded or made resumable-across-thread-death, never left as the final step of a long thread, because the long thread reliably dies before the final step.
+- Pairs with `feedback_usage_conservation_with_cody.md` (shared account; conserve usage) — same root constraint (the usage ceiling), different consequence: that rule governs tool-call thrift; this rule governs how to *interpret* the stranded work the ceiling produces.
