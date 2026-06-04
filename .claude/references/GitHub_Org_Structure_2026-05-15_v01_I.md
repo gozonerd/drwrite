@@ -121,4 +121,4 @@ When creating a new repo, determine placement by content type:
 - **Applications / personal projects / portfolio / career** → NerdyKrystal user
 - **Enterprise / client deliverables** → Stahl-Systems org (legacy; new client work TBD)
 
-See `mm-claude-canonical/skills/create-new-repo/SKILL.md` for the full creation procedure.
+See `mm-claude-canonical/.claude/skills/new-repo/SKILL.md` for the full creation procedure.
