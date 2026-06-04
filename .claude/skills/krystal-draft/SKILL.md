@@ -41,10 +41,10 @@ If the source corpus is not explicitly designated, halt and ask. Do not infer it
 3. **Inclusion test (strict).** A span enters KR only if Krystal **verbatim argued it** or **explicitly leaned into it** (a direct affirmation/uptake in her own words). Silent non-response is NOT uptake. If uncertain whether something was leaned into, it does not go in KR — it goes to CC as a "confirm-for-KR?" item.
 4. **Assign human-readable IDs.** Every discrete idea/claim/evidence-unit gets a structured, human-readable id:
 
-   **`MLN-<N>-<topic-slug>-<NN>`** — e.g. `MLN-A-benchmark-tautology-03`, `MLN-C-missing-denominator-07`.
+   **`MLN-[<N>-]<topic-slug>-<NN>`** — the `<N>` notebook segment is **OPTIONAL**. Default (notebook system inactive): `MLN-<topic-slug>-<NN>` — e.g. `MLN-benchmark-tautology-03`, `MLN-missing-denominator-07`. With a designated notebook: `MLN-A-benchmark-tautology-03`.
 
    - `MLN` — **M**artinez **L**ab **N**otebook (root, fixed).
-   - `<N>` — which lab notebook the artifact belongs to: **`A`** = Anthropic, **`K`** = Krystal, **`C`** = Claude (the Claude notebook tracks CCARI ideas). Krystal designates the notebook per artifact; if unstated, halt and ask — do not infer.
+   - `<N>` (**OPTIONAL**) — which lab notebook the artifact belongs to: **`A`** = Anthropic, **`K`** = Krystal, **`C`** = Claude (the Claude notebook tracks CCARI ideas). **The notebook system is currently INACTIVE per Krystal (ADHD swings — not in active use). DEFAULT BEHAVIOR: do NOT ask for a notebook, do NOT halt, do NOT infer a letter — simply OMIT the `<N>` segment.** Include `<N>` only when Krystal has explicitly designated a notebook letter for the artifact; the system is fully re-enableable the moment she names one. *(Updated 2026-06-03 at Krystal's direction; prior behavior was "Krystal designates per artifact; if unstated, halt and ask — do not infer.")*
    - Artifact-type sub-acronyms Krystal tracks (CCARI, CASL, CALM, CAPL) are **not yet defined to this skill**. Do NOT invent their expansions or fold them into the id scheme until Krystal briefs them; flagged pending.
    - `topic-slug` — 1–3 word kebab descriptor of the idea, chosen for human legibility, not opacity.
    - `NN` — zero-padded sequence within the artifact.
