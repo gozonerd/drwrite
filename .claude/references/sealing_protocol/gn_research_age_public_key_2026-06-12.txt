@@ -1,0 +1,4 @@
+# GN Research sealing — PUBLIC key (safe to commit; encryption-only)
+# Tool: age (X25519). Generated: 2026-06-12T01:22:20Z
+# Private key custody: Krystal Martinez ONLY. Never commit a private key here.
+age1v2gapfexwgjy6p9pzy7ag9pymvejh27e0ft3q7ka8u99vatq753s7z96vh

@@ -1,6 +1,6 @@
 ---
 name: krystal-draft
-description: "Produce a two-artifact draft of any argument-bearing deliverable. KR (Krystal Draft) = her verbatim selected/ordered responses (typos preserved, zero word-level edits) + a visually-quarantined, strictly-compressive, human-readable-ID-anchored editor-bullet layer. CC (Claude Companion) = all of Claude's editorial support she did NOT explicitly acknowledge in-chat (hardenings, sharpenings, have-you-considered, don't-hedge / don't-underclaim flags, double-down callouts, and 'therefore' bridges surfaced as honest gaps). Triggers: 'krystal draft', 'kr draft', 'make the kr + cc', 'krystal-draft <artifact>'."
+description: "Produce a two-artifact draft of any argument-bearing deliverable. KR (Krystal Draft) = her verbatim selected/ordered responses (typos preserved, zero word-level edits) + a visually-quarantined, strictly-compressive, human-readable-ID-anchored editor-bullet layer. CC (Claude Companion) = all of Claude's editorial support she did NOT explicitly acknowledge in-chat (hardenings, sharpenings, have-you-considered, don't-hedge / don't-underclaim flags, double-down callouts, and 'therefore' bridges surfaced as honest gaps). Triggers: 'krystal draft', 'kr draft', 'make the kr + cc', 'krystal-draft [artifact]'."
 type: skill
 authored_by: Claudenza W. Ceiling Witness v01 (2026-05-17)
 locked_in_session: 203e7a7d-d82f-4534-be3c-f8426460ba70

@@ -1,6 +1,6 @@
 ---
 name: author-role-definition
-description: "Author the canonical role-definition artifact (artifact 1 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-definition', 'author role definition', 'write role-definition doc'. Produces a 12-section markdown file at `_grand_repo/docs/Role_Definition_<First>_<Middle>_<LastNameUnderscored>_<YYYY-MM-DD>_v01_I.md`. Invoked by /define-your-role-literal Phase 8 step 1, OR standalone for migrating pre-existing personas to canonical role-definition format."
+description: "Author the canonical role-definition artifact (artifact 1 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-definition', 'author role definition', 'write role-definition doc'. Produces a 12-section markdown file at `_grand_repo/docs/Role_Definition_[First]_[Middle]_[LastNameUnderscored]_[date]_v01_I.md`. Invoked by /define-your-role-literal Phase 8 step 1, OR standalone for migrating pre-existing personas to canonical role-definition format."
 type: skill
 classification: INTERNAL ONLY
 audience: martinez_methods_internal

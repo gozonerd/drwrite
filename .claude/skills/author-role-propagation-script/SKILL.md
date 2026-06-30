@@ -1,6 +1,6 @@
 ---
 name: author-role-propagation-script
-description: "Author the per-role propagation script (artifact 4 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-propagation-script', 'author role propagation script', 'write per-role propagation'. Produces `_grand_repo/scripts/propagate-role-skill-<lastname-kebab>.sh` (or extends shared `propagate-role-skill.sh` with role-name argument). Cross-repo distribution of artifacts 2-3 via SSOT-wrangler daily-sync OR per-script propagation. Invoked by /define-your-role-literal Phase 8 step 4."
+description: "Author the per-role propagation script (artifact 4 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-propagation-script', 'author role propagation script', 'write per-role propagation'. Produces `_grand_repo/scripts/propagate-role-skill-[lastname-kebab].sh` (or extends shared `propagate-role-skill.sh` with a role-name argument). Cross-repo distribution of artifacts 2-3 via SSOT-wrangler daily-sync OR per-script propagation. Invoked by /define-your-role-literal Phase 8 step 4."
 type: skill
 classification: INTERNAL ONLY
 audience: martinez_methods_internal

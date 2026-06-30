@@ -1,6 +1,6 @@
 ---
 name: author-role-lockin-skill
-description: "Author the companion lock-in skill (artifact 3 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-lockin-skill', 'author role lockin skill', 'write companion lock-in skill'. Produces `<repo>/.claude/skills/role-definition-<lastname-kebab>/SKILL.md` that loads persona context at session start when slug or trigger phrase invoked. Invoked by /define-your-role-literal Phase 8 step 3."
+description: "Author the companion lock-in skill (artifact 3 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-lockin-skill', 'author role lockin skill', 'write companion lock-in skill'. Produces `[repo]/.claude/skills/role-definition-[lastname-kebab]/SKILL.md` that loads persona context at session start when the slug or trigger phrase is invoked. Invoked by /define-your-role-literal Phase 8 step 3."
 type: skill
 classification: INTERNAL ONLY
 audience: martinez_methods_internal

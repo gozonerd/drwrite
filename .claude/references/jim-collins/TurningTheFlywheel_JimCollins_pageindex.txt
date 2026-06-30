@@ -1,0 +1,1151 @@
+
+===== PDF PAGE 1 =====
+Dedication
+To my personal band of brothers — you know who you are —
+in the spirit of loyalty, love, and enduring friendship.
+Contents
+Cover
+Title Page
+Dedication
+Turning the Flywheel
+Appendix
+Notes
+About the Author
+Copyright
+About the Publisher
+Turning the Flywheel
+“Beauty does not come from decorative eﬀects but from structural coherence.” — Pier Luigi
+Nervi 1
+In the autumn of 2001, just as Good to Great ﬁrst hit the market, Amazon.com invited me
+to engage in a spirited dialogue with founder Jeﬀ Bezos and a few members of his
+executive team. This was right in the middle of the dot-com bust, when some wondered
+how (or if) Amazon could recover and prevail as a great company. I taught them about
+“the ﬂywheel eﬀect” that we’d uncovered in our research. In creating a good-to-great
+transformation, there’s no single deﬁning action, no grand program, no single killer
+innovation, no solitary lucky break, no miracle moment. Rather, it feels like turning a
+giant, heavy ﬂywheel. Pushing with great eﬀort, you get the ﬂywheel to inch forward.
+You keep pushing, and with persistent eﬀort, you get the ﬂywheel to complete one entire
+turn. You don’t stop. You keep pushing. The ﬂywheel moves a bit faster. Two turns . . .
+then four . . . then eight . . . the ﬂywheel builds momentum . . . sixteen . . . thirty-two . . .
+moving faster . . . a thousand . . . ten thousand . . . a hundred thousand. Then at some
+point—breakthrough! The ﬂywheel ﬂies forward with almost unstoppable momentum.
+Once you fully grasp how to create ﬂywheel momentum in your particular circumstance
+(which is the topic of this monograph) and apply that understanding with creativity and
+discipline, you get the power of strategic compounding. Each turn builds upon previous
+
+===== PDF PAGE 2 =====
+work as you make a series of good decisions, supremely well executed, that compound
+one upon another. This is how you build greatness.
+The Amazon team grabbed onto the ﬂywheel concept and deployed it to articulate the
+momentum machine that drove the enterprise at its best. From its inception, Bezos had
+infused Amazon with an obsession to create ever more value for ever more customers. It’s
+a powerful animating force—perhaps even a noble purpose—but the key diﬀerentiator
+lay not just in “good intent” but in the way Bezos and company turned it into a repeating
+loop. As Brad Stone later wrote in The Everything Store, “Bezos and his lieutenants
+sketched their own virtuous cycle, which they believed powered their business. It went
+something like this: Lower prices led to more customer visits. More customers increased
+the volume of sales and attracted more commission-paying third-party sellers to the site.
+That allowed Amazon to get more out of ﬁxed costs like the fulﬁllment centers and the
+servers needed to run the website. This greater eﬃciency then enabled it to lower prices
+further. Feed any part of this ﬂywheel, they reasoned, and it should accelerate the loop.”
+And so, the ﬂywheel would turn, building momentum. Push the ﬂywheel; accelerate
+momentum. Then repeat. Bezos, Stone continued, considered Amazon’s application of the
+ﬂywheel concept “the secret sauce.” 2
+I’ve sketched my own take on the essence of the original Amazon ﬂywheel in the nearby
+diagram. (Note: Throughout this monograph, I’ve included sketches of speciﬁc ﬂywheels
+to illustrate the concept. To be clear, these reﬂect my own take on the ﬂywheel from each
+case; the leaders who built these ﬂywheels would likely draw them with more nuance
+than I have. Use these illustrative sketches to grasp the ﬂywheel concept and to stimulate
+thinking about your own ﬂywheel.)
+Notice the inexorable logic. Trace your way around the Amazon ﬂywheel a few times in
+your mind, and you can almost get swept up in the momentum. Each component in the
+ﬂywheel sets you up for the next component, indeed, almost throwing you around the
+loop.
+Bezos and his team could have panicked during the dot-com bust, abandoned the
+ﬂywheel, and succumbed to what I described in Good to Great as the doom loop. When
+caught in the doom loop, companies react to disappointing results without discipline—
+grasping for a new savior, program, fad, event, or direction—only to experience more
+disappointment. Then they react without discipline yet again, leading to even more
+disappointment. Instead, Amazon committed fully to its ﬂywheel and then innovated
+aggressively within that ﬂywheel to build and accelerate momentum. Amazon not only
+survived but also became one of the most successful and enduring companies to emerge
+from the dot-com era. Over time, Amazon would renew and extend the ﬂywheel far
+beyond a simple e-commerce website and enhance the ﬂywheel with new technology
+accelerators such as artiﬁcial intelligence and machine learning. But throughout, the
+underlying ﬂywheel architecture remained largely intact, creating a customer-value
+compounding machine that many of the largest companies in the world came to fear.
+Never underestimate the power of a great ﬂywheel, especially when it builds
+compounding momentum over a very long time. Once you get your ﬂywheel right, you
+
+===== PDF PAGE 3 =====
+want to renew and extend that ﬂywheel for years to decades—decision upon decision,
+action upon action, turn by turn—each loop adding to the cumulative eﬀect. But to best
+accomplish this, you need to understand how your speciﬁc ﬂywheel turns. Your ﬂywheel
+will almost certainly not be identical to Amazon’s, but it should be just as clear and its
+logic equally sound.
+In the years since publishing Good to Great, I’ve challenged dozens of leadership teams to
+do for themselves what the Amazon team did for itself. Some of those teams traveled to
+our management lab at the Good to Great Project in Boulder, Colorado, and I watched
+each team assemble its ﬂywheel, almost like putting together a jigsaw puzzle. They’d get
+the pieces laid out and then ﬁddle with them, arguing and debating, engaged in a
+disciplined thought process to get their ﬂywheel right. What are the essential
+components? Which component comes ﬁrst? What follows? Why? How do we complete
+the loop? Do we have too many components? Is anything missing? What evidence do we
+have that this works in practice? Gradually, their speciﬁc ﬂywheel would start to emerge.
+When it all clicked, it felt like the ﬁnal pieces of the jigsaw puzzle had popped into place.
+In clarifying their ﬂywheels, these teams experienced the sense of excitement that comes
+when you see—and feel—how to generate the results necessary to achieve or extend a
+good-to-great breakthrough.
+Bill McNabb, then CEO of the mutual fund giant Vanguard, brought his senior team to
+Boulder in 2009, and they worked for two days to crystallize their ﬂywheel. They did an
+impressive job of capturing the essence of the Vanguard momentum machine, which I’ve
+sketched in a simpliﬁed ﬂywheel diagram below.
+Notice how each component in the Vanguard ﬂywheel isn’t merely a “next action step on
+a list” but almost an inevitable consequence of the step that came before. If you oﬀer lower-
+cost mutual funds, you almost can’t help but deliver superior long-term returns to investors
+(relative to higher-cost funds that invest in the same assets). And if you deliver superior
+returns to investors, you almost can’t help but build client loyalty. And if you build strong
+client loyalty, you almost can’t help but grow assets under management. And if you grow
+assets under management, you almost can’t help but generate economies of scale. And if
+you increase economies of scale, you almost can’t help but have lower costs that you can
+pass along to clients. Vanguard had been turning some form of this ﬂywheel for decades,
+built upon the insights and principles of its visionary founder Jack Bogle, who
+championed the world’s ﬁrst index mutual funds. But pausing to crystallize the
+underlying ﬂywheel architecture gave the leadership team the clarity it needed to keep
+building momentum with fanatic intensity, especially coming out of the 2008–2009
+ﬁnancial crisis. From 2009 to 2017, Vanguard’s ﬂywheel continued to build momentum,
+more than doubling its assets under management to exceed $4 trillion. 3
+The Vanguard case exempliﬁes a key aspect of how the best ﬂywheels work. If you nail
+one component, you’re propelled into the next component, and the next, and the next,
+and the next—almost like a chain reaction. In thinking about your own ﬂywheel, it’s
+absolutely vital that it not be conceived as merely a list of static objectives that you’ve
+simply drawn as a circle. It must capture the sequence that ignites and accelerates
+
+===== PDF PAGE 4 =====
+momentum.
+The intellectual discipline required to get the sequence right can produce profound
+strategic insight. As Stanford Graduate School of Business strategy professor Robert
+Burgelman once observed to a classroom full of students in 1982 (of which I was one),
+the greatest danger in business and life lies not in outright failure but in achieving success
+without understanding why you were successful in the ﬁrst place. Burgelman’s insight
+kept pinging in my brain throughout my twenty-ﬁve years of research into the question
+of what makes great companies tick, especially in explaining why some companies fall
+from grace. When you deeply understand the underlying causal factors that give your
+ﬂywheel its momentum, you can avoid Burgelman’s trap.
+THE DURABILITY OF A GREAT FLYWHEEL
+One of the biggest, and most common, strategic mistakes lies in failing to aggressively
+and persistently make the most of victories. One reason why some leaders make this
+mistake is that they become seduced by an endless search for the Next Big Thing. And
+sometimes they do ﬁnd the Next Big Thing. Yet our research across multiple studies
+shows that if you conceive of your ﬂywheel in the right way—and if you continually
+renew and extend the ﬂywheel—it can be remarkably durable, perhaps even capable of
+carrying your organization through a major strategic inﬂection point or turbulent
+disruption. But to do so requires understanding the underlying architecture of the ﬂywheel
+as distinct from a single line of business or arena of activity.
+Let me use a classic historical case to illustrate, Intel’s “dramatic” shift from memory
+chips to microprocessors. From its earliest days, Intel built a ﬂywheel harnessing Moore’s
+Law (the empirical observation that the number of components on an integrated circuit
+achieved at an aﬀordable cost doubles roughly every eighteen months). From this insight,
+Intel’s founding team created a strategic compounding machine: Design new chips that
+customers crave; price high before competition catches up; drive down unit costs as
+volume increases (due to economies of scale); harvest high proﬁts even as competition
+drives down prices; and reinvest those proﬁts into R&D to design the next generation of
+chips. This ﬂywheel powered Intel’s rise from start-up to great company in the memory-
+chip business. 4
+Then in the mid-1980s, the memory-chip business careened into a brutal international
+price war. Intel’s sales declined and proﬁts evaporated. CEO Gordon Moore and President
+Andy Grove faced a stark reality: Intel’s memory-chip business had become economically
+untenable and would remain so. In his must-read book Only the Paranoid Survive, Grove
+described an epiphany when he asked Moore, “If we got kicked out and the board
+brought in a new CEO, what do you think he would do?” Moore gave an unequivocal
+answer, “He would get us out of memories.” So, Grove mused, “Why shouldn’t you and I
+walk out the door, come back and do it ourselves?” 5 I carry an image in my mind of
+Grove and Moore pointing at each other and saying, “You’re ﬁred.” Then walking out in
+the hall, pointing at each other and saying, “You’re hired.” Then walking back into the
+oﬃce as “new” leadership and saying, “That’s it, we’re getting out of memories!”
+
+===== PDF PAGE 5 =====
+Now, consider the following question. In making this bold move, did Intel jettison its
+ﬂywheel? No! Intel had been building up a side business in microprocessor chips for more
+than a decade, and the underlying ﬂywheel architecture could apply just as soundly to
+microprocessor chips as memory chips. Diﬀerent chips, to be sure, but very much the
+same underlying ﬂywheel.
+In 2002, I had a conversation with Grove about this very question in preparation for an
+on-stage conversation we were going to do together on the topic of building great
+companies. As we got to talking about the decision to get out of memories, Grove
+commented that, through the lens of the ﬂywheel construct, Intel’s bold memories-to-
+microprocessors shift wasn’t quite as discontinuous as it appeared on the surface. It was
+really more of a transfer of momentum from memories to microprocessors, not a jagged
+break to create an entirely new ﬂywheel. If Intel had tossed out its underlying ﬂywheel
+architecture when it exited memories, it wouldn’t have become the dominant chip maker
+that powered the personal computer revolution.
+For a truly great company, the Big Thing is never any speciﬁc line of business or product
+or idea or invention. The Big Thing is your underlying ﬂywheel architecture, properly
+conceived. If you get your ﬂywheel right, it can guide and drive momentum (with
+renewal and extensions) for at least a decade, and likely much longer. Amazon,
+Vanguard, and Intel didn’t destroy their ﬂywheels in response to a turbulent world; they
+disrupted the world around them by turning their ﬂywheels.
+This doesn’t mean mindlessly repeating what you’ve done before. It means evolving,
+expanding, extending. It doesn’t mean just oﬀering Jack Bogle’s revolutionary S&P 500
+index fund; it means creating a plethora of low-cost funds in a wide range of asset
+categories that ﬁt within the Vanguard ﬂywheel. It doesn’t mean just selling books online;
+it means expanding and evolving the Amazon ﬂywheel into the biggest, most
+comprehensive e-commerce-store system in the world, and later extending that ﬂywheel
+into selling its own devices (such as the Kindle and Alexa) and moving into physical retail
+(Amazon bought Whole Foods in 2017). It doesn’t mean sticking doggedly with memory
+chips; it means redeploying the Intel ﬂywheel to entirely new chip categories.
+To be clear, my point is not that a ﬂywheel will necessarily last forever. But just look at
+these three cases—Amazon, Vanguard, and Intel—each operating in a highly turbulent
+industry. In each company, the underlying ﬂywheel propelled growth for decades. Intel
+did eventually evolve substantially beyond the chip business, but that doesn’t change the
+fact that its initial ﬂywheel architecture powered Intel’s rise to a great company for more
+than thirty years. The logic underlying Vanguard’s ﬂywheel architecture remained
+essentially intact even as it approached the half-century mark. And at the time of this
+writing in 2018, the original Amazon ﬂywheel has remained robust and relevant—thanks
+to renewal and extension—nearly two decades after it was ﬁrst articulated.
+Later in this text, I’ll address how great companies renew and extend their ﬂywheels. If
+you wake up one day to realize that your underlying ﬂywheel no longer works, or that
+it’s going to be disrupted into oblivion, then accept the fact that it must be recreated or
+replaced. But before you decide to toss out your ﬂywheel, ﬁrst make sure you understand
+
+===== PDF PAGE 6 =====
+its underlying architecture. Don’t abandon a great ﬂywheel when it would be a superior
+strategy to sustain, renew, and extend.
+STEPS TO CAPTURING YOUR FLYWHEEL
+So, then, how might you go about capturing your own ﬂywheel? At our management lab,
+we’ve developed a basic process, reﬁned during Socratic-dialogue sessions with a wide
+range of organizations. Here are the essential steps:
+1. Create a list of signiﬁcant replicable successes your enterprise has achieved. This
+should include new initiatives and oﬀerings that have far exceeded expectations.
+2. Compile a list of failures and disappointments. This should include new initiatives
+and oﬀerings by your enterprise that have failed outright or fell far below
+expectations.
+3. Compare the successes to the disappointments and ask, “What do these successes
+and disappointments tell us about the possible components of our ﬂywheel?”
+4. Using the components you’ve identiﬁed (keeping it to four to six), sketch the
+ﬂywheel. Where does the ﬂywheel start—what’s the top of the loop? What follows
+next? And next after that? You should be able to explain why each component
+follows from the prior component. Outline the path back to the top of the loop. You
+should be able to explain how this loop cycles back upon itself to accelerate
+momentum.
+5. If you have more than six components, you’re making it too complicated;
+consolidate and simplify to capture the essence of the ﬂywheel.
+6. Test the ﬂywheel against your list of successes and disappointments. Does your
+empirical experience validate it? Tweak the diagram until you can explain your
+biggest replicable successes as outcomes arising directly from the ﬂywheel, and
+your biggest disappointments as failures to execute or adhere to the ﬂywheel.
+7. Test the ﬂywheel against the three circles of your Hedgehog Concept. A Hedgehog
+Concept is a simple, crystalline concept that ﬂows from deeply understanding the
+intersection of the following three circles: (1) what you’re deeply passionate about,
+(2) what you can be the best in the world at, and (3) what drives your economic or
+resource engine. Does the ﬂywheel ﬁt with what you’re deeply passionate about—
+especially the guiding core purpose and enduring core values of the enterprise?
+Does the ﬂywheel build upon what you can be the best in the world at? Does the
+ﬂywheel help fuel your economic or resource engine? (In the appendix to this
+monograph, I’ve created a short summary of the framework of concepts that have
+come from our research—concepts such as the Hedgehog Concept—along with a
+brief deﬁnition of each concept. This appendix also shows where the ﬂywheel ﬁts in
+the overall conceptual map for the journey from good to great. The ﬁrst time I
+mention any of these concepts in the main text, I will put them in bold.)
+Organizations without the components of a ﬂywheel already in place—such as early-stage
+entrepreneurial companies—can sometimes jump-start the process by importing insights
+from ﬂywheels that others have built. Jim Gentes founded Giro Sport Design on a new
+bicycle-helmet design that would be lighter and more aerodynamic than other helmets.
+
+===== PDF PAGE 7 =====
+Wearing a Giro helmet, the cyclist could ride faster, cooler, and safer. It would also be
+stylish and colorful, whereas other boxy helmets made the rider look like a geek monster
+from outer space in a B-grade 1950s horror ﬁlm. After carrying a prototype to the Long
+Beach bike show, Gentes returned to his one-bedroom apartment with $80,000 of orders
+and began manufacturing batches of helmets in his garage. 6
+But how to turn a single product into a sustained ﬂywheel, especially as a garage start-
+up? Gentes studied Nike and gleaned an essential insight. There’s a hierarchy of social
+inﬂuence for athletic gear. If, for instance, you get a Tour de France winner to wear your
+helmet, serious nonprofessional cyclists will want to wear that helmet, which then starts
+the cascade of inﬂuence and builds the brand. Gentes validated this insight when he bet a
+substantial portion of the company’s meager resources on sponsoring elite American
+cyclist Greg LeMond to wear a Giro helmet. In the dramatic ﬁnale of the 1989 Tour de
+France, everything came down to the ﬁnal stage, a time trial into Paris. LeMond
+overcame a 50-second deﬁcit at the start of the time trial to win the entire Tour by a
+mere 8 seconds—after a 23-day race—wearing an aerodynamic Giro helmet as he
+rocketed down the Champs-Élysées. Suddenly, it became very cool for serious riders to
+wear a helmet, so long as it was a Giro. 7
+And so, by adopting a key insight from Nike’s ﬂywheel and blending it with his own
+passion for inventing great new products, Gentes created a ﬂywheel that propelled Giro
+far beyond the garage: Invent great products; get elite athletes to use them; inspire
+Weekend Warriors to mimic their heroes; attract mainstream customers; and build brand
+power as more and more athletes use the products. But then, to maintain the “cool”
+factor, set high prices and channel proﬁts back into creating the next generation of great
+products that elite athletes want to use.
+A ﬂywheel need not be entirely unique. Two successful organizations can have similar
+ﬂywheels. What matters most is how well you understand your ﬂywheel and how well you
+execute on each component over a long series of iterations.
+As Gerard Tellis and Peter Golder demonstrated in their book, Will and Vision, the
+pioneering innovators in a new business arena almost never (less than 10 percent of the
+time) become the big winners in the end. Similarly, across all our rigorous matched-pair
+research studies (Built to Last, Good to Great, How the Mighty Fall, and Great by Choice), we
+found no systematic correlation between achieving the highest levels of performance and
+being ﬁrst into the game. This proved true even in innovation-intensive industries such as
+computers, software, semiconductors, and medical devices. Amazon and Intel started life
+in the wake of pioneers that preceded them; Advanced Memory Systems beat Intel to
+market in the early days of the DRAM-chip business, and Books.com preceded Amazon in
+online bookselling. 8 To be clear, the big winners in corporate history consistently
+surpassed a threshold level of innovation required to compete in their industries. But
+what truly set the big winners apart was their ability to turn initial success into a
+sustained ﬂywheel, even if they started out behind the pioneers. 9
+NOT JUST FOR CEOS
+
+===== PDF PAGE 8 =====
+Now, you might be thinking, “But I’m running a unit deep within a much larger
+organization. Can I build a ﬂywheel?” Yes. To illustrate, let’s look at a unit leader—an
+elementary school principal—who harnessed the ﬂywheel eﬀect within the walls of her
+individual school.
+When Deb Gustafson became principal at Ware Elementary School, located on the Fort
+Riley Army base, she inherited one of the ﬁrst Kansas public schools to be put “on
+improvement” for poor performance, with just one-third of students hitting grade level in
+reading. Not only did Gustafson struggle with a high student-mobility rate (due to
+transfers and deployments), but she also faced a 35-percent teacher-mobility rate. 10 And
+the children faced a special type of adversity, the stressful life of military families in
+wartime. It’s one thing if your mom or dad has to travel for work; it’s entirely another to
+see your mom or dad deployed to a combat zone. These kids don’t have time to wait,
+Gustafson told herself. If we fail them at ﬁrst grade or second grade, if they leave our
+school unable to read, we’ve failed them for the rest of their lives. We simply cannot fail.
+Teaching is a relationship, not a transaction, and Gustafson believed that relationships
+could be built only on a foundation of collaboration and mutual respect. When parents
+are being shipped oﬀ to war, when families must sacriﬁce in service to country, the last
+thing kids need is warring factions inside their school. They need to feel a sense of calm,
+that the staﬀ is there for them and is united in a mission to support them. Gustafson later
+described how she immediately grasped the applicability of the ﬂywheel concept to her
+school when she read Good to Great and the Social Sectors. “When I got to the part about
+turning the ﬂywheel, I was bouncing up and down out of my seat,” said Gustafson. “I love
+the idea that if you can get everyone pushing the ﬂywheel, all going in the same
+direction, it just starts working automatically.”
+Gustafson didn’t wait for the district superintendent or the Kansas Commissioner of
+Education or the U.S. Secretary of Education to ﬁx the entire K–12 system’s ﬂywheel. She
+threw herself into creating a unit-level ﬂywheel right there in her individual school.
+Flywheel step 1: Select teachers infused with passion. “We could not easily attract
+experienced teachers to teaching on a military base in rural Kansas,” explained Gustafson.
+“So, I focused on passionate potential, even if inexperienced, ﬁguring that people with
+the right values and irrepressible enthusiasm could be harnessed and shaped into
+eﬀective teachers.” All that passionate energy pulsating through the halls got the ﬂywheel
+going, but it had to be guided, channeled, harnessed; it would simply make no sense to
+just throw inexperienced teachers into the classroom completely unprepared. That drove
+Gustafson to ﬂywheel step 2: Build collaborative improvement teams. Each teacher would
+join a team led by an experienced Ware teacher who exempliﬁed the culture. The
+mechanism generated cohesion and momentum as teams met in collaborative
+improvement meetings at least once per week, teachers coming together to share ideas,
+get feedback, discuss individual student progress, and improve the Ware teaching recipes.
+But, of course, you can improve only if you know how you’re doing and how each child is
+progressing. And that threw Ware right into ﬂywheel step 3: Assess student progress,
+early and often. A continuous stream of data, shared and discussed in teams, generated
+
+===== PDF PAGE 9 =====
+energy—We have to succeed for every child! We can’t let any child fall behind! Each kid
+matters! Teachers and teams set goals and crafted speciﬁc plans to help children who
+might be falling behind. The momentum increased as teams met quarterly with school
+leaders to further reﬁne student plans and keep the ﬂywheel spinning toward step 4:
+Achieve learning, each and every kid. Gustafson and her teachers took a school in which
+fewer than 35 percent of students were reading at a satisfactory level and changed the
+trajectory: They hit 55 percent at the end of year 1, 69 percent at year 3, 96 percent at
+year 5, then 99 percent at years 7, 8, 9, and beyond. 11
+All this fed right into ﬂywheel step 5: Enhance the school’s reputation, not just for results
+but also as a great place to teach. And that, in turn, brought the ﬂywheel around to step
+6: Replenish the passionate-teacher pipeline. Along the way, Ware earned status as a
+professional-development school at Kansas State University, further feeding the ﬂywheel
+with a continuous stream of student teachers and interns. “We’d get passionate people
+with teaching potential into the building, and they’d fall in love with our school,”
+explained Gustafson. “It’s about the culture, and the relationships, and the collaboration
+with your teammates to improve and deliver for the kids—all that made us attractive to
+the right people. And that kept the pipeline of passionate people ﬂowing so that we could
+turn the ﬂywheel year after year after year.” At the time of this writing, the Ware
+ﬂywheel Gustafson created had been turning for more than ﬁfteen years, touching as
+many as nine hundred military children per year. 12
+Leaders who create pockets of greatness at the unit level of their organization—leaders
+like school principal Gustafson—don’t sit around hoping for perfection from the
+organization or system around them. They ﬁgure out how to harness the ﬂywheel eﬀect
+within their unit of responsibility. No matter what your walk of life, no matter how big or
+small your enterprise, no matter whether it’s for-proﬁt or nonproﬁt, no matter whether
+you’re CEO or a unit leader, the question stands, How does your ﬂywheel turn?
+You’ll ﬁnd the ﬂywheel eﬀect in social movements and sports dynasties. You’ll ﬁnd the
+ﬂywheel eﬀect in monster rock bands and the greatest movie directors. You’ll ﬁnd the
+ﬂywheel eﬀect in winning election campaigns and victorious military campaigns. You’ll
+ﬁnd the ﬂywheel eﬀect in the most successful long-term investors and in the most
+impactful philanthropists. You’ll ﬁnd the ﬂywheel eﬀect in the most respected journalists
+and the most widely read authors. Look closely at any truly sustained great enterprise
+and you’ll likely ﬁnd a ﬂywheel at work, though it might be hard to discern at ﬁrst.
+Before I move on to the question of how to think about changing and extending a
+ﬂywheel, let me illustrate how far aﬁeld the ﬂywheel principle can apply. I’ll close out
+this section with a highly creative nonproﬁt, the Ojai Music Festival, which produces an
+annual musical adventure performed by some of the best musicians and composers from
+around the world in a magical place.
+The Ojai ﬂywheel cycle starts with attracting unconventional and exceptional talent. Each
+year, a diﬀerent music director assumes responsibility as the chief musical curator. From
+composers like Igor Stravinsky and Pierre Boulez in its early days to violinist Patricia
+Kopatchinskaja and pianist Vijay Iyer in the contemporary era, each music director brings
+
+===== PDF PAGE 10 =====
+his or her own distinctive genius, sparking creative renewal right from the get-go. 13 It’s
+as if the festival puts up a blank canvas with an unstated challenge—all we ask is that
+you paint a masterpiece. Except that instead of a painting on a canvas, the masterpiece
+composition is a musical experience that engulfs artists and audience alike. “We’ve been
+able to attract unconventional talent to Ojai for two key reasons,” explained Tom Morris,
+artistic director of the festival for nearly two decades. “First, they’re energized by whom
+they get to play with, and second, they’re energized by the fact that we unleash their
+creativity. It’s like a big snow globe; you shake it up and see what comes down.” 14
+The next ﬂywheel step ﬂows from a rigorous constraint. The festival lasts just four days,
+period. All that transcendent creativity, the snow globe of swirling ideas, must be forged
+into a tight program. Most ideas—even many great ideas—have to be cut in the end. And
+that brings us to the crucial insight, the causal link that snapped the ﬂywheel around,
+from wild creativity to enhanced community support. “We don’t want to evoke an
+appreciative audience response,” Morris explained. “We want to provoke a passionate
+audience reaction.”
+Morris tells the story of a town resident who hadn’t attended the festivals because he
+didn’t like “that kind of music.” But one day, the resident happened to walk into a festival
+performance of “Inuksuit,” a spatial piece for nine to ninety-nine percussionists composed
+by John Luther Adams. By “walk into,” I don’t mean that he walked into the back of a
+concert hall with an orchestra far away on stage; he quite literally walked into the middle
+of the performance, with the players spread throughout a town park as they played
+amidst groves and paths, and the audience surrounded by sounds coming from all sides.
+There were tom-toms, cymbals, triangles, glockenspiels, sirens, piccolos, and all sorts of
+drums of various sizes and shapes. The music gradually rose from quiet to raucous, then
+began quieting down until it tapered oﬀ to its conclusion, seamlessly supplanted by the
+chirping of local birds chiming in from the trees. As players periodically moved to
+diﬀerent stations throughout the park, some even climbing up into trees while the
+audience roamed and milled about, the unfolding performance enveloped them all. 15
+Snap-click went the ﬂywheel, and the once-skeptic who didn’t like “that type of music”
+found himself transﬁxed by the experience and transformed into a passionate supporter of
+the festival. 16
+Morris and his colleagues understood that the most committed audience members want
+to be engaged, inspired, challenged, surprised, stunned, overwhelmed. They don’t want to
+have a “nice listening moment” that they forget. They want to grow from a
+transformative musical experience that ignites the spirit and has a lasting emotional
+impact. And each time the festival delivered on that promise, the ﬂywheel spun around,
+fueling the resource engine, building Ojai’s reputation, and attracting the next wave of
+unconventional talent to create the next masterpiece and turn the ﬂywheel anew.
+EXECUTE AND INNOVATE—RENEWING THE FLYWHEEL
+Once you get the ﬂywheel right, the question becomes, What do we need to do better to
+accelerate momentum? The very nature of a ﬂywheel—that it depends upon getting the
+sequence right and that every component depends on all the other components—means
+
+===== PDF PAGE 11 =====
+that you simply cannot falter on any primary component and sustain momentum. Think of it
+this way. Suppose you have, say, six components in the ﬂywheel, and you score your
+performance in each from 1 to 10. What happens if your execution scores are 9, 10, 8, 3,
+9, and 10? The entire ﬂywheel stalls at the component scoring 3. To regain momentum,
+you need to bring that 3 up to at least an 8.
+The ﬂywheel, when properly conceived and executed, creates both continuity and change.
+On the one hand, you need to stay with a ﬂywheel long enough to get its full
+compounding eﬀect. On the other hand, to keep the ﬂywheel spinning, you need to
+continually renew, and improve each and every component.
+In Built to Last, Jerry Porras and I observed that those who build enduring great
+companies reject the “Tyranny of the OR” (the view that things must be either A OR B
+but not both). Instead, they liberate themselves with the “Genius of the AND.” Instead of
+choosing between A OR B, they ﬁgure out a way to have both A AND B. When it comes to
+the ﬂywheel, you need to fully embrace the Genius of the AND, sustain the ﬂywheel AND
+renew the ﬂywheel.
+The Cleveland Clinic became one of the most admired healthcare institutions in the world
+by embracing the Genius of the AND—consistency AND change—in its ﬂywheel. The
+ﬂywheel traces its roots back to the clinic’s founding, when three physicians served in
+World War I and came away inspired by military teamwork. When you’re serving soldiers
+carried oﬀ the battleﬁeld, you don’t ask, “Hey, what’s my reimbursement rate? Am I
+going to get a bonus for this?” You work shoulder to shoulder with your colleagues,
+throwing whatever skills you have into the mix to save as many lives as possible and get
+them home to the people they love.
+From this life-shaping experience, the three physicians vowed to create a distinctive new
+medical center after the war, one with a highly collaborative culture ﬁlled with people
+utterly obsessed with caring for patients. From its inception, the Cleveland Clinic focused
+on attracting ﬁrst-rate physicians who would work on salary—no incentives based on the
+number of patients or procedures—because they’d be motivated primarily by working
+with world-class colleagues with a singular goal, do what’s best for the patient. The
+Cleveland Clinic ﬂywheel begins with the right people operating in a culture that drives
+patient outcomes, which then feeds into attracting patients and building the resource
+engine, which can then be redeployed to build capabilities and attract more of the right
+people to drive the ﬂywheel around. 17
+When Dr. Toby Cosgrove became CEO of the Cleveland Clinic in 2004, he deeply
+understood both the spirit and the logic of the ﬂywheel. A military physician as a young
+man, he’d been deployed to the Vietnam War and was put in charge of a hospital; like the
+founders, he’d learned ﬁrsthand about working in teams and mobilizing all sorts of
+people with diﬀerent skills to get things done in the chaos of incoming battleﬁeld
+casualties. He joined the Cleveland Clinic in 1975 as a cardiac surgeon and led its heart
+program to a number-one ranking in U.S. News & World Report. Yet even with all this
+success, Cosgrove sensed that the Cleveland Clinic needed to rededicate itself to the
+proposition that the patient must come ﬁrst. He challenged himself and his colleagues to
+
+===== PDF PAGE 12 =====
+address what needed to be changed, improved, and created to better serve the patient.
+For instance, they realized that a traditional structure organized by competencies
+(surgery, cardiology, etc.) favored medical tradition over working across specialties to
+best serve the patient. So, they instituted a structural change, creating institutes around
+patient needs, such as the Miller Family Heart & Vascular Institute that housed physicians
+from all the relevant specialties in the same location.
+In his book, The Cleveland Clinic Way, Cosgrove details the myriad of changes put in place
+to renew the ﬂywheel—changes big and small, strategic and tactical, structural and
+symbolic. From 2004 to 2016, the ﬂywheel gained a huge burst of momentum—doubling
+revenues, patient visits, and research funding—while the Cleveland Clinic exported its
+brand across a growing network, from Ohio to Florida to Abu Dhabi. They renewed every
+component of the ﬂywheel, but they didn’t dismantle it. “Underneath, it’s the original
+ﬂywheel,” said Cosgrove. “We reinvigorated it.” 18
+There are two possible explanations for a stalled or stuck ﬂywheel. Possible explanation
+#1: The underlying ﬂywheel is just ﬁne, but you’re failing to innovate and execute
+brilliantly on every single component; the ﬂywheel needs to be reinvigorated. Possible
+explanation #2: The underlying ﬂywheel no longer ﬁts reality and must be changed in
+some signiﬁcant way. It’s imperative that you make the right diagnosis.
+Over the long course of time (multiple decades), a ﬂywheel might evolve signiﬁcantly.
+You might replace components. You might delete components. You might revise
+components. You might narrow or broaden the scope of a component. You might adjust
+the sequence. These changes might happen by a process of invention, as you discover or
+create fundamentally new activities or businesses. Or they might happen by a process
+wherein you confront the brutal facts and practice productive paranoia about
+existential threats to your ﬂywheel. For example, a company whose business model
+depended on collecting the personal information of millions of people found its ﬂywheel
+imperiled by a data breach. Members of the executive team realized that they needed to
+insert a component dedicated to protecting privacy and earning trust. The rest of the
+ﬂywheel remained intact, but without this vital new component, the company might have
+woken up one day on the verge of extinction.
+That said, if you feel compelled to continuously make fundamental changes to the
+sequence or components of the ﬂywheel, you’ve likely failed to get your ﬂywheel right in
+the ﬁrst place. Rarely does a great ﬂywheel stall because it’s run out of potential or is
+fundamentally broken. More often, momentum stalls due to either poor execution and/or
+failure to renew and extend within a fundamentally sound ﬂywheel architecture. It is to
+the topic of extending the ﬂywheel that we now turn.
+EXTENDING THE FLYWHEEL
+How do great companies go about extending a ﬂywheel? The answer lies in a concept I
+developed with my colleague Morten Hansen in our book, Great by Choice. Morten and I
+systematically studied small entrepreneurial companies that became the 10X winners
+(beating their industries by more than ten times, in returns to investors) in highly
+
+===== PDF PAGE 13 =====
+turbulent industries in contrast to less successful comparison cases in the same
+environments. We found that both sets of companies made big bets but with a huge
+diﬀerence. The big successes tended to make big bets after they’d empirically validated
+that the bet would pay oﬀ, whereas the less successful comparisons tended to make big
+bets before having empirical validation. We coined the concept ﬁre bullets, then
+cannonballs to capture the diﬀerence. 19
+Here’s the idea: Imagine a hostile ship bearing down on you. You have a limited amount
+of gunpowder. You take all your gunpowder and use it to ﬁre a big cannonball. The
+cannonball ﬂies out and splashes in the ocean, missing the oncoming ship. You turn to
+your stockpile and discover that you’re out of gunpowder. You’re in trouble. But suppose
+instead that when you see the ship bearing down, you take a little bit of gunpowder and
+ﬁre a bullet. It misses by 40 degrees. You make another bullet and ﬁre. It misses by 30
+degrees. You make a third bullet and ﬁre, missing by only 10 degrees. The next bullet hits
+—ping!—the hull of the oncoming ship. You have empirical validation, a calibrated line
+of sight. Now, you take all the remaining gunpowder and ﬁre a big cannonball along the
+calibrated line of sight, which sinks the enemy ship.
+In looking across the history of great companies in all our research studies, we ﬁnd a
+frequent pattern. They usually begin life being successful in a speciﬁc business arena,
+making the most of their early big bets. But soon they make a conceptual shift from
+“running a business” to turning a ﬂywheel. And over time, they extend that ﬂywheel by
+ﬁring bullets, then cannonballs. They crank the ﬂywheel in their ﬁrst arena of success,
+while simultaneously ﬁring bullets to discover new things that might work, and as a
+hedge against uncertainty.
+Some bullets hit nothing, but some give enough empirical validation that the company
+then ﬁres a cannonball, providing a big burst of momentum. In some cases, these
+extensions come to generate the vast majority of momentum in the ﬂywheel, and in a few
+cases (such as when Intel moved from memories to microprocessors), they entirely
+replace what came before.
+Apple’s ﬂywheel extension into its biggest business—smart handheld devices—followed
+exactly this pattern. In 2002, nearly all of Apple’s ﬂywheel momentum came from its line
+of Macintosh personal computers. But it had ﬁred a bullet on this little thing called an
+iPod, described in its 2001 form 10-K as simply “an important and natural extension” of
+Apple’s personal computer strategy. In 2002, the iPod generated less than 3 percent of
+Apple sales. Apple kept ﬁring bullets on the iPod, developing an online music store along
+the way (iTunes). The bullets kept hitting, the iPod kept adding momentum to the
+ﬂywheel, and Apple eventually ﬁred a huge cannonball, betting big on the iPod and
+iTunes. And Apple kept extending the ﬂywheel, from iPod to iPhone, from iPhone to
+iPad, and Apple’s ﬂywheel extension became the largest generator of momentum. 20
+In the nearby table, I’ve listed a range of fabulous ﬂywheel extensions from corporate
+history. In every case, the company followed the bullet-to-cannonball method to extend
+and accelerate an underlying ﬂywheel that had been turning for years.
+
+===== PDF PAGE 14 =====
+COMPANY
+FIRST ARENA OF FLYWHEEL SUCCESS
+NEXT BIG EXTENSION OF THE FLYWHEEL
+3M
+Abrasives (e.g., sandpaper)
+Adhesives (e.g., Scotch Tape)
+Amazon
+Internet-enabled retail for consumers
+Cloud-enabled web services for enterprises
+Amgen
+Therapeutics for low-blood-cell conditions
+Therapeutics for inﬂammation and cancer
+Apple
+Personal computers
+Smart handhelds (iPod, iPhone, iPad)
+Boeing
+Military aircraft
+Commercial jetliners
+IBM
+Accounting tabulating machines
+Computers
+Intel
+Memory chips
+Microprocessors
+Johnson & Johnson
+
+===== PDF PAGE 15 =====
+Medical and surgical products
+Consumer health-care products
+Kroger
+Small-scale grocery stores
+Large-scale superstores
+Marriott
+Restaurants
+Hotels
+Merck
+Chemicals
+Pharmaceuticals
+Microsoft
+Computer languages
+Operating systems and applications
+Nordstrom
+Shoe stores
+Department stores
+Nucor
+Steel joists
+Manufactured steel
+Progressive
+Non-standard (high-risk) car insurance
+Standard car insurance
+Southwest Airlines
+Low-cost intrastate airline (Texas only)
+
+===== PDF PAGE 16 =====
+Low-cost interstate airline (coast to coast)
+Stryker
+Hospital beds
+Surgical products
+Walt Disney
+Animated ﬁlms
+Theme parks
+When does a new activity become a second ﬂywheel, as distinct from an extension? Most
+seeming “second ﬂywheels” come about organically, as bullet-to-cannonball extensions of
+a primary ﬂywheel. Amazon showed this precise pattern with its Amazon Web Services,
+which enables organizations big and small to eﬃciently buy computing power, store data,
+host websites, and avail themselves of other technology services. Amazon Web Services
+began as an internal system to provide backend technology support for Amazon’s own e-
+commerce eﬀorts. In 2006, the company ﬁred a bullet on oﬀering these very same
+services to outside companies. The bullet hit its target and Amazon had enough
+calibration to ﬁre a cannonball. A decade later, Amazon Web Services (while still
+contributing less than 10 percent of Amazon’s overall net sales) generated a substantial
+portion of Amazon’s operating income. 21
+Even though Amazon Web Services ﬁrst appears to be a very diﬀerent activity than the
+consumer-retail business, it has substantial similarities. As Bezos wrote in his 2015
+annual letter to shareholders, “Superﬁcially, the two could hardly be more diﬀerent. One
+serves consumers and the other serves enterprises . . . Under the surface, the two are not
+so diﬀerent after all.” Amazon Web Services aims to lower prices and expand oﬀerings to
+an ever-growing cadre of customers, leading to increasing revenues per ﬁxed costs, which
+then drives the ﬂywheel around again. The whole idea is to make it as easy and cost-
+eﬀective for enterprises to meet their technology needs as it is for consumers buying
+personal stuﬀ at the Amazon marketplace. Sure, there are diﬀerences in how the two
+businesses operate, but the two are more like fraternal twins than being from an entirely
+diﬀerent family lineage.
+Every large organization will eventually have multiple sub-ﬂywheels spinning about, each
+with its own nuance. But to achieve greatest momentum, they should be held together by
+an underlying logic. And each sub-ﬂywheel should clearly ﬁt within and contribute to the
+whole.
+The most important thing is to keep turning the overall ﬂywheel—and every component
+and sub-ﬂywheel—with creative intensity and relentless discipline. Even with the early
+growth and proﬁtability of Amazon Web Services, Bezos remained obsessed with keeping
+Amazon’s consumer-retail business as vibrant and energized as when the company ﬁrst
+
+===== PDF PAGE 17 =====
+began. After all, even as Amazon approached $200 billion in annual revenues, it had less
+than 1 percent of the global retail market. 22
+STAY ON THE FLYWHEEL . . . AND OUT OF HOW THE MIGHTY FALL
+In studying the horrifying fall of once-great companies, we see them abandoning the key
+principles that made them great in the ﬁrst place. They vest the wrong leaders with
+power. They veer from the First Who principle and cease to get the right people on the
+bus. They fail to confront the brutal facts. They stray far beyond the three circles of their
+Hedgehog Concept, throwing themselves into activities at which they could never become
+best in the world. They subvert discipline with bureaucracy. They corrupt their core
+values and lose their purpose. And one of the biggest patterns exhibited by once-great
+companies that bring about their own senseless self-destruction is failure to adhere to the
+ﬂywheel principle.
+In our research for How the Mighty Fall, we found that the demise of once-great companies
+happens in ﬁve stages: (1) Hubris Born of Success, (2) Undisciplined Pursuit of More, (3)
+Denial of Risk and Peril, (4) Grasping for Salvation, and (5) Capitulation to Irrelevance or
+Death. Take special note of Stage 4, Grasping for Salvation. When companies fall into
+Stage 4, they succumb to the doom loop, the exact opposite of building ﬂywheel
+momentum. They grasp for charismatic saviors or untested strategies or big uncalibrated
+cannonballs or cultural revolutions or “game-changing” acquisitions or transformative
+technologies or radical restructurings (then another and another) or . . . well, you get the
+idea.
+In Stage 4, each grasp for salvation creates a burst of hope and momentary momentum.
+But if there’s no underlying ﬂywheel, the momentum doesn’t last. And with each grasp,
+the enterprise erodes capital—ﬁnancial capital, cultural capital, stakeholder capital—and
+weakens. If the company never gets back to the discipline of the ﬂywheel, it will likely
+continue to spiral downward until it enters Stage 5. No enterprise comes back from Stage
+5. Game over.
+Circuit City, which we studied in the original research for Good to Great, later “earned” a
+spot in How the Mighty Fall, and its demise teaches important lessons about the ﬂywheel.
+During its good-to-great years, Circuit City made the leap from dismal mediocrity to
+superstar success under the inspired Level 5 leadership of Alan Wurtzel, transforming a
+hodgepodge of hi-ﬁ stores into a sophisticated system of consumer electronics
+superstores, generating total returns to investors of more than eighteen times the general
+stock market over ﬁfteen years. But after the Wurtzel era, Circuit City began to decline,
+slowly at ﬁrst, almost imperceptibly, as usually happens with companies moving through
+the early stages of decline, then it plummeted precipitously through Stage 4, and right
+into Stage 5 capitulation and death.
+How did this happen? A big part of the answer lies in two fundamental mistakes the post-
+Wurtzel leadership team made related to the ﬂywheel principle. First, they became
+distracted by searching for the Next Big Thing. Circuit City sought big new ideas for
+growth, anticipating the day that the consumer electronics superstores would run out of
+
+===== PDF PAGE 18 =====
+great locations in which to open across the country. This in itself was a good idea, just as
+Amazon continually sought new ideas to propel the ﬂywheel. But, unlike Amazon under
+Bezos, Circuit City neglected to keep the consumer electronics retail business robust and
+relevant. Meanwhile, an up-start competitor named Best Buy seized the market. 23
+Second—and this is the most fundamental lesson from Circuit City’s demise—the post-
+Wurtzel team underestimated how far a ﬂywheel could go if seen as an underlying
+architecture (that can be extended) rather than as a single line of business. The great
+tragedy of Circuit City is that it did indeed invent a spectacular extension, called CarMax,
+which could have created momentum for at least another couple of decades. The idea
+behind CarMax was to do for the used-car business what the Wurtzel team had done for
+hi-ﬁ stores, to professionalize and transform a hodgepodge industry into a sophisticated
+system of superstores under one trusted brand. 24
+Circuit City ﬁred a bullet with its ﬁrst CarMax store in Richmond, Virginia. It proved
+successful. So, it ﬁred a second bullet, opening a second CarMax in Raleigh, North
+Carolina, which also proved successful. Next, it ﬁred two more bullets in Atlanta,
+Georgia. With empirical validation in hand, Circuit City ﬁred a cannonball, opening
+CarMax superstores and expanding into new regions—Florida, Texas, California, and
+beyond. By the early 2000s, CarMax was growing at close to 25 percent a year,
+generating more than $3 billion in proﬁtable sales in 2002. 25
+Now, stop and think about this for a minute. How did CarMax’s success presage Circuit
+City’s fall? With CarMax, Circuit City had created a huge new extension of its ﬂywheel
+that could generate years of additional momentum. The CarMax ﬂywheel extension could
+have been analogous to Apple’s ﬂywheel extension from personal computers to smart
+handhelds, Boeing’s ﬂywheel extension from military propeller-driven bombers to
+commercial jet airliners, Marriott’s ﬂywheel extension from restaurants to hotels, and
+Walt Disney’s ﬂywheel extension from animated ﬁlms to theme parks. And in the event
+that the consumer electronics superstores did become untenable as a business, the
+company could redeploy all its energy into CarMax (similar to Intel’s move out of
+memories and into microprocessors). But to do so would have required the conceptual
+wisdom to see CarMax as an extension of an underlying ﬂywheel architecture.
+Sadly, the post-Wurtzel team got rid of the CarMax superstores, jettisoning CarMax into
+its own separate company. It was as if Intel had decided in 1985 to get rid of the
+microprocessor business and keep the memory-chip business; the spun-out
+microprocessor company might have been successful, but Intel would have likely died.
+Fortunately for Intel, Grove and Moore had the strategic acumen to see the
+microprocessor business as an extension of its underlying ﬂywheel. Circuit City failed to
+make this conceptual leap.
+As Alan Wurtzel later wrote in his book, Good to Great to Gone (which I warmly
+recommend reading), “Looked at from a long-term perspective, it is disappointing that
+CarMax did not remain part of the Circuit City portfolio . . . The initial premise for
+CarMax was to create a portfolio of retail companies, so that as one matured another
+would be coming along to support the growth of the whole.” 26 Wurtzel understood
+
+===== PDF PAGE 19 =====
+CarMax as part of a bigger ﬂywheel, but those who ran the company after him didn’t. If
+Circuit City had continued to evolve and renew the consumer electronics superstores (as
+Best Buy did) and continued to extend its underlying ﬂywheel into new arenas (such as
+with CarMax), it might have remained a great company, climbing steadily upward in the
+S&P 500. Instead, Circuit City lost all its ﬂywheel momentum and careened into the later
+stages of decline—down, down, down, the doom loop hurtling the company toward
+irrelevance. The once good-to-great company died in the winter of 2008. 27
+THE VERDICT OF HISTORY
+After conducting a quarter-century of research into the question of what makes great
+companies tick—more than six thousand years of combined corporate history in the
+research data base—we can issue a clear verdict. The big winners are those who take a
+ﬂywheel from ten turns to a billion turns rather than crank through ten turns, start over
+with a new ﬂywheel, push it to ten turns, only to divert energy into yet another new
+ﬂywheel, then another and another. When you reach a hundred turns on a ﬂywheel, go
+for a thousand turns, then ten thousand, then a million, then ten million, and keep going
+until (and unless) you make a conscious decision to abandon that ﬂywheel. Exit
+deﬁnitively or renew obsessively, but never—ever—neglect your ﬂywheel. Apply your
+creativity and discipline to each and every turn with as much intensity as when you
+cranked out your ﬁrst turns on the ﬂywheel, nonstop, relentlessly, ever building
+momentum. If you do this, your organization will be much more likely to stay out of How
+the Mighty Fall and earn a place amongst those rare few that not only make the leap from
+good to great but also become built to last.
+Appendix
+THE FLYWHEEL WITHIN A FRAMEWORK
+A Map for the Journey from Good to Great
+I wrote this monograph to share practical insights about the ﬂywheel principle that
+became clear in the years after ﬁrst writing about the ﬂywheel eﬀect in chapter 8 of Good
+to Great. I decided to create this monograph because I’ve witnessed the power of the
+ﬂywheel, when properly conceived and harnessed, in a wide range of organizations: in
+public corporations and private companies, in large multinationals and small family
+businesses, in military organizations and professional sports teams, in school systems and
+medical centers, in investment ﬁrms and philanthropic endeavors, in social movements
+and nonproﬁts.
+Yet the ﬂywheel eﬀect alone does not make an organization great. The ﬂywheel ﬁts
+within a framework of principles we uncovered through more than a quarter-century of
+research into the question of what makes a great company tick. We derived these
+principles using a rigorous matched-pair research method, comparing companies that
+became great with companies (in similar circumstances) that did not. We’d systematically
+analyze the histories of the contrasting cases and ask, “What explains the diﬀerence?”
+(See nearby diagram, “ The Good-to-Great Matched-Pair Research Method .”)
+
+===== PDF PAGE 20 =====
+THE GOOD-TO-GREAT MATCHED-PAIR RESEARCH METHOD
+My research colleagues and I applied the historical matched-pair research method in four
+major studies, each using a diﬀerent lens, that resulted in four books: Built to Last
+(coauthored with Jerry I. Porras), Good to Great, How the Mighty Fall, and Great by Choice
+(coauthored with Morten T. Hansen). We also extended the principles beyond business in
+the monograph Good to Great and the Social Sectors.
+An overarching theme across our research ﬁndings is the role of discipline in separating
+the great from the mediocre. True discipline requires the independence of mind to reject
+pressures to conform in ways incompatible with values, performance standards, and long-
+term aspirations. The only legitimate form of discipline is self-discipline, having the inner
+will to do whatever it takes to create a great outcome, no matter how diﬃcult. When you
+have disciplined people, you don’t need hierarchy. When you have disciplined thought,
+you don’t need bureaucracy. When you have disciplined action, you don’t need excessive
+controls. When you combine a culture of discipline with an ethic of entrepreneurship, you
+create a powerful mixture that correlates with great performance.
+To build an enduring great organization—whether in the business or social sectors—you
+need disciplined people who engage in disciplined thought and take disciplined action to
+produce superior results and make a distinctive impact in the world. Then you need the
+discipline to sustain momentum over a long period of time and to lay the foundations for
+lasting endurance. This forms the backbone of the framework, laid out as four basic
+stages:
+Stage 1: Disciplined People
+Stage 2: Disciplined Thought
+Stage 3: Disciplined Action
+Stage 4: Building to Last
+Each of the four stages consists of two or three fundamental principles. The ﬂywheel
+principle falls at a central point in the framework, right at the pivot point from
+disciplined thought into disciplined action. I’ve provided a brief description of the
+principles below.
+STAGE 1: DISCIPLINED PEOPLE
+LEVEL 5 LEADERSHIP
+Level 5 leaders display a powerful mixture of personal humility and indomitable will.
+They’re incredibly ambitious, but their ambition is ﬁrst and foremost for the cause, for
+the organization and its purpose, not for themselves. While Level 5 leaders can come in
+many personality packages, they’re often self-eﬀacing, quiet, reserved, and even shy.
+Every good-to-great transition in our research began with a Level 5 leader who motivated
+people more with inspired standards than inspiring personality. This concept is ﬁrst
+
+===== PDF PAGE 21 =====
+developed in the book Good to Great and further reﬁned in the monograph Good to Great
+and the Social Sectors.
+FIRST WHO, THEN WHAT—GET THE RIGHT PEOPLE ON THE BUS
+Those who lead organizations from good to great ﬁrst get the right people on the bus
+(and the wrong people oﬀ the bus) and then ﬁgure out where to drive the bus. They
+always think ﬁrst about “who” and then about “what.” When you’re facing chaos and
+uncertainty, and you cannot possibly predict what’s coming around the corner, your best
+“strategy” is to have a busload of people who can adapt and perform brilliantly no matter
+what comes next. Great vision without great people is irrelevant. This concept is ﬁrst
+developed in the book Good to Great and further reﬁned in the monograph Good to Great
+and the Social Sectors.
+STAGE 2: DISCIPLINED THOUGHT
+GENIUS OF THE AND
+Builders of greatness reject the “Tyranny of the OR” and embrace the “Genius of the
+AND.” They embrace both extremes across a number of dimensions at the same time. For
+example, creativity AND discipline, freedom AND responsibility, confront the brutal facts
+AND never lose faith, empirical validation AND decisive action, bounded risk AND big
+bets, productive paranoia AND a bold vision, purpose AND proﬁt, continuity AND
+change, short term AND long term. This concept is ﬁrst introduced in the book Built to
+Last and further developed in the book Good to Great.
+CONFRONT THE BRUTAL FACTS—THE STOCKDALE PARADOX
+Productive change begins when you have the discipline to confront the brutal facts. The
+best mind frame to have for leading from good to great is represented in the Stockdale
+Paradox: Retain absolute faith that you can and will prevail in the end, regardless of the
+diﬃculties, and at the same time, exercise the discipline to confront the most brutal facts
+of your current reality, whatever they might be. This concept is fully developed in the
+book Good to Great.
+THE HEDGEHOG CONCEPT
+The Hedgehog Concept is a simple, crystalline concept that ﬂows from deep
+understanding about the intersection of the following three circles: (1) what you’re
+deeply passionate about, (2) what you can be the best in the world at, and (3) what
+drives your economic or resource engine. When a leadership team becomes fanatically
+disciplined in making decisions consistent with the three circles, they begin to generate
+momentum toward a good-to-great inﬂection. This includes not only the discipline of
+what to do, but equally, what not to do and what to stop doing. This concept is ﬁrst
+developed in the book Good to Great and further reﬁned in the monograph Good to Great
+and the Social Sectors.
+
+===== PDF PAGE 22 =====
+STAGE 3: DISCIPLINED ACTION
+THE FLYWHEEL
+No matter how dramatic the end result, building a great enterprise never happens in one
+fell swoop. There’s no single deﬁning action, no grand program, no one killer innovation,
+no solitary lucky break, no miracle moment. Rather, the process resembles relentlessly
+pushing a giant, heavy ﬂywheel, turn upon turn, building momentum until a point of
+breakthrough, and beyond. To maximize the ﬂywheel eﬀect, you need to understand how
+your speciﬁc ﬂywheel turns. The ﬂywheel eﬀect is ﬁrst developed in the book Good to
+Great, and its application is fully developed in this monograph.
+20 MILE MARCH
+Companies that thrive in a turbulent world self-impose rigorous performance marks to hit
+with relentless consistency—like walking across a gigantic continent by marching at least
+twenty miles a day, every day, regardless of conditions. The march imposes order amidst
+disorder, discipline amidst chaos, and consistency amidst uncertainty. For most
+organizations, a one-year 20 Mile March cycle works well, although it could be shorter or
+longer. But whatever the cycle, the 20 Mile March requires both short-term focus (you
+have to hit the march this cycle) and long-term building (you have to hit the march every
+subsequent cycle for years to decades). As such, it’s a rariﬁed form of disciplined action
+that correlates strongly with achieving breakthrough performance and sustaining
+ﬂywheel momentum. This concept is fully developed in the book Great by Choice.
+FIRE BULLETS, THEN CANNONBALLS
+The ability to scale innovation—to turn small, proven ideas (bullets) into huge successes
+(cannonballs)—can provide big bursts of momentum. First, you ﬁre bullets (low-cost,
+low-risk, low-distraction experiments) to ﬁgure out what will work—calibrating your line
+of sight by taking small shots. Then, once you have empirical validation, you ﬁre a
+cannonball (concentrating resources into a big bet) on the calibrated line of sight.
+Calibrated cannonballs correlate with outsized results; uncalibrated cannonballs correlate
+with disaster. Firing bullets, then cannonballs, is a primary mechanism for expanding the
+scope of an organization’s Hedgehog Concept and extending its ﬂywheel into entirely
+new arenas. This concept is fully developed in the book Great by Choice.
+STAGE 4: BUILDING TO LAST
+PRODUCTIVE PARANOIA
+The only mistakes you can learn from are the ones you survive. Leaders who navigate
+turbulence and stave oﬀ decline assume that conditions can unexpectedly change,
+violently and fast. They obsessively ask, “What if? What if? What if?” By preparing ahead
+of time, building reserves, preserving a margin of safety, bounding risk, and honing their
+discipline in good times and bad, they handle disruptions from a position of strength and
+ﬂexibility. Productive paranoia helps inoculate organizations from falling into the ﬁve
+
+===== PDF PAGE 23 =====
+stages of decline that can derail the ﬂywheel and destroy an organization. Those stages
+are (1) Hubris Born of Success, (2) Undisciplined Pursuit of More, (3) Denial of Risk and
+Peril, (4) Grasping for Salvation, and (5) Capitulation to Irrelevance or Death. Productive
+paranoia is fully developed in the book Great by Choice, and the ﬁve stages of decline are
+fully developed in the book How the Mighty Fall.
+CLOCK BUILDING, NOT TIME TELLING
+Leading as a charismatic visionary—a “genius with a thousand helpers” upon whom
+everything depends—is time telling. Shaping a culture that can thrive far beyond any
+single leader is clock building. Searching for a single great idea upon which to build
+success is time telling. Building an organization that can generate many great ideas is
+clock building. Leaders who build enduring great companies tend to be clock builders,
+not time tellers. For true clock builders, success comes when the organization proves its
+greatness not just during one leader’s tenure but also when the next generation of
+leadership further increases ﬂywheel momentum. This concept is fully developed in the
+book Built to Last.
+PRESERVE THE CORE/STIMULATE PROGRESS
+Enduring great organizations embody a dynamic duality. On the one hand, they have a
+set of timeless core values and core purpose (reason for being) that remain constant over
+time. On the other hand, they have a relentless drive for progress—change, improvement,
+innovation, and renewal. Great organizations understand the diﬀerence between their
+core values and purpose (which almost never change), and operating strategies and
+cultural practices (which endlessly adapt to a changing world). The drive for progress
+often manifests in BHAGs (Big Hairy Audacious Goals) that stimulate the organization to
+develop entirely new capabilities. Many of the best BHAGs come about as a natural
+extension of the ﬂywheel eﬀect, when leaders imagine how far the ﬂywheel can go and
+then commit to achieving what they imagine. This concept is ﬁrst developed in the book
+Built to Last and further developed in the book Good to Great.
+10X MULTIPLIER
+RETURN ON LUCK
+Finally, there’s a principle that ampliﬁes all the other principles in the framework, the
+principle of return on luck. Our research showed that the great companies were not
+generally luckier than the comparisons—they didn’t get more good luck, less bad luck,
+bigger spikes of luck, or better timing of luck. Instead, they got a higher return on luck,
+making more of their luck than others. The critical question is not, will you get luck? But
+what will you do with the luck that you get? If you get a high return on a luck event, it
+can add a big boost of momentum to the ﬂywheel. Conversely, if you are ill-prepared to
+absorb a bad-luck event, it can stall or imperil the ﬂywheel. This concept is fully
+developed in the book Great by Choice.
+THE OUTPUTS OF GREATNESS
+
+===== PDF PAGE 24 =====
+The above principles are the inputs to building a great organization. You can think of
+them almost as a “map” to follow for building a great company or social-sector
+enterprise. But what are the outputs that deﬁne a great organization? Not how you get
+there, but what is a great organization—what are the criteria of greatness? There are
+three tests: superior results, distinctive impact, and lasting endurance.
+SUPERIOR RESULTS
+In business, performance is deﬁned by ﬁnancial results—return on invested capital—and
+achievement of corporate purpose. In the social sectors, performance is deﬁned by results
+and eﬃciency in delivering on the social mission. But whether business or social, you
+must achieve top-ﬂight results. To use an analogy, if you’re a sports team, you must win
+championships; if you don’t ﬁnd a way to win at your chosen game, you cannot be
+considered truly great.
+DISTINCTIVE IMPACT
+A truly great enterprise makes such a unique contribution to the communities it touches
+and does its work with such unadulterated excellence that, if it were to disappear, it
+would leave a gaping hole that could not be easily ﬁlled by any other institution on the
+planet. If your organization went away, who would miss it, and why? This does not
+require being big; think of a small but fabulous local restaurant that would be terribly
+missed if it disappeared. Big does not equal great, and great does not equal big.
+LASTING ENDURANCE
+A truly great organization prospers over a long period of time, beyond any great idea,
+market opportunity, technology cycle, or well-funded program. When clobbered by
+setbacks, it ﬁnds a way to bounce back stronger than before. A great enterprise
+transcends dependence on any single extraordinary leader; if your organization cannot be
+great without you, then it is not yet a truly great organization.
+Finally, I caution against ever believing that your organization has achieved ultimate
+greatness. Good to great is never done. No matter how far we have gone or how much we
+have achieved, we are merely good relative to what we can do next. Greatness is an
+inherently dynamic process, not an end point. The moment you think of yourself as great,
+your slide toward mediocrity will have already begun.
+Notes
+1 Stephen Ressler, Understanding the World’s Greatest Structures (Chantilly, VA: The
+Teaching Company, 2011), Lecture 24.
+2 Brad Stone, The Everything Store (New York, NY: Little, Brown and Company, 2013), 6–
+8, 12, 14, 100–102, 126–128, 188, 262–263, 268.
+3 Erika Fry, “Mutual Fund Giant Vanguard Flexes Its Muscles,” Fortune, December 8,
+2016, http://fortune.com/vanguard-mutual-funds-investment/; “Fast Facts about
+
+===== PDF PAGE 25 =====
+Vanguard,” The Vanguard Group, Inc, Accessed in 2017, https://about.vanguard.com/
+who-we-are/fast-facts/.
+4 Robert N. Noyce, “MOSFET Semiconductor IC Memories,” Electronics World, October
+1970, 46; Gene Bylinsky, “How Intel Won Its Bet on Memory Chips,” Fortune, November
+1973, 142–147, 184; Robert N. Noyce, “Innovation: The Fruit of Success,” Technology
+Review, February 1978, 24; “Innovative Intel,” Economist, June 16, 1979, 94; Michael
+Annibale, “Intel: The Microprocessor Champ Gambles on Another Leap Forward,” Business
+Week, April 14, 1980, 98; Mimi Real and Robert Warren, A Revolution in Progress . . . A
+History of Intel to Date (Santa Clara, CA: Intel Corporation, 1984), 4; Gordon E. Moore,
+“Cramming More Components onto Integrated Circuits,” Proceedings of the IEEE, January
+1998, 82–83; Leslie Berlin, The Man Behind the Microchip (New York, NY: Oxford
+University Press, 2005), 160, 170–172; “Moore’s Law,” Intel Corporation, Accessed in
+2018, http://www.intel.com/technology/mooreslaw/.
+5 Andrew S. Grove, Only the Paranoid Survive: How to Exploit the Crisis Points that Challenge
+Every Company (New York, NY: Crown Business; 1st Currency Pbk. Ed edition, April 23,
+2010), 85–89.
+6 James C. Collins and William C. Lazier, Managing the Small to Mid-Sized Company (New
+York, NY: Richard D. Irwin Publishers, 1995), C47-C74.
+7 James C. Collins and William C. Lazier, Managing the Small to Mid-Sized Company (New
+York, NY: Richard D. Irwin Publishers, 1995), C47-C74.
+8 Jim Collins and Morten T. Hansen, Great by Choice: Uncertainty, Chaos and Luck—Why
+Some Thrive Despite Them All (New York, NY: HarperBusiness, 2011), 76; Brad Stone, The
+Everything Store (New York, NY: Little, Brown and Company, 2013), 34.
+9 Gerard J. Tellis and Peter N. Golder, Will & Vision (New York, NY: McGraw-Hill, 2002),
+257; Jim Collins, Good to Great: Why Some Companies Make the Leap and Others Don’t
+(New York, NY: HarperCollins Publishers Inc., 2001), 149, 152, 158; Jim Collins and
+Morten T. Hansen, Great by Choice: Uncertainty, Chaos and Luck—Why Some Thrive Despite
+Them All (New York, NY: HarperBusiness, 2011), 70–71, 72–73, 76, 89–90, 168; Jim
+Collins and Jerry I. Porras, Built to Last: Successful Habits of Visionary Companies (New
+York, NY: HarperBusiness, 1994), 25–26.
+10 Author interview with Deb Gustafson; Karin Chenoweth, “The Homework
+Conundrum,” The Huﬃngton Post, March 12, 2014, http://www.huﬃngtonpost.com/
+Karin-Chenoweth/the-homework-conundrum_b_4942273.html.
+11 Author interview with Deb Gustafson; Karin Chenoweth, “How it’s Being Done: Urgent
+Lessons from Unexpected Schools – Student Services Symposium,” The Education Trust,
+May 17, 2010, 24–26.
+12 Author interview with Deb Gustafson.
+
+===== PDF PAGE 26 =====
+13 “About,” Ojai Music Festival, Accessed in 2018, https://www.ojaifestival.org/about/;
+“Milestones,” Ojai Music Festival, Accessed in 2018, https://www.ojaifestival.org/about/
+milestones/.
+14 Author interview with Tom Morris.
+15 “Inuksuit, John Luther Adams, and Ojai,” Ojai Music Festival, Accessed in 2018,
+https://www.ojaifestival.org/inuksuit-john-luther-adams-and-ojai/.
+16 Author interview with Tom Morris.
+17 Author interview with Dr. Toby Cosgrove; Toby Cosgrove, The Cleveland Clinic Way:
+Lessons in Excellence from One of the World’s Leading Health Care Organizations (New York,
+NY: McGraw-Hill Education, 2013).
+18 Author interview with Dr. Toby Cosgrove; Toby Cosgrove, The Cleveland Clinic Way:
+Lessons in Excellence from One of the World’s Leading Health Care Organizations (New York,
+NY: McGraw-Hill Education, 2013); “Toby Cosgrove, M.D., Announces His Decision to
+Transition from President, CEO Role,” Cleveland Clinic, May 1, 2017, https://
+newsroom.clevelandclinic.org/2017/05/01/toby-cosgrove-m-d-announces-decision-
+transition-president-ceo-role/; Lydia Coutré, “The Cosgrove Era Comes to a Close,”
+Cleveland Business, December 10, 2017, http://www.crainscleveland.com/
+article/20171210/news/145131/cosgrove-era-comes-close.
+19 Jim Collins and Morten T. Hansen, Great by Choice: Uncertainty, Chaos and Luck—Why
+Some Thrive Despite Them All (New York, NY: HarperBusiness, 2011), Chapter 4.
+20 Jim Collins and Morten T. Hansen, Great by Choice: Uncertainty, Chaos and Luck—Why
+Some Thrive Despite Them All (New York, NY: HarperBusiness, 2011), 91–95.
+21 Amazon, Fiscal 2015 Annual Letter to Shareholders (Seattle, WA: Amazon, 2015);
+Amazon, Fiscal 2016 Annual Report (Seattle, WA: Amazon, 2016); Amazon, Fiscal 2017
+Annual Report (Seattle, WA: Amazon, 2017); Alex Hern, “Amazon Web Services: the secret
+to the online retailer’s future success,” The Guardian, February 2, 2017, https://
+www.theguardian.com/technology/2017/feb/02/amazon-web-services-the-secret-to-the-
+online-retailers-future-success; Robert Hof, “Ten Years Later, Amazon Web Services Deﬁes
+Skeptics,” Forbes, March 22, 2016, https://www.forbes.com/sites/
+roberthof/2016/03/22/ten-years-later-amazon-web-services-deﬁes-skeptics/
+#244356466c44.
+22 Amazon, Fiscal 2017 Annual Report (Seattle, WA: Amazon, 2017); “Global Retail
+Industry Worth USD 28 Trillion by 2019 - Analysis, Technologies & Forecasts Report
+2016–2019 - Research and Markets,” Business Wire, June 30, 2016, https://
+www.businesswire.com/news/home/20160630005551/en/Global-Retail-Industry-Worth-
+USD-28-Trillion.
+23 Jim Collins, How the Mighty Fall: And Why Some Companies Never Give In (Boulder, CO:
+
+===== PDF PAGE 27 =====
+Jim Collins, 2009), 29–36.
+24 Alan Wurtzel, Good to Great to Gone: The 60 Year Rise and Fall of Circuit City (New
+York, NY: Diversion Books, Kindle Edition, 2012), Chapter 8; Circuit City Stores, Inc.,
+Fiscal 2002 Annual Report (Richmond, VA: Circuit City Stores, Inc., 2002); Michael
+Janofsky, “Circuit City Takes a Spin at Used Car Marketing,” The New York Times, October
+25, 1993, http://www.nytimes.com/1993/10/25/business/circuit-city-takes-a-spin-at-
+used-car-marketing.html; Mike McKesson, “Circuit City at Wheel of New Deal for Used-
+Car Shoppers: Megastores,” Los Angeles Times, January 28, 1996, http://
+articles.latimes.com/1996–01-28/news/mn-29582_1_circuit-city.
+25 Alan Wurtzel, Good to Great to Gone: The 60 Year Rise and Fall of Circuit City (New
+York, NY: Diversion Books, Kindle Edition, 2012), Chapter 8; Circuit City Stores, Inc.,
+Fiscal 2002 Annual Report (Richmond, VA: Circuit City Stores, Inc., 2002).
+26 Alan Wurtzel, Good to Great to Gone: The 60 Year Rise and Fall of Circuit City (New
+York, NY: Diversion Books, Kindle Edition, 2012), Loc 3542 of 5094.
+27 Alan Wurtzel, Good to Great to Gone: The 60 Year Rise and Fall of Circuit City (New
+York, NY: Diversion Books, Kindle Edition, 2012), Chapter 8 and Chapter 10; Jesse
+Romero, “The Rise and Fall of Circuit City,” Federal Reserve Bank of Richmond, 2013; Jim
+Collins, How the Mighty Fall: And Why Some Companies Never Give In (Boulder, CO: Jim
+Collins, 2009), 29–36.
+About the Author
+JIM COLLINS is a student and teacher of what makes great companies tick, and a
+Socratic advisor to leaders in the business and social sectors. Having invested more than a
+quarter-century in rigorous research, he has authored or coauthored six books that have
+sold in total more than 10 million copies worldwide. They include Good to Great, Built to
+Last, How the Mighty Fall, and Great by Choice.
+Driven by a relentless curiosity, Jim began his research and teaching career on the faculty
+at the Stanford Graduate School of Business, where he received the Distinguished
+Teaching Award in 1992. In 1995, he founded a management laboratory in Boulder,
+Colorado.
+In addition to his work in the business sector, Jim has a passion for learning and teaching
+in the social sectors, including education, healthcare, government, faith-based
+organizations, social ventures, and cause-driven nonproﬁts.
+In 2012 and 2013, he had the honor to serve a two-year appointment as the Class of 1951
+Chair for the Study of Leadership at the United States Military Academy at West Point. In
+2017, Forbes selected Jim as one of the 100 Greatest Living Business Minds.
+Jim has been an avid rock climber for more than forty years and has completed single-
+day ascents of El Capitan and Half Dome in Yosemite Valley.
+
+===== PDF PAGE 28 =====
+Learn more about Jim and his concepts at his website, where you’ll ﬁnd articles, videos,
+and useful tools. jimcollins.com
+Discover great authors, exclusive oﬀers, and more at hc.com .
+Copyright
+TURNING THE FLYWHEEL . Copyright © 2019 by Jim Collins. All rights reserved under
+International and Pan-American Copyright Conventions. By payment of the required fees,
+you have been granted the nonexclusive, nontransferable right to access and read the text
+of this e-book on-screen. No part of this text may be reproduced, transmitted,
+downloaded, decompiled, reverse-engineered, or stored in or introduced into any
+information storage and retrieval system, in any form or by any means, whether
+electronic or mechanical, now known or hereafter invented, without the express written
+permission of HarperCollins e-books.
+Cover design by Element Design Group
+FIRST EDITION
+Digital Edition FEBRUARY 2019 ISBN: 978-0-06-293380-5
+Version 01252019
+Print ISBN: 978-0-06-293379-9
+About the Publisher
+Australia
+HarperCollins Publishers Australia Pty. Ltd.
+Level 13, 201 Elizabeth Street
+Sydney, NSW 2000, Australia
+www.harpercollins.com.au
+Canada
+HarperCollins Publishers Ltd
+Bay Adelaide Centre, East Tower
+22 Adelaide Street West, 41st Floor
+Toronto, Ontario, Canada
+
+===== PDF PAGE 29 =====
+M5H 4E3
+www.harpercollins.ca
+India
+HarperCollins India
+A 75, Sector 57
+Noida
+Uttar Pradesh 201 301
+www.harpercollins.co.in
+New Zealand
+HarperCollins Publishers New Zealand
+Unit D1, 63 Apollo Drive
+Rosedale 0632
+Auckland, New Zealand
+www.harpercollins.co.nz
+United Kingdom
+HarperCollins Publishers Ltd.
+1 London Bridge Street
+London SE1 9GF, UK
+www.harpercollins.co.uk
+United States
+HarperCollins Publishers Inc.
+195 Broadway
+New York, NY 10007
+www.harpercollins.com

@@ -1,6 +1,6 @@
 ---
 name: author-role-manifest
-description: "Author the role-manifest YAML file (artifact 2 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-manifest', 'author role manifest', 'write role-manifest yaml'. Produces machine-readable scope_bounds + allowed_paths + forbidden_paths + allowed_operations YAML at `<repo>/role-manifests/<persona-slug>.yaml`. Hook v05+ Tier 5 verifies presence. Invoked by /define-your-role-literal Phase 8 step 2, OR standalone for migrating pre-existing personas to canonical manifest format."
+description: "Author the role-manifest YAML file (artifact 2 of 5 per persona) for a Martinez Methods persona. Triggers on: '/author-role-manifest', 'author role manifest', 'write role-manifest yaml'. Produces machine-readable scope_bounds + allowed_paths + forbidden_paths + allowed_operations YAML at `[repo]/role-manifests/[persona-slug].yaml`. Hook v05+ Tier 5 verifies presence. Invoked by /define-your-role-literal Phase 8 step 2, OR standalone for migrating pre-existing personas to canonical manifest format."
 type: skill
 classification: INTERNAL ONLY
 audience: martinez_methods_internal
