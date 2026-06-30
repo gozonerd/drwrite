@@ -1,8 +1,8 @@
 ---
 title: "CLAUDE.md — drwrite (canonical-propagated)"
 purpose: Orientation flow + canonical infrastructure guide. Propagated from mm-claude-canonical.
-propagated_at: "2026-06-30T16:37:59Z"
-canonical_sha: "2a6e5f08d2c7ffd6ef7cce379ddd9ab7effb2a86"
+propagated_at: "2026-06-30T16:54:21Z"
+canonical_sha: "daed60c4e86969890418eaec8e4d4ff0610d3785"
 ---
 
 # Orientation (READ FIRST — NOT OPTIONAL)
@@ -151,6 +151,7 @@ Threshold derives from this repo's `.asae-policy`:
 See `.claude/references/ASAE_Gate_Quickstart_*.md` for the full quickstart.
 
 ---
+
 
 
 
