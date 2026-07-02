@@ -38,6 +38,9 @@ const config: ForgeConfig = {
   packagerConfig: {
     asar: false, // Disabled — Squirrel doesn't include app.asar.unpacked, and native .node binaries can't load from inside an ASAR
     icon: './assets/icons/icon',
+    // The Vite-built app dir has no assets/ — ship the icons to resources/icons
+    // so main.ts can resolve the window icon in the packaged layout
+    extraResource: ['./assets/icons'],
     afterCopy: [copyNativeModules],
   },
   rebuildConfig: {},

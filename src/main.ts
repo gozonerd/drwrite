@@ -6,13 +6,14 @@ import { spawn } from 'node:child_process';
 import { simpleGit } from 'simple-git';
 import chokidar, { type FSWatcher } from 'chokidar';
 import {
-  getWindowState,
+  getWindowStateSafe,
   saveWindowState,
   addRecentFile,
   getRecentFiles,
   clearRecentFiles,
   closeDatabase,
 } from './db/database';
+import { appendErrorLog } from './error-log';
 import { initAutoUpdater } from './auto-update';
 
 // Handle Squirrel.Windows lifecycle events (install, update, uninstall)
@@ -34,21 +35,52 @@ if (process.platform === 'win32') {
   }
 }
 
-// Catch unhandled errors to prevent silent crashes
+// Catch unhandled errors to prevent silent crashes. Packaged apps have no
+// visible console, so console-only handling makes failures invisible (the app
+// ran for ~3 months as alive processes with no window and no error). Every
+// uncaught error is appended to <userData>/error.log and surfaced in a dialog.
+const reportFatalError = (context: string, error: unknown): void => {
+  console.error(`${context}:`, error);
+  let logPath: string | null = null;
+  try {
+    logPath = appendErrorLog(app.getPath('userData'), context, error);
+  } catch {
+    // Error reporting must never cause a second failure
+  }
+  try {
+    const detail = error instanceof Error ? (error.stack ?? error.message) : String(error);
+    // showErrorBox is safe to call before the 'ready' event
+    dialog.showErrorBox(`DrWrite — ${context}`, logPath ? `${detail}\n\nDetails logged to:\n${logPath}` : detail);
+  } catch {
+    // Dialog may be unavailable during shutdown; the log file still has the error
+  }
+};
+
 process.on('uncaughtException', (error) => {
-  console.error('Uncaught Exception:', error);
+  reportFatalError('Uncaught Exception', error);
 });
 
 process.on('unhandledRejection', (error) => {
+  // Log-file only — rejections can fire repeatedly, a dialog per rejection would spam
   console.error('Unhandled Rejection:', error);
+  try {
+    appendErrorLog(app.getPath('userData'), 'Unhandled Rejection', error);
+  } catch {
+    // Error reporting must never cause a second failure
+  }
 });
 
 const createWindow = () => {
-  // Restore saved window position/size
-  const windowState = getWindowState();
+  // Restore saved window position/size — a database failure falls back to
+  // defaults inside getWindowStateSafe() and can never prevent window creation
+  const windowState = getWindowStateSafe();
 
-  // Load app icon for taskbar and title bar
-  const iconPath = path.join(__dirname, '..', '..', 'assets', 'icons', 'icon.png');
+  // Load app icon for taskbar and title bar. The packaged layout has no assets/
+  // directory next to the bundle — forge.config.ts copies the icons into
+  // resources/icons via extraResource, so resolve from resourcesPath there.
+  const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'icons', 'icon.png')
+    : path.join(__dirname, '..', '..', 'assets', 'icons', 'icon.png');
   const appIcon = fs.existsSync(iconPath) ? nativeImage.createFromPath(iconPath) : undefined;
 
   const mainWindow = new BrowserWindow({

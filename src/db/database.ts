@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'node:path';
 import { app } from 'electron';
+import { appendErrorLog } from '../error-log';
 
 let db: Database.Database | null = null;
 
@@ -138,6 +139,26 @@ export function getWindowState(): WindowState {
     height: row.height,
     isMaximized: row.is_maximized === 1,
   };
+}
+
+/**
+ * Like getWindowState(), but a database failure can never propagate: better-sqlite3
+ * lazy-loads its native addon on first construction, so an ABI mismatch throws HERE
+ * rather than at import time (the 2026-07-02 no-window incident). Falls back to the
+ * schema defaults and leaves a trace in <userData>/error.log.
+ */
+export function getWindowStateSafe(): WindowState {
+  try {
+    return getWindowState();
+  } catch (err) {
+    console.error('Failed to read window state from database; using defaults:', err);
+    try {
+      appendErrorLog(app.getPath('userData'), 'Window state restore failed; using defaults', err);
+    } catch {
+      // Logging must never block the fallback
+    }
+    return { width: 1200, height: 800, isMaximized: false };
+  }
 }
 
 export function saveWindowState(state: WindowState): void {

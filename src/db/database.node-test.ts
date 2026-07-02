@@ -182,6 +182,66 @@ describe('saveWindowState', () => {
   });
 });
 
+describe('getWindowStateSafe', () => {
+  it('returns the stored state when the database is healthy', () => {
+    dbModule.saveWindowState({
+      x: 10,
+      y: 20,
+      width: 1024,
+      height: 768,
+      isMaximized: false,
+    });
+
+    expect(dbModule.getWindowStateSafe()).toEqual({
+      x: 10,
+      y: 20,
+      width: 1024,
+      height: 768,
+      isMaximized: false,
+    });
+  });
+
+  it('falls back to defaults when the native module fails to load', async () => {
+    // Simulate the better-sqlite3 ABI mismatch that broke the packaged app for
+    // ~3 months: the native addon loads lazily on first construction, so the
+    // throw happens inside getWindowState(), not at import time.
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const errorLogPath = path.join(os.tmpdir(), 'error.log');
+
+    try {
+      vi.resetModules();
+      vi.doMock('better-sqlite3', () => ({
+        default: class {
+          constructor() {
+            throw new Error('was compiled against a different Node.js version (simulated ABI mismatch)');
+          }
+        },
+      }));
+      const broken = await import('./database');
+
+      // The unsafe read still throws — the wrapper is doing real work
+      expect(() => broken.getWindowState()).toThrow();
+
+      expect(broken.getWindowStateSafe()).toEqual({
+        width: 1200,
+        height: 800,
+        isMaximized: false,
+      });
+
+      // The fallback leaves a diagnosable trace in <userData>/error.log
+      expect(fs.readFileSync(errorLogPath, 'utf-8')).toContain('Window state restore failed');
+    } finally {
+      vi.doUnmock('better-sqlite3');
+      consoleSpy.mockRestore();
+      try {
+        fs.unlinkSync(errorLogPath);
+      } catch {
+        // File may not exist if an assertion failed before the fallback ran
+      }
+    }
+  });
+});
+
 // --- Cleanup ---
 
 describe('closeDatabase', () => {

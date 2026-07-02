@@ -21,6 +21,7 @@
     "test:coverage": "vitest run --coverage",
     "test:node": "vitest run --config vitest.node.config.ts",
     "test:e2e": "npx playwright test",
+    "test:all": "vitest run && vitest run --config vitest.node.config.ts && npx playwright test",
     "test:full-coverage": "vitest run --coverage && npx playwright test && nyc merge .nyc_output coverage/merged && nyc report -t coverage/merged --reporter=text --reporter=html",
     "prepare": "husky"
   },
