@@ -28,3 +28,20 @@ export function appendErrorLog(dir: string, context: string, error: unknown): st
     return null;
   }
 }
+
+/**
+ * Returns a gate function that is true on its first call and false ever after.
+ * Used to rate-limit the fatal-error dialog to once per session: under a
+ * persistently broken database every window close throws again, and a modal
+ * dialog per throw can block app quit (observed 2026-07-02 in e2e under a
+ * wrong-ABI native module). Only the dialog is limited — the log file still
+ * receives every entry.
+ */
+export function createOnceGate(): () => boolean {
+  let used = false;
+  return () => {
+    if (used) return false;
+    used = true;
+    return true;
+  };
+}

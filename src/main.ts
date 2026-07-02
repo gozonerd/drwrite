@@ -7,13 +7,13 @@ import { simpleGit } from 'simple-git';
 import chokidar, { type FSWatcher } from 'chokidar';
 import {
   getWindowStateSafe,
-  saveWindowState,
-  addRecentFile,
+  saveWindowStateSafe,
+  addRecentFileSafe,
   getRecentFiles,
   clearRecentFiles,
   closeDatabase,
 } from './db/database';
-import { appendErrorLog } from './error-log';
+import { appendErrorLog, createOnceGate } from './error-log';
 import { initAutoUpdater } from './auto-update';
 
 // Handle Squirrel.Windows lifecycle events (install, update, uninstall)
@@ -38,7 +38,10 @@ if (process.platform === 'win32') {
 // Catch unhandled errors to prevent silent crashes. Packaged apps have no
 // visible console, so console-only handling makes failures invisible (the app
 // ran for ~3 months as alive processes with no window and no error). Every
-// uncaught error is appended to <userData>/error.log and surfaced in a dialog.
+// uncaught error is appended to <userData>/error.log; the first one is also
+// surfaced in a dialog.
+const shouldShowFatalDialog = createOnceGate();
+
 const reportFatalError = (context: string, error: unknown): void => {
   console.error(`${context}:`, error);
   let logPath: string | null = null;
@@ -46,6 +49,12 @@ const reportFatalError = (context: string, error: unknown): void => {
     logPath = appendErrorLog(app.getPath('userData'), context, error);
   } catch {
     // Error reporting must never cause a second failure
+  }
+  // One dialog per session: repeated uncaught exceptions (e.g. one per close
+  // attempt under a persistently broken database) must not stack modals that
+  // block app quit. error.log above still receives every entry.
+  if (!shouldShowFatalDialog()) {
+    return;
   }
   try {
     const detail = error instanceof Error ? (error.stack ?? error.message) : String(error);
@@ -98,10 +107,11 @@ const createWindow = () => {
     mainWindow.maximize();
   }
 
-  // Save window state on close
+  // Save window state on close — the safe variant logs a database failure
+  // instead of throwing it into the quit path
   mainWindow.on('close', () => {
     const bounds = mainWindow.getBounds();
-    saveWindowState({
+    saveWindowStateSafe({
       x: bounds.x,
       y: bounds.y,
       width: bounds.width,
@@ -140,7 +150,7 @@ ipcMain.handle('file:open', async () => {
 
   const filePath = result.filePaths[0];
   const content = fs.readFileSync(filePath, 'utf-8');
-  addRecentFile(filePath);
+  addRecentFileSafe(filePath);
   return { canceled: false, filePath, content };
 });
 
@@ -274,7 +284,7 @@ ipcMain.handle('recent:list', async () => {
 ipcMain.handle('recent:open', async (_event, { filePath }: { filePath: string }) => {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
-    addRecentFile(filePath);
+    addRecentFileSafe(filePath);
     return { canceled: false, filePath, content };
   } catch (err) {
     return { canceled: false, success: false, error: String(err) };

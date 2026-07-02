@@ -288,9 +288,9 @@ when Spec Genius authors it (Batch 3 Lock A1) for the full quickstart.
 ```bash
 npm start              # Launch in dev mode (Electron Forge + Vite)
 npm test               # Run all Vitest tests (262 tests, 26 files)
-npm run test:node      # Backend tests (25 tests, Node environment)
+npm run test:node      # Backend tests (31 tests, Node environment)
 npm run test:e2e       # E2E tests (13 Playwright + Electron)
-npm run test:all       # All 300 tests
+npm run test:all       # All 306 tests
 npm run test:watch     # Watch mode
 npm run test:coverage  # Tests with V8 coverage report
 npm run lint           # ESLint
@@ -361,12 +361,12 @@ React Renderer
 
 ## Testing
 
-- **300 total tests:** 262 Vitest (26 files) + 25 Node backend (3 files) + 13 Playwright E2E (4 files)
+- **306 total tests:** 262 Vitest (26 files) + 31 Node backend (3 files) + 13 Playwright E2E (4 files)
 - **Test-to-source ratio:** 1.07:1 (4,048 test LOC / 3,793 source LOC)
 - Setup: `src/test/setup.ts` (mocks for matchMedia, localStorage, window.drwrite API)
 - Coverage: V8 provider, excludes main/preload/renderer entry points
 - Pre-push hooks: 4-stage gate (prettier, tsc, eslint, vitest)
-- Run: `npm test` (Vitest), `npm run test:node` (backend), `npm run test:e2e` (Playwright), `npm run test:all` (all 300)
+- Run: `npm test` (Vitest), `npm run test:node` (backend), `npm run test:e2e` (Playwright), `npm run test:all` (all 306)
 
 ## Keyboard Shortcuts
 
@@ -386,4 +386,4 @@ React Renderer
 - `electron-squirrel-startup` wrapped in try/catch — can cause immediate exit on Windows dev
 - Renderer components (CodeMirror, TipTap) cannot be unit tested in jsdom — need E2E
 - **Dual-ABI seesaw:** the single `better_sqlite3.node` binary serves two ABIs. The app and E2E need the Electron build (ABI 145, via `npx electron-rebuild -f -w better-sqlite3`); `npm run test:node` needs the Node build (ABI 141 on Node 25, via `npm rebuild better-sqlite3`). Note `npm run package`/`make` rebuild only a packaging staging copy, NOT the repo's `node_modules` binary. This mismatch shipped the silent no-window bug (fixed 2026-07-02). Rebuild for the context you're testing; leave it Electron-ABI when done.
-- **E2E under a wrong-ABI binary fails deterministically, not flakily:** un-hardened builds show no window (launch timeouts — the original bug); hardened builds open on fallback defaults but `saveWindowState` throws at close and the error dialog blocks quit (`afterAll` timeouts). With the correct Electron ABI the suite runs 13/13 in ~12s (verified 2026-07-02).
+- **E2E under a wrong-ABI binary fails deterministically, not flakily:** un-hardened builds show no window (launch timeouts — the original bug). With the correct Electron ABI the suite runs 13/13 in ~12s (verified 2026-07-02). The close-time quit-block this note used to describe (`saveWindowState` throwing at close, error dialog stacking on quit) is fixed as of 2026-07-02: close-path/IPC DB writes go through `saveWindowStateSafe`/`addRecentFileSafe` (error.log only, never throw) and the fatal-error dialog is rate-limited to once per session.

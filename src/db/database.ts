@@ -73,6 +73,26 @@ export function addRecentFile(filePath: string): void {
     .run(filePath);
 }
 
+/**
+ * Like addRecentFile(), but a database failure can never propagate: recording
+ * a file in the recents list is bookkeeping, and a broken database must not
+ * stop the file:open / recent:open IPC handlers from delivering the file
+ * content (or reach the uncaughtException dialog). Failures leave a trace in
+ * <userData>/error.log.
+ */
+export function addRecentFileSafe(filePath: string): void {
+  try {
+    addRecentFile(filePath);
+  } catch (err) {
+    console.error('Failed to record recent file in database:', err);
+    try {
+      appendErrorLog(app.getPath('userData'), 'Recent-files update failed', err);
+    } catch {
+      // Logging must never block the open path
+    }
+  }
+}
+
 export function getRecentFiles(limit = 10): RecentFile[] {
   const database = getDatabase();
   const rows = database
@@ -170,6 +190,26 @@ export function saveWindowState(state: WindowState): void {
   `,
     )
     .run(state.x ?? null, state.y ?? null, state.width, state.height, state.isMaximized ? 1 : 0);
+}
+
+/**
+ * Like saveWindowState(), but a database failure can never propagate. The
+ * BrowserWindow 'close' handler runs while the app is quitting: a throw there
+ * becomes an uncaughtException whose dialog can block quit (observed
+ * 2026-07-02 in e2e under a wrong-ABI native module — 10 close-time throws,
+ * afterAll timeouts). Failures leave a trace in <userData>/error.log instead.
+ */
+export function saveWindowStateSafe(state: WindowState): void {
+  try {
+    saveWindowState(state);
+  } catch (err) {
+    console.error('Failed to save window state to database:', err);
+    try {
+      appendErrorLog(app.getPath('userData'), 'Window state save failed', err);
+    } catch {
+      // Logging must never block the close path
+    }
+  }
 }
 
 // --- Cleanup ---

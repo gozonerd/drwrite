@@ -81,6 +81,51 @@ describe('addRecentFile', () => {
   });
 });
 
+describe('addRecentFileSafe', () => {
+  it('records the file when the database is healthy', () => {
+    dbModule.addRecentFileSafe('/tmp/safe.md');
+
+    const files = dbModule.getRecentFiles();
+    expect(files).toHaveLength(1);
+    expect(files[0].filePath).toBe('/tmp/safe.md');
+  });
+
+  it('does not throw when the native module fails to load', async () => {
+    // The file:open / recent:open IPC handlers call this after reading the
+    // file — a broken database must not stop the open from completing.
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const errorLogPath = path.join(os.tmpdir(), 'error.log');
+
+    try {
+      vi.resetModules();
+      vi.doMock('better-sqlite3', () => ({
+        default: class {
+          constructor() {
+            throw new Error('was compiled against a different Node.js version (simulated ABI mismatch)');
+          }
+        },
+      }));
+      const broken = await import('./database');
+
+      // The unsafe write still throws — the wrapper is doing real work
+      expect(() => broken.addRecentFile('/tmp/broken.md')).toThrow();
+
+      expect(() => broken.addRecentFileSafe('/tmp/broken.md')).not.toThrow();
+
+      // The failure leaves a diagnosable trace in <userData>/error.log
+      expect(fs.readFileSync(errorLogPath, 'utf-8')).toContain('Recent-files update failed');
+    } finally {
+      vi.doUnmock('better-sqlite3');
+      consoleSpy.mockRestore();
+      try {
+        fs.unlinkSync(errorLogPath);
+      } catch {
+        // File may not exist if an assertion failed before the fallback ran
+      }
+    }
+  });
+});
+
 describe('getRecentFiles', () => {
   it('returns files sorted by last_opened desc', () => {
     const db = dbModule.getDatabase();
@@ -179,6 +224,64 @@ describe('saveWindowState', () => {
       height: 768,
       isMaximized: true,
     });
+  });
+});
+
+describe('saveWindowStateSafe', () => {
+  it('persists values when the database is healthy', () => {
+    dbModule.saveWindowStateSafe({
+      x: 5,
+      y: 15,
+      width: 1440,
+      height: 900,
+      isMaximized: false,
+    });
+
+    const state = dbModule.getWindowState();
+    expect(state).toEqual({
+      x: 5,
+      y: 15,
+      width: 1440,
+      height: 900,
+      isMaximized: false,
+    });
+  });
+
+  it('does not throw when the native module fails to load', async () => {
+    // The BrowserWindow 'close' handler calls this while the app is quitting —
+    // a throw there becomes an uncaughtException whose dialog can block quit
+    // (observed 2026-07-02 in e2e under a wrong-ABI binary).
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const errorLogPath = path.join(os.tmpdir(), 'error.log');
+
+    try {
+      vi.resetModules();
+      vi.doMock('better-sqlite3', () => ({
+        default: class {
+          constructor() {
+            throw new Error('was compiled against a different Node.js version (simulated ABI mismatch)');
+          }
+        },
+      }));
+      const broken = await import('./database');
+      const state = { x: 1, y: 2, width: 800, height: 600, isMaximized: false };
+
+      // The unsafe write still throws — the wrapper is doing real work
+      expect(() => broken.saveWindowState(state)).toThrow();
+
+      expect(() => broken.saveWindowStateSafe(state)).not.toThrow();
+
+      // The failure leaves a diagnosable trace in <userData>/error.log
+      expect(fs.readFileSync(errorLogPath, 'utf-8')).toContain('Window state save failed');
+    } finally {
+      vi.doUnmock('better-sqlite3');
+      consoleSpy.mockRestore();
+      try {
+        fs.unlinkSync(errorLogPath);
+      } catch {
+        // File may not exist if an assertion failed before the fallback ran
+      }
+    }
   });
 });
 

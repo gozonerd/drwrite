@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import os from 'node:os';
 import fs from 'node:fs';
 import path from 'node:path';
-import { formatErrorEntry, appendErrorLog, ERROR_LOG_FILENAME } from './error-log';
+import { formatErrorEntry, appendErrorLog, createOnceGate, ERROR_LOG_FILENAME } from './error-log';
 
 let tmpDir: string;
 
@@ -76,5 +76,25 @@ describe('appendErrorLog', () => {
       logPath = appendErrorLog(path.join(blockingFile, 'sub'), 'Ctx', new Error('boom'));
     }).not.toThrow();
     expect(logPath).toBeNull();
+  });
+});
+
+// --- createOnceGate ---
+
+describe('createOnceGate', () => {
+  it('is true on the first call and false ever after', () => {
+    const gate = createOnceGate();
+
+    expect(gate()).toBe(true);
+    expect(gate()).toBe(false);
+    expect(gate()).toBe(false);
+  });
+
+  it('keeps independent gates independent', () => {
+    const first = createOnceGate();
+    const second = createOnceGate();
+
+    expect(first()).toBe(true);
+    expect(second()).toBe(true);
   });
 });
