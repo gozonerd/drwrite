@@ -3,7 +3,13 @@ name: write-tqvcd
 description: "Use this skill to author a Test Quality + Verification Coverage Document as a prerequisite input to /dare-to-rise-code-plan. Triggers on: '/write-tqvcd', 'write-tqvcd', 'author a TQVCD', 'write a test quality and verification coverage document', 'generate TQVCD', 'draft TQVCD'. Requires a completed PRD + TRD as inputs. Loads the TQVCD template (v06_I per 2026-05-05 D2R Accessibility Floor Update — §6 expanded from WCAG 2.1 AA legal-floor-only to legal-floor PLUS lived-floor: cognitive ADHD-conscious design / reading dyslexia-conscious typography / vision user-controlled theme toggle). Walks the user through each required section applying the Verification-Coverage Principle (§5.0 headline metric: behaviors-verified / behaviors-claimed) + the Testing Taxonomy's 20 test categories + 39 stress categories + AI-driven selection strategy + the §5.4 banned-phrase list for user-facing copy + the §6 expanded accessibility floor (§6.1 legal + §6.5/§6.6/§6.7 lived + §6.8 mandatory cross-cut entries + §6.9 refusal table). Produces a validated filled-in instance. Renamed from /write-tqcd per Methodology Mods Batch 1 Mod 6.5 (TQCD→TQVCD full rename, 2026-04-27)."
 ---
 
+<!-- v03: L7 anti-pattern pointer + Step-0 read + template pointer fix (FORK-A Stage 8) -->
+
 # Write TQVCD
+
+## Dispatch Tier
+
+This `/write-tqvcd` authoring task is **closed-world** (dispatched per LEAD §5.3 world-openness criteria; closed-world authorship tier).
 
 ## Purpose
 
@@ -33,6 +39,10 @@ This skill renamed from `/write-tqcd` on 2026-04-27 per Mod 6.5 of Methodology M
 - **Remediation target** — optional; a specific section identifier when invoked by `/ideate-to-d2r-ready` Phase 02 to remediate a cross-doc finding. In remediation mode, skip to Step 3 for that section only, then Step 6.
 
 ## Execution Protocol
+
+### Step 0: Required Pre-Authoring Read
+
+Before doing anything else, read `references/anti-patterns/TQVCD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory). This is a REQUIRED read before authoring — it carries the full rationale and fix for every known TQVCD failure mode. Do not proceed to Step 1 until it has been read.
 
 ### Step 1: Verify Prerequisites And Check Invocation Mode
 
@@ -239,10 +249,7 @@ Same pattern as other write-* skills. Note: the portable prompt for TQVCD must i
 
 ## Anti-Patterns
 
-- Kitchen-sink listing all 20 test categories as applicable without evaluation (dilutes the QA spec)
-- Applying every stress category without AI-driven selection (Stage QA becomes unmanageable)
-- Adjective-based exit criteria ("thoroughly tested") instead of specific measurable criteria
-- Leaving ASAE thresholds undeclared (Stage 01 can't configure gates without them)
+Full anti-pattern catalog with rationale and fixes lives in `TQVCD_AntiPatterns_2026-07-06_v01_I.md` (references/anti-patterns/) — covers kitchen-sink category listing, unselected stress sprawl, adjective-based criteria, undeclared ASAE thresholds, tautological verification, coverage-theater claims, unenumerated claim sweeps, missing production_pattern linkage, legal-only accessibility scoping, and single-theme accessibility verification. Read it before authoring (Step 0); this section is a pointer, not the full reference.
 
 ## Related Skills
 
@@ -256,5 +263,6 @@ Same pattern as other write-* skills. Note: the portable prompt for TQVCD must i
 ## Related References
 
 - Template: `.claude/skills/dare-to-rise-code-plan/references/TQVCD_Template_2026-05-05_v06_I.md` (v06_I supersedes v05_I per 2026-05-05 D2R Accessibility Floor Update — §6 expanded to legal + lived floor)
+- Anti-Patterns: `.claude/skills/dare-to-rise-code-plan/references/anti-patterns/TQVCD_AntiPatterns_2026-07-06_v01_I.md`
 - Taxonomy: `.claude/skills/dare-to-rise-code-plan/references/Software_Testing_Taxonomy_2026-04-17_v01_I.md`
 - Companion UXD template: `.claude/skills/dare-to-rise-code-plan/references/UXD_Template_2026-05-05_v03_I.md` (v03_I §5.5/§5.6/§5.7 lived-floor design specs that this TQVCD §6.5/§6.6/§6.7 operationalizes as test entries)

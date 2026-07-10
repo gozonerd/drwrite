@@ -3,7 +3,13 @@ name: write-pscad
 description: "Use this skill to author a Pattern-Space Coverage Audit Document as the 6th D2R prerequisite input to /dare-to-rise-code-plan. Triggers on: '/write-pscad', 'write-pscad', 'author a PSCAD', 'write a pattern-space coverage audit document', 'generate PSCAD', 'draft PSCAD'. Requires a completed PRD + TRD + TQVCD as inputs (PSCAD audits TQVCD's verification coverage from the pattern-space angle). Loads the PSCAD template + Production Pattern Catalog, walks the user through pattern-space coverage analysis: which production patterns are in scope, which TQVCD-VC entries cover them, which patterns are gap (no covering test), what remediation closes each gap. Produces a validated filled-in instance ready for D2R consumption. PSCAD is the 6th sibling D2R doc joining PRD/TRD/AVD/TQVCD/UXD per Methodology Mods Batch 2 Mod 8."
 ---
 
+<!-- v03: L7 anti-pattern pointer + Step-0 read + template pointer fix (FORK-A Stage 8) -->
+
 # Write PSCAD
+
+## Dispatch Tier
+
+This `/write-pscad` authoring task is **closed-world** (dispatched per LEAD §5.3 world-openness criteria; closed-world authorship tier).
 
 ## Purpose
 
@@ -36,6 +42,10 @@ Empirically motivated by CDCC plugin Stage 05 proper-lockfile skip: passed under
 - **Remediation target** — optional; a specific section identifier when invoked by `/ideate-to-d2r-ready` Phase 02 to remediate a cross-doc finding. In remediation mode, skip to Step 3 for that section only, then Step 7.
 
 ## Execution Protocol
+
+### Step 0: Required Pre-Authoring Read
+
+Before doing anything else, read `references/anti-patterns/PSCAD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory). This is a REQUIRED read before authoring — it carries the full rationale and fix for every known PSCAD failure mode. Do not proceed to Step 1 until it has been read.
 
 ### Step 1: Verify Prerequisites And Check Invocation Mode
 
@@ -190,12 +200,7 @@ Same pattern as other write-* skills. Note: the portable prompt for PSCAD must i
 
 ## Anti-Patterns
 
-- Tautological coverage rationale (saying "the function is tested" when the question is "is the production-shaped pattern applied")
-- Skipping the catalog-promotion candidate marking for novel patterns (catalog growth is the methodology learning loop)
-- Accepting CRITICAL or HIGH severity gaps via `accept_gap_disclose` (these must remediate; only LOW/MEDIUM gaps allow accept-with-disclosure)
-- Authoring PSCAD before TQVCD (sequencing matters — PSCAD audits TQVCD's coverage from a pattern-space angle; can't audit something that doesn't exist)
-- Narrowing scope without empirical reason (codify-larger-principles default is broad; narrowing requires evidence-backed reason in §2.2)
-- Authoring PSCAD on the same day as TQVCD without justification (the deliberate delay simulates production-memory accumulation; same-day authorship loses the structural value)
+Full anti-pattern catalog with rationale and fixes lives in `PSCAD_AntiPatterns_2026-07-06_v01_I.md` (references/anti-patterns/) — covers tautological coverage rationale, skipped catalog-promotion marking, improper accept-with-disclosure on CRITICAL/HIGH gaps, out-of-sequence authorship before TQVCD, unmotivated scope narrowing, collapsed same-day authorship, broken production_pattern linkage, unresolved coverage status, and remediation entries missing acceptance criteria. Read it before authoring (Step 0); this section is a pointer, not the full reference.
 
 ## Related Skills
 
@@ -211,6 +216,7 @@ Same pattern as other write-* skills. Note: the portable prompt for PSCAD must i
 ## Related References
 
 - Template: `.claude/skills/dare-to-rise-code-plan/references/PSCAD_Template_2026-04-27_v01_I.md`
+- Anti-Patterns: `.claude/skills/dare-to-rise-code-plan/references/anti-patterns/PSCAD_AntiPatterns_2026-07-06_v01_I.md`
 - Production Pattern Catalog (canonical): `_grand_repo/docs/Production_Pattern_Catalog_2026-04-27_v01_I.md`
 - TQVCD Template (sibling; PSCAD audits TQVCD coverage): `.claude/skills/dare-to-rise-code-plan/references/TQVCD_Template_2026-05-05_v06_I.md` (v06_I supersedes v05_I per 2026-05-05 D2R Accessibility Floor Update — §6 expanded with lived-floor entries §6.5/§6.6/§6.7/§6.8/§6.9 that PSCAD §4 coverage matrix may need to audit alongside the existing §5.0 production_pattern entries)
 - /asae SKILL.md (used at Step 6): `.claude/skills/asae/SKILL.md`

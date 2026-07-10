@@ -3,7 +3,13 @@ name: write-trd
 description: "Use this skill to author a Technical Requirements Document as a prerequisite input to /dare-to-rise-code-plan. Triggers on: '/write-trd', 'write-trd', 'author a TRD', 'write a technical requirements document', 'generate TRD', 'draft TRD'. Requires a completed PRD as input. Loads the TRD template, walks the user through each required section, produces a validated filled-in instance. Output is a TRD file saved to the project's planning directory, ready for downstream D2R consumption."
 ---
 
+<!-- v03: L7 anti-pattern pointer + Step-0 read + v03 template pointer (FORK-A Stage 8) -->
+
 # Write TRD
+
+## Dispatch Tier
+
+This `/write-trd` authoring task is **closed-world** (dispatched per LEAD §5.3 world-openness criteria; closed-world authorship tier).
 
 ## Purpose
 
@@ -29,6 +35,10 @@ The TRD is downstream of the PRD and upstream of the D2R code plan. The PRD says
 
 ## Execution Protocol
 
+### Step 0: Required Pre-Authoring Read
+
+Before doing anything else, read `references/anti-patterns/TRD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory). This is a REQUIRED read before authoring — it carries the full rationale and fix for every known TRD failure mode. Do not proceed to Step 1 until it has been read.
+
 ### Step 1: Verify PRD Prerequisite And Check Invocation Mode
 
 Before loading the template, verify a completed PRD exists and is approved. If missing:
@@ -43,7 +53,7 @@ Check the invocation context:
 
 ### Step 2: Load Template
 
-Read `.claude/skills/dare-to-rise-code-plan/references/TRD_Template_2026-04-17_v01_I.md`.
+Read `.claude/skills/dare-to-rise-code-plan/references/TRD_Template_2026-04-26_v03_I.md`.
 
 ### Step 3: Gather Required Content
 
@@ -109,10 +119,7 @@ Same pattern as `/write-prd`: generate a self-contained portable prompt with tem
 
 ## Anti-Patterns
 
-- Authoring a TRD without a completed PRD (produces ungrounded technical requirements)
-- Accepting adjectives instead of specific numbers for non-functional requirements
-- Merging TRD content with PRD content (different abstraction levels by design)
-- Skipping hook orchestration requirements (D2R-specific prerequisite that must be specified)
+Full anti-pattern catalog with rationale and fixes lives in `references/anti-patterns/TRD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory) — covers PRD-less authorship, adjective-not-number NFRs, TRD/PRD content bleed, skipped hook-orchestration requirements, untestable FR acceptance criteria, implicit WCAG declarations, and unnamed security/privacy standards. Read it before authoring (Step 0); this section is a pointer, not the full reference.
 
 ## Related Skills
 
@@ -126,4 +133,5 @@ Same pattern as `/write-prd`: generate a self-contained portable prompt with tem
 
 ## Related References
 
-- Template: `.claude/skills/dare-to-rise-code-plan/references/TRD_Template_2026-04-17_v01_I.md`
+- Template: `.claude/skills/dare-to-rise-code-plan/references/TRD_Template_2026-04-26_v03_I.md`
+- Anti-Patterns: `.claude/skills/dare-to-rise-code-plan/references/anti-patterns/TRD_AntiPatterns_2026-07-06_v01_I.md`

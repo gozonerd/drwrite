@@ -3,7 +3,13 @@ name: write-avd
 description: "Use this skill to author an Architecture Vision Document as a prerequisite input to /dare-to-rise-code-plan. Triggers on: '/write-avd', 'write-avd', 'author an AVD', 'write an architecture vision document', 'generate AVD', 'draft AVD'. Requires a completed PRD + TRD as inputs. Loads the AVD template, walks the user through each required section, produces a validated filled-in instance. Output is an AVD file saved to the project's planning directory, ready for downstream D2R consumption."
 ---
 
+<!-- v03: L7 anti-pattern pointer + Step-0 read + v03 template pointer (FORK-A Stage 8) -->
+
 # Write AVD
+
+## Dispatch Tier
+
+This `/write-avd` authoring task is **closed-world** (dispatched per LEAD §5.3 world-openness criteria; closed-world authorship tier).
 
 ## Purpose
 
@@ -36,6 +42,10 @@ If the user invokes `/write-avd` for a trivially simple project, this skill offe
 - **Remediation target** — optional; a specific section identifier when invoked by `/ideate-to-d2r-ready` Phase 02 to remediate a cross-doc finding. In remediation mode, skip to Step 4 for that section only, then Step 5.
 
 ## Execution Protocol
+
+### Step 0: Required Pre-Authoring Read
+
+Before doing anything else, read `references/anti-patterns/AVD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory). This is a REQUIRED read before authoring — it carries the full rationale and fix for every known AVD failure mode. Do not proceed to Step 1 until it has been read.
 
 ### Step 1: Verify Prerequisites And Check Invocation Mode
 
@@ -70,7 +80,7 @@ Skip to Step 6 (save + approve).
 
 ### Step 3: Load Template
 
-Read `.claude/skills/dare-to-rise-code-plan/references/AVD_Template_2026-04-17_v01_I.md`.
+Read `.claude/skills/dare-to-rise-code-plan/references/AVD_Template_2026-04-26_v03_I.md`.
 
 ### Step 4: Gather Required Content
 
@@ -124,10 +134,7 @@ Same pattern as other write-* skills.
 
 ## Anti-Patterns
 
-- Authoring an AVD without PRD and TRD (ungrounded architecture)
-- Inventing architectural decisions the user hasn't made (this is user-facing architecture; don't make decisions for them)
-- Skipping mini-ADRs for significant decisions (they're the audit trail for why the architecture looks this way)
-- Producing an AVD for a trivially simple project (use Skipped-Status pattern instead)
+Full anti-pattern catalog with rationale and fixes lives in `references/anti-patterns/AVD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory) — covers PRD/TRD-less authorship, Claude inventing architecture decisions, skipped or unrationaled mini-ADRs, misuse of the Skipped-Status escape hatch (both over- and under-application), components missing inputs/outputs/responsibility, and data flows not traced end-to-end. Read it before authoring (Step 0); this section is a pointer, not the full reference.
 
 ## Related Skills
 
@@ -140,4 +147,5 @@ Same pattern as other write-* skills.
 
 ## Related References
 
-- Template: `.claude/skills/dare-to-rise-code-plan/references/AVD_Template_2026-04-17_v01_I.md`
+- Template: `.claude/skills/dare-to-rise-code-plan/references/AVD_Template_2026-04-26_v03_I.md`
+- Anti-Patterns: `.claude/skills/dare-to-rise-code-plan/references/anti-patterns/AVD_AntiPatterns_2026-07-06_v01_I.md`

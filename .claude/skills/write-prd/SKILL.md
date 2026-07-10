@@ -3,7 +3,13 @@ name: write-prd
 description: "Use this skill to author a Product Requirements Document as a prerequisite input to /dare-to-rise-code-plan. Triggers on: '/write-prd', 'write-prd', 'author a PRD', 'write a product requirements document', 'generate PRD', 'draft PRD'. Loads the PRD template, walks the user through each required section, produces a validated filled-in instance. Output is a PRD file saved to the project's planning directory, ready for downstream D2R consumption."
 ---
 
+<!-- v03: L7 anti-pattern pointer + Step-0 read + v03 template pointer (FORK-A Stage 8) -->
+
 # Write PRD
+
+## Dispatch Tier
+
+This `/write-prd` authoring task is **closed-world** (dispatched per LEAD §5.3 world-openness criteria; closed-world authorship tier).
 
 ## Purpose
 
@@ -30,9 +36,13 @@ This skill is designed for transferability: it can run in any Claude thread, and
 
 ## Execution Protocol
 
+### Step 0: Required Pre-Authoring Read
+
+Before doing anything else, read `references/anti-patterns/PRD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory). This is a REQUIRED read before authoring — it carries the full rationale and fix for every known PRD failure mode. Do not proceed to Step 1 until it has been read.
+
 ### Step 1: Load Template And Check Invocation Mode
 
-Read the template at `.claude/skills/dare-to-rise-code-plan/references/PRD_Template_2026-04-17_v01_I.md`. Use it as the structural spec for the output.
+Read the template at `.claude/skills/dare-to-rise-code-plan/references/PRD_Template_2026-04-26_v03_I.md`. Use it as the structural spec for the output.
 
 Check the invocation context:
 
@@ -116,11 +126,7 @@ The generated portable prompt must:
 
 ## Anti-Patterns
 
-- Writing a PRD without the template (produces inconsistent output across projects)
-- Skipping validation checklist (produces PRDs not ready for D2R)
-- Merging PRD content with TRD or AVD content (these are separate documents by design)
-- Filling in content the user hasn't approved (this is user-facing product definition, not Claude's invention)
-- Running the ASAE gate at threshold > 2 (a PRD is pre-implementation content; threshold 2 is appropriate rigor for product-definition work)
+Full anti-pattern catalog with rationale and fixes lives in `references/anti-patterns/PRD_AntiPatterns_2026-07-06_v01_I.md` (relative to the `dare-to-rise-code-plan` skill directory) — covers template-skipping, validation-checklist-skipping, PRD/TRD/AVD content bleed, unapproved invention, ASAE threshold misuse, solutioning-in-problem-statement, unfalsifiable metrics, and scope creep via vague criteria. Read it before authoring (Step 0); this section is a pointer, not the full reference.
 
 ## Related Skills
 
@@ -134,4 +140,5 @@ The generated portable prompt must:
 
 ## Related References
 
-- Template: `.claude/skills/dare-to-rise-code-plan/references/PRD_Template_2026-04-17_v01_I.md`
+- Template: `.claude/skills/dare-to-rise-code-plan/references/PRD_Template_2026-04-26_v03_I.md`
+- Anti-Patterns: `.claude/skills/dare-to-rise-code-plan/references/anti-patterns/PRD_AntiPatterns_2026-07-06_v01_I.md`
