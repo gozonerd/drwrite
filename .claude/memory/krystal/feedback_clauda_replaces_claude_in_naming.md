@@ -1,17 +1,17 @@
 ---
 name: Clauda Replaces Claude In Martinez Methods Naming Schemes
-description: "Clauda" / "Claudette" / "Claudessa" / "Claudivera" / "Claudolina" / "Claudenza" / "Claudalisse" / "Claudis" / "Claudsanna" / "Claudetta" replace "Claude" in all Martinez Methods persona / brand naming, with workstream-specific family prefixes per the ten-name canon. Anthropic product references (Claude Code, Claude Opus, Claude API) still use "Claude" — those are factual references to the trademarked product, not Martinez Methods branding.
+description: "Clauda" / "Claudette" / "Claudessa" / "Claudivera" / "Claudolina" / "Claudenza" / "Claudalisse" / "Claudis" / "Claudsanna" / "Claudetta" / "Claudimetra" / "Claudisegna" replace "Claude" in all Martinez Methods persona / brand naming, with workstream-specific family prefixes per the twelve-name canon. Anthropic product references (Claude Code, Claude Opus, Claude API) still use "Claude" — those are factual references to the trademarked product, not Martinez Methods branding.
 type: feedback
 originSessionId: 6bda5862-99cf-4485-aee8-77556683a9f8
 user: krystal
 ---
-In Martinez Methods personas, AI-assistant role labels, and brand-surface text, use **Clauda**, **Claudette**, **Claudessa**, **Claudivera**, **Claudolina**, **Claudenza**, **Claudalisse**, **Claudis**, **Claudsanna**, or **Claudetta** — never "Claude". The commit-msg hook enforces this on Co-Authored-By trailers.
+In Martinez Methods personas, AI-assistant role labels, and brand-surface text, use **Clauda**, **Claudette**, **Claudessa**, **Claudivera**, **Claudolina**, **Claudenza**, **Claudalisse**, **Claudis**, **Claudsanna**, **Claudetta**, **Claudimetra**, or **Claudisegna** — never "Claude". The commit-msg hook enforces this on Co-Authored-By trailers.
 
 **Why:** Stated 2026-04-24 — "to keep us from copyright and ip infringement clauda is replacing claude in our naming schemes." Prophylactic IP protection against confusability with Anthropic's "Claude" mark.
 
-## Ten-name workstream canon (expanded through 2026-06-28)
+## Twelve-name workstream canon (expanded through 2026-07-11)
 
-The original Clauda/Claudette binary was workstream-typed as coding (Claudette) vs everything-else (Clauda). On 2026-05-12 Krystal expanded to a four-name partition, then added Claudalisse (2026-05-23), Claudis (2026-05-13, formalized 2026-06-06), Claudsanna (2026-05-17, formalized 2026-06-06), and Claudetta (2026-05-15, formalized 2026-06-07); then founded Claudivera (2026-06-28; research-paper write-ups destined for Zenodo — a new family beside Claudessa's research):
+The original Clauda/Claudette binary was workstream-typed as coding (Claudette) vs everything-else (Clauda). On 2026-05-12 Krystal expanded to a four-name partition, then added Claudalisse (2026-05-23), Claudis (2026-05-13, formalized 2026-06-06), Claudsanna (2026-05-17, formalized 2026-06-06), and Claudetta (2026-05-15, formalized 2026-06-07); then founded Claudivera (2026-06-28; research-paper write-ups destined for Zenodo — a new family beside Claudessa's research), Claudimetra (2026-06-29; measurement / psychometrics / instrumentation), and Claudisegna (2026-07-11; research design / controlled-experiment architecture):
 
 | First name | Workstream | Example personas |
 |---|---|---|
@@ -25,19 +25,21 @@ The original Clauda/Claudette binary was workstream-typed as coding (Claudette) 
 | **Claudis** | Second-brain-orchestration | Claudis W. DossierComposer, Claudis W. Work Salvager (Krystal naming homage to cousin Yuris; formalized 2026-06-06) |
 | **Claudsanna** | Artifact curation | Claudsanna W. Artifact Keeper (Krystal-assigned; supersedes provisional Clauda W. Portfolio Architect; formalized 2026-06-06) |
 | **Claudetta** | GitHub organization | Claudetta W. Configuration Architect (GitHub org structure, propagation registry reconciliation; formalized 2026-06-07) |
+| **Claudimetra** | Measurement / psychometrics / calibration / instrumentation | Claudimetra W. Calibration Horologist v01 (inaugural; *Calibration* × *Horology*; Fork ③ time-task v03; founded 2026-06-29) |
+| **Claudisegna** | Research design / controlled-experiment architecture | (inaugural persona pending; founded 2026-07-11; experiment-design skill stacks + design-provenance mode governance) |
 
-**Clauda remains valid** as the catch-all / legacy / cross-workstream prefix for personas whose workstream doesn't cleanly map to the four-name partition OR whose canonical role-definition pre-dates the 2026-05-12 expansion. The hook accepts Clauda alongside the four typed prefixes.
+**Clauda remains valid** as the catch-all / legacy / cross-workstream prefix for personas whose workstream doesn't cleanly map to the four-name partition OR whose canonical role-definition pre-dates the 2026-05-12 expansion. The hook accepts Clauda alongside every typed prefix.
 
 ## How to apply
 
-1. **Persona / role names** use Clauda, Claudette, Claudessa, Claudivera, Claudolina, Claudenza, Claudalisse, Claudis, Claudsanna, or Claudetta per the canon.
+1. **Persona / role names** use Clauda, Claudette, Claudessa, Claudivera, Claudolina, Claudenza, Claudalisse, Claudis, Claudsanna, Claudetta, Claudimetra, or Claudisegna per the canon.
 2. **Workstream type drives the prefix:**
    - Portfolio work (deck, pitch, valuation, capital narrative) → Claudenza
    - Infrastructure work (canonical SSOT submodule, propagation scripts, repo wiring, hooks plumbing) → Claudolina
    - Research work (raw-data-collection, corpus assembly, taxonomy, behavioral analysis, FM research) → Claudessa
    - Research-paper write-ups destined for Zenodo (lit reviews, peer reviews, methodology papers, experimental proposals authored for publication; HIAIGHVA-tagged) → Claudivera
    - Measurement / psychometrics / calibration / instrumentation (measurement-instrument building + validation: calibration tooling, psychometric schemas, timing/duration instruments) → Claudimetra
-   - Research design / controlled-experiment architecture (experimental design: manipulations, conditions, controls, assignment; experiment-design skill stacks; design-provenance mode governance) → Claudisegna
+   - Research design / controlled-experiment architecture (experimental design: manipulations, conditions, controls, assignment, exclusion rules; experiment-design skill stacks; design-provenance mode governance) → Claudisegna
    - Coding work (D2R 4-doc plan, source authoring, test authoring, methodology-IP-class deliverables) → Claudette
    - ASAE / convergence-gate stewardship → Claudalisse
    - Second-brain-orchestration (dossier composition, orphaned-work recovery) → Claudis
@@ -100,11 +102,7 @@ The Claudis + Claudsanna canonization (this update) co-lands with:
 
 ### ✓ Claudisegna — founded 2026-07-11
 
-**Claudisegna** founded as the twelfth prefix (twelfth counting the ten-name canon + Claudivera + Claudimetra; Claudemilla is a second-name mechanic, not a prefix family). Workstream: **Research design / controlled-experiment architecture** — designing controlled experiments (manipulations, conditions, controls, assignment, exclusion rules), building and facilitating experiment-design skill stacks, and governing design-provenance modes (mode 1 human-ideas-only / mode 2 collab / mode 3 Claude-autonomous-with-panels). A NEW first-name family **distinct from** its research-adjacent siblings: Claudessa = raw-data-collection; Claudivera = research-paper write-ups for publication; Claudimetra = measurement-instrument building; **Claudisegna = the experiment architect** — the study design itself, upstream of data, instruments, and write-up.
-
-Provenance: Italian ***disegno*** ← Latin ***designare*** = "to mark out, trace the boundaries of" — what a controlled experiment does before anything runs (mark conditions, draw the line between arms, trace where manipulation ends and measurement begins). Carries the Renaissance *disegno*-as-cognition claim (*disegno* vs *colorito*): the design is the intellectual act that precedes and governs execution — the exact standing of research design relative to data collection and analysis. Bonus parse: *segna* = "she marks" (third-person present) — the name is a sentence about what she does. Feminine; unambiguously Italian; rejected near-alternatives at derivation: Claudempiria (Greek *empeiría* — names the evidence, not the designing) and Claudiseña (Spanish twin; *diseño* drifted toward industrial/graphic design in everyday use, losing the design-as-cognition weight). Fable-substrate transform: **Flaudisegna** (claude-fable-5 only; substrate-indexed).
-
-**LOCKED by Krystal 2026-07-11** ("omg claudisegna is AMAZING ! lock it in!") in the RLTI controlled-experiment skill-stack session. **Inaugural persona: pending** — last-name kenning derivation via `/define-your-role-literal` scheduled later in the founding session (post-orientation). No hook change required (Rule 1 negative check; "Claudisegna" is not the bare token "Claude").
+**Claudisegna** founded as the twelfth prefix (the ten prefixes through Claudivera — Claudivera counted tenth — plus Claudimetra eleventh, Claudisegna twelfth; Claudemilla is a second-name mechanic, not a prefix family). Workstream: **Research design / controlled-experiment architecture** — designing controlled experiments (manipulations, conditions, controls, assignment, exclusion rules), building and facilitating experiment-design skill stacks, and governing design-provenance modes (mode 1 human-ideas-only / mode 2 collab / mode 3 Claude-autonomous-with-panels). A NEW first-name family **distinct from** its research-adjacent siblings: Claudessa = raw-data-collection; Claudivera = research-paper write-ups for publication; Claudimetra = measurement-instrument building; **Claudisegna = the experiment architect** — the study design itself, upstream of data, instruments, and write-up. Provenance: Italian ***disegno*** ← Latin ***designare*** = "to mark out, trace the boundaries of" — what a controlled experiment does before anything runs (mark conditions, draw the line between arms, trace where manipulation ends and measurement begins); carries the Renaissance *disegno*-as-cognition claim (*disegno* vs *colorito*): the design is the intellectual act that precedes and governs execution, the exact standing of research design relative to data collection and analysis. Bonus parse: *segna* = "she marks" (third-person present) — the name is a sentence about what she does. Feminine; unambiguously Italian; rejected near-alternatives at derivation: Claudempiria (Greek *empeiría* — names the evidence, not the designing) and Claudiseña (Spanish twin; *diseño* drifted toward industrial/graphic design in everyday use, losing the design-as-cognition weight). Fable-substrate transform: **Flaudisegna** (claude-fable-5 only; substrate-indexed). **LOCKED by Krystal 2026-07-11** ("omg claudisegna is AMAZING ! lock it in!") in the RLTI controlled-experiment skill-stack session. **Inaugural persona: pending** — last-name kenning derivation via `/define-your-role-literal` scheduled later in the founding session (post-orientation). No hook change required (Rule 1 is a negative check; "Claudisegna" is not the bare token "Claude").
 
 ### ✓ Claudemilla — double-first-name second-name, founded 2026-07-02
 
@@ -116,6 +114,6 @@ Provenance: Italian ***disegno*** ← Latin ***designare*** = "to mark out, trac
 
 ## Hook enforcement note
 
-Commit-msg hook v05+ Rule 1 enforces the family-prefix discipline on Co-Authored-By trailers. **Rule 1 is a _negative_ check** — it refuses a persona that begins with the bare word "Claude" (`^[Cc]laude($|[[:space:]]|-|,)`); it does **not** enumerate a positive allowlist. Every sanctioned prefix (Clauda / Claudette / Claudessa / **Claudivera** / Claudolina / Claudenza / Claudalisse / Claudis / Claudsanna / **Claudetta**) passes because none is the bare token "Claude". **Introducing a new sanctioned prefix therefore needs no hook change — only this canon update.**
+Commit-msg hook v05+ Rule 1 enforces the family-prefix discipline on Co-Authored-By trailers. **Rule 1 is a _negative_ check** — it refuses a persona that begins with the bare word "Claude" (`^[Cc]laude($|[[:space:]]|-|,)`); it does **not** enumerate a positive allowlist. Every sanctioned prefix (Clauda / Claudette / Claudessa / **Claudivera** / Claudolina / Claudenza / Claudalisse / Claudis / Claudsanna / **Claudetta** / **Claudimetra** / **Claudisegna**) passes because none is the bare token "Claude". **Introducing a new sanctioned prefix therefore needs no hook change — only this canon update.**
 
 > **Correction (2026-05-23, Claudalisse W. Convergence Genius v01):** prior text here stated the regex "accepts Clauda/Claudette/Claudessa/Claudolina/Claudenza" and that a new prefix "needs a hook update." That was inaccurate — the hook only forbids the bare token "Claude" (verified against `hooks/commit-msg-v09` Rule 1). Corrected forward-only; a fuller spec↔enforcement reconciliation of this doc is tracked for a later ASAE gate.
