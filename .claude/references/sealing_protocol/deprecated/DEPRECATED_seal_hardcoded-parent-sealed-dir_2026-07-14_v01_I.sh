@@ -1,33 +1,13 @@
 #!/usr/bin/env bash
-# seal.sh — encrypt an artifact into the sealed store (any Claude may seal).
+# seal.sh — encrypt an artifact into 14_GN_Research/sealed/
 # Usage: ./seal.sh <plaintext-file> <SB-id_short-name>
 # Example: ./seal.sh ../staging/decoder.md SB-001_gnmi001_condition_decoder
-# Sealed-store resolution (first match wins):
-#   1. $SEALED_DIR env var — explicit override
-#   2. $HERE/../sealed — Store A layout (AI_Vault/14_GN_Research/sealing_protocol/)
-#   3. <git repo root>/sealed — consumer-repo layout, e.g. Store B
-#      (mm-internal-states-journals/sealed/, with this script propagated to
-#      .claude/references/sealing_protocol/)
-# No one without Krystal's private key may unseal.
+# Any Claude may seal. No one without Krystal's private key may unseal.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PUBKEY_FILE="$HERE/gn_research_age_public_key_2026-06-12.txt"
-
-if [ -z "${SEALED_DIR:-}" ]; then
-  if [ -d "$HERE/../sealed" ]; then
-    SEALED_DIR="$HERE/../sealed"
-  else
-    REPO_ROOT="$(git -C "$HERE" rev-parse --show-toplevel 2>/dev/null || true)"
-    if [ -n "$REPO_ROOT" ] && [ -d "$REPO_ROOT/sealed" ]; then
-      SEALED_DIR="$REPO_ROOT/sealed"
-    else
-      echo "ERROR: no sealed store found (tried \$SEALED_DIR, $HERE/../sealed, <git-root>/sealed). Set SEALED_DIR explicitly." >&2
-      exit 1
-    fi
-  fi
-fi
-[ -d "$SEALED_DIR" ] || { echo "ERROR: SEALED_DIR is not a directory: $SEALED_DIR" >&2; exit 1; }
+SEALED_DIR="$HERE/../sealed"
 
 [ $# -eq 2 ] || { echo "Usage: $0 <plaintext-file> <SB-id_short-name>" >&2; exit 1; }
 PLAINTEXT="$1"
