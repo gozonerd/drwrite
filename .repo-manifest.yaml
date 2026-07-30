@@ -17,7 +17,7 @@ repo:
   type: "application"
 
   # One-sentence purpose statement. Claude reads this to orient.
-  purpose: "TODO — fill in purpose"
+  purpose: "Desktop markdown editor with split-view WYSIWYG, live diagram rendering and print-optimised export; Electron, released with signed multi-platform installers."
 
   # GitHub org or owner: Martinez-Methods | nerdykrystal
   org: "nerdykrystal"
