@@ -10,18 +10,25 @@ import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 import path from 'node:path';
 import fsExtra from 'fs-extra';
+import { rebuild } from '@electron/rebuild';
 
 /**
  * After Electron Forge copies the app into the packaged output,
  * copy externalized native modules from node_modules/ so they're
  * available at runtime via require().
+ *
+ * The copied binaries come from the project's node_modules, where `npm install` left
+ * prebuild-install's build for the HOST NODE ABI. Forge's own "Preparing native dependencies"
+ * step cannot correct them: it runs against the packaged output before this hook has put any
+ * node_modules there, so it finds nothing to rebuild and reports success. Rebuilding here,
+ * immediately after the copy, is order-independent — the modules are provably present.
  */
 function copyNativeModules(
   buildPath: string,
-  _electronVersion: string,
+  electronVersion: string,
   _platform: string,
-  _arch: string,
-  callback: () => void,
+  arch: string,
+  callback: (err?: Error) => void,
 ) {
   const nativeModules = ['better-sqlite3', 'bindings', 'file-uri-to-path', 'prebuild-install', 'node-addon-api'];
   for (const mod of nativeModules) {
@@ -31,7 +38,10 @@ function copyNativeModules(
       fsExtra.copySync(src, dest);
     }
   }
-  callback();
+  // Replace the host-ABI binaries with builds for the Electron runtime actually being packaged.
+  rebuild({ buildPath, electronVersion, arch, force: true })
+    .then(() => callback())
+    .catch((err: Error) => callback(err));
 }
 
 const config: ForgeConfig = {
