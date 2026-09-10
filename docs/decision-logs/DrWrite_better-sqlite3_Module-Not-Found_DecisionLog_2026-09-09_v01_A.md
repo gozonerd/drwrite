@@ -841,3 +841,135 @@ and database-open failure all at ZERO occurrences.
    in full; the missing backstop is recorded, not used as an excuse.
 
 **Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
+
+---
+
+## D27 — CI caught what the gate could not: `build-windows` FAILED. D9's forward falsifier fired.
+
+**Action:** Record that the merged fix broke the Windows CI build, and establish causation before
+changing anything.
+**Method:** read the failing job log; compare `build-windows` conclusions across the five preceding
+`master` runs. Judgment logged: proving causation from history rather than assuming it from
+adjacency.
+**Repetition:** 4 prior entries adjudicate a result (D3, D7, D9, D23). New rationale per R-DL1:
+those adjudicated evidence I or a rater produced; this adjudicates evidence from a machine NEITHER
+could produce — an actual Windows build.
+**Alternatives rejected:**
+  (a) Assume my change caused it because it appeared with my change. **Rejected** — same post-hoc
+      error D17 refused. Checked instead.
+  (b) Revert the merge. Rejected: reverting restores a green Windows build but returns Dr Write to
+      not running at all, which is worse for the actual problem. Fix forward, with master's Windows
+      job red in the interim — stated, not hidden.
+**Rationale:** causation is established, not inferred — `build-windows` was **success on all five
+preceding master runs** (86fa892, 46d1dd5, 284895d, 0c2ddbb, 37fe312) and **failure on mine**
+(d63b9b2). The failing step is `node-gyp` compiling against Electron 41.1.0, which only runs because
+my hook forced a rebuild. The log:
+```
+gyp ERR! find VS unknown version "undefined" found at "C:\Program Files\Microsoft Visual Studio\18\Enterprise"
+gyp ERR! find VS Failure details: RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]
+gyp ERR! find VS could not find a version of Visual Studio 2017 or newer to use
+```
+Visual Studio 18 IS installed on the runner; node-gyp's detection blew its stdio buffer, read the
+version as `undefined`, and gave up. So the requirement I introduced is not merely "a C++ toolchain"
+— it is a toolchain node-gyp can successfully DETECT, which is a stricter and more fragile condition
+than D9 stated.
+**This is D9's forward falsifier firing, verbatim as written:** *"a build on a host without
+`g++`/`make`/`node-gyp` fails where it previously succeeded — the cost of this remedy, now on the
+record."* The prediction was correct and the cost was real.
+**What this establishes about the gate, recorded because it is the honest lesson:** three parent
+audits, two independent cross-architectural raters, and a nonce-verified full read all passed this
+change. **None of them could have caught it.** A rater reasons ABOUT code; it does not execute a
+Windows build. The panel and CI are complements, not redundancies, and this session is the proof.
+**Falsifier:** if `build-windows` fails identically after the D28 fix, the cause is not the
+source-compile path.
+
+---
+
+## D28 — Rebuild the PROJECT tree BEFORE the copy, so prebuild-install works and no compiler is needed
+
+**Action:** Move the `rebuild()` call ahead of the copy loop and point it at `__dirname` with
+`onlyModules: ['better-sqlite3']`, instead of at `buildPath` after the copy.
+**Method:** read `@electron/rebuild@3.7.2`'s own `RebuildOptions` type before writing the call, then
+a line-addressed edit; restore the broken precondition and package. Judgment logged: reversing the
+ordering decision D8 made, on evidence D8 did not have.
+**Repetition:** 1 prior entry carries a source-edit Method (D8). New rationale per R-DL1: D8 chose
+in-buildPath rebuilding for order-independence with no cross-platform evidence; this reverses that
+choice on a measured Windows failure. The earlier reasoning was sound and simply wrong.
+**Alternatives rejected:**
+  (a) Set `msvsVersion` or install a toolchain in CI. **Rejected** — it makes every future builder
+      on every platform carry a compiler to ship a package that has a working prebuilt binary
+      available. Fixing the environment to satisfy an unnecessary requirement is backwards.
+  (b) `buildFromSource: false`. Rejected as a no-op: the type file shows it **already defaults to
+      false**. The source compile was a FALLBACK after prebuild-install failed, not a request.
+  (c) Keep buildPath and copy prebuild-install's dependencies too. Rejected: an open-ended
+      dependency-chasing exercise to recreate, inside buildPath, a tree that already exists.
+**Rationale:** `RebuildOptions` documents `buildFromSource` as *"Skip prebuild download and rebuild
+module from source"*, default false — so prebuild is preferred and the compile was a fallback.
+`buildPath` contains only the five modules the hook copies, and on that partial tree
+prebuild-install cannot resolve its own dependencies, so it falls through to node-gyp. The project
+tree has the complete graph — **proven in D4**, where a forced rebuild there logged *"triggering
+prebuild download step"* and *"installed prebuilt module"* with no compilation at all.
+**Verified, with the broken precondition restored first (same discipline as D5):**
+  - Project binary reset to 2,095,488 (host-ABI, broken) before the run.
+  - Packaged binary: **2,140,552 bytes — the PREBUILD size**, not the 2,268,792 source-compile size.
+  - **No `obj.target` compile artifacts anywhere.** Nothing was compiled.
+  - App launches; module-not-found, ABI-mismatch and database-failure all at ZERO.
+**Consequence, and it is strictly better than what D9 disclosed:** the C++ toolchain requirement
+D9 recorded is **withdrawn**. No compiler is needed on any platform.
+**Falsifier:** a platform with no published `better-sqlite3` prebuild for its Electron ABI, where
+prebuild-install would again fall back to source and require a toolchain.
+
+---
+
+## D29 — Act on a point BOTH raters raised in reasoning and neither reported
+
+**Action:** Replace the source comment's absolute claim *"no compiler is required on any platform"*
+with an accurate statement bounded to platforms that have a published prebuild.
+**Method:** line-addressed `perl` edit. Judgment logged: treating convergent suppressed reasoning
+from two independent architectures as a finding, though both returned CONFIRMED.
+**Repetition:** 1 prior entry acts on a suppressed trace finding (D16). New rationale per R-DL1:
+D16 acted on ONE seat's suppressed finding that it could not settle for want of a file; here BOTH
+seats reached the same point and both declined it as out-of-contract documentation nitpicking. Two
+architectures converging independently is a stronger signal than one, and it is the specific
+decorrelation the cross-architectural floor is purchased to buy.
+**Alternatives rejected:**
+  (a) Accept both CONFIRMEDs and ship. **Rejected** — the standing rule is that traces are primary
+      evidence and suppressed findings live only there. Two seats found the same overstatement; the
+      contract steered them off it, not the truth of it.
+  (b) Treat it as a documentation nit. Rejected: the comment is the only thing a future maintainer
+      reads before deciding whether this hook is safe to touch. An absolute that is false in a
+      nameable case is a trap for exactly that reader.
+**Rationale:** the evidence is both seats' own words. DeepSeek: *"the comment's absolute 'no compiler
+on any platform' versus the log's own falsifier — a documentation overstatement, not a code defect,
+and the contract steers me away from pure documentation nits."* Kimi: *"The decision log says 'no
+compiler needed' — falsifier noted."* D28's falsifier already names the exception; the comment
+contradicted the log in the same commit — which is precisely the defect class Kimi FLAGGED earlier
+in this gate (D23, Finding 1). Shipping it after being warned twice would be worse than the first time.
+**Counter consequence:** artifact changed, parent counter reset to 0, three fresh loops owed, and
+both seats re-rate against a new nonce.
+**Falsifier:** a maintainer reading the corrected comment and still concluding a toolchain is never
+needed.
+
+---
+
+# GATE CLOSURE 2 — the Windows remediation
+
+**Same gate Krystal Martinez set, run again because the artifact changed.**
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| 3 identical sequential null parent audits | **MET** | 3× NULL-CLEAN, 15/15 checks proven firing |
+| DeepSeek V4 Flash | **CONFIRMED** | nonce `CDFDF412`, run `dsf/w2`, 0 findings |
+| Kimi K3 | **CONFIRMED** | nonce `CDFDF412`, run `k3a/w2`, 0 findings |
+| Remediation between raters | **MET** | D29 acted on the convergent suppressed point; both seats then re-rated |
+
+**Round trace:** both seats CONFIRMED at nonce `DD3CED7B`, but both raised the same overstatement in
+reasoning without reporting it. That was remediated (D29) and both re-rated at `CDFDF412`.
+
+**Verified locally:** packaged binary **2,140,552 bytes — the prebuild**, no `obj.target` compile
+artifacts anywhere, app launches, all three failure signatures at zero.
+
+**What CI must still confirm:** `build-windows`, which failed on the previous commit and is the
+reason this round exists. No local test can substitute for it.
+
+**Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.

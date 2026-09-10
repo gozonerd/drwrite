@@ -17,11 +17,19 @@ import { rebuild } from '@electron/rebuild';
  * copy externalized native modules from node_modules/ so they're
  * available at runtime via require().
  *
- * The copied binaries come from the project's node_modules, where `npm install` left
- * prebuild-install's build for the HOST NODE ABI. Forge's own "Preparing native dependencies"
- * step cannot correct them: it runs against the packaged output before this hook has put any
- * node_modules there, so it finds nothing to rebuild and reports success. Rebuilding here,
- * immediately after the copy, is order-independent — the modules are provably present.
+ * `npm install` leaves prebuild-install's build for the HOST NODE ABI in the project's
+ * node_modules. Forge's own "Preparing native dependencies" step cannot correct it: that step
+ * runs against the packaged output BEFORE this hook has placed any node_modules there, so it
+ * finds nothing to rebuild and reports success.
+ *
+ * So the rebuild happens here — against the PROJECT tree, and BEFORE the copy.
+ * Rebuilding inside buildPath instead looks tidier but breaks Windows: buildPath holds only the
+ * few modules copied below, and on that partial tree prebuild-install cannot resolve its own
+ * dependencies, so it falls back to node-gyp. That needs a full C++ toolchain and failed CI on
+ * windows-latest. The project tree has the complete dependency graph, so prebuild-install
+ * fetches the Electron prebuild instead of compiling. Not an absolute guarantee: a platform with
+ * no published better-sqlite3 prebuild for the target Electron ABI would still fall back to
+ * node-gyp and need a toolchain. It removes the requirement wherever a prebuild exists.
  */
 function copyNativeModules(
   buildPath: string,
@@ -31,16 +39,23 @@ function copyNativeModules(
   callback: (err?: Error) => void,
 ) {
   const nativeModules = ['better-sqlite3', 'bindings', 'file-uri-to-path', 'prebuild-install', 'node-addon-api'];
-  for (const mod of nativeModules) {
-    const src = path.join(__dirname, 'node_modules', mod);
-    const dest = path.join(buildPath, 'node_modules', mod);
-    if (fsExtra.existsSync(src)) {
-      fsExtra.copySync(src, dest);
-    }
-  }
-  // Replace the host-ABI binaries with builds for the Electron runtime actually being packaged.
-  rebuild({ buildPath, electronVersion, arch, force: true })
-    .then(() => callback())
+  rebuild({
+    buildPath: __dirname,
+    electronVersion,
+    arch,
+    force: true,
+    onlyModules: ['better-sqlite3'],
+  })
+    .then(() => {
+      for (const mod of nativeModules) {
+        const src = path.join(__dirname, 'node_modules', mod);
+        const dest = path.join(buildPath, 'node_modules', mod);
+        if (fsExtra.existsSync(src)) {
+          fsExtra.copySync(src, dest);
+        }
+      }
+      callback();
+    })
     .catch((err: Error) => callback(err));
 }
 
