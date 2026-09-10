@@ -973,3 +973,89 @@ artifacts anywhere, app launches, all three failure signatures at zero.
 reason this round exists. No local test can substitute for it.
 
 **Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
+
+---
+
+## D30 — Pin `executableName` so the deb maker can find the binary it is told to package
+
+**Action:** Add `executableName: 'drwrite'` to `packagerConfig`, so the packaged binary matches the
+name `MakerDeb` looks for.
+**Method:** line-addressed `perl` edit; `tsc --noEmit`; three parent audit loops. Judgment logged:
+fixing a pre-existing packaging defect discovered while producing an installer for her.
+**Repetition:** 2 prior entries carry a source-edit Method (D8, D28). New rationale per R-DL1: both
+prior edits changed the native-rebuild path; this changes the packaged binary's NAME, which is a
+different surface and carries a different risk — anything referencing the old name breaks.
+**Alternatives rejected:**
+  (a) Copy the binary to the expected name before running the maker. **Rejected** — it produces a
+      `.deb` containing two copies of the same executable and leaves the defect in the repo for the
+      next person.
+  (b) Change `productName` to `drwrite`. Rejected: `productName` is the human-facing name shown in
+      the window and menus. Lowercasing it to satisfy a build tool degrades the product to fix a
+      config mismatch.
+  (c) Leave it and hand over a `.deb` built by hand. Rejected: `npm run make` would stay broken.
+**Rationale:** `package.json` sets `name: drwrite` and `productName: DrWrite`. Electron Packager
+names the binary from `productName` unless `executableName` overrides it, and `MakerDeb` looks for
+the binary under the package `name` — so the two disagree by construction. Measured, not assumed:
+the failure is `could not find the Electron app binary at ".../out/DrWrite-linux-x64/drwrite"` while
+the packager produced `DrWrite`. **Pre-existing, not introduced here** — `git log -S'executableName'
+-- forge.config.ts` returns nothing, so the key has never been in that file. `drwrite` is also the
+name the previously installed package used at `/usr/bin/drwrite`, so this restores the historical
+name rather than inventing one.
+**Also found and NOT fixed here:** `npm run make` additionally fails because the RPM maker requires
+`rpmbuild`, which is not installed on this machine. That is an environment gap, out of scope for this
+commit, and recorded so it is not rediscovered as a defect.
+**Falsifier:** a desktop entry, packaging script, or CI job referencing the `DrWrite` binary name,
+which this change would break.
+
+---
+
+## D31 — Re-rate under a corrected contract after a rater caught my BRIEF describing the wrong change
+
+**Action:** Rewrite the rater contract's "what this commit changes" section to describe the
+`executableName` fix, and re-dispatch both seats.
+**Method:** `perl` edit to the contract; both seats re-run at new run ids against the same payload
+bytes. Judgment logged: discarding two CONFIRMEDs that were sound in form but rated against a
+misleading brief.
+**Repetition:** 4 prior entries carry a rig-repair Method (D11, D15, D19, D21, D25 — five). Per
+R-DL3 this count measures MY setup. The pattern across all of them: each rig defect was in the
+PLUMBING around the raters (pipes, watchers, parsers, verdict extraction) and this one is in the
+BRIEF — the first to affect what a seat was asked, rather than how its answer was read.
+**Alternatives rejected:**
+  (a) Keep the CONFIRMEDs. **Rejected** — the contract still told both seats the commit fixed a
+      native-module ABI defect, while the diff pins an executable name. DeepSeek came within a
+      sentence of FLAGGING on exactly that mismatch: *"The diff's fix is `executableName`. The bug
+      is the better-sqlite3 ABI mismatch. `executableName` does NOT address the ABI."* A verdict
+      returned against a false brief certifies nothing about the artifact.
+  (b) Treat it as harmless because both verdicts were CONFIRMED. Rejected: the direction of the
+      error is luck. The same stale brief could as easily have produced a FLAG against a correct
+      change, and I would have "remediated" a defect that did not exist.
+**Rationale:** the contract is an INPUT to the rating, not scaffolding around it. It had been
+written for the first commit in this series and carried forward unexamined across four subsequent
+gate rounds — the same carried-forward-by-inertia failure this log has now recorded twice
+(D7's refuted prediction, D23's stale log entries). A brief that describes a different change is a
+defect in the rig with the same standing as a broken parser.
+**Result after correction:** DeepSeek V4 Flash CONFIRMED and Kimi K3 CONFIRMED, both at nonce
+`924FB9BB`, zero findings, under a contract that names this commit's actual change and explicitly
+tells the seat not to judge it against the earlier ABI defect.
+**Falsifier:** a future round where the contract again describes a prior commit — which would mean
+this was fixed as an instance and not adopted as a habit.
+
+---
+
+# GATE CLOSURE 3 — the `executableName` packaging fix
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| 3 identical sequential null parent audits | **MET** | 3× NULL-CLEAN, 15/15 checks proven firing |
+| DeepSeek V4 Flash | **CONFIRMED** | nonce `924FB9BB`, run `dsf/x2`, 0 findings |
+| Kimi K3 | **CONFIRMED** | nonce `924FB9BB`, run `k3a/x2`, 0 findings |
+| Remediation between raters | **MET** | contract corrected (D31); both seats re-rated after |
+
+**Installer verified by inspecting the built package, not by trusting the build:**
+`drwrite_1.2.0_amd64.deb` contains `better_sqlite3.node` at **2,140,552 bytes** (the Electron
+prebuild), **zero `app.asar` entries**, and `/usr/bin/drwrite -> ../lib/drwrite/drwrite`.
+
+**Disclosure, consistent with D26:** this entry and this closure section post-date the final rater
+round and were not rated. The code change was.
+
+**Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.

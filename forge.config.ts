@@ -62,6 +62,10 @@ function copyNativeModules(
 const config: ForgeConfig = {
   packagerConfig: {
     asar: false, // Disabled — Squirrel doesn't include app.asar.unpacked, and native .node binaries can't load from inside an ASAR
+    // package.json has name 'drwrite' but productName 'DrWrite', so the packager emitted a binary
+    // named DrWrite while MakerDeb looked for 'drwrite' and aborted. Pin the executable name to
+    // the package name, which is also what /usr/bin/drwrite expects.
+    executableName: 'drwrite',
     icon: './assets/icons/icon',
     // The Vite-built app dir has no assets/ — ship the icons to resources/icons
     // so main.ts can resolve the window icon in the packaged layout
