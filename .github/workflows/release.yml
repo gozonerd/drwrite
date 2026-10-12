@@ -35,7 +35,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg fakeroot rpm
+          sudo apt-get install -y dpkg fakeroot
 
       - run: npm install
 
@@ -51,6 +51,5 @@ jobs:
             out/make/**/*.dmg
             out/make/**/*.zip
             out/make/**/*.deb
-            out/make/**/*.rpm
           draft: false
           prerelease: false

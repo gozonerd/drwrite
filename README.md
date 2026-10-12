@@ -13,7 +13,6 @@ A desktop markdown editor with split-view editing, 6 diagram renderers, and prin
 | macOS (Apple Silicon) | [drwrite arm64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
 | macOS (Intel) | [drwrite x64.dmg](https://github.com/nerdykrystal/drwrite/releases/latest) |
 | Linux (Debian/Ubuntu) | [drwrite.deb](https://github.com/nerdykrystal/drwrite/releases/latest) |
-| Linux (Fedora/RHEL) | [drwrite.rpm](https://github.com/nerdykrystal/drwrite/releases/latest) |
 
 Download from the [Releases page](https://github.com/nerdykrystal/drwrite/releases/latest).
 
@@ -33,8 +32,7 @@ Download from the [Releases page](https://github.com/nerdykrystal/drwrite/releas
    - Or: right-click the app in Applications, select **"Open"**, then click **"Open"** in the dialog
 
 **Linux**
-1. Debian/Ubuntu: `sudo dpkg -i drwrite_*_amd64.deb`
-2. Fedora/RHEL: `sudo rpm -i drwrite-*.x86_64.rpm`
+Debian/Ubuntu: `sudo dpkg -i drwrite_*_amd64.deb`
 
 ## Why This Exists
 

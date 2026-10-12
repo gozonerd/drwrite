@@ -1059,3 +1059,169 @@ prebuild), **zero `app.asar` entries**, and `/usr/bin/drwrite -> ../lib/drwrite/
 round and were not rated. The code change was.
 
 **Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
+
+---
+
+## D32 — Drop the RPM maker at her ruling, and sweep every reference the removal invalidates
+
+**Action:** Remove `MakerRpm` from `forge.config.ts`, drop `@electron-forge/maker-rpm` from
+`package.json` and the lockfile, and correct the README and release workflow, which both still
+promised an `.rpm`.
+**Method:** line-addressed `sed` for the config/workflow/README, `jq` for `package.json`, and a
+computed set-difference for the lockfile. Judgment logged: executing her ruling, and deciding which
+of the surviving `rpm` mentions are live instructions versus historical record.
+**Repetition:** 3 prior entries carry a source-edit Method (D8, D28, D30). New rationale per R-DL1:
+all three changed behavior inside one file; this one REMOVES a shipped artifact, so its risk is not
+in the code but in the references left pointing at something that no longer exists.
+**Alternatives rejected:**
+  (a) Vendor a patch into `electron-installer-redhat` to keep the rpm target. **Rejected by her
+      ruling**, verbatim: *"drop the rpm maker, we don't need it."* Recorded because it was the
+      alternative on the table and she chose against it.
+  (b) Remove the maker only, leaving README and `release.yml` alone. **Rejected** — the diff cannot
+      see this class: nothing outside the config changed, but text outside it became FALSE. The
+      README was telling users to download a `drwrite.rpm` that would never again be built.
+**Rationale:** her ruling is the warrant. The upstream cause is on the record: the spec template
+ships `cp -r usr/* %{buildroot}/usr/` — a relative path depending on rpmbuild's working directory —
+and RPM 4.20+ changed that directory. Verified unfixed upstream: `electron-installer-redhat@4.0.0`
+is byte-identical on that template line AND on its hardcoded `rpmbuild` invocation, which accepts no
+caller-supplied defines. So no configuration could have fixed it.
+**The invalidated-reference sweep (R-SC3), every hit classified:**
+  - `forge.config.ts` import + `new MakerRpm({})` — removed.
+  - `package.json` devDependency — removed.
+  - `README.md` Fedora/RHEL download row, and `sudo rpm -i …` install step — **live instructions,
+    now false, removed.** The surviving Debian line was a one-item numbered list after the edit and
+    was made a plain line.
+  - `.github/workflows/release.yml` — stopped installing `rpm` on the runner and stopped uploading
+    `out/make/**/*.rpm`. **Live instructions; the upload glob would have silently matched nothing.**
+  - `docs/decision-logs/…` mentions — **historical record, LEFT ALONE.** They correctly describe what
+    was true when written; that is what append-only is for.
+**Lockfile, measured rather than regenerated:** `npm install --package-lock-only` wanted 509
+insertions and 208 deletions. A control run against the UNCHANGED `package.json` — re-measured today,
+not carried forward from D17 — produced **485 insertions and zero deletions**, so that part is
+pre-existing drift again. The genuine removal was isolated mechanically: regenerate with and without
+the change, take the set difference of `.packages` keys, and delete exactly those 11 packages from
+the committed lock. Result: **184 deletions, zero insertions.**
+**Verified:** `npm run make` completes with **zero failures** and produces
+`drwrite_1.2.0_amd64.deb`. Before this change it aborted at the rpm target and produced nothing.
+**New check N16:** no live `rpm` reference may survive outside the decision logs. It fires on a
+planted probe, like every other check. Added because this change creates exactly that defect class.
+**Falsifier:** a consumer on Fedora/RHEL who relied on the published rpm. Nothing in the repo names
+one, and she ruled it unneeded.
+**Out of scope, unchanged:** the 485-line pre-existing lockfile drift still wants its own commit.
+
+---
+
+## D33 — Substitute Gemini for DeepSeek after probing SEVEN routes, three of them blocked by account balance
+
+**Action:** Compose the panel as Kimi K3 (Moonshot) + Gemini 3 Flash (Google) after establishing
+that DeepSeek V4 Flash is unobtainable on every configured route.
+**Method:** seven live probes with `-w '%{http_code}|%{time_total}'`, bodies to files, no key values
+to stdout. Judgment logged: substituting a seat rather than thinning the panel or halting the gate.
+**Repetition:** 2 prior entries carry a provider-failover Method (D14, D24). New rationale per
+R-DL1: D14 failed ONE model over to a backup route; this establishes that NO route to that model
+exists and changes the SEAT, which is a roster decision rather than a plumbing one.
+**Alternatives rejected:**
+  (a) Proceed with Kimi alone. **Rejected** — one seat is not the panel, and running a degraded panel
+      and calling it the panel is forbidden by name.
+  (b) Substitute a Claude subagent for DeepSeek. Rejected: same architecture as the parent, so it
+      buys the least decorrelation of any available option. Gemini is a genuinely different
+      architecture and preserves a two-non-Claude-architecture panel.
+  (c) Substitute `deepseek-v4.1-flash`, the named successor. **Rejected on evidence** — probed on
+      NVIDIA both plain and streamed: HTTP 000, zero bytes, 60s and 90s respectively.
+  (d) Halt and wait for her to resolve billing. Rejected: a rig-availability problem idles only the
+      dispatches it makes impossible, never the gate, and a live alternative seat existed.
+**Rationale:** the probe evidence, all run in this session.
+  - NVIDIA `deepseek-ai/deepseek-v4-flash-0731` → **410**, verbatim: *"has reached its end of life on
+    2026-09-21T08:00:00Z and is no longer available."* The model was retired eleven days after this
+    gate's last successful run.
+  - NVIDIA `deepseek-ai/deepseek-v4.1-flash` (successor) → **000**, 0 bytes, plain and streamed.
+  - Abacus `ABACUS_API_KEY_NEW` → **402**, *"We could not confirm the last payment on this subscription."*
+  - Abacus `ABACUS_API_KEY` (original) → **402**, same.
+  - Novita `deepseek/deepseek-v4-flash-0731` → **403**, *"NOT_ENOUGH_BALANCE"*.
+  - Fireworks → account **suspended**, *"possibly due to reaching the monthly spending limit or
+    failure to pay past invoices."*
+  - NVIDIA `moonshotai/kimi-k3` → **200**, 1.49s, `finish=stop`. Google `gemini-3-flash-preview` →
+    **200**, `finish=STOP`.
+**Why Gemini and not something else:** Gemini is a seat Krystal Martinez has specified in this
+workspace's roster before — her 2026-09-04 panel listing named *"gemini 3.7 flash … via google studio
+api key."* The version differs because this key exposes the 3.0/3.1 generation, not 3.5–3.8; the
+seat type is hers, the version choice is mine and is labeled as mine.
+**Honest limit:** this is NOT the panel she specified for this gate. She named DeepSeek and Kimi.
+DeepSeek was unobtainable for reasons outside my reach, and the substitution is recorded here rather
+than presented as her roster.
+**Falsifier:** a DeepSeek route that answers, which would mean my probes missed one.
+
+---
+
+## D34 — Fix the Gemini extractor, the third instance of one parsing defect
+
+**Action:** Convert the `gem` branch of `rate.sh` from pattern-matching to `jq`, and recover the
+already-banked Gemini answer rather than re-dispatching.
+**Method:** line-addressed replacement, `bash -n`, then re-extraction from the banked `.sse`.
+**Repetition:** 6 prior entries carry a rig-repair Method (D11, D15, D19, D21, D25, D31). Per R-DL3
+that number measures MY setup, and the specific lesson is sharper than "fix it again": **D21 fixed
+exactly this parsing defect on the other branch of the same file and I left this branch alone.**
+Fixing the instance in front of me instead of the whole file is the same habit this log has now
+recorded for watchers and for pipes.
+**Alternatives rejected:**
+  (a) Re-dispatch Gemini. **Rejected** — the standing rule is that a call whose trace is banked must
+      never be re-dispatched. 70,678 bytes were already on disk; only my reading was broken.
+  (b) Widen the regex to tolerate a space. Rejected for the reason D21 already gave: it works until
+      the next provider spaces things differently. Parse structured formats with a parser.
+**Rationale:** Gemini emits `"text": "` WITH a space; the old pattern required none, so 70KB banked
+and 0 bytes parsed — byte-for-byte the failure D21 diagnosed on Abacus. Recovery from the banked
+stream produced the full verdict at no additional spend.
+**Falsifier:** a provider whose stream is not SSE `data:` frames.
+
+---
+
+## D35 — Settle the concern Kimi raised and could not resolve
+
+**Action:** Verify the surgical lockfile edit against npm's own regeneration, after Kimi flagged in
+reasoning that it could not tell whether shared dependencies were correctly retained.
+**Method:** `jq` set-difference of `.packages` keys between my hand-edited lock and npm's own
+regenerated lock, plus presence checks on the four packages Kimi named.
+**Repetition:** 2 prior entries act on a suppressed trace finding (D16, D29). New rationale per
+R-DL1: both prior cases required a FILE the rater lacked; this one required a COMPUTATION the rater
+could not run, which is a different kind of gap and a stronger argument for reading traces.
+**Alternatives rejected:**
+  (a) Accept the CONFIRMED and move on. Rejected: Kimi named a specific, checkable risk — that
+      removing 11 packages might have orphaned or wrongly retained shared dependencies.
+  (b) Replace my lock with npm's regenerated one. Rejected: that reintroduces the 485-line
+      pre-existing drift D32 deliberately excluded.
+**Rationale:** Kimi's words: *"electron-installer-redhat depends on electron-installer-common, debug,
+lodash, word-wrap — are those exclusive? … Can't verify from given text — not reportable."* The
+comparison settles it decisively:
+  - **`only_in_mine: []`** — my lock contains no entry npm's regeneration lacks. Nothing orphaned.
+  - `only_in_npmgen`: 27 entries, **every one an `esbuild`/`vitest` platform package** — the
+    pre-existing drift, nothing rpm-related.
+  - `electron-installer-common`, `debug`, `lodash`, `word-wrap`: **all present**, correctly retained
+    as shared dependencies.
+**Falsifier:** a package in my lock that npm's regeneration does not contain, which the empty
+`only_in_mine` set rules out.
+
+---
+
+# GATE CLOSURE 4 — dropping the RPM maker
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| 3 identical sequential null parent audits | **MET** | 3× NULL-CLEAN, 16/16 checks proven firing |
+| Independent rater 1 — Kimi K3 (Moonshot) | **CONFIRMED** | nonce `C65177D3`, 0 findings |
+| Independent rater 2 — Gemini 3 Flash (Google) | **CONFIRMED** | nonce `C65177D3`, 0 findings |
+| Cross-architectural floor | **MET** | two non-Claude architectures, byte-identical payloads |
+
+**Roster deviation, stated plainly:** Krystal Martinez specified DeepSeek V4 Flash and Kimi K3.
+DeepSeek was unobtainable on all four of its configured routes (D33). Gemini substituted; this is
+not the panel she named.
+
+**For her, one item, outside anything I can do:** three provider accounts are out of funds —
+Abacus (payment unconfirmed, both keys), Novita (NOT_ENOUGH_BALANCE), Fireworks (suspended). Until
+at least one is restored, DeepSeek has no route from this machine.
+
+**Verified:** `npm run make` completes with zero failures and produces `drwrite_1.2.0_amd64.deb`.
+
+**Disclosure, consistent with D26:** D33–D35 and this section post-date the final rater round and
+were not rated. The code change was.
+
+**Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
