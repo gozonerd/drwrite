@@ -1225,3 +1225,154 @@ at least one is restored, DeepSeek has no route from this machine.
 were not rated. The code change was.
 
 **Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
+
+---
+
+## D36 — Commit the pre-existing lockfile drift on its own, at her ruling
+
+**Action:** Regenerate `package-lock.json` from the unchanged `package.json` and commit the result
+as its own change, separate from every functional commit in this series.
+**Method:** `npm install --package-lock-only`, then characterize every added entry with `jq` before
+committing. Judgment logged: committing a sync whose content I did not author and cannot review
+line-by-line, on the strength of a mechanical property instead.
+**Repetition:** 3 prior entries carry a scope-decision Method (D6, D17, D20). New rationale per
+R-DL1: those three decided whether drift belonged in a functional commit and each time excluded it.
+This one lands that excluded work deliberately, which is the obligation the exclusions created —
+twice this log said it "needs its own commit," and an item deferred three times with no owner is how
+a repo rots.
+**Alternatives rejected:**
+  (a) Leave the lock stale. **Rejected by her ruling:** *"do the lockfile drift commit too."*
+  (b) Fold it into the previous commit. Rejected, and this is the whole reason the drift was carried
+      this far: 485 lines of unrelated churn would have been the overwhelming majority of what two
+      rater seats read about a functional change.
+  (c) Hand-edit the lock to add only "safe" entries. Rejected: there is no judgment to apply here.
+      The correct content of a lockfile is whatever the package manager computes from
+      `package.json`; hand-authoring it would make it wrong by construction.
+**Rationale:** the change is verified safe by a mechanical property rather than by reading 485 lines:
+  - **485 insertions, ZERO deletions.** Purely additive.
+  - **Zero `"version":` lines removed** — no existing dependency changes version.
+  - **All 27 added packages are `optional: true` AND `dev: true`** — `esbuild` plus 26
+    `@esbuild/<platform>` binaries for other operating systems and architectures. None installs on
+    this machine or on a CI runner; they are metadata completeness, not new code entering the build.
+  - The drift exists because the lock was last written by a tool that did not record optional
+    platform entries for `vitest`'s nested `esbuild`; `npm` 9.2.0 against `lockfileVersion: 3`
+    records them.
+**Verified:** `npm run make` completes with zero failures and produces `drwrite_1.2.0_amd64.deb`
+after the regeneration.
+**Falsifier:** any added entry that is not both `optional` and `dev`, or any removed/changed version
+of an existing package — a check run over all 27 and returning nothing.
+
+---
+
+## D37 — CORRECT D36's "none installs on this machine." It is false for 2 of the 27.
+
+**Action:** Record that D36 overstated the safety property, after Kimi K3's reasoning questioned it
+and a disk check proved it wrong.
+**Method:** existence check on disk for each of the 27 added lockfile paths. Judgment logged:
+correcting my own claim rather than letting a CONFIRMED stand over it.
+**Repetition:** 3 prior entries act on a suppressed trace finding (D16, D29, D35). New rationale per
+R-DL1: those three settled a rater's open question in MY favour. This one settles it AGAINST me, and
+that asymmetry is the reason the rule is to read traces rather than verdicts — a rater that returns
+CONFIRMED can still be right about something I got wrong.
+**Alternatives rejected:**
+  (a) Let it stand — both raters CONFIRMED and the conclusion is unaffected. **Rejected.** Kimi
+      declined to flag only because it could not reach the disk: *"Not settleable definitively. I'll
+      not flag… Given uncertainty, verdict CONFIRMED with no findings is safer."* A verdict withheld
+      for want of evidence I possess is not an endorsement of the claim.
+  (b) Edit D36. Rejected: append-only. D36 stands wrong, on purpose.
+**Rationale:** D36 asserts of the 27 added packages, *"None installs on this machine or on a CI
+runner."* Measured:
+  - `node_modules/esbuild` — **PRESENT**
+  - `node_modules/vitest/node_modules/esbuild` — **PRESENT**
+  - `@esbuild/*` platform binaries physically installed: **`linux-x64` only**, and that entry was
+    already in the lock, not among the additions.
+  - **2 of the 27 added entries exist on disk.** The other 25 are platform binaries for operating
+    systems and architectures this project does not build on, and those do not install.
+**Corrected statement, which is what should have been written:** 25 of the 27 additions are
+metadata for platform binaries that never install here. The remaining 2 are the `esbuild` runner,
+which was **already installed and simply unrecorded** in the lockfile. So the regeneration adds no
+new code to the build — but it does record something already present, which is not the same claim
+and D36 conflated them.
+**The safety conclusion is unchanged and the reason is now accurate:** nothing new enters the build
+either way, because the entries either describe packages already on disk or describe binaries for
+platforms not built.
+**Falsifier:** an added entry naming a package that is neither already installed nor
+platform-excluded.
+
+---
+
+## D38 — Gemini FLAGGED my correction. D37 was itself wrong, in three specific ways.
+
+**Action:** Record Gemini 3 Flash's FLAG as UPHELD and state the true composition of the 27 added
+lockfile entries, after my D37 correction introduced new errors while fixing D36's.
+**Method:** exact-match checks of each disputed path against the list of added entries, plus
+existence checks on disk. Judgment logged: upholding a finding against a correction I had just
+written and already reported as settled.
+**Repetition:** 5 prior entries adjudicate a result (D3, D7, D9, D23, D27). New rationale per
+R-DL1: this one adjudicates a finding against **my own correction**, which is the first time in this
+log that a fix for a defect was itself the defect. That is a different failure shape and it deserves
+its own entry rather than a quiet amendment.
+**Alternatives rejected:**
+  (a) Dispute it as a LOW-severity documentation nit. **Rejected** — every one of its three claims is
+      exactly right, verified below. Severity does not change whether something is true.
+  (b) Fold the correction into D37. Rejected: append-only. D37 stands wrong, as D36 does.
+**Gemini's finding, upheld in full. Its three claims, each verified:**
+  1. *"the diff ... does not add `node_modules/esbuild`"* — **TRUE.** Exact-match count against the
+     added-entry list: **0**. D37 asserted it was among the additions.
+  2. *"the diff only adds one package named `esbuild`"* — **TRUE.** Exactly one runner is added,
+     `node_modules/vitest/node_modules/esbuild`. D37 said "2 are the `esbuild` runner."
+  3. *"it explicitly adds `node_modules/vitest/node_modules/@esbuild/linux-x64`"* — **TRUE.** D37
+     said the `linux-x64` entry "was already in the lock, not among the additions."
+**Rationale:** the finding is upheld because each of its three claims verifies true, and the cause is mine and nameable. I checked `node_modules/esbuild` and `ls node_modules/@esbuild/*` at
+the TOP level, found the runner present and `linux-x64` present, and reported those as facts about
+the DIFF. They were facts about the installed tree. Every one of the 27 additions is either a
+top-level `@esbuild/*` platform binary or lives under `vitest/node_modules/`. **Top-level presence
+is not membership in the diff, and I conflated them** — the same category error as D36, committed
+inside the entry that was correcting D36.
+**The true composition of the 27 additions, verified by exact match:**
+  - **3** top-level `@esbuild/*`: `netbsd-arm64`, `openbsd-arm64`, `openharmony-arm64`
+  - **23** `vitest/node_modules/@esbuild/*` platform binaries
+  - **1** `vitest/node_modules/esbuild` runner
+**Which of them exist on disk — the count was right, the identification was not:** exactly **2**,
+and they are `vitest/node_modules/esbuild` and `vitest/node_modules/@esbuild/linux-x64` — not the
+top-level paths D37 named.
+**The safety conclusion is unchanged, and now rests on something true:** 25 of the 27 are platform
+binaries for operating systems and architectures this project does not build on, and never install
+here. The other 2 are already present in the installed tree and were simply unrecorded. No new code
+enters the build.
+**What this costs and why it is worth recording:** three gate rounds were spent on one paragraph of
+prose about a generated file. The counter reset is correct and the spend is pre-authorized. The
+alternative — a decision log asserting three false things about its own commit — is the defect this
+whole apparatus exists to prevent, and it took an independent architecture reading the diff
+line-by-line to catch what two of my own checks and my own correction had missed.
+**Falsifier:** any of the three verifications above returning the opposite result.
+
+---
+
+# GATE CLOSURE 5 — the lockfile drift sync
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| 3 identical sequential null parent audits | **MET** | 3× NULL-CLEAN, 16/16 checks proven firing |
+| Independent rater 1 — Kimi K3 (Moonshot) | **CONFIRMED** | nonce `10FD4673`, 0 findings |
+| Independent rater 2 — Gemini 3 Flash (Google) | **CONFIRMED** | nonce `10FD4673`, 0 findings |
+| Remediation between raters | **MET** | Gemini FLAGGED D37; D38 remediated; both re-rated |
+
+**Rounds, honestly:** round 1 both CONFIRMED · round 2 Gemini **FLAGGED** my own correction and was
+right on all three claims (D38) · round 3 both CONFIRMED, with Gemini explicitly re-verifying the
+corrected paths against the diff hunks.
+
+**What this commit contains:** `package-lock.json` regenerated from an UNCHANGED `package.json` —
+485 insertions, zero deletions, no existing package changing version. 27 entries added: 3 top-level
+`@esbuild/*`, 23 `vitest`-nested `@esbuild/*`, 1 `vitest`-nested `esbuild` runner. All marked
+`optional` and `dev`.
+
+**Rig defect fixed after the final round, recorded rather than hidden:** Kimi noted my rater
+CONTRACT described all 27 as "platform binaries," when one is the runner. Not a defect in the diff —
+both seats said so — but the brief was inaccurate and is corrected for future rounds. This is the
+second time a rater has caught a defect in my brief rather than the artifact (see D31).
+
+**Disclosure, consistent with D26:** this closure section post-dates the final rater round and was
+not rated. The commit's content was.
+
+**Seat:** Flaudemilla Flaudette A.-L. [provisional] (Claude Opus 5), session `b50f8794`.
