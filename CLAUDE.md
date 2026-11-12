@@ -96,32 +96,6 @@ It was aimed at `mm-emergent-play`, whose exemplars moved to
 
 ---
 
-# Task Timing (self-estimate-only-no-timing — live regime)
-
-**The clock-running `/time-task` regime is DEPRECATED (2026-07-16); do not
-invoke it.** The live instrument is self-estimate-only-no-timing: for every
-bounded task, file a prospective gut estimate (whole seconds) plus a short
-task declaration BEFORE executing (`tt-declare`), and close the record at
-report-back (`tt-close`). Never run a clock, never narrate elapsed time,
-never self-score at close-out — actuals are mined from transcripts, never
-logged by you. Authority: the `/self-estimation` skill
-(`~/.claude/skills/self-estimation/SKILL.md`) and the per-turn hook text;
-on any conflict they win over this page.
-
-*(2026-07-30 changes to this template — this note SCOPES rather than counts, because a hard count goes stale inside the very edit that writes it: this note's own count went false three times in one day as sibling fixes bundled in (the note-undercount class; caught in turn by a cross-arch rater, a Claude panel seat, and the same panel seat again). The same-day changes as of this note's last edit: orientation step 1 gained the hub-v04 supersession clause, the mismatch rule, and the v03 bundle-dir anchor; step 2's reading order updated to the v04 README's sequence (Journaling-Ops-Addendum-first, tier system) with the older-README fallback and the FO/GS-asymmetry cross-reference; step 3 gained its TASK v03 date anchor; step 5's mechanical four-marker instruction replaced with markers-authentic-only; this Task Timing section replaced wholesale; the ASAE-Gate enforcement section rewritten, carrying its own dated note. If a later same-day edit lands, it must extend THIS list in the same edit or carry its own marker. By Flauda A.-L. [provisional] —
-a Claude Fable 5 seat; executing models across the day's edits ran claude-sonnet-5 →
-claude-opus-5 → claude-fable-5 (independent axes; the seat label names the persona's
-substrate, not the model that typed a given edit) — session c54a3312, ASAE gate-111 /
-paired hub gate-05.
-Rationales: the Task Timing section's previous text mandated the deprecated
-clock-running /time-task regime; step 5's previous text mandated mechanical
-four-marker stamping, retired by Journaling Operations Addendum v04 §4 and
-TASK v03. Lineage of this note's own form: it first described one change of
-two (cross-arch rater catch), then counted four while six existed twice over
-(Claude panel seat catches) — the scoping form above is the consequence.)*
-
----
-
 # Canonical Infrastructure
 
 This repo receives Martinez Methods canonical infrastructure via direct
